@@ -1,4 +1,6 @@
-RPE Costume 0.3.0 – 2016-2016
+RPE Costume 
+v 1.2.0
+2016-2018
 --
 Mini library give a bestiary shape, in 2D or 3D
 
@@ -7,9 +9,26 @@ When use pass a float angle, that must be in radians -PI to PI
 Ypu can pas the position and size with the class Vec,
 Vec2 or Vec3, if you'r are in Processing 2D and use Vec3, no matter Processing understand and only use the component 'x' and 'y' of your Vec
 
+--
+To choice the shape use method costume_rope()
+to change the aspect like fill, stroke or strokeWeight use aspect_rope();
+--
+
+
+
+
+
+
+
+
+
+
 
 Method shape
 --
+when the targeting costume is a pixel few possibility is no more available to use, like move in 3D, change thickness...because for pixel the methode set(x,y,c) from Processing is used, see Processing method.
+
+
 costume_rope(Vec pos, Vec size, float angle, Vec3 dir, int which_costume) ;
 
 void costume_rope(Vec pos, Vec size, Vec3 dir, int which_costume) ;
@@ -29,10 +48,29 @@ void costume_rope(Vec pos, int size, String sentence) ;
 void costume_rope(Vec pos, Vec size, String sentence) ;
 
 
+
+
+
+
+
+
+
+
 List
 --
 void print_list_costume() ;
 > return all the Integer constant ID, the name and the type of renderer.
+
+
+
+
+
+
+
+
+
+
+
 
 Aspect
 --
@@ -64,7 +102,7 @@ costumes_size() ;
 
 ID costume
 --
-int get_costume(int rank)
+int get_costume(int target)
 >return ID of the costume at this rank, if this one don't exist, that return 0. 0 is ID of 'point'
 
 
@@ -91,6 +129,17 @@ void aspect_rope(int fill, int stroke, float thickness, int id_costume)
 
 void aspect_rope(Vec4 fill, Vec4 stroke, float thickness, int id_costume)
 >manage the fill, stroke and strokeWeight
+
+float get_fill_rope();
+>return the fill component
+
+float get_stroke_rope();
+>return the stroke component
+
+float get_thickness_rope();
+>return the strokeWeight / thickness component
+
+
 
 
 
