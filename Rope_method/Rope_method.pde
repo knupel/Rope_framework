@@ -14,6 +14,7 @@ void setup() {
   init_rope();
   println("GOLD NUMBER",r.PHI);
   // println("GOLD ANGLE",RAD_TO_DEG *r.GOLD_ANGLE);
+  println(r.STAR);
 }
 
 
