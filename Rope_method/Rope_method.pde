@@ -11,10 +11,58 @@ guide to code here:
 
 void setup() {
   size(300,300,P3D);
-  init_rope();
-  println("GOLD NUMBER",r.PHI);
-  // println("GOLD ANGLE",RAD_TO_DEG *r.GOLD_ANGLE);
-  println(r.STAR);
+  init_rope(this);
+  init_layer(width,height,P3D);
+}
+
+
+float rotate_x;
+float rotate_y;
+void draw() {
+  rotate_x += .01;
+  rotate_y += .02;
+
+  begin_layer();
+  fill(random(255),random(255),random(255),40);
+  strokeWeight(20 *(abs(sin(frameCount *.01))));
+  pushMatrix();
+  translate(mouseX,mouseY);
+  rotateX(rotate_x);
+  rotateY(rotate_y);
+  box(150,100,300);
+
+
+  popMatrix();
+  end_layer();
+  image(get_layer());
+
+  mask();
+  
+}
+
+
+
+
+
+
+PGraphics mask;
+void mask() {
+  if(mask == null) {
+    mask = createGraphics(width,height,P3D);
+  }
+  mask.beginDraw();
+
+  mask.fill(0);
+  mask.noStroke();
+  mask.rect(0,0,width/8,height);
+  mask.rect(width -(width/8),0,width/8,height);
+
+  mask.rect(0,0,width,height/8);
+  mask.rect(0,height -(height/8),width,height/8);
+
+  mask.endDraw();
+
+  image(mask);
 }
 
 
@@ -31,52 +79,7 @@ void setup() {
 
 
 
-/**
-IN PROGRESS
-*/
-int colour(int x, int y, int z) {
-  return colour(x,y,z,255);
-}
 
-int colour(int x, int z) {
-  return colour(x,x,x,z);
-}
-
-int colour(int x) {
-  return colour(x,x,x,255);
-}
-
-
-int colour(int x, int y, int z, int w) {
-  colorMode(RGB,255);
-  return color(x,y,z,w);
-}
-
-int colour(iVec4 c) {
-  colorMode(RGB,255);
-  return color(c.x,c.y,c.z,c.w);
-}
-
-
-iVec4 rgba(int c) {
-  colorMode(RGB,255);
-  return iVec4((int)red(c),(int)green(c),(int)blue(c),(int)alpha(c));
-}
-
-iVec3 rgb(int c) {
-  colorMode(RGB,255);
-  return iVec3((int)red(c),(int)green(c),(int)blue(c));
-}
-
-iVec4 hsba(int c) {
-  colorMode(RGB,255);
-  return iVec4((int)hue(c),(int)saturation(c),(int)brightness(c),(int)alpha(c));
-}
-
-iVec3 hsb(int c) {
-  colorMode(RGB,255);
-  return iVec3((int)hue(c),(int)saturation(c),(int)brightness(c));
-}
 
 
 

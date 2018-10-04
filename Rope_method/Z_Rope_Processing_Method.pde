@@ -1,5 +1,5 @@
 /**
-ROPE METHOD
+ROPE METHOD from Processing
 v 1.4.1
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
@@ -11,99 +11,38 @@ the idea here is create method directly insprating from Processing to simplify t
 
 
 
-/**
-colorMode
-*/
-/**
-* colorMode(Vec5 color_component)
-* @param component give in order : mode, x, y, z and alpha
-*/
-void colorMode(Vec5 component) {
-  int mode = (int)component.a;
-  if(mode == HSB) {
-    colorMode(HSB,component.b,component.c,component.d,component.e);
-  } else if(mode == RGB) {
-    colorMode(RGB,component.b,component.c,component.d,component.e);
-  } else {
-    printErr("The first component of your vec is", mode, "and don't match with any Processing colorMode, instead the current colorMode will be used");
-  }
-}
-/**
-* colorMode(int mode, Vec4 color_component)
-* @param mode give environment HSB or RGB
-* @param color_component give in order : x, y, z and alpha
-*/
-void colorMode(int mode, Vec4 component) {
-  if(mode == HSB) {
-    colorMode(HSB,component.x,component.y,component.z,component.w);
-  } else if(mode == RGB) {
-    colorMode(RGB,component.x,component.y,component.z,component.w);
-  } else {
-    printErr("int mode", mode, "don't match with any Processing colorMode, instead the current colorMode will be used");
-  }
-}
-/**
-* colorMode(int mode, Vec3 color_component)
-* @param mode give environment HSB or RGB
-* @param color_component give in order : x, y, z
-*/
-void colorMode(int mode, Vec3 component) {
-  colorMode(mode, Vec4(component.x,component.y,component.z,g.colorModeA));
-}
-/**
-* colorMode(int mode, Vec2 color_component)
-* @param mode give environment HSB or RGB
-* @param color_component give in order the x give x,y,z and y give the alpha
-*/
-void colorMode(int mode, Vec2 component) {
-   colorMode(mode, Vec4(component.x,component.x,component.x,component.y));
-}
+
+
+
+
+
+
+
+
+
+
 
 /**
-floor
+RENDERING METHOD
+2018-2018
 */
-iVec2 floor(Vec2 arg) {
-  return iVec2(floor(arg.x),floor(arg.y));
-}
 
-iVec3 floor(Vec3 arg) {
-  return iVec3(floor(arg.x),floor(arg.y),floor(arg.z));
-}
 
-iVec4 floor(Vec4 arg) {
-  return iVec4(floor(arg.x),floor(arg.y),floor(arg.z),floor(arg.w));
-}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
-round
-*/
-iVec2 round(Vec2 arg) {
-  return iVec2(round(arg.x),round(arg.y));
-}
-
-iVec3 round(Vec3 arg) {
-  return iVec3(round(arg.x),round(arg.y),round(arg.z));
-}
-
-iVec4 round(Vec4 arg) {
-  return iVec4(round(arg.x),round(arg.y),round(arg.z),round(arg.w));
-}
-
-/**
-ceil
-*/
-iVec2 ceil(Vec2 arg) {
-  return iVec2(ceil(arg.x),ceil(arg.y));
-}
-
-iVec3 ceil(Vec3 arg) {
-  return iVec3(ceil(arg.x),ceil(arg.y),ceil(arg.z));
-}
-
-iVec4 ceil(Vec4 arg) {
-  return iVec4(ceil(arg.x),ceil(arg.y),ceil(arg.z),ceil(arg.w));
-}
-
+RENDERING IMPROVED METHOD 
 /**
 set
 */
@@ -114,19 +53,6 @@ void set(iVec2 pos, int c) {
 void set(Vec2 pos, int c) {
   set((int)pos.x, (int)pos.y, c);
 }
-/**
-random
-*/
-float random (Vec2 v) {
-  return random(v.x, v.y);
-}
-
-float random (iVec2 v) {
-  return random(v.x, v.y);
-}
-
-
-
 
 /**
 Ellipse
@@ -134,7 +60,7 @@ v 0.1.1
 */
 // with Vec2 or iVec2
 void ellipse(Vec2 p, Vec s) {
-  ellipse(p.x,p.y, s.x,s.y);
+  ellipse(p.x,p.y,s.x,s.y);
 }
 
 void ellipse(Vec2 p, float x, float y) {
@@ -784,3 +710,166 @@ void matrix_start() {
   pushMatrix() ;
   printErr("void matrix_start() is deprecated instead use start_matrix()") ;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+colorMode
+*/
+/**
+* colorMode(Vec5 color_component)
+* @param component give in order : mode, x, y, z and alpha
+*/
+void colorMode(Vec5 component) {
+  int mode = (int)component.a;
+  if(mode == HSB) {
+    colorMode(HSB,component.b,component.c,component.d,component.e);
+  } else if(mode == RGB) {
+    colorMode(RGB,component.b,component.c,component.d,component.e);
+  } else {
+    printErr("The first component of your vec is", mode, "and don't match with any Processing colorMode, instead the current colorMode will be used");
+  }
+}
+/**
+* colorMode(int mode, Vec4 color_component)
+* @param mode give environment HSB or RGB
+* @param color_component give in order : x, y, z and alpha
+*/
+void colorMode(int mode, Vec4 component) {
+  if(mode == HSB) {
+    colorMode(HSB,component.x,component.y,component.z,component.w);
+  } else if(mode == RGB) {
+    colorMode(RGB,component.x,component.y,component.z,component.w);
+  } else {
+    printErr("int mode", mode, "don't match with any Processing colorMode, instead the current colorMode will be used");
+  }
+}
+/**
+* colorMode(int mode, Vec3 color_component)
+* @param mode give environment HSB or RGB
+* @param color_component give in order : x, y, z
+*/
+void colorMode(int mode, Vec3 component) {
+  colorMode(mode, Vec4(component.x,component.y,component.z,g.colorModeA));
+}
+/**
+* colorMode(int mode, Vec2 color_component)
+* @param mode give environment HSB or RGB
+* @param color_component give in order the x give x,y,z and y give the alpha
+*/
+void colorMode(int mode, Vec2 component) {
+   colorMode(mode, Vec4(component.x,component.x,component.x,component.y));
+}
+
+/**
+floor
+*/
+iVec2 floor(Vec2 arg) {
+  return iVec2(floor(arg.x),floor(arg.y));
+}
+
+iVec3 floor(Vec3 arg) {
+  return iVec3(floor(arg.x),floor(arg.y),floor(arg.z));
+}
+
+iVec4 floor(Vec4 arg) {
+  return iVec4(floor(arg.x),floor(arg.y),floor(arg.z),floor(arg.w));
+}
+
+/**
+round
+*/
+iVec2 round(Vec2 arg) {
+  return iVec2(round(arg.x),round(arg.y));
+}
+
+iVec3 round(Vec3 arg) {
+  return iVec3(round(arg.x),round(arg.y),round(arg.z));
+}
+
+iVec4 round(Vec4 arg) {
+  return iVec4(round(arg.x),round(arg.y),round(arg.z),round(arg.w));
+}
+
+/**
+ceil
+*/
+iVec2 ceil(Vec2 arg) {
+  return iVec2(ceil(arg.x),ceil(arg.y));
+}
+
+iVec3 ceil(Vec3 arg) {
+  return iVec3(ceil(arg.x),ceil(arg.y),ceil(arg.z));
+}
+
+iVec4 ceil(Vec4 arg) {
+  return iVec4(ceil(arg.x),ceil(arg.y),ceil(arg.z),ceil(arg.w));
+}
+
+
+/**
+random
+*/
+float random (Vec2 v) {
+  return random(v.x, v.y);
+}
+
+float random (iVec2 v) {
+  return random(v.x, v.y);
+}
+
+
+

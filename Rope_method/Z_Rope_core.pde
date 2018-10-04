@@ -3,14 +3,13 @@ ROPE - Romanesco processing environment –
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
 ROPE core
-v 0.1.0
+v 0.2.0
 2017-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
 import rope.core.*;
 import rope.vector.*;
-
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -51,12 +50,13 @@ Something weird, now it's not necessary to use the method init_rope()
 to use the interface Rope_constants...
 that's cool but that's very weird !!!!!
 */
-Rope r ;
-public void init_rope() {
-  r = new Rope();
+Rope r;
+PApplet p;
+public void init_rope(PApplet pa) {
+	this.p = pa ;
+  this.r = new Rope();
   println("Init ROPE: Romanesco Processing Environment - 2015-2018");
 }
-
 
 
 
