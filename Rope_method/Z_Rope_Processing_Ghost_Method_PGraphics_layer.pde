@@ -1,7 +1,7 @@
 /**
 ROPE PGraphics LAYER METHOD
 2018-2018
-v 0.0.1
+v 0.0.4
 those ghost method is here like a filter between rope and Processing 
 in case the coder want use a PGraphics layer before to implement in the Processing rendering
 */
@@ -15,6 +15,7 @@ void init_layer(int x, int y, String type) {
   if(!warning_layer) {
     warning_layer = true;
   }
+  printErr("Warning,all classical method used to work on the main rendering, will return the PGraphics layer data : like image(), set(), get()...");
 }
 
 void begin_layer() {
@@ -1055,6 +1056,211 @@ void resetMatrix() {
 
 
 
+
+
+
+
+
+
+
+
+
+/**
+image
+*/
+void image(PImage img, float x, float y) {
+  if(l != null) {
+    l.image(img,x,y);
+  } else {
+    g.image(img,x,y);
+  }
+}
+
+void image(PImage img, float a, float b, float c, float d) {
+  if(l != null) {
+    l.image(img,a,b,c,d);
+  } else {
+    g.image(img,a,b,c,d);
+  }
+}
+
+
+
+/**
+tint
+*/
+void tint(int rgb) {
+  if(l != null) {
+    l.tint(rgb);
+  } else {
+    g.tint(rgb);
+  }
+}
+
+void tint(int rgb, float alpha) {
+  if(l != null) {
+    l.tint(rgb,alpha);
+  } else {
+    g.tint(rgb,alpha);
+  }
+}
+
+void tint(float gray) {
+  if(l != null) {
+    l.tint(gray);
+  } else {
+    g.tint(gray);
+  }
+}
+
+void tint(float gray, float alpha) {
+  if(l != null) {
+    l.tint(gray,alpha);
+  } else {
+    g.tint(gray,alpha);
+  }
+}
+
+void tint(float v1, float v2, float v3) {
+  if(l != null) {
+    l.tint(v1,v2,v3);
+  } else {
+    g.tint(v1,v2,v3);
+  }
+}
+
+void tint(float v1, float v2, float v3, float alpha) {
+  if(l != null) {
+    l.tint(v1,v2,v3,alpha);
+  } else {
+    g.tint(v1,v2,v3,alpha);
+  }
+}
+
+
+
+/**
+blend
+*/
+void blend(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, int mode) {
+  if(l != null) {
+    l.blend(sx,sy,sw,sh,dx,dy,dw,dh,mode);
+  } else {
+    g.blend(sx,sy,sw,sh,dx,dy,dw,dh,mode);
+  }
+}
+
+
+void blend(PImage src, int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, int mode) {
+  if(l != null) {
+    l.blend(src,sx,sy,sw,sh,dx,dy,dw,dh,mode);
+  } else {
+    g.blend(src,sx,sy,sw,sh,dx,dy,dw,dh,mode);
+  }
+}
+
+
+/**
+filter
+*/
+void filter(PShader shader) {
+  if(l != null) {
+    l.filter(shader);
+  } else {
+    g.filter(shader);
+  }
+}
+
+void filter(int kind) {
+  if(l != null) {
+    l.filter(kind);
+  } else {
+    g.filter(kind);
+  }
+}
+
+void filter(int kind, float param) {
+  if(l != null) {
+    l.filter(kind,param);
+  } else {
+    g.filter(kind,param);
+  }
+}
+
+
+/**
+get
+*/
+int get(int x, int y) {
+  if(l != null) {
+    return l.get(x,y);
+  } else {
+    return g.get(x,y);
+  }
+} 
+
+
+PImage get(int x, int y, int w, int h) {
+  if(l != null) {
+    return l.get(x,y,w,h);
+  } else {
+    return g.get(x,y,w,h);
+  }
+}
+
+
+PImage get() {
+  if(l != null) {
+    return l.get();
+  } else {
+    return g.get();
+  }
+}
+
+
+/**
+loadPixels()
+*/
+void loadPixels() {
+  if(l != null) {
+    l.loadPixels();
+  } else {
+    g.loadPixels();
+  }
+}
+
+/**
+set
+*/
+void set(int x, int y, int c) {
+  if(l != null) {
+    l.set(x,y,c);
+  } else {
+    g.set(x,y,c);
+  }
+}
+
+void set(int x, int y, PImage img) {
+  if(l != null) {
+    l.set(x,y,img);
+  } else {
+    g.set(x,y,img);
+  }
+}
+
+
+/**
+updatePixels()
+*/
+void updatePixels() {
+  if(l != null) {
+    l.updatePixels();
+  } else {
+    g.updatePixels();
+  }
+}
+
+  
 
 
 
