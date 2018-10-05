@@ -51,9 +51,7 @@ to use the interface Rope_constants...
 that's cool but that's very weird !!!!!
 */
 Rope r;
-PApplet p;
-public void init_rope(PApplet pa) {
-	this.p = pa ;
+public void init_rope() {
   this.r = new Rope();
   println("Init ROPE: Romanesco Processing Environment - 2015-2018");
 }
