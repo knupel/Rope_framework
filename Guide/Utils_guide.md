@@ -1,9 +1,32 @@
 UTILS ROPE
-2015 – 2017
+2015–2018
 --
 Rope – Romanesco Processing Environment
 
 All the methods similare or closer of Processing is writing in 'camelCase' the really Rope methods are write with '_underscore_' !
+
+
+
+
+
+
+LAYER PGraphics
+--
+void init_layer(int x, int y, String type);
+>create the PGraphics layer
+>parameters 
+float x is the width
+float y is the height
+String type is the rendering P3D, P2D, JAVAFX...
+
+void begin_layer();
+>put this method at the top of your method, often is the draw to start recording
+
+void end_layer();
+>put this method at the bottom of your method, often is the draw to stop recording
+
+PGraphics get_layer();
+>return PGraphics layers
 
 
 
