@@ -1,37 +1,109 @@
 /**
 ROPE PGraphics LAYER METHOD
 2018-2018
-v 0.0.4
+v 0.0.5
 those ghost method is here like a filter between rope and Processing 
 in case the coder want use a PGraphics layer before to implement in the Processing rendering
 */
 /**
 Layer method
 */
-PGraphics l;
-boolean warning_layer;
-void init_layer(int x, int y, String type) {
-  l = createGraphics(x,y,type);
-  if(!warning_layer) {
-    warning_layer = true;
-  }
-  printErr("Warning,all classical method used to work on the main rendering, will return the PGraphics layer data : like image(), set(), get()...");
+PGraphics [] rope_layer;
+boolean warning_rope_layer;
+int which_rope_layer = 0;
+
+// init
+void init_layer(int x, int y) {
+  init_layer(x,y, get_renderer(),1);
 }
 
+void init_layer(int x, int y, int num) {
+  init_layer(x,y, get_renderer(),num);
+}
+
+void init_layer(int x, int y, String type, int num) {
+  rope_layer = new PGraphics[num];
+  for(int i = 0 ; i < num ; i++) {
+    rope_layer[i] = createGraphics(x,y,type);
+  }
+  
+  if(!warning_rope_layer) {
+    warning_rope_layer = true;
+  }
+  String warning = ("WARNING LAYER METHOD\nAll classical method used on the main rendering,\nwill return the PGraphics selected PGraphics layer :\nimage(), set(), get(), fill(), stroke(), rect(), ellipse(), pushMatrix(), popMatrix(), box()...\nto use those methods on the main PGraphics write g.image() for example");
+  printErr(warning);
+}
+
+// begin and end draw
 void begin_layer() {
-  if(l != null) {
-    l.beginDraw();
+  if(get_layer() != null) {
+    get_layer().beginDraw();
   }
 }
 
 void end_layer() {
-  if(l != null) {
-    l.endDraw();
+  if(get_layer() != null) {
+    get_layer().endDraw();
   }
 }
 
+
+
+// clear layer
+void clear_layer() {
+  if(rope_layer != null && rope_layer.length > 0) {
+    for(int i = 0 ; i < rope_layer.length ; i++) {
+      String type = get_renderer(rope_layer[i]);
+      int w = rope_layer[i].width;
+      int h = rope_layer[i].height;
+      rope_layer[i] = createGraphics(w,h,type);
+    }
+  } else {
+    String warning = ("void clear_layer(): there is no layer can be clear maybe you forget to create one :)");
+    printErr(warning);
+  }
+  
+}
+
+
+void clear_layer(int target) {
+  if(target > -1 && target < rope_layer.length) {
+     String type = get_renderer(rope_layer[target]);
+    int w = rope_layer[target].width;
+    int h = rope_layer[target].height;
+    rope_layer[target] = createGraphics(w,h,type);
+  } else {
+    String warning = ("void clear_layer(int target): target "+target+" is out the range of the layers available,\n no layer can be clear");
+    printErr(warning);
+  }
+}
+
+
+// get layer
 PGraphics get_layer() {
-  return l;
+  return get_layer(which_rope_layer);
+}
+
+PGraphics get_layer(int target) {
+  if(target > -1 && target < rope_layer.length) {
+    return rope_layer[target];
+  } else {
+    String warning = ("PGraphics get_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
+    printErr(warning);
+    return rope_layer[0];
+  }
+}
+
+
+// select layer
+void select_layer(int target) {
+  if(target > -1 && target < rope_layer.length) {
+    which_rope_layer = target;
+  } else {
+    which_rope_layer = 0;
+    String warning = ("void select_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
+    printErr(warning);
+  }
 }
 
 
@@ -46,16 +118,16 @@ PGraphics get_layer() {
 
 // position
 void translate(int x, int y) {
-  if(l != null) {
-    l.translate(x,y);
+  if(get_layer() != null) {
+    get_layer().translate(x,y);
   } else {
     g.translate(x,y);
   }
 }
 
 void translate(int x, int y, int z) {
-  if(l != null) {
-    l.translate(x,y,z);
+  if(get_layer() != null) {
+    get_layer().translate(x,y,z);
   } else {
     g.translate(x,y,z);
   }
@@ -63,10 +135,9 @@ void translate(int x, int y, int z) {
 
 
 // rotate
-// iterative problem
 void rotate(float arg) {
-  if(l != null) {
-    l.rotate(arg);
+  if(get_layer() != null) {
+    get_layer().rotate(arg);
   } else {
     g.rotate(arg);
   }
@@ -74,16 +145,16 @@ void rotate(float arg) {
 
 
 void rotateX(float arg) {
-  if(l != null) {
-    l.rotateX(arg);
+  if(get_layer() != null) {
+    get_layer().rotateX(arg);
   } else {
     g.rotateX(arg);
   }
 }
 
 void rotateY(float arg) {
-  if(l != null) {
-    l.rotateY(arg);
+  if(get_layer() != null) {
+    get_layer().rotateY(arg);
   } else {
     g.rotateY(arg);
   }
@@ -91,24 +162,24 @@ void rotateY(float arg) {
 
 // scale
 void scale(float s) {
-  if(l != null) {
-    l.scale(s);
+  if(get_layer() != null) {
+    get_layer().scale(s);
   } else {
     g.scale(s);
   }
 }
 
 void scale(float x, float y) {
-  if(l != null) {
-    l.scale(x,y);
+  if(get_layer() != null) {
+    get_layer().scale(x,y);
   } else {
     g.scale(x,y);
   }
 }
 
 void scale(float x, float y, float z) {
-  if(l != null) {
-    l.scale(x,y,z);
+  if(get_layer() != null) {
+    get_layer().scale(x,y,z);
   } else {
     g.scale(x,y,z);
   }
@@ -116,16 +187,16 @@ void scale(float x, float y, float z) {
 
 // shear
 void shearX(float angle) {
-  if(l != null) {
-    l.shearX(angle);
+  if(get_layer() != null) {
+    get_layer().shearX(angle);
   } else {
     g.shearX(angle);
   }
 }
 
 void shearY(float angle) {
-  if(l != null) {
-    l.shearY(angle);
+  if(get_layer() != null) {
+    get_layer().shearY(angle);
   } else {
     g.shearY(angle);
   }
@@ -147,18 +218,17 @@ void shearY(float angle) {
 aspect
 */
 // fill
-// iterative problem
 void noFill() {
-  if(l != null) {
-    l.noFill();
+  if(get_layer() != null) {
+    get_layer().noFill();
   } else {
     g.noFill();
   }
 } 
 
 void fill(int rgb) {
-  if(l != null) {
-    l.fill(rgb);
+  if(get_layer() != null) {
+    get_layer().fill(rgb);
   } else {
     g.fill(rgb);
   }
@@ -166,16 +236,16 @@ void fill(int rgb) {
 
 
 void fill(int rgb, float alpha) {
-  if(l != null) {
-    l.fill(rgb,alpha);
+  if(get_layer() != null) {
+    get_layer().fill(rgb,alpha);
   } else {
     g.fill(rgb,alpha);
   }
 }
 
 void fill(float gray) {
-  if(l != null) {
-    l.fill(gray);
+  if(get_layer() != null) {
+    get_layer().fill(gray);
   } else {
     g.fill(gray);
   }
@@ -183,42 +253,41 @@ void fill(float gray) {
 
 
 void fill(float gray, float alpha) {
-  if(l != null) {
-    l.fill(gray,alpha);
+  if(get_layer() != null) {
+    get_layer().fill(gray,alpha);
   } else {
     g.fill(gray,alpha);
   }
 }
 
 void fill(float v1, float v2, float v3) {
-  if(l != null) {
-    l.fill(v1,v2,v3);
+  if(get_layer() != null) {
+    get_layer().fill(v1,v2,v3);
   } else {
     g.fill(v1,v2,v3);
   }
 }
 
 void fill(float v1, float v2, float v3, float alpha) {
-  if(l != null) {
-    l.fill(v1,v2,v3,alpha);
+  if(get_layer() != null) {
+    get_layer().fill(v1,v2,v3,alpha);
   } else {
     g.fill(v1,v2,v3,alpha);
   }
 }
 
 // stroke
-// iterative problem
 void noStroke() {
-  if(l != null) {
-    l.noStroke();
+  if(get_layer() != null) {
+    get_layer().noStroke();
   } else {
     g.noStroke();
   }
 } 
 
 void stroke(int rgb) {
-  if(l != null) {
-    l.stroke(rgb);
+  if(get_layer() != null) {
+    get_layer().stroke(rgb);
   } else {
     g.stroke(rgb);
   }
@@ -226,16 +295,16 @@ void stroke(int rgb) {
 
 
 void stroke(int rgb, float alpha) {
-  if(l != null) {
-    l.stroke(rgb,alpha);
+  if(get_layer() != null) {
+    get_layer().stroke(rgb,alpha);
   } else {
     g.stroke(rgb,alpha);
   }
 }
 
 void stroke(float gray) {
-  if(l != null) {
-    l.stroke(gray);
+  if(get_layer() != null) {
+    get_layer().stroke(gray);
   } else {
     g.stroke(gray);
   }
@@ -243,24 +312,24 @@ void stroke(float gray) {
 
 
 void stroke(float gray, float alpha) {
-  if(l != null) {
-    l.stroke(gray,alpha);
+  if(get_layer() != null) {
+    get_layer().stroke(gray,alpha);
   } else {
     g.stroke(gray,alpha);
   }
 }
 
 void stroke(float v1, float v2, float v3) {
-  if(l != null) {
-    l.stroke(v1,v2,v3);
+  if(get_layer() != null) {
+    get_layer().stroke(v1,v2,v3);
   } else {
     g.stroke(v1,v2,v3);
   }
 }
 
 void stroke(float v1, float v2, float v3, float alpha) {
-  if(l != null) {
-    l.stroke(v1,v2,v3,alpha);
+  if(get_layer() != null) {
+    get_layer().stroke(v1,v2,v3,alpha);
   } else {
     g.stroke(v1,v2,v3,alpha);
   }
@@ -268,30 +337,27 @@ void stroke(float v1, float v2, float v3, float alpha) {
 
 
 // strokeWeight
-// iterative problem
 void strokeWeight(float thickness) {
-  if(l != null) {
-    l.strokeWeight(thickness);
+  if(get_layer() != null) {
+    get_layer().strokeWeight(thickness);
   } else {
     g.strokeWeight(thickness);
   }
 }
 
 // strokeJoin
-// iterative problem
 void strokeJoin(int join) {
-  if(l != null) {
-    l.strokeJoin(join);
+  if(get_layer() != null) {
+    get_layer().strokeJoin(join);
   } else {
     g.strokeJoin(join);
   }
 }
 
 // strokeJoin
-// iterative problem
 void strokeCapstrokeCap(int cap) {
-  if(l != null) {
-    l.strokeCap(cap);
+  if(get_layer() != null) {
+    get_layer().strokeCap(cap);
   } else {
     g.strokeCap(cap);
   }
@@ -313,8 +379,8 @@ shape
 */
 // rect
 void rect(int px, int py, int sx, int sy) {
-  if(l != null) {
-    l.rect(px,py,sx,sy);
+  if(get_layer() != null) {
+    get_layer().rect(px,py,sx,sy);
   } else {
     g.rect(px,py,sx,sy);
   }
@@ -322,16 +388,16 @@ void rect(int px, int py, int sx, int sy) {
 
 
 void rect(int px, int py, int sx, int sy, float r) {
-  if(l != null) {
-    l.rect(px,py,sx,sy,r);
+  if(get_layer() != null) {
+    get_layer().rect(px,py,sx,sy,r);
   } else {
     g.rect(px,py,sx,sy,r);
   }
 }
 
 void rect(int px, int py, int sx, int sy, float tl, float tr, float br, float bl) {
-  if(l != null) {
-    l.rect(px,py,sx,sy,tl,tr,br,bl);
+  if(get_layer() != null) {
+    get_layer().rect(px,py,sx,sy,tl,tr,br,bl);
   } else {
     g.rect(px,py,sx,sy,tl,tr,br,bl);
   }
@@ -340,16 +406,16 @@ void rect(int px, int py, int sx, int sy, float tl, float tr, float br, float bl
 
 //arc
 void arc(float a, float b, float c, float d, float start, float stop) {
-  if(l != null) {
-    l.arc(a,b,c,d,start,stop);
+  if(get_layer() != null) {
+    get_layer().arc(a,b,c,d,start,stop);
   } else {
     g.arc(a,b,c,d,start,stop);
   }
 }
 
 void arc(float a, float b, float c, float d, float start, float stop, int mode) {
-  if(l != null) {
-    l.arc(a,b,c,d,start,stop,mode);
+  if(get_layer() != null) {
+    get_layer().arc(a,b,c,d,start,stop,mode);
   } else {
     g.arc(a,b,c,d,start,stop,mode);
   }
@@ -357,8 +423,8 @@ void arc(float a, float b, float c, float d, float start, float stop, int mode) 
 
 // ellipse
 void ellipse(int px, int py, int sx, int sy) {
-  if(l != null) {
-    l.ellipse(px,py,sx,sy);
+  if(get_layer() != null) {
+    get_layer().ellipse(px,py,sx,sy);
   } else {
     g.ellipse(px,py,sx,sy);
   }
@@ -369,16 +435,16 @@ void ellipse(int px, int py, int sx, int sy) {
 
 // box
 void box(int s) {
-  if(l != null) {
-    l.box(s,s,s);
+  if(get_layer() != null) {
+    get_layer().box(s,s,s);
   } else {
     g.box(s,s,s);
   }
 }
 
 void box(int w, int h, int d) {
-  if(l != null) {
-    l.box(w,h,d);
+  if(get_layer() != null) {
+    get_layer().box(w,h,d);
   } else {
     g.box(w,h,d);
   }
@@ -387,8 +453,8 @@ void box(int w, int h, int d) {
 
 // sphere
 void sphere(float r) {
-  if(l != null) {
-    l.sphere(r);
+  if(get_layer() != null) {
+    get_layer().sphere(r);
   } else {
     g.sphere(r);
     // p.sphere(r);
@@ -398,16 +464,16 @@ void sphere(float r) {
 
 // sphere detail
 void sphereDetail(int res) {
-  if(l != null) {
-    l.sphereDetail(res);
+  if(get_layer() != null) {
+    get_layer().sphereDetail(res);
   } else {
     g.sphereDetail(res);
   }
 }
 
 void sphereDetail(int ures, int vres) {
-  if(l != null) {
-    l.sphereDetail(ures,vres);
+  if(get_layer() != null) {
+    get_layer().sphereDetail(ures,vres);
   } else {
     g.sphereDetail(ures,vres);
   }
@@ -418,16 +484,16 @@ void sphereDetail(int ures, int vres) {
 
 //line
 void line(float x1, float y1, float x2, float y2) {
-  if(l != null) {
-    l.line(x1,y1,x2,y2);
+  if(get_layer() != null) {
+    get_layer().line(x1,y1,x2,y2);
   } else {
     g.line(x1,y1,x2,y2);
   }
 }
 
 void line(float x1, float y1, float z1, float x2, float y2, float z2) {
-  if(l != null) {
-    l.line(x1,y1,z1,x2,y2,z2);
+  if(get_layer() != null) {
+    get_layer().line(x1,y1,z1,x2,y2,z2);
   } else {
     g.line(x1,y1,z1,x2,y2,z2);
   }
@@ -440,16 +506,16 @@ void line(float x1, float y1, float z1, float x2, float y2, float z2) {
 
 // point
 void point(float x, float y) {
-  if(l != null) {
-    l.point(x,y);
+  if(get_layer() != null) {
+    get_layer().point(x,y);
   } else {
     g.point(x,y);
   }
 }
 
 void point(float x, float y, float z) {
-  if(l != null) {
-    l.point(x,y,z);
+  if(get_layer() != null) {
+    get_layer().point(x,y,z);
   } else {
     g.point(x,y,z);
   }
@@ -457,8 +523,8 @@ void point(float x, float y, float z) {
 
 // quad
 void quad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
-  if(l != null) {
-    l.quad(x1,y1,x2,y2,x3,y3,x4,y4);
+  if(get_layer() != null) {
+    get_layer().quad(x1,y1,x2,y2,x3,y3,x4,y4);
   } else {
     g.quad(x1,y1,x2,y2,x3,y3,x4,y4);
   }
@@ -468,8 +534,8 @@ void quad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, 
 /*
 method already use somewhere else
 void triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
-  if(l != null) {
-    l.triangle(x1,y1,x2,y2,x3,y3);
+  if(get_layer() != null) {
+    get_layer().triangle(x1,y1,x2,y2,x3,y3);
   } else {
     g.triangle(x1,y1,x2,y2,x3,y3);
   }
@@ -482,16 +548,16 @@ vertex
 */
 // begin
 void beginShape() {
-  if(l != null) {
-    l.beginShape();
+  if(get_layer() != null) {
+    get_layer().beginShape();
   } else {
     g.beginShape();
   }
 }
 
 void beginShape(int kind) {
-  if(l != null) {
-    l.beginShape(kind);
+  if(get_layer() != null) {
+    get_layer().beginShape(kind);
   } else {
     g.beginShape(kind);
   }
@@ -499,16 +565,16 @@ void beginShape(int kind) {
 
 
 void endShape() {
-  if(l != null) {
-    l.endShape();
+  if(get_layer() != null) {
+    get_layer().endShape();
   } else {
     g.endShape();
   }
 }
 
 void endShape(int mode) {
-  if(l != null) {
-    l.endShape(mode);
+  if(get_layer() != null) {
+    get_layer().endShape(mode);
   } else {
     g.endShape(mode);
   }
@@ -519,24 +585,24 @@ void endShape(int mode) {
 
 // shape
 void shape(PShape shape) {
-  if(l != null) {
-    l.shape(shape);
+  if(get_layer() != null) {
+    get_layer().shape(shape);
   } else {
     g.shape(shape);
   }
 }
 
 void shape(PShape shape, float x, float y) {
-  if(l != null) {
-    l.shape(shape,x,y);
+  if(get_layer() != null) {
+    get_layer().shape(shape,x,y);
   } else {
     g.shape(shape,x,y);
   }
 }
 
 void shape(PShape shape, float a, float b, float c, float d) {
-  if(l != null) {
-    l.shape(shape,a,b,c,d);
+  if(get_layer() != null) {
+    get_layer().shape(shape,a,b,c,d);
   } else {
     g.shape(shape,a,b,c,d);
   }
@@ -556,32 +622,32 @@ void shape(PShape shape, float a, float b, float c, float d) {
 
 //vertex
 void vertex(float x, float y) {
-  if(l != null) {
-    l.vertex(x,y);
+  if(get_layer() != null) {
+    get_layer().vertex(x,y);
   } else {
     g.vertex(x,y);
   }
 }
 
 void vertex(float x, float y, float z) {
-  if(l != null) {
-    l.vertex(x,y,z);
+  if(get_layer() != null) {
+    get_layer().vertex(x,y,z);
   } else {
     g.vertex(x,y,z);
   }
 }
 
 void vertex(float [] v) {
-  if(l != null) {
-    l.vertex(v);
+  if(get_layer() != null) {
+    get_layer().vertex(v);
   } else {
     g.vertex(v);
   }
 }
 
 void vertex(float x, float y, float u, float v) {
-  if(l != null) {
-    l.vertex(x,y,u,v);
+  if(get_layer() != null) {
+    get_layer().vertex(x,y,u,v);
   } else {
     g.vertex(x,y,u,v);
   }
@@ -589,8 +655,8 @@ void vertex(float x, float y, float u, float v) {
 
 
 void vertex(float x, float y, float z, float u, float v) {
-  if(l != null) {
-    l.vertex(x,y,z,u,v);
+  if(get_layer() != null) {
+    get_layer().vertex(x,y,z,u,v);
   } else {
     g.vertex(x,y,z,u,v);
   }
@@ -599,16 +665,16 @@ void vertex(float x, float y, float z, float u, float v) {
 
 // quadratic vertex
 void quadraticVertex(float cx, float cy, float x3, float y3) {
-  if(l != null) {
-    l.quadraticVertex(cx,cy,x3,y3);
+  if(get_layer() != null) {
+    get_layer().quadraticVertex(cx,cy,x3,y3);
   } else {
     g.quadraticVertex(cx,cy,x3,y3);
   }
 }
 
 void quadraticVertex(float cx, float cy, float cz, float x3, float y3, float z3) {
-  if(l != null) {
-    l.quadraticVertex(cx,cy,cz,x3,y3,z3);
+  if(get_layer() != null) {
+    get_layer().quadraticVertex(cx,cy,cz,x3,y3,z3);
   } else {
     g.quadraticVertex(cx,cy,cz,x3,y3,z3);
   }
@@ -616,16 +682,16 @@ void quadraticVertex(float cx, float cy, float cz, float x3, float y3, float z3)
 
 // curve vertex
 void curveVertex(float x, float y) {
-  if(l != null) {
-    l.curveVertex(x,y);
+  if(get_layer() != null) {
+    get_layer().curveVertex(x,y);
   } else {
     g.curveVertex(x,y);
   }
 }
 
 void curveVertex(float x, float y, float z) {
-  if(l != null) {
-    l.curveVertex(x,y,z);
+  if(get_layer() != null) {
+    get_layer().curveVertex(x,y,z);
   } else {
     g.curveVertex(x,y,z);
   }
@@ -634,8 +700,8 @@ void curveVertex(float x, float y, float z) {
 
 //bezier vertex
 void bezierVertex(float x2, float y2, float x3, float y3, float x4, float y4) {
-  if(l != null) {
-    l.bezierVertex(x2,y2,x3,y3,x4,y4);
+  if(get_layer() != null) {
+    get_layer().bezierVertex(x2,y2,x3,y3,x4,y4);
   } else {
     g.bezierVertex(x2,y2,x3,y3,x4,y4);
   }
@@ -643,8 +709,8 @@ void bezierVertex(float x2, float y2, float x3, float y3, float x4, float y4) {
 
 
 void bezierVertex(float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4) {
-  if(l != null) {
-    l.bezierVertex(x2,y2,z2,x3,y3,z3,x4,y4,z4);
+  if(get_layer() != null) {
+    get_layer().bezierVertex(x2,y2,z2,x3,y3,z3,x4,y4,z4);
   } else {
     g.bezierVertex(x2,y2,z2,x3,y3,z3,x4,y4,z4);
   }
@@ -652,16 +718,16 @@ void bezierVertex(float x2, float y2, float z2, float x3, float y3, float z3, fl
 
 // bezier
 void bezier(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
-  if(l != null) {
-    l.bezier(x1,y1,x2,y2,x3,y3,x4,y4);
+  if(get_layer() != null) {
+    get_layer().bezier(x1,y1,x2,y2,x3,y3,x4,y4);
   } else {
     g.bezier(x1,y1,x2,y2,x3,y3,x4,y4);
   }
 }
 
 void bezier(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4) {
-  if(l != null) {
-    l.bezier(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4);
+  if(get_layer() != null) {
+    get_layer().bezier(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4);
   } else {
     g.bezier(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4);
   }
@@ -669,8 +735,8 @@ void bezier(float x1, float y1, float z1, float x2, float y2, float z2, float x3
 
 // bezier detail
 void bezierDetail(int detail) {
-  if(l != null) {
-    l.bezierDetail(detail);
+  if(get_layer() != null) {
+    get_layer().bezierDetail(detail);
   } else {
     g.bezierDetail(detail);
   }
@@ -678,8 +744,8 @@ void bezierDetail(int detail) {
 
 // curve
 void curve(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
-  if(l != null) {
-    l.curve(x1,y1,x2,y2,x3,y3,x4,y4);
+  if(get_layer() != null) {
+    get_layer().curve(x1,y1,x2,y2,x3,y3,x4,y4);
   } else {
     g.curve(x1,y1,x2,y2,x3,y3,x4,y4);
   }
@@ -687,8 +753,8 @@ void curve(float x1, float y1, float x2, float y2, float x3, float y3, float x4,
 
 
 void curve(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4) {
-  if(l != null) {
-    l.curve(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4);
+  if(get_layer() != null) {
+    get_layer().curve(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4);
   } else {
     g.curve(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4);
   }
@@ -696,8 +762,8 @@ void curve(float x1, float y1, float z1, float x2, float y2, float z2, float x3,
 
 // curve detail
 void curveDetail(int detail) {
-  if(l != null) {
-    l.curveDetail(detail);
+  if(get_layer() != null) {
+    get_layer().curveDetail(detail);
   } else {
     g.curveDetail(detail);
   }
@@ -715,16 +781,16 @@ void curveDetail(int detail) {
 
 // light
 void lights() {
-  if(l != null) {
-    l.lights();
+  if(get_layer() != null) {
+    get_layer().lights();
   } else {
     g.lights();
   }
 }
 
 void noLights() {
-  if(l != null) {
-    l.noLights();
+  if(get_layer() != null) {
+    get_layer().noLights();
   } else {
     g.noLights();
   }
@@ -732,8 +798,8 @@ void noLights() {
 
 // ambient light
 void ambientLight(float v1, float v2, float v3) {
-  if(l != null) {
-    l.ambientLight(v1,v2,v3);
+  if(get_layer() != null) {
+    get_layer().ambientLight(v1,v2,v3);
   } else {
     g.ambientLight(v1,v2,v3);
   }
@@ -741,8 +807,8 @@ void ambientLight(float v1, float v2, float v3) {
 
 
 void ambientLight(float v1, float v2, float v3, float x, float y, float z) {
-  if(l != null) {
-    l.ambientLight(v1,v2,v3,x,y,z);
+  if(get_layer() != null) {
+    get_layer().ambientLight(v1,v2,v3,x,y,z);
   } else {
     g.ambientLight(v1,v2,v3,x,y,z);
   }
@@ -751,8 +817,8 @@ void ambientLight(float v1, float v2, float v3, float x, float y, float z) {
 
 //directionalLight(v1, v2, v3, nx, ny, nz)
 void directionalLight(float v1, float v2, float v3, float nx, float ny, float nz) {
-  if(l != null) {
-    l.directionalLight(v1,v2,v3,nx,ny,nz);
+  if(get_layer() != null) {
+    get_layer().directionalLight(v1,v2,v3,nx,ny,nz);
   } else {
     g.directionalLight(v1,v2,v3,nx,ny,nz);
   }
@@ -762,8 +828,8 @@ void directionalLight(float v1, float v2, float v3, float nx, float ny, float nz
 
 // lightFalloff(constant, linear, quadratic)
 void lightFalloff(float constant, float linear, float quadratic) {
-  if(l != null) {
-    l.lightFalloff(constant,linear,quadratic);
+  if(get_layer() != null) {
+    get_layer().lightFalloff(constant,linear,quadratic);
   } else {
     g.lightFalloff(constant,linear,quadratic);
   }
@@ -773,8 +839,8 @@ void lightFalloff(float constant, float linear, float quadratic) {
 // lightSpecular(v1, v2, v3) 
 
 void lightSpecular(float v1, float v2, float v3) {
-  if(l != null) {
-    l.lightSpecular(v1,v2,v3);
+  if(get_layer() != null) {
+    get_layer().lightSpecular(v1,v2,v3);
   } else {
     g.lightSpecular(v1,v2,v3);
   }
@@ -782,8 +848,8 @@ void lightSpecular(float v1, float v2, float v3) {
 
 // normal(nx, ny, nz)
 void normal(float nx, float ny, float nz) {
-  if(l != null) {
-    l.normal(nx,ny,nz);
+  if(get_layer() != null) {
+    get_layer().normal(nx,ny,nz);
   } else {
     g.normal(nx,ny,nz);
   }
@@ -792,8 +858,8 @@ void normal(float nx, float ny, float nz) {
 
 // pointLight(v1, v2, v3, x, y, z)
 void pointLight(float v1, float v2, float v3, float x, float y, float z) {
-  if(l != null) {
-    l.pointLight(v1,v2,v3,x,y,z);
+  if(get_layer() != null) {
+    get_layer().pointLight(v1,v2,v3,x,y,z);
   } else {
     g.pointLight(v1,v2,v3,x,y,z);
   }
@@ -801,8 +867,8 @@ void pointLight(float v1, float v2, float v3, float x, float y, float z) {
 
 // spotLight(v1, v2, v3, x, y, z, nx, ny, nz, angle, concentration)
 void spotLight(float v1, float v2, float v3, float x, float y, float z, float nx, float ny, float nz, float angle, float concentration) {
-  if(l != null) {
-    l.spotLight(v1,v2,v3,x,y,z,nx,ny,nz,angle,concentration);
+  if(get_layer() != null) {
+    get_layer().spotLight(v1,v2,v3,x,y,z,nx,ny,nz,angle,concentration);
   } else {
     g.spotLight(v1,v2,v3,x,y,z,nx,ny,nz,angle,concentration);
   }
@@ -813,16 +879,16 @@ void spotLight(float v1, float v2, float v3, float x, float y, float z, float nx
 Material properties
 */
 void ambient(int rgb) {
-  if(l != null) {
-    l.ambient(rgb);
+  if(get_layer() != null) {
+    get_layer().ambient(rgb);
   } else {
     g.ambient(rgb);
   }
 }
 
 void ambient(float gray) {
-  if(l != null) {
-    l.ambient(gray);
+  if(get_layer() != null) {
+    get_layer().ambient(gray);
   } else {
     g.ambient(gray);
   }
@@ -830,8 +896,8 @@ void ambient(float gray) {
 
 
 void ambient(float v1, float v2, float v3) {
-  if(l != null) {
-    l.ambient(v1,v2,v3);
+  if(get_layer() != null) {
+    get_layer().ambient(v1,v2,v3);
   } else {
     g.ambient(v1,v2,v3);
   }
@@ -840,16 +906,16 @@ void ambient(float v1, float v2, float v3) {
 
 // emissive
 void emissive(int rgb) {
-  if(l != null) {
-    l.emissive(rgb);
+  if(get_layer() != null) {
+    get_layer().emissive(rgb);
   } else {
     g.emissive(rgb);
   }
 }
 
 void emissive(float gray) {
-  if(l != null) {
-    l.emissive(gray);
+  if(get_layer() != null) {
+    get_layer().emissive(gray);
   } else {
     g.emissive(gray);
   }
@@ -857,8 +923,8 @@ void emissive(float gray) {
 
 
 void emissive(float v1, float v2, float v3) {
-  if(l != null) {
-    l.emissive(v1,v2,v3);
+  if(get_layer() != null) {
+    get_layer().emissive(v1,v2,v3);
   } else {
     g.emissive(v1,v2,v3);
   }
@@ -867,16 +933,16 @@ void emissive(float v1, float v2, float v3) {
 
 // specular
 void specular(int rgb) {
-  if(l != null) {
-    l.specular(rgb);
+  if(get_layer() != null) {
+    get_layer().specular(rgb);
   } else {
     g.specular(rgb);
   }
 }
 
 void specular(float gray) {
-  if(l != null) {
-    l.specular(gray);
+  if(get_layer() != null) {
+    get_layer().specular(gray);
   } else {
     g.specular(gray);
   }
@@ -884,8 +950,8 @@ void specular(float gray) {
 
 
 void specular(float v1, float v2, float v3) {
-  if(l != null) {
-    l.specular(v1,v2,v3);
+  if(get_layer() != null) {
+    get_layer().specular(v1,v2,v3);
   } else {
     g.specular(v1,v2,v3);
   }
@@ -894,8 +960,8 @@ void specular(float v1, float v2, float v3) {
 
 // shininess(shine)
 void shininess(float shine) {
-  if(l != null) {
-    l.shininess(shine);
+  if(get_layer() != null) {
+    get_layer().shininess(shine);
   } else {
     g.shininess(shine);
   }
@@ -914,19 +980,18 @@ void shininess(float shine) {
 /**
 camera ghost
 */
-
 // camera
 void camera() {
-  if(l != null) {
-    l.camera();
+  if(get_layer() != null) {
+    get_layer().camera();
   } else {
     g.camera();
   }
 }
 
 void camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ) {
-  if(l != null) {
-    l.camera(eyeX,eyeY,eyeZ,centerX,centerY,centerZ,upX,upY,upZ);
+  if(get_layer() != null) {
+    get_layer().camera(eyeX,eyeY,eyeZ,centerX,centerY,centerZ,upX,upY,upZ);
   } else {
     g.camera(eyeX,eyeY,eyeZ,centerX,centerY,centerZ,upX,upY,upZ);
   }
@@ -935,8 +1000,8 @@ void camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, fl
 
 // frustum(left, right, bottom, top, near, far)
 void frustum(float left, float right, float bottom, float top, float near, float far) {
-  if(l != null) {
-    l.frustum(left,right,bottom,top,near,far);
+  if(get_layer() != null) {
+    get_layer().frustum(left,right,bottom,top,near,far);
   } else {
     g.frustum(left,right,bottom,top,near,far);
   }
@@ -945,16 +1010,16 @@ void frustum(float left, float right, float bottom, float top, float near, float
 
 // ortho
 void ortho() {
-  if(l != null) {
-    l.ortho();
+  if(get_layer() != null) {
+    get_layer().ortho();
   } else {
     g.ortho();
   }
 }
 
 void ortho(float left, float right, float bottom, float top) {
-  if(l != null) {
-    l.ortho(left,right,bottom,top);
+  if(get_layer() != null) {
+    get_layer().ortho(left,right,bottom,top);
   } else {
     g.ortho(left,right,bottom,top);
   }
@@ -962,8 +1027,8 @@ void ortho(float left, float right, float bottom, float top) {
 
 
 void ortho(float left, float right, float bottom, float top, float near, float far) {
-  if(l != null) {
-    l.ortho(left,right,bottom,top,near,far);
+  if(get_layer() != null) {
+    get_layer().ortho(left,right,bottom,top,near,far);
   } else {
     g.ortho(left,right,bottom,top,near,far);
   }
@@ -973,8 +1038,8 @@ void ortho(float left, float right, float bottom, float top, float near, float f
   
 // perspective
 void perspective() {
-  if(l != null) {
-    l.perspective();
+  if(get_layer() != null) {
+    get_layer().perspective();
   } else {
     g.perspective();
   }
@@ -982,8 +1047,8 @@ void perspective() {
 
 
 void perspective(float fovy, float aspect, float zNear, float zFar) {
-  if(l != null) {
-    l.perspective(fovy,aspect,zNear,zFar);
+  if(get_layer() != null) {
+    get_layer().perspective(fovy,aspect,zNear,zFar);
   } else {
     g.perspective(fovy,aspect,zNear,zFar);
   }
@@ -1000,8 +1065,8 @@ void perspective(float fovy, float aspect, float zNear, float zFar) {
 matrix
 */
 void pushMatrix() {
-  if(l != null) {
-    l.pushMatrix();
+  if(get_layer() != null) {
+    get_layer().pushMatrix();
   } else {
     g.pushMatrix();
   }
@@ -1009,8 +1074,8 @@ void pushMatrix() {
 
 
 void popMatrix() {
-  if(l != null) {
-    l.popMatrix();
+  if(get_layer() != null) {
+    get_layer().popMatrix();
   } else {
     g.popMatrix();
   }
@@ -1018,24 +1083,24 @@ void popMatrix() {
 
 // apply matrix
 void applyMatrix(PMatrix source) {
-  if(l != null) {
-    l.applyMatrix(source);
+  if(get_layer() != null) {
+    get_layer().applyMatrix(source);
   } else {
     g.applyMatrix(source);
   }
 }
 
 void applyMatrix(float n00, float n01, float n02, float n10, float n11, float n12) {
-  if(l != null) {
-    l.applyMatrix(n00,n01,n02,n10,n11,n12);
+  if(get_layer() != null) {
+    get_layer().applyMatrix(n00,n01,n02,n10,n11,n12);
   } else {
     g.applyMatrix(n00,n01,n02,n10,n11,n12);
   }
 }
 
 void applyMatrix(float n00, float n01, float n02, float n03, float n10, float n11, float n12, float n13, float n20, float n21, float n22, float n23, float n30, float n31, float n32, float n33) {
-  if(l != null) {
-    l.applyMatrix(n00,n01,n02,n03,n10,n11,n12,n13,n20,n21,n22,n23,n30,n31,n32,n33);
+  if(get_layer() != null) {
+    get_layer().applyMatrix(n00,n01,n02,n03,n10,n11,n12,n13,n20,n21,n22,n23,n30,n31,n32,n33);
   } else {
     g.applyMatrix(n00,n01,n02,n03,n10,n11,n12,n13,n20,n21,n22,n23,n30,n31,n32,n33);
   }
@@ -1044,8 +1109,8 @@ void applyMatrix(float n00, float n01, float n02, float n03, float n10, float n1
 
 
 void resetMatrix() {
-  if(l != null) {
-    l.resetMatrix();
+  if(get_layer() != null) {
+    get_layer().resetMatrix();
   } else {
     g.resetMatrix();
   }
@@ -1068,21 +1133,79 @@ void resetMatrix() {
 /**
 image
 */
+
 void image(PImage img, float x, float y) {
-  if(l != null) {
-    l.image(img,x,y);
+  if(get_layer() != null) {
+    get_layer().image(img,x,y);
   } else {
     g.image(img,x,y);
   }
 }
 
 void image(PImage img, float a, float b, float c, float d) {
-  if(l != null) {
-    l.image(img,a,b,c,d);
+  if(get_layer() != null) {
+    get_layer().image(img,a,b,c,d);
   } else {
     g.image(img,a,b,c,d);
   }
 }
+
+
+/**
+get
+*/
+int get(int x, int y) {
+  if(get_layer() != null) {
+    return get_layer().get(x,y);
+  } else {
+    return g.get(x,y);
+  }
+} 
+
+
+PImage get(int x, int y, int w, int h) {
+  if(get_layer() != null) {
+    return get_layer().get(x,y,w,h);
+  } else {
+    return g.get(x,y,w,h);
+  }
+}
+
+
+PImage get() {
+  if(get_layer() != null) {
+    return get_layer().get();
+  } else {
+    return g.get();
+  }
+}
+
+
+
+/**
+loadPixels()
+*/
+void loadPixels() {
+  if(get_layer() != null) {
+    get_layer().loadPixels();
+  } else {
+    g.loadPixels();
+  }
+}
+
+
+
+/**
+updatePixels()
+*/
+void updatePixels() {
+  if(get_layer() != null) {
+    get_layer().updatePixels();
+  } else {
+    g.updatePixels();
+  }
+}
+
 
 
 
@@ -1090,48 +1213,48 @@ void image(PImage img, float a, float b, float c, float d) {
 tint
 */
 void tint(int rgb) {
-  if(l != null) {
-    l.tint(rgb);
+  if(get_layer() != null) {
+    get_layer().tint(rgb);
   } else {
     g.tint(rgb);
   }
 }
 
 void tint(int rgb, float alpha) {
-  if(l != null) {
-    l.tint(rgb,alpha);
+  if(get_layer() != null) {
+    get_layer().tint(rgb,alpha);
   } else {
     g.tint(rgb,alpha);
   }
 }
 
 void tint(float gray) {
-  if(l != null) {
-    l.tint(gray);
+  if(get_layer() != null) {
+    get_layer().tint(gray);
   } else {
     g.tint(gray);
   }
 }
 
 void tint(float gray, float alpha) {
-  if(l != null) {
-    l.tint(gray,alpha);
+  if(get_layer() != null) {
+    get_layer().tint(gray,alpha);
   } else {
     g.tint(gray,alpha);
   }
 }
 
 void tint(float v1, float v2, float v3) {
-  if(l != null) {
-    l.tint(v1,v2,v3);
+  if(get_layer() != null) {
+    get_layer().tint(v1,v2,v3);
   } else {
     g.tint(v1,v2,v3);
   }
 }
 
 void tint(float v1, float v2, float v3, float alpha) {
-  if(l != null) {
-    l.tint(v1,v2,v3,alpha);
+  if(get_layer() != null) {
+    get_layer().tint(v1,v2,v3,alpha);
   } else {
     g.tint(v1,v2,v3,alpha);
   }
@@ -1143,8 +1266,8 @@ void tint(float v1, float v2, float v3, float alpha) {
 blend
 */
 void blend(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, int mode) {
-  if(l != null) {
-    l.blend(sx,sy,sw,sh,dx,dy,dw,dh,mode);
+  if(get_layer() != null) {
+    get_layer().blend(sx,sy,sw,sh,dx,dy,dw,dh,mode);
   } else {
     g.blend(sx,sy,sw,sh,dx,dy,dw,dh,mode);
   }
@@ -1152,8 +1275,8 @@ void blend(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, int m
 
 
 void blend(PImage src, int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, int mode) {
-  if(l != null) {
-    l.blend(src,sx,sy,sw,sh,dx,dy,dw,dh,mode);
+  if(get_layer() != null) {
+    get_layer().blend(src,sx,sy,sw,sh,dx,dy,dw,dh,mode);
   } else {
     g.blend(src,sx,sy,sw,sh,dx,dy,dw,dh,mode);
   }
@@ -1164,101 +1287,53 @@ void blend(PImage src, int sx, int sy, int sw, int sh, int dx, int dy, int dw, i
 filter
 */
 void filter(PShader shader) {
-  if(l != null) {
-    l.filter(shader);
+  if(get_layer() != null) {
+    get_layer().filter(shader);
   } else {
     g.filter(shader);
   }
 }
 
 void filter(int kind) {
-  if(l != null) {
-    l.filter(kind);
+  if(get_layer() != null) {
+    get_layer().filter(kind);
   } else {
     g.filter(kind);
   }
 }
 
 void filter(int kind, float param) {
-  if(l != null) {
-    l.filter(kind,param);
+  if(get_layer() != null) {
+    get_layer().filter(kind,param);
   } else {
     g.filter(kind,param);
   }
 }
 
 
-/**
-get
-*/
-int get(int x, int y) {
-  if(l != null) {
-    return l.get(x,y);
-  } else {
-    return g.get(x,y);
-  }
-} 
 
-
-PImage get(int x, int y, int w, int h) {
-  if(l != null) {
-    return l.get(x,y,w,h);
-  } else {
-    return g.get(x,y,w,h);
-  }
-}
-
-
-PImage get() {
-  if(l != null) {
-    return l.get();
-  } else {
-    return g.get();
-  }
-}
-
-
-/**
-loadPixels()
-*/
-void loadPixels() {
-  if(l != null) {
-    l.loadPixels();
-  } else {
-    g.loadPixels();
-  }
-}
 
 /**
 set
 */
 void set(int x, int y, int c) {
-  if(l != null) {
-    l.set(x,y,c);
+  if(get_layer() != null) {
+    get_layer().set(x,y,c);
   } else {
     g.set(x,y,c);
   }
 }
 
 void set(int x, int y, PImage img) {
-  if(l != null) {
-    l.set(x,y,img);
+  if(get_layer() != null) {
+    get_layer().set(x,y,img);
   } else {
     g.set(x,y,img);
   }
 }
 
 
-/**
-updatePixels()
-*/
-void updatePixels() {
-  if(l != null) {
-    l.updatePixels();
-  } else {
-    g.updatePixels();
-  }
-}
+
 
   
 
