@@ -7,6 +7,8 @@ because your 3D never gone on front of your last layer, but i'm pretty sure that
 
 With layer method you can use all graphic Processing method as before, rope layer create a ghost processing method to apply method on you PGraphics layer
 
+@see https://github.com/StanLepunK/Rope_examples/tree/master/layer_PGraphics_method
+
 Process :
 *INIT
 
