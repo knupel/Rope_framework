@@ -8,11 +8,12 @@ guide to code here:
 * @see https://github.com/StanLepunK/Rope/tree/master/Guide
 */
 
-PImage img;
+PFont myFont;
 void setup() {
   size(300,300,P3D);
-  img = loadImage("jpg file/banc_public_small.jpg");
   init_layer(width,height,2);
+
+  myFont = createFont("Minion-Black", 32);
 }
 
 
@@ -38,12 +39,17 @@ void draw() {
   rotate_x += .01;
   rotate_y += .02;
   begin_layer();
-  background_rope(0);
+  background_rope(0,255,0);
+    fill(0, 102, 153, 204);
+  // textSize(50);
+  textFont(myFont);
+  text("bonjour",mouseX,mouseY);
   translate(width/2,height/2);
   pushMatrix();
   
   rotateX(rotate_x);
   rotateY(rotate_y);
+
   box(150);
 
 
