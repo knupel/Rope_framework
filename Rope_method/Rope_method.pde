@@ -1,79 +1,51 @@
 /**
 ROPE - Romanesco processing environment – 
-* Copyleft (c) 2014-2018
+* Copyleft (c) 2014-2017
 * Stan le Punk
-* @see https://github.com/StanLepunK
-* @see http://stanlepunk.xyz/
-guide to code here: 
-* @see https://github.com/StanLepunK/Rope/tree/master/Guide
+* https://github.com/StanLepunK
+* http://stanlepunk.xyz/
 */
+/**
+* Example to add few shader effect on a same picture, to do that you need to pass by a PGraphics system
+*/
+PImage img_1, img_2, img_3 ;
+PGraphics pg, pg_inc ;
 
-PFont myFont;
 void setup() {
-  size(300,300,P3D);
-  init_layer(width,height,2);
+  size (100,100,P3D) ;
+  frameRate(180);
+  img_1 = loadImage("jpg file/banc_public_small.jpg");
+  img_2 = loadImage("jpg file/petite_puros_girl.jpg");
+  img_3 = loadImage("jpg file/pirate_small.jpg");
+  surface.setSize(img_1.width, img_1.height);
 
-  myFont = createFont("Minion-Black", 32);
+  pg = createGraphics(width,height,P2D);
+  pg_inc = createGraphics(pg.width,pg.height,P2D);
 }
 
 
-float rotate_x;
-float rotate_y;
 void draw() {
-  // first layer
-  select_layer(0);
-  begin_layer();
+  background(0);
+  println(frameRate);
+   
+  float ratio_x = abs(sin(frameCount * .001));
+  float ratio_y = abs(cos(frameCount * .002));
+  float ratio_z = abs(sin(frameCount * .005));
+ 
 
-  for(int i = 0; i < 200;i++) {
-    int x = (int)random(width);
-    int y = (int)random(height);
-    int c = color(255,0,0);
-    set(x,y,c);
-  }
-  //updatePixels();
+  pg.beginDraw();
+  // overlay_flip(true,true);
+  overlay(pg, img_2, img_2, ratio_x, ratio_y, ratio_z);
+  pg.endDraw();
 
-  end_layer();
+  pg_inc.beginDraw() ;
+  pg_inc.image(img_1,0,0);
+  pg_inc.endDraw();
 
-  // second layer
-  select_layer(1);
-  rotate_x += .01;
-  rotate_y += .02;
-  begin_layer();
-  background_rope(0,255,0);
-    fill(0, 102, 153, 204);
-  // textSize(50);
-  textFont(myFont);
-  text("bonjour",mouseX,mouseY);
-  translate(width/2,height/2);
-  pushMatrix();
-  
-  rotateX(rotate_x);
-  rotateY(rotate_y);
+  pg.beginDraw();
+  mix_flip(true,true);
+  mix(pg, pg, pg_inc, ratio_x, ratio_y, ratio_z);
+  pg.endDraw();
 
-  box(150);
-
-
-  popMatrix();
-
-  end_layer();
-
-  g.image(get_layer(1),0,0);
-  g.image(get_layer(0),mouseX,0);
-
+  image(pg);
 }
-
-
-void mousePressed() {
-  clear_layer(0);
-}
-
-
-
-
-
-
-
-
-
-
-
