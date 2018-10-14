@@ -1,7 +1,7 @@
 /**
 ROPE PGraphics LAYER METHOD
 2018-2018
-v 0.1.2
+v 0.1.3
 those ghost method is here like a filter between rope and Processing 
 in case the coder want use a PGraphics layer before to implement in the Processing rendering
 */
@@ -89,14 +89,22 @@ void clear_layer(int target) {
 }
 
 
+
+
+/**
+GET LAYER
+* May be the method can be improve by using a PGraphics template for buffering instead usin a calling method ????
+*/
 // get layer
 PGraphics get_layer() {
   return get_layer(which_rope_layer);
 }
 
+
 PGraphics get_layer(int target) {
   if(rope_layer == null) {
-    return null;
+    printErrTempo(180,"void get_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
+    return g;
   } else if(target > -1 && target < rope_layer.length) {
     return rope_layer[target];
   } else {
@@ -107,15 +115,29 @@ PGraphics get_layer(int target) {
 }
 
 
+
+
+
+
+
+
+
+
+
 // select layer
 void select_layer(int target) {
-  if(target > -1 && target < rope_layer.length) {
-    which_rope_layer = target;
+  if(rope_layer != null) {
+    if(target > -1 && target < rope_layer.length) {
+      which_rope_layer = target;
+    } else {
+      which_rope_layer = 0;
+      String warning = ("void select_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
+      printErr(warning);
+    }
   } else {
-    which_rope_layer = 0;
-    String warning = ("void select_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
-    printErr(warning);
+    printErrTempo(180,"void select_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
   }
+  
 }
 
 
@@ -1088,10 +1110,8 @@ matrix
 
 void pushMatrix() {
   if(get_layer() != null) {
-    println("get_layer() pushMatrix()");
     get_layer().pushMatrix();
   } else {
-    println("g pushMatrix()");
     g.pushMatrix();
   }
 }
