@@ -1,7 +1,7 @@
 /**
 ROPE PGraphics LAYER METHOD
 2018-2018
-v 0.1.3
+v 0.2.1
 those ghost method is here like a filter between rope and Processing 
 in case the coder want use a PGraphics layer before to implement in the Processing rendering
 */
@@ -13,7 +13,6 @@ boolean warning_rope_layer;
 int which_rope_layer = 0;
 
 // init
-
 void init_layer() {
   init_layer(width,height,get_renderer(),1);
 }
@@ -57,7 +56,12 @@ void end_layer() {
   }
 }
 
-
+// num
+int get_layer_num() {
+  if(rope_layer != null) {
+    return  rope_layer.length ;
+  } else return -1;  
+}
 
 // clear layer
 void clear_layer() {
@@ -103,7 +107,7 @@ PGraphics get_layer() {
 
 PGraphics get_layer(int target) {
   if(rope_layer == null) {
-    printErrTempo(180,"void get_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
+//    printErrTempo(180,"void get_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
     return g;
   } else if(target > -1 && target < rope_layer.length) {
     return rope_layer[target];
@@ -143,7 +147,39 @@ void select_layer(int target) {
 
 
 
+  
+// colorMode
+void colorMode(int mode) {
+  if(get_layer() != null) {
+    get_layer().colorMode(mode);
+  } else {
+    g.colorMode(mode);
+  }
+}
 
+void colorMode(int mode, float max) {
+  if(get_layer() != null) {
+    get_layer().colorMode(mode,max);
+  } else {
+    g.colorMode(mode,max);
+  } 
+}
+
+
+void colorMode(int mode, float max1, float max2, float max3) {
+  if(get_layer() != null) {
+    get_layer().colorMode(mode,max1,max2,max3);
+  } else {
+    g.colorMode(mode,max1,max2,max3);
+  }
+}
+void colorMode(int mode, float max1, float max2, float max3, float maxA) {
+  if(get_layer() != null) {
+    get_layer().colorMode(mode,max1,max2,max3,maxA);
+  } else {
+    g.colorMode(mode,max1,max2,max3,maxA);
+  }
+}
 
 
 

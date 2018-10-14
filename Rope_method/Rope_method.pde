@@ -10,6 +10,9 @@ ROPE - Romanesco processing environment –
 void setup() {
   size (300,300,P3D);
   init_layer();
+  begin_layer();
+  get_layer(0).colorMode(HSB,360,100,100);
+  end_layer();
 
 }
 
@@ -39,9 +42,9 @@ float rotate_x,rotate_y;
 void work_widthout_layer() {
     rotate_x += .01;
     rotate_y += .02;
-  background_rope(255,0,255);
-  fill(255);
-  stroke(255);
+  background_rope(0,0,100);
+  fill(0,100,100);
+  stroke(0,0,0);
   strokeWeight(1);
   pushMatrix();
   
