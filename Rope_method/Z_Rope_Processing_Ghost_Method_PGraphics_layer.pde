@@ -1,7 +1,7 @@
 /**
 ROPE PGraphics LAYER METHOD
 2018-2018
-v 0.0.7
+v 0.1.2
 those ghost method is here like a filter between rope and Processing 
 in case the coder want use a PGraphics layer before to implement in the Processing rendering
 */
@@ -13,6 +13,16 @@ boolean warning_rope_layer;
 int which_rope_layer = 0;
 
 // init
+
+void init_layer() {
+  init_layer(width,height,get_renderer(),1);
+}
+
+
+void init_layer(int num) {
+  init_layer(width,height,get_renderer(),num);
+}
+
 void init_layer(int x, int y) {
   init_layer(x,y, get_renderer(),1);
 }
@@ -159,6 +169,15 @@ void rotateY(float arg) {
     get_layer().rotateY(arg);
   } else {
     g.rotateY(arg);
+  }
+}
+
+
+void rotateZ(float arg) {
+  if(get_layer() != null) {
+    get_layer().rotateZ(arg);
+  } else {
+    g.rotateZ(arg);
   }
 }
 
@@ -1066,10 +1085,13 @@ void perspective(float fovy, float aspect, float zNear, float zFar) {
 /**
 matrix
 */
+
 void pushMatrix() {
   if(get_layer() != null) {
+    println("get_layer() pushMatrix()");
     get_layer().pushMatrix();
   } else {
+    println("g pushMatrix()");
     g.pushMatrix();
   }
 }
@@ -1082,6 +1104,7 @@ void popMatrix() {
     g.popMatrix();
   }
 }
+
 
 // apply matrix
 void applyMatrix(PMatrix source) {
@@ -1322,6 +1345,10 @@ void set(int x, int y, int c) {
   if(get_layer() != null) {
     get_layer().set(x,y,c);
   } else {
+    /*
+    x *= displayDensity();
+    y *= displayDensity();
+    */
     g.set(x,y,c);
   }
 }
@@ -1330,6 +1357,10 @@ void set(int x, int y, PImage img) {
   if(get_layer() != null) {
     get_layer().set(x,y,img);
   } else {
+    /*
+    x *= displayDensity();
+    y *= displayDensity();
+    */
     g.set(x,y,img);
   }
 }

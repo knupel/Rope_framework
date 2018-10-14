@@ -1,7 +1,3 @@
-*shader filter
-
-problem with class Warp, maybe it's the method filter
-
 *Resize image 
 
 Problem with CMJN jpg
