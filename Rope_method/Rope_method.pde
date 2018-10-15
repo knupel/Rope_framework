@@ -16,11 +16,11 @@ void setup() {
 
 }
 
-
+Obj obj = new Obj(this);
 void draw() {
   background(0);
   begin_layer();
-  work_widthout_layer();
+  obj.work_widthout_layer();
   /*
 
     background_rope(255,0,255);
@@ -38,25 +38,48 @@ void draw() {
 
 }
 
-float rotate_x,rotate_y;
-void work_widthout_layer() {
-    rotate_x += .01;
-    rotate_y += .02;
-  background_rope(0,0,100);
-  fill(0,100,100);
-  stroke(0,0,0);
-  strokeWeight(1);
-  pushMatrix();
-  Vec3 v = Vec3(width/2,height/2,width/3);
-  translate(v);
-  // translate(width/2,height/2,width/3);
-  rotateX(rotate_x);
-  rotateZ(rotate_y);
+abstract class Ghost {
+  protected PVector pos, rot, sca;
+  void applyTransforms() {
 
-  box(100);
-  popMatrix();
+    translate(pos.x,pos.y,pos.z);
+    rotateX(rot.x);
+    rotateY(rot.y);
+    rotateZ(rot.z);
+    //scale(sca.x, sca.y, sca.z);
+  }
 
 }
+class Obj extends Ghost {
+  PApplet pa ;
+  Obj(PApplet pa) {
+    this.pa = pa ;
+    rot = new PVector();
+  }
+  void work_widthout_layer() {
+    // pushStyle();
+    rot.x += .01;
+    rot.y += .02;
+    rot.z += .005;
+    
+    background_rope(0,0,100);
+    fill(0,100,100);
+    stroke(0,0,0);
+    strokeWeight(1);
+        
+    pos = new PVector(mouseX,height/2,width/3);
+
+    pushMatrix(); 
+    rectMode(CENTER);
+    applyTransforms();
+    rect(0,0,width,height);
+    box(100);
+    popMatrix();
+    //popStyle();
+
+  }
+}
+
 
 
 
