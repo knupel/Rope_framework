@@ -47,8 +47,9 @@ void work_widthout_layer() {
   stroke(0,0,0);
   strokeWeight(1);
   pushMatrix();
-  
-  translate(width/2,height/2,width/3);
+  Vec3 v = Vec3(width/2,height/2,width/3);
+  translate(v);
+  // translate(width/2,height/2,width/3);
   rotateX(rotate_x);
   rotateZ(rotate_y);
 

@@ -1,17 +1,16 @@
 /**
 ROPE METHOD
-v 2.0.0
+v 2.0.2
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
-* PROCESSING GHOST METHOD
-* based on Processing 3.4
+
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
 
 
 /**
-ADVANCED PROCESSING GHOST METHOD
+ADVANCED GHOST METHOD
 v 1.0.0
 All advanced ghost push Processing method further.
 Processing and Vec, iVec and bVec method
@@ -614,15 +613,24 @@ Translate
 */
 // Vec
 void translate(Vec3 t) {
-  if(renderer_P3D()) translate(t.x, t.y, t.z) ; else translate(t.x, t.y);
+  if(renderer_P3D()) {
+    translate(t.x,t.y,t.z); 
+  } else {
+    translate(t.x,t.y);
+  }
 }
 
 void translate(Vec2 t){
-  translate(t.x,t.y);
+  translate(round(t.x),round(t.y));
 }
+
 // iVec
 void translate(iVec3 t){
-  if(renderer_P3D()) translate(t.x, t.y, t.z) ; else translate(t.x, t.y);
+  if(renderer_P3D()) {
+    translate(t.x,t.y,t.z); 
+  } else {
+    translate(t.x,t.y);
+  }
 }
 
 void translate(iVec2 t){
@@ -906,6 +914,8 @@ void matrix_start() {
 
 /**
 GHOST METHODS for PROCESSING
+2018-2018
+v 0.1.1
 */
 // colorMode
 void colorMode(int mode) {
@@ -946,7 +956,7 @@ void colorMode(int mode, float max1, float max2, float max3, float maxA) {
 // Processing ghost method
 
 // position
-void translate(int x, int y) {
+void translate(float x, float y) {
   if(get_layer() != null) {
     get_layer().translate(x,y);
   } else {
@@ -954,7 +964,7 @@ void translate(int x, int y) {
   }
 }
 
-void translate(int x, int y, int z) {
+void translate(float x, float y, float z) {
   if(get_layer() != null) {
     get_layer().translate(x,y,z);
   } else {
@@ -1841,6 +1851,23 @@ void camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, fl
     get_layer().camera(eyeX,eyeY,eyeZ,centerX,centerY,centerZ,upX,upY,upZ);
   } else {
     g.camera(eyeX,eyeY,eyeZ,centerX,centerY,centerZ,upX,upY,upZ);
+  }
+}
+
+
+void beginCamera() {
+  if(get_layer() != null) {
+    get_layer().beginCamera();
+  } else {
+    g.beginCamera();
+  }
+}
+
+void endCamera() {
+  if(get_layer() != null) {
+    get_layer().endCamera();
+  } else {
+    g.endCamera();
   }
 }
 
