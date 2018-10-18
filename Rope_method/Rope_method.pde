@@ -8,35 +8,28 @@ ROPE - Romanesco processing environment –
 
 
 void setup() {
+  print_constants_rope();
+  /*
   size (300,300,P3D);
   init_layer();
   begin_layer();
   get_layer(0).colorMode(HSB,360,100,100);
   end_layer();
+  */
 
 }
-
+/*
 Obj obj = new Obj(this);
 void draw() {
   background(0);
   begin_layer();
   obj.work_widthout_layer();
-  /*
-
-    background_rope(255,0,255);
-    translate(width/2,height/2,width/3);
-    pushMatrix();
-    
-    rotateX(rotate_x);
-    rotateY(rotate_y);
-    box(100);
-        popMatrix();
-        */
 
   end_layer();
   g.image(get_layer(),0,0);
 
 }
+*/
 
 abstract class Ghost {
   protected PVector pos, rot, sca;

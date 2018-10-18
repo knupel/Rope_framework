@@ -133,13 +133,6 @@ PGraphics get_layer(int target) {
 
 
 
-
-
-
-
-
-
-
 // select layer
 void select_layer(int target) {
   if(rope_layer != null) {

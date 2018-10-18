@@ -275,9 +275,9 @@ Vec2 norm_dir(String type, float direction);
 
 Color
 --
-Vec4 color_HSB_a(int c);
+Vec4 color_HSBA(int c);
 
-Vec4 color_RGB_a(int c);
+Vec4 color_RGBA(int c);
 
 Vec3 color_HSB(int c);
 
