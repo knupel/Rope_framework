@@ -6,72 +6,29 @@ ROPE - Romanesco processing environment –
 * http://stanlepunk.xyz/
 */
 
-
 void setup() {
-  print_constants_rope();
-  /*
-  size (300,300,P3D);
-  init_layer();
-  begin_layer();
-  get_layer(0).colorMode(HSB,360,100,100);
-  end_layer();
-  */
-
+  size(600,600);
 }
-/*
-Obj obj = new Obj(this);
 void draw() {
-  background(0);
-  begin_layer();
-  obj.work_widthout_layer();
-
-  end_layer();
-  g.image(get_layer(),0,0);
-
+  background(255);
+  Vec2 f = follow(mouseX,mouseY,-.25);
+  pointer(color(255,0,0),f.x,f.y);
+  // pointer(color(255,0,0),pmouseX,pmouseY);
+  // pointer(color(0),mouseX,mouseY);
 }
-*/
 
-abstract class Ghost {
-  protected PVector pos, rot, sca;
-  void applyTransforms() {
 
-    translate(pos.x,pos.y,pos.z);
-    rotateX(rot.x);
-    rotateY(rot.y);
-    rotateZ(rot.z);
-    //scale(sca.x, sca.y, sca.z);
-  }
 
+void pointer(int c, float x, float y) {
+  noStroke();
+  fill(c);
+  pushMatrix();
+  translate(x,y);
+  ellipse(0,0,20,20);
+  popMatrix();
 }
-class Obj extends Ghost {
-  PApplet pa ;
-  Obj(PApplet pa) {
-    this.pa = pa ;
-    rot = new PVector();
-  }
-  void work_widthout_layer() {
-    // pushStyle();
-    rot.x += .01;
-    rot.y += .02;
-    rot.z += .005;
-    
-    background_rope(0,0,100);
-    fill(0,100,100);
-    stroke(0,0,0);
-    strokeWeight(1);
-        
-    pos = new PVector(mouseX,height/2,width/3);
 
-    pushMatrix(); 
-    rectMode(CENTER);
-    applyTransforms();
-    rect(0,0,width,height);
-    box(100);
-    popMatrix();
-    //popStyle();
 
-  }
-}
 
 
 

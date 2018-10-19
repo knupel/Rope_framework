@@ -1,7 +1,11 @@
 
 Method Motion
 --
+Vec2 follow(float target_x, float target_y, float speed);
+
 Vec2 follow(Vec2 target, float speed);
+
+Vec3 follow(float target_x, float target_y, float target_y, float speed);
 
 Vec3 follow(Vec3 target, float speed);
 
