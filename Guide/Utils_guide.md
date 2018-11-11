@@ -1036,6 +1036,15 @@ float map_smooth_end(float value, float sourceMin, float sourceMax, float target
 
 STRING
 --
+write message
+--
+String write_message(Object... obj);
+> return String with all your object separate by String mark = " ";
+
+String write_message_sep(String mark, Object... obj)
+> return String with all your object separate by your String mark parameter;
+
+
 remove element of the sketchPath
 --
 String sketchPath(int minus);
