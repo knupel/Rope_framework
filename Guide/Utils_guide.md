@@ -940,7 +940,7 @@ Info(String name,type  a,type b,type c,type d,type e,type f,type g);
 
 
 
-SCREEN
+SCREEN / WINDOW
 --
 void set_window(int px, int py, int sx, int sy);
 
@@ -972,6 +972,12 @@ int get_screen_num();
 >return the number of screen available
 Processing renderer
 
+
+int get_sketch_location_x() {
+>return your sketch location in x
+
+int get_sketch_location_y()
+>return your sketch location in y
 
 String get_renderer();
 >return String name of the current rendering mode

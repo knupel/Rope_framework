@@ -7,13 +7,16 @@ ROPE - Romanesco processing environment –
 */
 
 void setup() {
-  printErrTempo(60,"truc","bidule");
-  println(write_message("/","machin","bidule",1));
-  println(write_message_sep("/","machin","bidule",1));
+	size(500,500);
 }
 
 
-
+void draw() {
+	println(mouseX,mouseY);
+	println("where is my sketch",sketchDisplay());
+	println(surface.window.getX());
+	// println("where is my sketch",get_renderer());
+}
 
 
 

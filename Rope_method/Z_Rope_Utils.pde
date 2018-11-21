@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.48.5
+v 1.49.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -4386,6 +4386,27 @@ Rectangle get_screen(int target_screen) {
   GraphicsDevice awtDisplayDevice = awtDevices[target];
   Rectangle display = awtDisplayDevice.getDefaultConfiguration().getBounds();
   return display;
+}
+
+
+
+/**
+sketch location 
+*/
+int get_sketch_location_x() {
+  return getJFrame(getSurface()).getX();
+}
+
+int get_sketch_location_y() {
+  return getJFrame(getSurface()).getY();
+}
+
+ 
+static final javax.swing.JFrame getJFrame(final PSurface surface) {
+  return (javax.swing.JFrame)
+  (
+    (processing.awt.PSurfaceAWT.SmoothCanvas) surface.getNative()
+  ).getFrame();
 }
 
 
