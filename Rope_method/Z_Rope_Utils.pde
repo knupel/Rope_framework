@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.49.0
+v 1.49.1
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -4392,25 +4392,48 @@ Rectangle get_screen(int target_screen) {
 
 /**
 sketch location 
+0.0.2
 */
 iVec2 get_sketch_location() {
   return iVec2(get_sketch_location_x(),get_sketch_location_y());
 }
+
 int get_sketch_location_x() {
-  return getJFrame(getSurface()).getX();
+  if(get_renderer() != P3D && get_renderer() != P2D) {
+    return getJFrame(surface).getX();
+  } else {
+    return get_rectangle(surface).getX();
+
+  }
+  
 }
 
 int get_sketch_location_y() {
-  return getJFrame(getSurface()).getY();
+  if(get_renderer() != P3D && get_renderer() != P2D) {
+    return getJFrame(surface).getY();
+  } else {
+    return get_rectangle(surface).getY();
+  }
 }
 
- 
+
+com.jogamp.nativewindow.util.Rectangle get_rectangle(PSurface surface) {
+  com.jogamp.newt.opengl.GLWindow window = (com.jogamp.newt.opengl.GLWindow) surface.getNative();
+  com.jogamp.nativewindow.util.Rectangle rectangle = window.getBounds();
+  return rectangle;
+}
+
+
 static final javax.swing.JFrame getJFrame(final PSurface surface) {
   return (javax.swing.JFrame)
   (
     (processing.awt.PSurfaceAWT.SmoothCanvas) surface.getNative()
   ).getFrame();
 }
+
+
+
+
 
 
 
