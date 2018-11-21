@@ -10,12 +10,18 @@ void setup() {
 	size(500,500);
 }
 
-
+iVec2 ref_sketch_location;
 void draw() {
-	println(mouseX,mouseY);
-	println("where is my sketch",sketchDisplay());
-	println(surface.window.getX());
-	// println("where is my sketch",get_renderer());
+	if(ref_sketch_location == null) {
+		ref_sketch_location = get_sketch_location().copy();
+		println(ref_sketch_location,frameCount);
+	} else {
+		if(!ref_sketch_location.equals(get_sketch_location())) {
+			ref_sketch_location.set(get_sketch_location());
+			println(ref_sketch_location,frameCount);
+		}
+	}
+	
 }
 
 

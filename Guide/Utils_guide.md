@@ -972,12 +972,15 @@ int get_screen_num();
 >return the number of screen available
 Processing renderer
 
+iVec2 get_sketch_location()
+>return the iVec2 of your sketch location
 
 int get_sketch_location_x() {
 >return your sketch location in x
 
 int get_sketch_location_y()
 >return your sketch location in y
+
 
 String get_renderer();
 >return String name of the current rendering mode

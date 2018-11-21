@@ -4393,6 +4393,9 @@ Rectangle get_screen(int target_screen) {
 /**
 sketch location 
 */
+iVec2 get_sketch_location() {
+  return iVec2(get_sketch_location_x(),get_sketch_location_y());
+}
 int get_sketch_location_x() {
   return getJFrame(getSurface()).getX();
 }
