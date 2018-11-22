@@ -201,11 +201,11 @@ boolean compare(Vec4 a, Vec4 b, Vec4 area);
 
 Map
 --
-Vec2 map_vec(Vec2 v,float minIn, float maxIn, float minOut, float maxOut);
+Vec2 map(Vec2 v,float minIn, float maxIn, float minOut, float maxOut);
 
-Vec3 map_vec(Vec3 v,float minIn, float maxIn, float minOut, float maxOut);
+Vec3 map(Vec3 v,float minIn, float maxIn, float minOut, float maxOut);
 
-Vec4 map_vec(Vec4 v,float minIn, float maxIn, float minOut, float maxOut);
+Vec4 map(Vec4 v,float minIn, float maxIn, float minOut, float maxOut);
 
 
 Magnitude or length
