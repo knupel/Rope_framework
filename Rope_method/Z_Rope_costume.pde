@@ -1,7 +1,7 @@
 /**
 Rope Costume
 * Copyleft (c) 2014-2018
-v 1.4.1
+v 1.4.3
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
@@ -185,7 +185,7 @@ int costumes_size() {
 
 /**
 ASPECT ROPE 2016-2018
-v 0.1.2
+v 0.1.3
 */
 void aspect_is(boolean fill_is, boolean stroke_is) {
 	fill_rope_is = fill_is ;
@@ -213,6 +213,10 @@ void aspect_rope(int fill, int stroke, float thickness) {
   }
   //
   init_bool_aspect();
+}
+
+void aspect_rope(int fill, int stroke, float thickness, Costume costume) {
+	aspect_rope(fill,stroke,thickness,costume.get_type());
 }
 
 void aspect_rope(int fill, int stroke, float thickness, int costume) {
@@ -264,6 +268,11 @@ void aspect_rope(Vec fill, Vec stroke, float thickness) {
   //
   init_bool_aspect();
 }
+
+void aspect_rope(Vec fill, Vec stroke, float thickness, Costume costume) {
+	aspect_rope(fill,stroke,thickness,costume.get_type());
+}
+
 
 void aspect_rope(Vec fill, Vec stroke, float thickness, int costume) {
   if(costume == r.NULL) {
@@ -554,54 +563,90 @@ DISPLAY
 /**
 Costume selection in shape catalogue
 */
-void costume(Vec pos, int size_int, int which_costume) {
+void costume(Vec pos, int size_int, Object data) {
+	int which_costume = 0;
+	String sentence = null;
+	if(data instanceof Costume) {
+		which_costume = ((Costume)data).get_type();
+	} else if(data instanceof Integer) {
+		which_costume = (int)data;
+	} else if(data instanceof String) {
+		sentence = (String)data;
+		which_costume = MAX_INT;
+	}
+
+	// int which_costume = cast_data(costume_obj);
 	Vec3 rotation = Vec3();
 	Vec3 size = Vec3(size_int);
-	costume(pos, size, rotation, which_costume,null);
+	if(sentence == null) {
+		costume(pos, size, rotation, which_costume,null);
+	} else {
+		costume(pos,size,rotation,which_costume,sentence);
+	}
 }
 
-void costume(Vec pos, Vec size, int which_costume) {
+void costume(Vec pos, Vec size, Object data) {
+	int which_costume = 0;
+	String sentence = null;
+	if(data instanceof Costume) {
+		which_costume = ((Costume)data).get_type();
+	} else if(data instanceof Integer) {
+		which_costume = (int)data;
+	} else if(data instanceof String) {
+		sentence = (String)data;
+		which_costume = MAX_INT;
+	}
+
 	Vec3 rotation = Vec3() ;
-	costume(pos, size, rotation, which_costume,null);
+	if(sentence == null) {
+		costume(pos,size,rotation,which_costume,null);
+	} else {
+		costume(pos,size,rotation,which_costume,sentence);
+	}
+	// costume(pos, size, rotation, which_costume,null);
 }
 
-void costume(Vec pos, Vec size, float rotation, int which_costume) {
-	costume(pos, size, Vec3(0,0,rotation), which_costume,null);
+void costume(Vec pos, Vec size, float rotation, Object data) {
+	int which_costume = 0;
+	String sentence = null;
+	if(data instanceof Costume) {
+		which_costume = ((Costume)data).get_type();
+	} else if(data instanceof Integer) {
+		which_costume = (int)data;
+	} else if(data instanceof String) {
+		sentence = (String)data;
+		which_costume = MAX_INT;
+	}
+
+	if(sentence == null) {
+		costume(pos, size, Vec3(0,0,rotation),which_costume,null);
+	} else {
+		costume(pos,size,Vec3(0,0,rotation),which_costume,sentence);
+	}
 }
 
 
-void costume(Vec pos, Vec size, Vec rotation, int which_costume) {
-	String s = null;
-	//float angle = 0 ;
-	costume(pos, size, rotation, which_costume, s);
+void costume(Vec pos, Vec size, Vec rotation, Object data) {
+	int which_costume = 0;
+	String sentence = null;
+	if(data instanceof Costume) {
+		which_costume = ((Costume)data).get_type();
+	} else if(data instanceof Integer) {
+		which_costume = (int)data;
+	} else if(data instanceof String) {
+		sentence = (String)data;
+		which_costume = MAX_INT;
+	}
+
+	if(sentence == null) {
+		costume(pos,size,rotation,which_costume);
+	} else {
+		costume(pos,size,rotation,which_costume,sentence);
+	}
 }
 
 
-/**
-Costume selection with String
-*/
-void costume(Vec pos, int size_int, String s) {
-	int which_costume = MAX_INT;
-	Vec3 rotation = Vec3();
-	Vec3 size = Vec3(size_int);
-	costume(pos,size,rotation,which_costume,s);
-}
 
-void costume(Vec pos, Vec size, String s) {
-	int which_costume = MAX_INT;
-	Vec3 rotation = Vec3();
-	costume(pos,size,rotation,which_costume,s);
-}
-
-void costume(Vec pos, Vec size, float rotation, String s)  {
-	int which_costume = MAX_INT ;
-	costume(pos,size,Vec3(0,0,rotation),which_costume,s);
-}
-
-void costume(Vec pos, Vec size, Vec rotation, String s)  {
-	int which_costume = MAX_INT ;
-	costume(pos,size,rotation,which_costume,s);
-}
 
 
 
@@ -696,292 +741,26 @@ void costume(Vec3 pos, Vec3 size, Vec rot, String sentence) {
 
 
 
+
+/**
+method to pass costume to class costume
+*/
 void costume(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 	Costume costume = new Costume(which_costume);
-	costume(pos,size,rot,costume);
+	costume.draw(pos,size,rot);
 }
-/**
-costume
-v 1.2.0
-*/
+
 void costume(Vec3 pos, Vec3 size, Vec rot, Costume costume) {
-
-	if(rot.x != 0) costume_rotate_x();
-	if(rot.y != 0) costume_rotate_y();
-	if(rot.z != 0) costume_rotate_z();
-
-	if (costume.get_type() == PIXEL_ROPE) {
-		set((int)pos.x,(int)pos.y,(int)get_fill_rope());
-	} else if (costume.get_type() == POINT_ROPE) {
-    strokeWeight(size.x);
-		point(pos);
-	} else if (costume.get_type() == ELLIPSE_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		ellipse(Vec2(),size);
-		stop_matrix();
-
-	} else if (costume.get_type() == RECT_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		rect(Vec2(-size.x,-size.y).div(2),Vec2(size.x,size.y));
-		stop_matrix();
-
-	} else if (costume.get_type() == LINE_ROPE) {
-		primitive(pos,size.x,2,rot.x);
-	}
-
-
-
-		else if (costume.get_type() == TRIANGLE_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		primitive(Vec3(0),size.x,3);
-		stop_matrix();
-	}  else if (costume.get_type() == SQUARE_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		primitive(Vec3(0),size.x,4);
-		stop_matrix();
-	} else if (costume.get_type() == PENTAGON_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		primitive(Vec3(0),size.x,5);
-		stop_matrix();
-	} else if (costume.get_type() == HEXAGON_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		primitive(Vec3(0),size.x,6);
-		stop_matrix() ;
-	} else if (costume.get_type() == HEPTAGON_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		primitive(Vec3(0),size.x,7);
-		stop_matrix();
-	} else if (costume.get_type() == OCTOGON_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot) ;
-		primitive(Vec3(0),size.x,8);
-		stop_matrix();
-	} else if (costume.get_type() == NONAGON_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot) ;
-		primitive(Vec3(0),size.x,9);
-		stop_matrix();
-	} else if (costume.get_type() == DECAGON_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot) ;
-		primitive(Vec3(0),size.x,10);
-		stop_matrix();
-	} else if (costume.get_type() == HENDECAGON_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot) ;
-		primitive(Vec3(0),size.x,11);
-		stop_matrix();
-	} else if (costume.get_type() == DODECAGON_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot) ;
-		primitive(Vec3(0),size.x,12);
-		stop_matrix();
-	}
-
-	else if (costume.get_type() == CROSS_RECT_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		cross_rect(iVec2(0),(int)size.y,(int)size.x);
-		stop_matrix() ;
-	} else if (costume.get_type() == CROSS_BOX_2_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		//cross_box_2(Vec2(size.x, size.y),ratio_size);
-		cross_box_2(Vec2(size.x, size.y));
-		stop_matrix() ;
-	} else if (costume.get_type() == CROSS_BOX_3_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		//cross_box_3(size,ratio_size);
-		cross_box_3(size);
-		stop_matrix();
-	}
-
-
-
-	  else if(costume.get_type() == TEXT_ROPE) {
-	  	start_matrix();
-	  	translate(pos);
-	  	rotate_behavior(rot);
-	  	textSize(size.x);
-	  	if(costume_text_rope != null) {
-	  		text(costume_text_rope,0,0);
-	  	} else {
-	  		costume_text_rope = "ROPE";
-	  		text(costume_text_rope,0,0);
-	  	}
-	  	stop_matrix();
-	  }
-
-
-
-
-		else if (costume.get_type() == SPHERE_LOW_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		sphereDetail(5);
-		sphere(size.x);
-		stop_matrix();
-	} else if (costume.get_type() == SPHERE_MEDIUM_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		sphereDetail(12);
-		sphere(size.x);
-		stop_matrix();
-	} else if (costume.get_type() == SPHERE_HIGH_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		sphere(size.x);
-		stop_matrix();
-	} else if (costume.get_type() == TETRAHEDRON_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		tetrahedron((int)size.x);
-		stop_matrix();
-	} else if (costume.get_type() == BOX_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		box(size);
-		stop_matrix();
-	}
-
-	/*
-	
-*/
-
-	else if (costume.get_type() == STAR_ROPE) {
-		float [] ratio = {.38};
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-
-		star_3D_is(false);
-		star(Vec3(),size);
-		stop_matrix();
-	} else if (costume.get_type() == STAR_3D_ROPE) {
-		float [] ratio = {.38};
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-
-		star_3D_is(true);
-		star(Vec3(),size);
-		stop_matrix();
-	} 
-
-
-	else if (costume.get_type() == TETRAHEDRON_LINE_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		polyhedron("TETRAHEDRON","LINE",(int)size.x);
-		stop_matrix();
-	} else if (costume.get_type() == CUBE_LINE_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		polyhedron("CUBE","LINE",(int)size.x);
-		stop_matrix();
-	} else if (costume.get_type() == OCTOHEDRON_LINE_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		polyhedron("OCTOHEDRON","LINE",(int)size.x);
-		stop_matrix();
-	} else if (costume.get_type() == RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		polyhedron("RHOMBIC COSI DODECAHEDRON SMALL","LINE",(int)size.x);
-		stop_matrix();
-	} else if (costume.get_type() == ICOSI_DODECAHEDRON_LINE_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		polyhedron("ICOSI DODECAHEDRON","LINE",(int)size.x);
-		stop_matrix();
-	}
-
-
-  else if(costume.get_type() == VIRUS_ROPE) {
-		start_matrix();
-		translate(pos);
-		rotate_behavior(rot);
-		virus(Vec3(),size,0,-1);
-		stop_matrix();
-	}
-
-
-
-	else if(costume.get_type() < 0) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		for(int i = 0 ; i < costume_pic_list.size() ; i++) {
-			Costume_pic p = costume_pic_list.get(i);
-			if(p.ID == costume.get_type()) {
-				if(p.type == 1) {
-					PImage img_temp = p.img.copy();
-					if(size.x == size.y ) {
-						img_temp.resize((int)size.x, 0);
-					} else if (size.x != size.y) {
-						img_temp.resize((int)size.x, (int)size.y);
-					}
-					image(img_temp,0,0);
-					break ;
-				} else if(p.type == 2) {
-					Vec2 scale = Vec2(1) ;
-					if(size.x == size.y) {
-            scale = Vec2(size.x / p.svg.width(), size.x / p.svg.width());
-					} else {
-						scale = Vec2(size.x / p.svg.width(), size.y / p.svg.height());
-					}
-					
-					p.svg.scaling(scale) ;
-					p.svg.draw() ;
-					break ;
-				}		
-			}
-		}
-		stop_matrix() ;
-	}
-
-  // reset variable can be change the other costume, if the effect is don't use.
-	ratio_costume_size = 1;
+	//Costume costume = new Costume(which_costume);
+	costume.draw(pos,size,rot);
 }
+
 
 
 /**
 class Costume 
 2018-2018
-v 0.0.1
+v 0.0.3
 */
 class Costume {
 	int type;
@@ -1074,6 +853,272 @@ class Costume {
 
 	public boolean is_vertex() {
 		return is_vertex;
+	}
+
+	void draw(Vec3 pos, Vec3 size, Vec rot) {
+		if(rot.x != 0) costume_rotate_x();
+		if(rot.y != 0) costume_rotate_y();
+		if(rot.z != 0) costume_rotate_z();
+
+		if (this.get_type() == PIXEL_ROPE) {
+			set((int)pos.x,(int)pos.y,(int)get_fill_rope());
+		} else if (this.get_type() == POINT_ROPE) {
+	    strokeWeight(size.x);
+			point(pos);
+		} else if (this.get_type() == ELLIPSE_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			ellipse(Vec2(),size);
+			stop_matrix();
+
+		} else if (this.get_type() == RECT_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			rect(Vec2(-size.x,-size.y).div(2),Vec2(size.x,size.y));
+			stop_matrix();
+
+		} else if (this.get_type() == LINE_ROPE) {
+			primitive(pos,size.x,2,rot.x);
+		}
+
+
+
+			else if (this.get_type() == TRIANGLE_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			primitive(Vec3(0),size.x,3);
+			stop_matrix();
+		}  else if (this.get_type() == SQUARE_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			primitive(Vec3(0),size.x,4);
+			stop_matrix();
+		} else if (this.get_type() == PENTAGON_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			primitive(Vec3(0),size.x,5);
+			stop_matrix();
+		} else if (this.get_type() == HEXAGON_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			primitive(Vec3(0),size.x,6);
+			stop_matrix() ;
+		} else if (this.get_type() == HEPTAGON_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			primitive(Vec3(0),size.x,7);
+			stop_matrix();
+		} else if (this.get_type() == OCTOGON_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot) ;
+			primitive(Vec3(0),size.x,8);
+			stop_matrix();
+		} else if (this.get_type() == NONAGON_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot) ;
+			primitive(Vec3(0),size.x,9);
+			stop_matrix();
+		} else if (this.get_type() == DECAGON_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot) ;
+			primitive(Vec3(0),size.x,10);
+			stop_matrix();
+		} else if (this.get_type() == HENDECAGON_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot) ;
+			primitive(Vec3(0),size.x,11);
+			stop_matrix();
+		} else if (this.get_type() == DODECAGON_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot) ;
+			primitive(Vec3(0),size.x,12);
+			stop_matrix();
+		}
+
+		else if (this.get_type() == CROSS_RECT_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			cross_rect(iVec2(0),(int)size.y,(int)size.x);
+			stop_matrix() ;
+		} else if (this.get_type() == CROSS_BOX_2_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			//cross_box_2(Vec2(size.x, size.y),ratio_size);
+			cross_box_2(Vec2(size.x, size.y));
+			stop_matrix() ;
+		} else if (this.get_type() == CROSS_BOX_3_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			//cross_box_3(size,ratio_size);
+			cross_box_3(size);
+			stop_matrix();
+		}
+
+
+
+	  else if(this.get_type() == TEXT_ROPE) {
+	  	start_matrix();
+	  	translate(pos);
+	  	rotate_behavior(rot);
+	  	textSize(size.x);
+	  	if(costume_text_rope != null) {
+	  		text(costume_text_rope,0,0);
+	  	} else {
+	  		costume_text_rope = "ROPE";
+	  		text(costume_text_rope,0,0);
+	  	}
+	  	stop_matrix();
+	  }
+
+		else if (this.get_type() == SPHERE_LOW_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			sphereDetail(5);
+			sphere(size.x);
+			stop_matrix();
+		} else if (this.get_type() == SPHERE_MEDIUM_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			sphereDetail(12);
+			sphere(size.x);
+			stop_matrix();
+		} else if (this.get_type() == SPHERE_HIGH_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			sphere(size.x);
+			stop_matrix();
+		} else if (this.get_type() == TETRAHEDRON_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			tetrahedron((int)size.x);
+			stop_matrix();
+		} else if (this.get_type() == BOX_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			box(size);
+			stop_matrix();
+		}
+
+
+		else if (this.get_type() == STAR_ROPE) {
+			float [] ratio = {.38};
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+
+			star_3D_is(false);
+			star(Vec3(),size);
+			stop_matrix();
+		} else if (this.get_type() == STAR_3D_ROPE) {
+			float [] ratio = {.38};
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+
+			star_3D_is(true);
+			star(Vec3(),size);
+			stop_matrix();
+		} 
+
+
+		else if (this.get_type() == TETRAHEDRON_LINE_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			polyhedron("TETRAHEDRON","LINE",(int)size.x);
+			stop_matrix();
+		} else if (this.get_type() == CUBE_LINE_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			polyhedron("CUBE","LINE",(int)size.x);
+			stop_matrix();
+		} else if (this.get_type() == OCTOHEDRON_LINE_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			polyhedron("OCTOHEDRON","LINE",(int)size.x);
+			stop_matrix();
+		} else if (this.get_type() == RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			polyhedron("RHOMBIC COSI DODECAHEDRON SMALL","LINE",(int)size.x);
+			stop_matrix();
+		} else if (this.get_type() == ICOSI_DODECAHEDRON_LINE_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			polyhedron("ICOSI DODECAHEDRON","LINE",(int)size.x);
+			stop_matrix();
+		}
+
+
+	  else if(this.get_type() == VIRUS_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			virus(Vec3(),size,0,-1);
+			stop_matrix();
+		}
+
+
+
+		else if(this.get_type() < 0) {
+			start_matrix() ;
+			translate(pos) ;
+			rotate_behavior(rot) ;
+			for(int i = 0 ; i < costume_pic_list.size() ; i++) {
+				Costume_pic p = costume_pic_list.get(i);
+				if(p.ID == this.get_type()) {
+					if(p.type == 1) {
+						PImage img_temp = p.img.copy();
+						if(size.x == size.y ) {
+							img_temp.resize((int)size.x, 0);
+						} else if (size.x != size.y) {
+							img_temp.resize((int)size.x, (int)size.y);
+						}
+						image(img_temp,0,0);
+						break ;
+					} else if(p.type == 2) {
+						Vec2 scale = Vec2(1) ;
+						if(size.x == size.y) {
+	            scale = Vec2(size.x / p.svg.width(), size.x / p.svg.width());
+						} else {
+							scale = Vec2(size.x / p.svg.width(), size.y / p.svg.height());
+						}
+						
+						p.svg.scaling(scale) ;
+						p.svg.draw() ;
+						break ;
+					}		
+				}
+			}
+			stop_matrix() ;
+		}
+
+	  // reset variable can be change the other costume, if the effect is don't use.
+		ratio_costume_size = 1;
 	}
 }
 
