@@ -16,7 +16,6 @@ void setup() {
 
 Vec3 dir = Vec3();
 void draw() {
-  println(frameRate);
   background_rope(0);
   Vec3 pos = Vec3(width/2,height/2,0);
   Vec3 size = Vec3(200,200,40);
@@ -24,12 +23,14 @@ void draw() {
   fill(255,0,0,25);
   stroke(255,0,0);
   strokeWeight(1);
-  // star_3D_is(true);
   //costume(pos,size,dir,STAR_ROPE);
   set_costume_star_summits(36);
   // set_costume_star_angle(0);
   set_costume_star_ratio(.1,.2,.3,.4,.5,.6,.7,.8,.9);
-  costume(pos,size,dir,STAR_3D_ROPE);
+
+  Costume c = new Costume(STAR_3D_ROPE);
+  costume(pos,size,dir,c);
+  // costume(pos,size,dir,STAR_3D_ROPE);
   /*
   set_costume_virus_mutation(2);
   set_costume_virus_node(4);
