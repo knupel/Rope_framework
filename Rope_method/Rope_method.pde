@@ -20,9 +20,10 @@ void draw() {
   Vec3 pos = Vec3(width/2,height/2,0);
   Vec3 size = Vec3(200,200,40);
   dir.add(.01,.02,.05);
-  fill(255,0,0,25);
-  stroke(255,0,0);
-  strokeWeight(1);
+  int fill = color(255,0,0,25);
+  int stroke = color(255,0,0);
+  float thickness =1;
+  aspect(fill,stroke,thickness);
   //costume(pos,size,dir,STAR_ROPE);
   set_costume_star_summits(36);
   // set_costume_star_angle(0);

@@ -28,24 +28,33 @@ Method shape
 --
 when the targeting costume is a pixel few possibility is no more available to use, like move in 3D, change thickness...because for pixel the methode set(x,y,c) from Processing is used, see Processing method.
 
+costume(Vec pos, Vec size, float angle, Vec3 dir, Costume costume);
 
-costume_rope(Vec pos, Vec size, float angle, Vec3 dir, int which_costume) ;
+void costume(Vec pos, Vec size, Vec3 dir, Costume costume);
 
-void costume_rope(Vec pos, Vec size, Vec3 dir, int which_costume) ;
+void costume(Vec pos, int size, int Costume costume);
 
-void costume_rope(Vec pos, int size, int which_costume)  ;
+void costume(Vec pos, Vec size, int Costume costume)
 
-void costume_rope(Vec pos, Vec size, int which_costume) ;
+method by id costume
+--
+costume(Vec pos, Vec size, float angle, Vec3 dir, int which_costume);
+
+void costume(Vec pos, Vec size, Vec3 dir, int which_costume);
+
+void costume(Vec pos, int size, int which_costume);
+
+void costume(Vec pos, Vec size, int which_costume);
 
 Method String
 --
-void costume_rope(Vec pos, int size, float angle, String sentence) ;
+void costume(Vec pos, int size, float angle, String sentence);
 
-void costume_rope(Vec2pos, Vec size, float angle, String sentence) ;
+void costume(Vec2pos, Vec size, float angle, String sentence);
 
-void costume_rope(Vec pos, int size, String sentence) ;
+void costume(Vec pos, int size, String sentence);
 
-void costume_rope(Vec pos, Vec size, String sentence) ;
+void costume(Vec pos, Vec size, String sentence);
 
 
 
@@ -74,19 +83,18 @@ void print_list_costume() ;
 
 Aspect
 --
-
 void aspect_is(boolean fill_is, boolean stroke_is) ;
 >used before aspect_rope() to display fill or stroke
 
-void aspect_rope(int fill, int stroke, float strokeWeight) ;
+void aspect(int fill, int stroke, float strokeWeight) ;
 
-void aspect_rope(int fill, int stroke, float strokeWeight, int costume) ;
+void aspect(int fill, int stroke, float strokeWeight, int costume) ;
 >Note, in case where the costume POINT_ROPE is used, it's not the stroke is used but the fill component.
 
-void aspect_rope(Vec fill, Vec stroke, float strokeWeight) ;
+void aspect(Vec fill, Vec stroke, float strokeWeight) ;
 >can be used with Vec2, Vec3 or Vec4
 
-void aspect_rope(Vec fill, Vec stroke, float strokeWeight, int costume) ;
+void aspect(Vec fill, Vec stroke, float strokeWeight, int costume) ;
 >can be used with Vec2, Vec3 or Vec4
 
 Text
