@@ -918,10 +918,6 @@ Deprecated Middle
 * return the middle between two Vector
 * @return Vec
 */
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
 Vec2 middle(Vec2 a, Vec2 b)  {
   Vec2 middle ;
   middle = add(a,b);
@@ -930,10 +926,6 @@ Vec2 middle(Vec2 a, Vec2 b)  {
   return middle ;
 }
 
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
 Vec2 middle(Vec2 [] list)  {
   Vec2 middle = Vec2() ;
   for (int i = 0 ; i < list.length ; i++) {
@@ -944,10 +936,6 @@ Vec2 middle(Vec2 [] list)  {
   return middle ;
 }
 
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
 Vec3 middle(Vec3 a, Vec3 b) {
   Vec3 middle ;
   middle = add(a,b);
@@ -955,10 +943,6 @@ Vec3 middle(Vec3 a, Vec3 b) {
   return middle ;
 }
 
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
 Vec3 middle(Vec3 [] list)  {
   Vec3 middle = Vec3() ;
   for (int i = 0 ; i < list.length ; i++) {
@@ -969,10 +953,6 @@ Vec3 middle(Vec3 [] list)  {
   return middle ;
 }
 
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
 Vec4 middle(Vec4 a, Vec4 b)  {
   Vec4 middle ;
   middle = add(a,b);
@@ -981,10 +961,6 @@ Vec4 middle(Vec4 a, Vec4 b)  {
   return middle ;
 }
 
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
 Vec4 middle(Vec4 [] list)  {
   Vec4 middle = Vec4() ;
   for (int i = 0 ; i < list.length ; i++) {

@@ -1,7 +1,7 @@
 /**
 Rope Costume
 * Copyleft (c) 2014-2018
-v 1.4.3
+v 1.4.4
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
@@ -197,7 +197,7 @@ void init_bool_aspect() {
   stroke_rope_is = true ;
 }
 
-void aspect_rope(int fill, int stroke, float thickness) {
+void aspect(int fill, int stroke, float thickness) {
   //checkfill color
   if(alpha(fill) <= 0 || !fill_rope_is)  {
     noFill(); 
@@ -215,11 +215,11 @@ void aspect_rope(int fill, int stroke, float thickness) {
   init_bool_aspect();
 }
 
-void aspect_rope(int fill, int stroke, float thickness, Costume costume) {
-	aspect_rope(fill,stroke,thickness,costume.get_type());
+void aspect(int fill, int stroke, float thickness, Costume costume) {
+	aspect(fill,stroke,thickness,costume.get_type());
 }
 
-void aspect_rope(int fill, int stroke, float thickness, int costume) {
+void aspect(int fill, int stroke, float thickness, int costume) {
 	if(costume == r.NULL) {
     // 
 	} else if(costume != r.NULL || costume != POINT_ROPE || costume != POINT) {
@@ -251,7 +251,7 @@ void aspect_rope(int fill, int stroke, float thickness, int costume) {
 
 
 
-void aspect_rope(Vec fill, Vec stroke, float thickness) {
+void aspect(Vec fill, Vec stroke, float thickness) {
   //checkfill color
   if(fill.w <=0 || !fill_rope_is)  {
     noFill() ; 
@@ -269,12 +269,12 @@ void aspect_rope(Vec fill, Vec stroke, float thickness) {
   init_bool_aspect();
 }
 
-void aspect_rope(Vec fill, Vec stroke, float thickness, Costume costume) {
-	aspect_rope(fill,stroke,thickness,costume.get_type());
+void aspect(Vec fill, Vec stroke, float thickness, Costume costume) {
+	aspect(fill,stroke,thickness,costume.get_type());
 }
 
 
-void aspect_rope(Vec fill, Vec stroke, float thickness, int costume) {
+void aspect(Vec fill, Vec stroke, float thickness, int costume) {
   if(costume == r.NULL) {
     // 
 	} else if(costume != r.NULL || costume != POINT_ROPE || costume != POINT) {
@@ -516,14 +516,14 @@ void load_costume_pic(String path) {
 
 
 
-class Costume_pic {
+public class Costume_pic {
 	PImage img ;
 	ROPE_svg svg ;
 	int type = -1 ; 
 
 	String name ;
 	int ID ;
-	Costume_pic(PApplet p5, String path, int ID) {
+	public Costume_pic(PApplet p5, String path, int ID) {
 		// add png
 		if(path.endsWith("png") || path.endsWith("PNG")) {
 			img = loadImage(path) ;
@@ -760,9 +760,9 @@ void costume(Vec3 pos, Vec3 size, Vec rot, Costume costume) {
 /**
 class Costume 
 2018-2018
-v 0.0.3
+v 0.0.4
 */
-class Costume {
+public class Costume {
 	int type;
 	int node;
 	int summits;
@@ -772,10 +772,10 @@ class Costume {
 	float [] ratio;
 	boolean is_3D = false;
 	boolean is_vertex = true;
-	Costume() {
+	public Costume() {
 	}
 
-	Costume(int type) {
+	public Costume(int type) {
 		this.type = type;
 	}
   
@@ -855,7 +855,7 @@ class Costume {
 		return is_vertex;
 	}
 
-	void draw(Vec3 pos, Vec3 size, Vec rot) {
+	public void draw(Vec3 pos, Vec3 size, Vec rot) {
 		if(rot.x != 0) costume_rotate_x();
 		if(rot.y != 0) costume_rotate_y();
 		if(rot.z != 0) costume_rotate_z();
