@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.49.1
+v 1.50.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -2143,34 +2143,122 @@ END IMAGE ROPE
 
 /**
 TRANSLATOR 
-v 0.1.0
+v 0.2.0
 */
 /**
-int to byte, byte to int
-v 0.0.2
+primitive to byte, byte to primitive
+v 0.1.0
 */
-import java.nio.ByteBuffer ;
-import java.nio.ByteOrder ;
-int int_from_4_bytes(byte [] array_byte) {
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
+int int_from_byte(Byte b) {
+  int result = b.intValue();
+  return result;
+}
+
+public Boolean boolean_from_bytes(byte... array_byte) {
+  if(array_byte.length == 1) {
+    if(array_byte[0] == 0) return false ; return true;
+  } else {
+    Boolean null_data = null;
+    return null_data;
+  }
+}
+
+public Character char_from_bytes(byte [] array_byte) {
+  if(array_byte.length == 2) {
+    ByteBuffer buffer = ByteBuffer.wrap(array_byte);
+    char result = buffer.getChar();
+    return result;
+  } else {
+    Character null_data = null;
+    return null_data;
+  }
+}
+
+public Short short_from_bytes(byte [] array_byte) {
+  if(array_byte.length == 2) {
+    ByteBuffer buffer = ByteBuffer.wrap(array_byte);
+    short result = buffer.getShort();
+    return result;
+  } else {
+    Short null_data = null;
+    return null_data;
+  }
+}
+
+public Integer int_from_bytes(byte [] array_byte) {
   if(array_byte.length == 4) {
     ByteBuffer buffer = ByteBuffer.wrap(array_byte) ;
-    buffer.order(ByteOrder.LITTLE_ENDIAN) ;
+    int result = buffer.getInt();
+    return result;
+  } else {
+    Integer null_data = null;
+    return null_data;
+  }
+}
+
+public Long long_from_bytes(byte [] array_byte) {
+  if(array_byte.length == 8) {
+    ByteBuffer buffer = ByteBuffer.wrap(array_byte) ;
+    long result = buffer.getLong();
+    return result;
+  } else {
+    Long null_data = null;
+    return null_data;
+  }
+}
+
+public Float float_from_bytes(byte [] array_byte) {
+  if(array_byte.length == 4) {
+    ByteBuffer buffer = ByteBuffer.wrap(array_byte) ;
+    float result = buffer.getFloat();
+    return result;
+  } else {
+    Float null_data = null;
+    return null_data;
+  }
+}
+
+public Double double_from_bytes(byte [] array_byte) {
+  if(array_byte.length == 8) {
+    ByteBuffer buffer = ByteBuffer.wrap(array_byte) ;
+    double result = buffer.getDouble();
+    return result;
+  } else {
+    Double null_data = null;
+    return null_data;
+  }
+}
+
+
+
+// @Deprecated // this method return a short because it's reordering by LITTLE_ENDIAN to used by getShort()
+Integer int_from_4_bytes(byte [] array_byte, boolean little_endian) {
+  if(array_byte.length == 4) {
+    ByteBuffer buffer = ByteBuffer.wrap(array_byte);
+    if(little_endian)buffer.order(ByteOrder.LITTLE_ENDIAN);
     int result = buffer.getShort();
     return result;
   } else {
-    Integer null_data = null ;
-    return null_data ;
+    Integer null_data = null;
+    return null_data;
   }
-
 }
+
+
+
+
 
 
 // be carefull here we use the class Byte, not the primitive byte  'B' vs 'b'
-int int_from_byte(Byte b) {
-  int result = b.intValue() ;
-  return result ;
-}
 
+
+
+
+/*
+@Deprecated // because infine is a byte thread like a short
 int int_from_2_bytes(byte [] array_byte) {
   if(array_byte.length == 2) {
     int result = -1 ;
@@ -2180,25 +2268,36 @@ int int_from_2_bytes(byte [] array_byte) {
     return null_data ;
   }
 }
+*/
 
 
 // return byte
-byte[] bytes_2_from_int(int x) {
-  byte [] array = new byte[2];    
-  array[0] = (byte) x;
-  array[1] = (byte) (x>>8);  
-  return array;
-}
-  
+byte[] to_byte(Object obj) {
 
-
-byte[] bytes_4_from_int(int size) {
-  byte [] array = new byte[4]; 
-  array[0] = (byte)  size;
-  array[1] = (byte) (size >> 8) ;
-  array[2] = (byte) (size >> 16) ;
-  array[3] = (byte) (size >> 24) ; 
-  return array;
+  if(obj instanceof Boolean) {
+    boolean value = (boolean)obj;
+    byte [] array = new byte[1];
+    array[0] = (byte)(value?1:0);
+    return array;
+  } else if(obj instanceof Character) {
+    char value = (char)obj;
+    return ByteBuffer.allocate(2).putChar(value).array();
+  } else if(obj instanceof Short) {
+    short value = (short)obj;
+    return ByteBuffer.allocate(2).putShort(value).array();
+  } else if(obj instanceof Integer) {
+    int value = (int)obj;
+    return ByteBuffer.allocate(4).putInt(value).array();
+  } else if(obj instanceof Long) {
+    long value = (long)obj;
+    return ByteBuffer.allocate(8).putLong(value).array();
+  } else if(obj instanceof Float) {
+    float value = (float)obj;
+    return ByteBuffer.allocate(4).putFloat(value).array();
+  } else if(obj instanceof Double) {
+    double value = (double)obj;
+    return ByteBuffer.allocate(8).putDouble(value).array();
+  } else return null;
 }
 
 

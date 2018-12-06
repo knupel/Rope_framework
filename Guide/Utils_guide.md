@@ -1202,28 +1202,41 @@ String float_to_String_4(float data) ;
 >translate a float to String with "1" float or with "4", weird must look inside
 
 
-int
+primitive
 --
 String int_to_String(int data) ;
 >translate an Integer in String
 
-int int_from_2_bytes(byte [] array_byte) ;
->return int value from two bytes
+int int_from_byte(Byte b);
 
-int int_from_4_bytes(byte [] array_byte) ;
->return int value from four bytes
+Boolean boolean_from_bytes(byte... array_byte);
 
-int int_from_byte(Byte b) ;
->Be careful here we use the class Byte, not the primitive byte  'B' vs 'b'
+Character char_from_bytes(byte [] array_byte);
+
+Short short_from_bytes(byte [] array_byte);
+
+Integer int_from_bytes(byte [] array_byte);
+
+Long long_from_bytes(byte [] array_byte);
+
+Float float_from_bytes(byte [] array_byte);
+
+Double double_from_bytes(byte [] array_byte);
+
+@Deprecated // this method return a short because it's reordering by LITTLE_ENDIAN to used by getShort()
+Integer int_from_4_bytes(byte [] array_byte, boolean little_endian) ;
+
+@Deprecated // because infine is a byte thread like a short
+int int_from_2_bytes(byte [] array_byte);
 
 
 byte
 --
-byte[] bytes_2_from_int(int x) 
->return couple byte from int
+byte[] bytes_2_from_int(int x);
   
-byte[] bytes_4_from_int(int size)
->return four byte from int value
+byte[] bytes_4_from_int(int size);
+
+byte[] to_byte(Object obj);
 
 
 

@@ -8,49 +8,69 @@ ROPE - Romanesco processing environment –
 
 
 void setup() {
-  size(500,500,P3D);
-  // frameRate(1000);
-
-}
-
-
-Vec3 dir = Vec3();
-void draw() {
-  background_rope(0);
-  Vec3 pos = Vec3(width/2,height/2,0);
-  Vec3 size = Vec3(200,200,40);
-  dir.add(.01,.02,.05);
-  int fill = color(255,0,0,25);
-  int stroke = color(255,0,0);
-  float thickness =1;
-  aspect(fill,stroke,thickness);
-  //costume(pos,size,dir,STAR_ROPE);
-  set_costume_star_summits(36);
-  // set_costume_star_angle(0);
-  set_costume_star_ratio(.1,.2,.3,.4,.5,.6,.7,.8,.9);
-
-  Costume c = new Costume(STAR_3D_ROPE);
-  costume(pos,size,dir,c);
-  // costume(pos,size,dir,STAR_3D_ROPE);
+  size(500,500);
   /*
-  set_costume_virus_mutation(2);
-  set_costume_virus_node(4);
-  set_costume_virus_num(36);
-  costume(pos,size,dir,VIRUS_ROPE);
+  println(MAX_INT);
+  printArray(to_byte(MAX_INT));
+    println(0);
+  printArray(to_byte(0));
+    println(MIN_INT);
+  printArray(to_byte(MIN_INT));
+  */
+  
+  /*
+  byte [] array = to_byte(Integer.MAX_VALUE);
+  int retour_4 = int_from_4_bytes(array,false);
+  println(retour_4);
+  // printArray(to_byte(false));
+  */
+
+  
+  println(Short.MAX_VALUE);
+  byte [] array = to_byte(Short.MAX_VALUE);
+ 
+  // println(int_from_4_bytes(array,true));
+  short retour = short_from_bytes(array);
+   println(retour);
+  
+
+  /*
+  println(Float.MAX_VALUE);
+  printArray(to_byte(Float.MAX_VALUE));
+  float f = 0;
+  println(f);
+  printArray(to_byte(f));
+  println(Float.MIN_VALUE);
+  printArray(to_byte(Float.MIN_VALUE));
+  */
+
+  /*
+  println(Short.MAX_VALUE);
+  printArray(to_byte(Short.MAX_VALUE));
+  short s = 0;
+  println(s);
+  printArray(to_byte(s));
+  println(Short.MIN_VALUE);
+  printArray(to_byte(Short.MIN_VALUE));
+
+  println("");
+  println(MAX_INT);
+  printArray(to_byte(MAX_INT));
+    println(0);
+  printArray(to_byte(0));
+    println(MIN_INT);
+  printArray(to_byte(MIN_INT));
+
+  println("");
+  println(Long.MAX_VALUE);
+  printArray(to_byte(Long.MAX_VALUE));
+  long l = 0;
+    println(l);
+  printArray(to_byte(l));
+    println(Long.MIN_VALUE);
+  printArray(to_byte(Long.MIN_VALUE));
   */
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
