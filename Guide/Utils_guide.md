@@ -1028,13 +1028,14 @@ float map_cycle(float value, float min, float max)
 float map_locked(float value, float sourceMin, float sourceMax, float targetMin, float targetMax)
 >return value who is locked when the value is over the maximum or the minimum
 
-float map_smooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level)
+float map(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int begin, int end)
 >return float value with non linear curve for the start and the end, like "S", use level value to change the curve
+>the arg begin and end determine the power of curve in each area
 
-float map_smooth_start(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level)
+float map_begin(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level)
 >return float value with non linear curve from start, use level value to change the curve
 
-float map_smooth_end(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level)
+float map_end(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level)
 >return float value with non linear curve to end, use level value to change the curve
 
 
