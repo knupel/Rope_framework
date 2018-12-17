@@ -2,9 +2,29 @@ Guide Science
 --
 the sctech method tab is not included on this repository if you need
 @see https://github.com/StanLepunK/Old_code/tree/master/Science_rope_2017_12_8
+*Wave
 
-Physic
---
+float sin_wave(float speed, float scale);
+
+Vec2 sin_wave(Vec2 speed, Vec2 scale);
+
+Vec3 sin_wave(Vec3 speed, Vec3 scale);
+
+Vec4 sin_wave(Vec4 speed, Vec4 scale);
+
+float cos_wave(float speed, float scale);
+
+Vec2 cos_wave(Vec2 speed, Vec2 scale);
+
+Vec3 cos_wave(Vec3 speed, Vec3 scale);
+
+Vec4 cos_wave(Vec4 speed, Vec4 scale);
+
+
+
+
+*Physic
+
 public double G(double dist, double m_1, double m_2);
 >return the gravity constant between two bodies, it's a little artistic interpretation of the scientist work. The good idea it's mult the result by 'billion' when the value used are around a human scale !
 >Nice used can be like that : double gravity = 1 / (g_force(dist, m_1, m_2) *1000000000L) ; where 'm_1' is the attractor.
@@ -12,10 +32,9 @@ public double G(double dist, double m_1, double m_2);
 
 
 
-GUIDE MATH 1.8.8
---
-EQUATION
---
+
+*EQUATION
+
 float decimale (float var, int n) ;
 >return 'n' decimal after coma.
 
@@ -26,8 +45,8 @@ float roots(float valueToRoots, int n) ;
 
 
 
-SURFACE
---
+*SURFACE
+
 float perimeter_disc(int r) ;
 >calcul the perimeter of circle
 
@@ -51,8 +70,8 @@ boolean inside(Vec2 pos, Vec2 size, Vec2 target, int type);
 
 
 
-TRIGONOMETRY
---
+*TRIGONOMETRY
+
 direction
 >return the normal direction of the target
 
@@ -68,8 +87,8 @@ Vec2 target_direction(Vec2 target, Vec2 origin);
 Vec3 target_direction(Vec3 target, Vec3 origin);
 
 
-Projection
---
+*Projection
+
 >return Vec2
 --
 cartesian
@@ -100,8 +119,8 @@ Vec3 projection(Vec3 direction, Vec3 origin, float radius) ;
 
 
 
-Angle
---
+*Angle
+
 float angle_radians(float y, float range);
 
 float angle_degrees(float y, float range);
@@ -124,8 +143,8 @@ float deg360 (PVector dir)
 
 
 
-Rotation
---
+*Rotation
+
 void rotation (float angle, float posX, float posY) ;
 >make rotation
 
@@ -145,10 +164,10 @@ Vec2 rotation_lattice(Vec2 ref, Vec2 lattice, float angle)
 
 
 
-Polar
---------------
+*Polar
+
 Vec3 to_polar(Vec3 cart)
-@ Vec3
+@Vec3
 > return polar position from cartesian position 
 componant.x = latitude
 componant.y = longitude
@@ -157,8 +176,8 @@ componant.z = radius
 
 
 
-Cartesian
---------------------------------
+*Cartesian
+
 to_cartesian_3D(float latitude, float longitude)
 @ Vec3
 > return xyz position normal position
@@ -183,8 +202,6 @@ to_cartesian_2D (float posMouse, Vec2 range, Vec2 targetRadian, float distance)
 @return Vec2
 > don't remember what's is returned :)
 
-// END TRIGO
-///////////////////////////
 
 
 
@@ -197,11 +214,10 @@ to_cartesian_2D (float posMouse, Vec2 range, Vec2 targetRadian, float distance)
 
 
 
-// Primitive
-////////////
+*Primitive
 
-Triangle
-////////
+*Triangle
+
 triangle(float a_x, float a_y, float a_z,
 		float b_x, float b_y, float b_z,
 		float c_x, float c_y, float c_z)
@@ -214,7 +230,7 @@ triangle(Vec3 a, Vec3 b, Vec3 c)
 
 
 Create a regular polygon with "n" summits
-//////////////////////////////////////////
+--
 primitve(float  radius, int summits) ;
 primitve(Vec2 pos, float radius, int summits) ;
 primitve(Vec2 pos, float  radius, int summits, float orientation) ;
@@ -240,9 +256,7 @@ note
 
 
 
-// SPHERE
-/////////
-
+*SPHERE
 
 @ Vec3 [] point_coord
 > return the vector list of normal points of your sphere.
@@ -265,7 +279,8 @@ Vec2 distribution_polar_fibonacci_sphere(int n, int num, float step)
 
 
 
-// POLYHEDRON
+*POLYHEDRON
+
 polyhedron(String whichPolyhedron, String whichStyleToDraw, int size) ;
 -
 String which_polyhedron = 
