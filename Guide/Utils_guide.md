@@ -1179,16 +1179,27 @@ String extension(String filename);
 
 
 
-CONVERT
---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*CONVERT
 
 float truncate(float x) ;
 > return float with two decimals
 
 float truncate(float x, int num) ;
 > return float with two decimals, where num is quantity of digit after coma, maximum is 5
-
-
 
 
 float
@@ -1238,6 +1249,12 @@ byte[] bytes_2_from_int(int x);
 byte[] bytes_4_from_int(int size);
 
 byte[] to_byte(Object obj);
+
+PVector
+--
+convert Vec and iVec
+
+PVector to_PVector(Object obj);
 
 
 

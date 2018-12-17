@@ -10,13 +10,8 @@ ROPE - Romanesco processing environment –
 void setup() {
   size(500,500);
 
-  for(int i = 0 ; i < width ; i++) {
-    float x = i ;
-    float y = i;
-    y = map(y,0,width,0,width,0,0);
-    point(x,y);
-
-  }
+  iVec2 v = iVec2(4,3);
+  println(to_PVector(v));
 
 
 

@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.50.2
+v 1.51.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -2271,6 +2271,26 @@ byte[] to_byte(Object obj) {
     double value = (double)obj;
     return ByteBuffer.allocate(8).putDouble(value).array();
   } else return null;
+}
+
+
+
+/**
+* from iVec, Vec to PVector
+*/
+PVector to_PVector(Object obj) {
+  if(obj instanceof Vec || obj instanceof iVec) {
+    if(obj instanceof Vec) {
+      Vec v = (Vec)obj;
+      return new PVector(v.x,v.y,v.z);
+    } else {
+      iVec iv = (iVec)obj;
+      return new PVector(iv.x,iv.y,iv.z);
+    }
+  } else {
+    printErr("method to_PVectro(): wait for Object of type Vec or iVec");
+    return null;
+  }
 }
 
 
