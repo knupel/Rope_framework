@@ -8,10 +8,9 @@ ROPE - Romanesco processing environment –
 
 
 void setup() {
-  size(500,500);
-
-  iVec2 v = iVec2(4,3);
-  println(to_PVector(v));
+	String s = "trucjpg";
+	println(s.contains("."));
+  println(extension_is(s,"png","jpg","tiff"));
 
 
 

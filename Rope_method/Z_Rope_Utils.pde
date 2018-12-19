@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.51.0
+v 1.52.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -4905,6 +4905,8 @@ boolean research_in_String(String research, String target) {
 
 /**
 String file utils
+2014-2018
+v 0.2.0
 */
 /**
 * remove element of the sketch path
@@ -4935,11 +4937,39 @@ String file_name(String s) {
   return file_name ;
 }
 
-
+/**
+* work around extension
+*/
 String extension(String filename) {
   if(filename != null) {
-    return filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+    if(filename.contains(".")) {
+      return filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+    } else {
+      return null;
+    } 
   } else {
     return null;
   }
+}
+
+boolean extension_is(String... data) {
+  boolean is = false;
+  if(data.length >= 2) {
+    String extension_to_compare = extension(data[0]);
+    if(extension_to_compare != null) {
+      for(int i = 1 ; i < data.length ; i++) {
+        if(extension_to_compare.equals(data[i])) {
+          is = true;
+          break;
+        } else {
+          is = false;
+        }
+      }
+    } else {
+      printErr("method extension_is(): [",data[0],"] this path don't have any extension");
+    }
+  } else {
+    printErr("method extension_is() need almost two components, the first is the path and the next is extension");
+  }
+  return is;
 }

@@ -1176,6 +1176,10 @@ String extension(String filename);
 > return the extension of your file
 
 
+boolean extension_is(String path, String... extension);
+>compare the extension of path with the array String extension.
+
+
 
 
 
