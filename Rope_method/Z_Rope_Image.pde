@@ -13,11 +13,12 @@ Processing 3.4
 
 /**
 PATTERN GENERATOR
-v 0.0.1
+v 0.0.2
 2018-2018
 */
 PGraphics pattern_noise(int w, int h, float... inc) {
   PGraphics pg ;
+  noiseSeed((int)random(MAX_INT));
   if(w > 0 && h > 0 && inc.length > 0 && inc.length < 5) {
     pg = createGraphics(w,h);
     float offset_x [] = new float[inc.length];
@@ -69,7 +70,7 @@ PGraphics pattern_noise(int w, int h, float... inc) {
       }
     }
     pg.endDraw();
-      return pg;
+    return pg;
   } else {
     printErr("method pattern_noise(): may be problem with size:",w,h,"\nor with component color num >>>",inc.length,"<<< must be between 1 and 4");
     return null;
