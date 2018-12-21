@@ -6,6 +6,13 @@ Rope – Romanesco Processing Environment
 All the methods similare or closer of Processing is writing in 'camelCase' the really Rope methods are write with '_underscore_' !
 
 
+*PATTERN GENERATOR
+
+PGraphics pattern_noise(int witdh, int height, float... inc_color_arg);
+>arg int  width and int height define of your pattern
+>arg float array inc_color_arg define the incrementation of each color arg, must between 1 and 4
+if the array have length : 1 black and white / 2 black and white + alpha / 3 color / 4 color + alpha.
+for the case the pattern is black and white the maximum value to generate is g.colorModeZ
 
 
 
