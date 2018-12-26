@@ -122,6 +122,8 @@ boolean hue_range(float min, float max, int colour);
 
 Vec3 hsb_to_rgb(float hue, float saturation, float brightness);
 
+Vec4 to_cmyk(int c);
+
 Vec4 rgb_to_cmyk(float red, float green, float blue);
 
 Vec3 cmyk_to_rgb(float cyan, float magenta, float yellow, float black);
@@ -132,5 +134,14 @@ int color_context(int color_ref, int threshold, int clear, int dark);
 >arg threshold is the moment where the color must change
 >arg clear is the new color
 >arg dark is the new color
+
+
+
+*CONTEXT
+
+int color_context(int colorRef, int threshold, int clear, int dark);
+>return a color different of the context color, useful for the text by the way.
+
+
 
 
