@@ -120,9 +120,11 @@ boolean hue_range(float min, float max, int colour);
 
 *CONVERT
 
-Vec3 HSB_to_RGB(float hue, float saturation, float brightness);
+Vec3 hsb_to_rgb(float hue, float saturation, float brightness);
 
-Vec4 HSB_to_RGB(float hue, float saturation, float brightness, float alpha);
+Vec4 rgb_to_cmyk(float red, float green, float blue);
+
+Vec3 cmyk_to_rgb(float cyan, float magenta, float yellow, float black);
 
 int color_context(int color_ref, int threshold, int clear, int dark);
 >return new int color with a brightness threshold

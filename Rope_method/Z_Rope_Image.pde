@@ -1,6 +1,6 @@
 /**
 * ROPE IMAGE
-v 0.1.0
+v 0.1.1
 2014-2018
 * Copyleft (c) 2018-2018 
 * Stan le Punk > http://stanlepunk.xyz/
