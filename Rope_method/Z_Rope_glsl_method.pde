@@ -1,6 +1,6 @@
 /**
 ROPE GLSL METHOD
-v 0.0.1
+v 0.0.2
 * Copyleft (c) 2019-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -8,8 +8,7 @@ v 0.0.1
 */
 
 /**
-just a quick write coding... is not finish, and i'm pretty that's can be stay like that for long time :)
-*/
+transcription of few common glsl method
 
 /**
 mix
@@ -75,13 +74,6 @@ Vec4 sign(Vec4 x) {
 
 int sign(int x) {
   return int(sign(float(x)));
-  /*
-  if(x < 0 ) {
-    return -1;
-  } else if(x > 0) {
-    return 1;
-  } else return 0;
-  */
 }
 
 iVec2 sign(iVec2 x) {
@@ -196,20 +188,4 @@ Vec4 clamp(Vec4 x, Vec4 min, Vec4 max) {
 }
 
 
-/*
-float max_glsl(float x, float y) {
-  if(x < y) {
-    return y; 
-  } else {
-    return x;
-  }
-}
 
-float min_glsl(float x, float y) {
-  if(x < y) {
-    return x; 
-  } else {
-    return y;
-  }
-}
-*/
