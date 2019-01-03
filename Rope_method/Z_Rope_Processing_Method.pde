@@ -1,6 +1,6 @@
 /**
 ROPE METHOD
-v 2.1.0
+v 2.1.1
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
 
@@ -71,16 +71,16 @@ void colorMode(int mode, Vec2 component) {
 /**
 floor
 */
-iVec2 floor(Vec2 arg) {
-  return iVec2(floor(arg.x),floor(arg.y));
+Vec2 floor(Vec2 arg) {
+  return Vec2(floor(arg.x),floor(arg.y));
 }
 
-iVec3 floor(Vec3 arg) {
-  return iVec3(floor(arg.x),floor(arg.y),floor(arg.z));
+Vec3 floor(Vec3 arg) {
+  return Vec3(floor(arg.x),floor(arg.y),floor(arg.z));
 }
 
-iVec4 floor(Vec4 arg) {
-  return iVec4(floor(arg.x),floor(arg.y),floor(arg.z),floor(arg.w));
+Vec4 floor(Vec4 arg) {
+  return Vec4(floor(arg.x),floor(arg.y),floor(arg.z),floor(arg.w));
 }
 
 
@@ -91,16 +91,16 @@ iVec4 floor(Vec4 arg) {
 /**
 round
 */
-iVec2 round(Vec2 arg) {
-  return iVec2(round(arg.x),round(arg.y));
+Vec2 round(Vec2 arg) {
+  return Vec2(round(arg.x),round(arg.y));
 }
 
-iVec3 round(Vec3 arg) {
-  return iVec3(round(arg.x),round(arg.y),round(arg.z));
+Vec3 round(Vec3 arg) {
+  return Vec3(round(arg.x),round(arg.y),round(arg.z));
 }
 
-iVec4 round(Vec4 arg) {
-  return iVec4(round(arg.x),round(arg.y),round(arg.z),round(arg.w));
+Vec4 round(Vec4 arg) {
+  return Vec4(round(arg.x),round(arg.y),round(arg.z),round(arg.w));
 }
 
 
@@ -110,16 +110,16 @@ iVec4 round(Vec4 arg) {
 /**
 ceil
 */
-iVec2 ceil(Vec2 arg) {
-  return iVec2(ceil(arg.x),ceil(arg.y));
+Vec2 ceil(Vec2 arg) {
+  return Vec2(ceil(arg.x),ceil(arg.y));
 }
 
-iVec3 ceil(Vec3 arg) {
-  return iVec3(ceil(arg.x),ceil(arg.y),ceil(arg.z));
+Vec3 ceil(Vec3 arg) {
+  return Vec3(ceil(arg.x),ceil(arg.y),ceil(arg.z));
 }
 
-iVec4 ceil(Vec4 arg) {
-  return iVec4(ceil(arg.x),ceil(arg.y),ceil(arg.z),ceil(arg.w));
+Vec4 ceil(Vec4 arg) {
+  return Vec4(ceil(arg.x),ceil(arg.y),ceil(arg.z),ceil(arg.w));
 }
 
 

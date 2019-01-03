@@ -1,7 +1,7 @@
-iVec method
---
-Addition
---
+*iVec method
+
+*Addition
+
 iVec2 iadd(iVec2 a, iVec2 b);
 
 iVec3 iadd(iVec3 a, iVec3 b);
@@ -15,8 +15,8 @@ iVec3 iadd(iVec3 a, int arg);
 iVec4 iadd(iVec4 a, int arg);
 
 
-Multiplication
---
+*Multiplication
+
 iVec2 imult(iVec2 a, iVec2 b);
 
 iVec3 imult(iVec3 a, iVec3 b);
@@ -30,8 +30,8 @@ iVec3 imult(iVec3 a, int arg);
 iVec4 imult(iVec4 a, int arg);
 
 
-Division
---
+*Division
+
 iVec2 idiv(iVec2 a, iVec2 b);
 
 iVec3 idiv(iVec3 a, iVec3 b);
@@ -45,8 +45,8 @@ iVec3 idiv(iVec3 a, int arg);
 iVec4 idiv(iVec4 a, int arg);
 
 
-Substraction
---
+*Substraction
+
 iVec2 isub(iVec2 a, iVec2 b);
 
 iVec3 isub(iVec3 a, iVec3 b);
@@ -67,10 +67,10 @@ iVec4 isub(iVec4 a, int arg);
 
 
 
-Vec method
---
-Addition
---
+*Vec method
+
+*Addition
+
 Vec2 add(Vec2 a, Vec2 b);
 
 Vec3 add(Vec3 a, Vec3 b);
@@ -96,8 +96,8 @@ Vec3 add(iVec3 a, float arg);
 Vec4 add(iVec4 a, float arg);
 
 
-Multiplication
---
+*Multiplication
+
 Vec2 mult(Vec2 a, Vec2 b);
 
 Vec3 mult(Vec3 a, Vec3 b);
@@ -121,8 +121,8 @@ Vec3 mult(iVec3 a, float arg);
 Vec4 mult(iVec4 a, float arg);
 
 
-Division
---
+*Division
+
 Vec2 div(Vec2 a, Vec2 b) 
 
 Vec3 div(Vec3 a, Vec3 b);
@@ -148,8 +148,8 @@ Vec3 div(iVec3 a, float arg);
 Vec4 div(iVec4 a, float arg);
 
 
-Substraction
---
+*Substraction
+
 Vec2 sub(Vec2 a, Vec2 b);
 
 Vec3 sub(Vec3 a, Vec3 b);
@@ -175,15 +175,15 @@ Vec3 sub(iVec3 a, float arg);
 Vec4 sub(iVec4 a, float arg);
 
 
-Cross
---
+*Cross
+
 Vec3 cross(Vec3 v1, Vec3 v2);
 
 
 
 
-Compare
---
+*Compare
+
 boolean compare(Vec2 a, Vec2 b);
 
 boolean compare(Vec3 a, Vec3 b);
@@ -199,8 +199,8 @@ boolean compare(Vec4 a, Vec4 b, Vec4 area);
 
 
 
-Map
---
+*Map
+
 Vec2 map(Vec2 v,float minIn, float maxIn, float minOut, float maxOut);
 
 Vec3 map(Vec3 v,float minIn, float maxIn, float minOut, float maxOut);
@@ -208,8 +208,8 @@ Vec3 map(Vec3 v,float minIn, float maxIn, float minOut, float maxOut);
 Vec4 map(Vec4 v,float minIn, float maxIn, float minOut, float maxOut);
 
 
-Magnitude or length
---
+*Magnitude or length
+
 float mag(Vec2 a);
 
 float mag(Vec2 a, Vec2 b);
@@ -224,8 +224,8 @@ float mag(Vec4 a, Vec4 b);
 
 
 
-Distance
---
+*Distance
+
 float dist(Vec2 a, Vec2 b);
 
 float dist(Vec3 a, Vec3 b);
@@ -233,8 +233,8 @@ float dist(Vec3 a, Vec3 b);
 float dist(Vec4 a, Vec4 b);
 
 
-Barycenter
---
+*Barycenter
+
 Vec2 barycenter(Vec2... v);
 
 Vec3 barycenter(Vec3... v);
@@ -243,8 +243,8 @@ Vec4 barycenter(Vec4... v);
 
 
 
-Jitter
---
+*Jitter
+
 Vec2 jitter_2D(int range);
 
 Vec2 jitter_2D(Vec2 range);
@@ -264,8 +264,8 @@ Vec4 jitter_4D(Vec4 range);
 Vec4 jitter_4D(int range_x, int range_y, int range_z, int range_w);
 
 
-Normalize
---
+*Normalize
+
 Vec2 norm_rad(float angle);
 
 Vec2 norm_deg(float angle);
@@ -273,17 +273,15 @@ Vec2 norm_deg(float angle);
 Vec2 norm_dir(String type, float direction);
 
 
-Color
---
-Vec4 color_HSBA(int c);
+*Color
 
-Vec4 color_RGBA(int c);
+Vec4 color_hsba(int c);
 
-Vec3 color_HSB(int c);
+Vec4 color_rgba(int c);
 
-Vec3 color_RGB(int c);
+Vec3 color_hsb(int c);
 
-
+Vec3 color_rgb(int c);
 
 
 
@@ -301,8 +299,10 @@ Vec3 color_RGB(int c);
 
 
 
-Return a new bVec
---
+
+
+*Return a new bVec
+
 
 bVec2 bVec2();
 
@@ -365,8 +365,8 @@ bVec6 bVec6(bVec b);
 
 
 
-Return a new iVec
---
+*Return a new iVec
+
 iVec2 iVec2();
 
 iVec2 iVec2(int v);
@@ -376,6 +376,10 @@ iVec2 iVec2(int x, int y);
 iVec2 iVec2(int [] array);
 
 iVec2 iVec2(iVec p);
+
+iVec2 iVec2(Vec p);
+
+--
 
 iVec3 iVec3();
 
@@ -387,6 +391,10 @@ iVec3 iVec3(int [] array);
 
 iVec3 iVec3(iVec p);
 
+iVec3 iVec3(Vec p);
+
+--
+
 iVec4 iVec4();
 
 iVec4 iVec4(int v);
@@ -396,6 +404,10 @@ iVec4 iVec4(int x, int y, int z, int w);
 iVec4 iVec4(int [] array);
 
 iVec4 iVec4(iVec p);
+
+iVec4 iVec4(Vec p);
+
+--
 
 iVec5 iVec5();
 
@@ -407,6 +419,10 @@ iVec5 iVec5(int [] array);
 
 iVec5 iVec5(iVec p);
 
+iVec5 iVec5(Vec p);
+
+--
+
 iVec6 iVec6();
 
 iVec6 iVec6(int v);
@@ -417,6 +433,7 @@ iVec6 iVec6(int [] array);
 
 iVec6 iVec6(iVec p);
 
+iVec6 iVec6(Vec p);
 
 
 
@@ -426,8 +443,9 @@ iVec6 iVec6(iVec p);
 
 
 
-Return a new Vec
---
+
+*Return a new Vec
+
 Vec2 Vec2();
 
 Vec2 Vec2(float x, float y);
@@ -512,9 +530,10 @@ Vec6 Vec6(iVec p);
 
 
 
-Return a new random range Vec 
+*Return a new random range Vec 
+
 @see Vector class guide for more detail
---
+
 Vec2 Vec2(String s, int x, int y);
 
 Vec2 Vec2(String s, int a, int b, int c, int d);

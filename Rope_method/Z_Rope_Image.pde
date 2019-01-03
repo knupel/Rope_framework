@@ -44,15 +44,16 @@ PGraphics pattern_noise(int w, int h, float... inc) {
     
     pg.beginDraw();
     for(int i = 0 ; i < inc.length ; i++) {
-      offset_y [i] = 0;
+      offset_y[i] = 0;
     }
+    
     for(int x = 0 ; x < w ; x++) {
       for(int i = 0 ; i < inc.length ; i++) {
-        offset_x [i] = 0;
+        offset_x[i] = 0;
       }
       for(int y = 0 ; y < h ; y++) {
         for(int i = 0 ; i < inc.length ; i++) {
-          component[i] = map(noise(offset_x[i],offset_y[i]),0,1,0,max [i]);
+          component[i] = map(noise(offset_x[i],offset_y[i]),0,1,0,max[i]);
         }
         int c = 0;
         if(inc.length == 1) c = color(component[0]);
