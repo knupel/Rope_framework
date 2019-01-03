@@ -377,6 +377,12 @@ iVec2 iVec2(int [] array);
 
 iVec2 iVec2(iVec p);
 
+iVec2 iVec2(float v);
+
+iVec2 iVec2(float x, float y);
+
+iVec2 iVec2(float [] array);
+
 iVec2 iVec2(Vec p);
 
 --
@@ -391,6 +397,12 @@ iVec3 iVec3(int [] array);
 
 iVec3 iVec3(iVec p);
 
+iVec3 iVec3(float v);
+
+iVec3 iVec3(float x, float y, float z);
+
+iVec3 iVec3(float [] array);
+
 iVec3 iVec3(Vec p);
 
 --
@@ -404,6 +416,12 @@ iVec4 iVec4(int x, int y, int z, int w);
 iVec4 iVec4(int [] array);
 
 iVec4 iVec4(iVec p);
+
+iVec4 iVec4(float v);
+
+iVec4 iVec4(float x, float y, float z, float w);
+
+iVec4 iVec4(float [] array);
 
 iVec4 iVec4(Vec p);
 

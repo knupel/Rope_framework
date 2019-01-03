@@ -47,6 +47,37 @@ Vec4 ceil(Vec4 arg);
 
 
 
+*max
+
+Vec2 max(Vec2 a, Vec2 b);
+
+Vec3 max(Vec3 a, Vec3 b);
+
+Vec4 max(Vec4 a, Vec4 b);
+
+iVec2 max(iVec2 a, iVec2 b);
+
+iVec3 max(iVec3 a, iVec3 b);
+
+iVec4 max(iVec4 a, iVec4 b);
+
+
+*min
+
+Vec2 min(Vec2 a, Vec2 b);
+
+Vec3 min(Vec3 a, Vec3 b);
+
+Vec4 min(Vec4 a, Vec4 b);
+
+iVec2 min(iVec2 a, iVec2 b);
+
+iVec3 min(iVec3 a, iVec3 b);
+
+iVec4 min(iVec4 a, iVec4 b);
+
+
+
 *set
 
 void set(iVec2 pos, int c);

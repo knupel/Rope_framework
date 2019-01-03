@@ -1,9 +1,8 @@
 /**
-Vec, iVec and bVec method
+ROPE Vec, iVec and bVec method
 v 0.1.2
 * Copyleft (c) 2018-2019
 * Stan le Punk > http://stanlepunk.xyz/
-Rope – Romanesco Processing Environment: 2015–2019
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -1402,6 +1401,7 @@ iVec2 iVec2(int x, int y) {
   return new iVec2(x,y) ;
 }
 
+
 iVec2 iVec2(int [] array) {
   if(array.length == 1) {
     return new iVec2(array[0],array[0]);
@@ -1420,6 +1420,24 @@ iVec2 iVec2(iVec p) {
     return new iVec2(p.a,p.b) ;
   } else {
     return new iVec2(p.x,p.y) ;
+  }
+}
+
+iVec2 iVec2(float v) {
+  return new iVec2(int(v),int(v));
+}
+
+iVec2 iVec2(float x, float y) { 
+  return new iVec2(int(x),int(y));
+}
+
+iVec2 iVec2(float [] array) {
+  if(array.length == 1) {
+    return new iVec2(int(array[0]),int(array[0]));
+  } else if (array.length > 1) {
+    return new iVec2(int(array[0]),int(array[1]));
+  } else {
+    return null;
   }
 }
 
@@ -1472,6 +1490,25 @@ iVec3 iVec3(iVec p) {
   }
 }
 
+iVec3 iVec3(float v) {
+  return new iVec3(int(v),int(v),int(v));
+}
+
+iVec3 iVec3(float x, float y,float z) { 
+  return new iVec3(int(x),int(y),int(z));
+}
+
+iVec3 iVec3(float [] array) {
+  if(array.length == 1) {
+    return new iVec3(int(array[0]),int(array[0]),int(array[0]));
+  } else if (array.length == 2) {
+    return new iVec3(int(array[0]),int(array[1]),0);
+  } else if (array.length > 2) {
+    return new iVec3(int(array[0]),int(array[1]),int(array[2]));
+  } else {
+    return null;
+  }
+}
 
 iVec3 iVec3(Vec p) {
   if(p == null) {
@@ -1521,6 +1558,28 @@ iVec4 iVec4(iVec p) {
     return new iVec4(p.a,p.b,p.c,p.d) ;
   } else {
     return new iVec4(p.x,p.y,p.z,p.w) ;
+  }
+}
+
+iVec4 iVec4(float v) {
+  return new iVec4(int(v),int(v),int(v),int(v));
+}
+
+iVec4 iVec4(float x, float y, float z, float w) { 
+  return new iVec4(int(x),int(y),int(z),int(w));
+}
+
+iVec4 iVec4(float [] array) {
+  if(array.length == 1) {
+    return new iVec4(int(array[0]),int(array[0]),int(array[0]),int(array[0]));
+  } else if (array.length == 2) {
+    return new iVec4(int(array[0]),int(array[1]),0,0);
+  } else if (array.length == 3) {
+    return new iVec4(int(array[0]),int(array[1]),int(array[2]),0);
+  } else if (array.length > 3) {
+    return new iVec4(int(array[0]),int(array[1]),int(array[2]),int(array[3]));
+  } else {
+    return null;
   }
 }
 
