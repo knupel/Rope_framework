@@ -385,6 +385,10 @@ iVec2 iVec2(float [] array);
 
 iVec2 iVec2(Vec p);
 
+iVec2 iVec2(PGraphics media);
+
+iVec2 iVec2(PImage media);
+
 --
 
 iVec3 iVec3();
@@ -479,6 +483,11 @@ Vec2 Vec2(PVector p);
 Vec2 Vec2(Vec p);
 
 Vec2 Vec2(iVec p);
+
+Vec2 Vec2(PGraphics media);
+
+Vec2 Vec2(PImage media);
+
 
 Vec3 Vec3();
 

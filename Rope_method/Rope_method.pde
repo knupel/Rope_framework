@@ -5,11 +5,10 @@ ROPE - Romanesco processing environment –
 * https://github.com/StanLepunK
 * http://stanlepunk.xyz/
 */
-
+import processing.video.Movie;
 void setup() {
-  Vec4 va = Vec4(10,22,34,15);
-  Vec4 vb = Vec4(15);
-  println(greaterThan(va,vb));
+  PImage img = createImage(200,200,RGB);
+  println(iVec2(img));
   /*
     println(all(equal(va,vb)));
   println(any(equal(va,vb)));

@@ -1,6 +1,6 @@
 /**
-ROPE Vec, iVec and bVec method
-v 0.1.2
+Vec, iVec and bVec rope method
+v 0.1.3
 * Copyleft (c) 2018-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -1452,6 +1452,15 @@ iVec2 iVec2(Vec p) {
   }
 }
 
+
+iVec2 iVec2(PGraphics media) {
+  return new iVec2(media.width,media.height);
+}
+
+iVec2 iVec2(PImage media) {
+  return new iVec2(media.width,media.height);
+}
+
 /**
 iVec3
 */
@@ -1728,7 +1737,6 @@ iVec6 iVec6(Vec p) {
 
 /**
 Return a new Vec
-v 0.0.4
 */
 /**
 Vec 2
@@ -1805,6 +1813,15 @@ Vec2 Vec2(String s, int a, int b, int c, int d) {
 
 Vec2 Vec2(String s, int v) {
   return new Vec2(s,v);
+}
+
+
+Vec2 Vec2(PGraphics media) {
+  return new Vec2(media.width,media.height);
+}
+
+Vec2 Vec2(PImage media) {
+  return new Vec2(media.width,media.height);
 }
 /**
 Vec 3
