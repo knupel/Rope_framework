@@ -91,6 +91,92 @@ Vec3 clamp(Vec3 x, Vec3 min, Vec3 max);
 Vec4 clamp(Vec4 x, Vec4 min, Vec4 max);
 
 
+*all
+
+boolean all(bVec b)
+>return true if all components of bVec are true
+
+
+*any
+
+boolean any(bVec b)
+>return true if any component of bVec is true
+
+*lessThanEqual
+
+boolean lessThanEqual(float x, float y);
+>return true if x <= y
+
+boolean lessThanEqual(int x, int y);
+>return true if x <= y
+
+bVec lessThanEqual(iVec x, iVec y);
+>return true if x <= y
+
+bVec lessThanEqual(Vec x, Vec y);
+>return true if x <= y
+
+
+*lessThan
+
+boolean lessThanEqual(float x, float y);
+>return true if x < y
+
+boolean lessThanEqual(int x, int y);
+>return true if x < y
+
+bVec lessThanEqual(iVec x, iVec y);
+>return true if x < y
+
+bVec lessThanEqual(Vec x, Vec y);
+>return true if x < y
+
+
+*greaterThanEqual
+
+boolean greaterThanEqual(float x, float y);
+>return true if x >= y
+
+boolean greaterThanEqual(int x, int y);
+>return true if x >= y
+
+bVec greaterThanEqual(iVec x, iVec y);
+>return true if x >= y
+
+bVec greaterThanEqual(Vec x, Vec y);
+>return true if x >= y
+
+
+*greaterThan
+
+boolean greaterThan(float x, float y);
+>return true if x > y
+
+boolean greaterThan(int x, int y);
+>return true if x > y
+
+bVec greaterThan(iVec x, iVec y);
+>return true if x > y
+
+bVec greaterThan(Vec x, Vec y);
+>return true if x > y
+
+
+*equal
+
+boolean equal(float x, float y);
+>return true if x == y
+
+boolean equal(int x, int y);
+>return true if x == y
+
+bVec equal(iVec x, iVec y);
+>return true if x == y
+
+bVec equal(Vec x, Vec y);
+>return true if x == y
+
+
 
 
 

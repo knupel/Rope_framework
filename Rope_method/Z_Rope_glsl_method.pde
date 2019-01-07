@@ -1,6 +1,6 @@
 /**
 ROPE GLSL METHOD
-v 0.0.2
+v 0.0.5
 * Copyleft (c) 2019-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -194,7 +194,7 @@ Vec4 clamp(Vec4 x, Vec4 min, Vec4 max) {
 equal
 */
 boolean equal(float x, float y) {
-  if(x == y ) return true ; else return false;
+  return x==y?true:false;
 }
 
 boolean equal(int x, int y) {
@@ -234,7 +234,7 @@ bVec4 equal(iVec4 x, iVec4 y) {
 lessThan
 */
 boolean lessThan(float x, float y) {
-  if(x < y ) return true ; else return false;
+  return x<y?true:false;
 }
 
 boolean lessThan(int x, int y) {
@@ -275,7 +275,7 @@ bVec4 lessThan(iVec4 x, iVec4 y) {
 greaterThan
 */
 boolean greaterThan(float x, float y) {
-  if(x > y ) return true ; else return false;
+  return x>y?true:false;
 }
 
 boolean greaterThan(int x, int y) {
@@ -317,7 +317,7 @@ bVec4 greaterThan(iVec4 x, iVec4 y) {
 greaterThanEqual
 */
 boolean greaterThanEqual(float x, float y) {
-  if(x >= y ) return true ; else return false;
+  return x>=y?true:false;
 }
 
 boolean greaterThanEqual(int x, int y) {
@@ -359,7 +359,7 @@ bVec4 greaterThanEqual(iVec4 x, iVec4 y) {
 lessThanEqual
 */
 boolean lessThanEqual(float x, float y) {
-  if(x <= y ) return true ; else return false;
+  return x<=y?true:false;
 }
 
 boolean lessThanEqual(int x, int y) {
@@ -402,7 +402,7 @@ bVec4 lessThanEqual(iVec4 x, iVec4 y) {
 all
 */
 boolean all(bVec2 b) {
-  boolean [] list = b.get_array();
+  boolean [] list = b.array();
   boolean result = true;
   for(int i = 0 ; i < list.length ; i++) {
     if(list[i] == false) {
@@ -414,7 +414,7 @@ boolean all(bVec2 b) {
 }
 
 boolean all(bVec3 b) {
-  boolean [] list = b.get_array();
+  boolean [] list = b.array();
   boolean result = true;
   for(int i = 0 ; i < list.length ; i++) {
     if(list[i] == false) {
@@ -426,7 +426,7 @@ boolean all(bVec3 b) {
 }
 
 boolean all(bVec4 b) {
-  boolean [] list = b.get_array();
+  boolean [] list = b.array();
   boolean result = true;
   for(int i = 0 ; i < list.length ; i++) {
     if(list[i] == false) {
@@ -438,7 +438,7 @@ boolean all(bVec4 b) {
 }
 
 boolean all(bVec5 b) {
-  boolean [] list = b.get_array();
+  boolean [] list = b.array();
   boolean result = true;
   for(int i = 0 ; i < list.length ; i++) {
     if(list[i] == false) {
@@ -450,7 +450,7 @@ boolean all(bVec5 b) {
 }
 
 boolean all(bVec6 b) {
-  boolean [] list = b.get_array();
+  boolean [] list = b.array();
   boolean result = true;
   for(int i = 0 ; i < list.length ; i++) {
     if(list[i] == false) {
@@ -468,7 +468,7 @@ boolean all(bVec6 b) {
 any
 */
 boolean any(bVec2 b) {
-  boolean [] list = b.get_array();
+  boolean [] list = b.array();
   boolean result = false;
   for(int i = 0 ; i < list.length ; i++) {
     if(list[i] == true) {
@@ -480,7 +480,7 @@ boolean any(bVec2 b) {
 }
 
 boolean any(bVec3 b) {
-  boolean [] list = b.get_array();
+  boolean [] list = b.array();
   boolean result = false;
   for(int i = 0 ; i < list.length ; i++) {
     if(list[i] == true) {
@@ -492,7 +492,7 @@ boolean any(bVec3 b) {
 }
 
 boolean any(bVec4 b) {
-  boolean [] list = b.get_array();
+  boolean [] list = b.array();
   boolean result = false;
   for(int i = 0 ; i < list.length ; i++) {
     if(list[i] == true) {
@@ -504,7 +504,7 @@ boolean any(bVec4 b) {
 }
 
 boolean any(bVec5 b) {
-  boolean [] list = b.get_array();
+  boolean [] list = b.array();
   boolean result = false;
   for(int i = 0 ; i < list.length ; i++) {
     if(list[i] == true) {
@@ -516,7 +516,7 @@ boolean any(bVec5 b) {
 }
 
 boolean any(bVec6 b) {
-  boolean [] list = b.get_array();
+  boolean [] list = b.array();
   boolean result = false;
   for(int i = 0 ; i < list.length ; i++) {
     if(list[i] == true) {
