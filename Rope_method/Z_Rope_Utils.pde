@@ -1,7 +1,7 @@
 /**
 Rope UTILS 
-v 1.53.0
-* Copyleft (c) 2014-2018 
+v 1.53.1
+* Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
 Processing 3.4
@@ -333,7 +333,7 @@ v 0.3.1
 */
 /**
 Save Frame
-V 0.1.1
+V 0.1.2
 */
 void saveFrame(String where, String filename, PImage img) {
   float compression = 1. ;
@@ -362,18 +362,16 @@ void saveFrame(String where, String filename, float compression, PImage img) {
     loadPixels(); 
     BufferedImage buff_img;
     if(img == null) {
-      buff_img = new BufferedImage(pixelWidth, pixelHeight, BufferedImage.TYPE_INT_RGB);
-      buff_img.setRGB(0, 0, pixelWidth, pixelHeight, pixels, 0, pixelWidth);
+      printErr("method saveFrame(): the PImage is null, no save can be done");
     } else {
       buff_img = new BufferedImage(img.width, img.height, BufferedImage.TYPE_INT_RGB);
       buff_img.setRGB(0, 0, img.width, img.height, img.pixels, 0, img.width);
-    }
-
-    if(path.contains(".bmp") || path.contains(".BMP")) {
-      saveBMP(os, buff_img);
-    } else if(path.contains(".jpeg") || path.contains(".jpg") || path.contains(".JPG") || path.contains(".JPEG")) {
-      saveJPG(os, compression, buff_img);
-    }
+      if(path.contains(".bmp") || path.contains(".BMP")) {
+        saveBMP(os, buff_img);
+      } else if(path.contains(".jpeg") || path.contains(".jpg") || path.contains(".JPG") || path.contains(".JPEG")) {
+        saveJPG(os, compression, buff_img);
+      }
+    } 
   }  catch (FileNotFoundException e) {
     //
   }
