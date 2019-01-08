@@ -5,7 +5,7 @@ ROPE - Romanesco processing environment –
 * https://github.com/StanLepunK
 * http://stanlepunk.xyz/
 */
-import processing.video.Movie;
+// import processing.video.Movie;
 void setup() {
   PImage img = createImage(200,200,RGB);
   println(iVec2(img));
