@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.53.1
+v 1.53.2.1
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -8,8 +8,6 @@ Processing 3.4
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
-
-
 
 
 /**
@@ -506,120 +504,6 @@ PImage loadImageBMP(String fileName) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 TRANSLATOR 
 v 0.2.0
@@ -939,41 +823,6 @@ Vec4 array_to_Vec4_rgba(float... f) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 EXPORT FILE PDF_PNG 0.1.1
 */
@@ -1044,30 +893,6 @@ void save_PNG() {
 void event_PNG() {
   record_PNG = true;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
