@@ -1,9 +1,13 @@
 *IMAGE GUIDE
-2015–2018
+2015–2019
 
 Rope – Romanesco Processing Environment
 
 All the methods similare or closer of Processing is writing in 'camelCase' the really Rope methods are write with '_underscore_' !
+
+
+
+
 
 
 *PATTERN GENERATOR

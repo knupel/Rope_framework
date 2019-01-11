@@ -1,14 +1,20 @@
 /**
 * ROPE IMAGE
-v 0.1.1
-2014-2018
-* Copyleft (c) 2018-2018 
+v 0.2.0
+* Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
 Processing 3.4
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
+
+
+
+
+
+
+
 
 
 /**

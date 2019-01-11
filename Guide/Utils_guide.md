@@ -5,6 +5,12 @@ Rope – Romanesco Processing Environment
 All the methods similare or closer of Processing is writing in 'camelCase' the really Rope methods are write with '_underscore_' !
 
 
+*WINDOW SIZE
+
+boolean window_change_is();
+>return true if the window sketch size is different.
+
+
 
 
 
@@ -198,33 +204,50 @@ pixel array
 int [][] loadPixels_array_2D()
 >return 2D array pixel of the window
 
-MOTION
---
-inertia
---
-void stop_inertia() ;
-
-Inertia with Vec2
-
-Vec2 apply_inertia(Vec2 current_pos, Vec2 my_pos, float braking, float max_speed)  ;
-
-Vec2 inertia(Vec2 current_pos, float braking, float max_speed) ;
-
-Inertia with Vec3
-
-Vec3 apply_inertia(Vec3 current_pos, Vec3 my_pos, float braking, float max_speed) ;
-
-Vec3 inertia(Vec3 current_pos, float braking, float max_speed) ;
-
->Vec current_pos is use to pass the mouse coord or other coord
->Vec my_pos is use to pass the coord of your item
->float braking is the value to slow item, a value under '1' is good, but it's your choice
->float max speed, is the maximum of pixel possible by frame for your item.
 
 
 
 
 
+*Test value in range
+
+booelan in_range(float min, float max, float value) ;
+>return boolean, test value in univers with low and hight value
+
+boolean in_range_wheel(float min, float max, float roof_max, float value) ;
+>return boolean, test value in univers with no low and hight value, whe the value is hight of the max that's return to the min value.
+
+
+*GET TYPE
+
+String get_type(Object obj);
+> return the name of the type var you send, can be use with generic var like Object, can beturn if it's PVector, Vec or Ivec too.
+
+
+
+*RANDOM
+
+>Return random value smooth around the target, like gaussian curve, by default the range around the value is 40%, but it's the extreme case and it's very very rare.
+
+float random_gaussian(float value);
+
+float random_gaussian(float value, float range);
+>arg value is your value must be processing
+>arg range is use to contrain the gaussian random, by default the range is '.4' who give somethinf 20% up and down your value.
+
+
+
+float random_next_gaussian();
+>return a real gausian random from -1 to 1
+
+float random_next_gaussian(power n);
+>return a real gausian random from -1 to 1 but a the power 'n'
+
+float random_next_gaussian(float range);
+>return a real gausian random from '-range' to 'range'
+
+float random_next_gaussian(float range, power n);
+>return a real gausian random from '-range' to 'range' but at the power 'n'
 
 
 
@@ -311,59 +334,7 @@ void save_PNG() ;
 
 
 
-*RANDOM
 
->Return random value smooth around the target, like gaussian curve, by default the range around the value is 40%, but it's the extreme case and it's very very rare.
-
-float random_gaussian(float value);
-
-float random_gaussian(float value, float range);
->arg value is your value must be processing
->arg range is use to contrain the gaussian random, by default the range is '.4' who give somethinf 20% up and down your value.
-
-
-
-float random_next_gaussian();
->return a real gausian random from -1 to 1
-
-float random_next_gaussian(power n);
->return a real gausian random from -1 to 1 but a the power 'n'
-
-float random_next_gaussian(float range);
->return a real gausian random from '-range' to 'range'
-
-float random_next_gaussian(float range, power n);
->return a real gausian random from '-range' to 'range' but at the power 'n'
-
-
-
-
-
-
-
-
-
-*TABLE METHOD 0.0.3
-
-build
---
-void buildTable(Table table, TableRow [] tableRow, String [] col_name, String [] row_name) ;
-
-void buildTable(Table table, String [] col_name) ;
->build your table with the collumn name that you need until 7 col, the first is always for the data type. Be caraful, used the method in the SETUP()
-
-
-set
---
-void setTable(Table table, TableRow [] rows, Info_obj... info) ;
-
-add rows with info that you need.
-Here we use the Class Info_obj to put every thing what you need in each row, no matter if it's String, float, int...
-the first param of Info is in String and be use in the first col, the other are Object type and be use in the next col.
-
-
-void setRow(Table table, Info_obj info) ;
->Set a specific row.
 
 
 
@@ -386,157 +357,12 @@ void printArrayTempo(int tempo, Object[] array);
 
 
 
-*INFO DICT 0.2.3
 
-Generic Dict_list
---
-Object
-Info_dict your_dict = new Info_dict() ;
 
-Be careful Info_dict return only var of type Object. So before use it, you must check the type before cast it.
-Plus the method get() don't work in Dict_list, instead use catch_all() or catch_obj(int arg)
 
-Special Dict_list
---
-Integer
-Info_int_dict your_dict = new Info_int_dict() ;
 
-Float
-Info_float_dict your_dict = new Info_float_dict() ;
 
-String
-Info_String_dict your_dict = new Info_String_dict() ;
 
-Vec
-Info_Vec_dict your_dict = new Info_Vec_dict() ;
-
-
-
-
-add value
---
-dict.add(String name, Type var) ;
-> from '1' var... to '6' vars
-
-your_dict.add(String name, Type var, Type var, Type var, Type var, Type var, Type var) ;
-
-read value
---
-your_dict.read() ;
-> return the name, the vars and the type of var used
-
-size
---
-your_dict.size() ;
-> return the size of your dict
-
-get value
---
-your_dict.get("name")) ;
-> return Array list of info with the target name
-
-your_dict.get(-1)) ;
-> return Object info
-
-remove Info
---
-your_dict.remove("name") ;
-> remove all entries with this entry name
-
-your_dict.remove(0) ;
->remove this entry from the list
-
-clear
---
-your_dict.clear() ;
->empty the list
-
-
-
-
-INFO 0.1.0
---
->class structure and build to return:
->String + String(s) / String + int(s) / String + float(s) / String + Vec(s) / String + Object(s)
-
-
->Info_String, Info_float, Info_int, Info_Vec, Info_obj.
-
-like that
---
-Info info = new Info_int(String name,int... arg);
-
-Info info = new Info_String(String name,String... arg);
-
-Info info = new Info_float(String name,float... arg);
-
-Info info = new Info_vec(String name,Vec... arg);
-
-Info info = new Info_obj(String name,Object... a);
-
-
-
-
-You can catch or get the value with:
---
-Object [] catch_all() ;
->return array with all objects
-
-Object catch_obj(int target);
->return a var from type Object
-
-You can also get the value with
-
-variable [] get() ;
->return array with all argument of the info type.
-
-variable [] get(int target) ;
->return a argument of the type info
-
-Can work with float, int, String and Vec class
---
-Info(String name,type a);
-
-Info(String name,type a,type  b);
-
-Info(String name,type a,type b,type c);
-
-Info(String name,type a,type b,type c,type  d);
-
-Info(String name, type a,type b,type c,type d,type e);
-
-Info(String name,type a,type b,type c,type d,type e,type f);
-
-Info(String name,type  a,type b,type c,type d,type e,type f,type g);
->if you mix different type of var in you Constructor, the class considere all param like Object type.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*MISC
-
-Test value in range
---
-booelan in_range(float min, float max, float value) ;
->return boolean, test value in univers with low and hight value
-
-boolean in_range_wheel(float min, float max, float roof_max, float value) ;
->return boolean, test value in univers with no low and hight value, whe the value is hight of the max that's return to the min value.
 
 
 
@@ -691,8 +517,7 @@ boolean research_in_String(String research, String target)
 > return true if a specific String is in the String target
 
 
-String get_type(Object obj);
-> return the name of the type var you send, can be use with generic var like Object, can beturn if it's PVector, Vec or Ivec too.
+
 
 
 File util
@@ -819,6 +644,194 @@ String float_to_String_2(float data) ;
 
 String float_to_String_3(float data) ;
 > return String with one, two or three decimal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*TABLE METHOD 0.0.3
+
+build
+--
+void buildTable(Table table, TableRow [] tableRow, String [] col_name, String [] row_name) ;
+
+void buildTable(Table table, String [] col_name) ;
+>build your table with the collumn name that you need until 7 col, the first is always for the data type. Be caraful, used the method in the SETUP()
+
+
+set
+--
+void setTable(Table table, TableRow [] rows, Info_obj... info) ;
+
+add rows with info that you need.
+Here we use the Class Info_obj to put every thing what you need in each row, no matter if it's String, float, int...
+the first param of Info is in String and be use in the first col, the other are Object type and be use in the next col.
+
+
+void setRow(Table table, Info_obj info) ;
+>Set a specific row.
+
+
+
+
+
+*INFO DICT 0.2.3
+
+Generic Dict_list
+--
+Object
+Info_dict your_dict = new Info_dict() ;
+
+Be careful Info_dict return only var of type Object. So before use it, you must check the type before cast it.
+Plus the method get() don't work in Dict_list, instead use catch_all() or catch_obj(int arg)
+
+Special Dict_list
+--
+Integer
+Info_int_dict your_dict = new Info_int_dict() ;
+
+Float
+Info_float_dict your_dict = new Info_float_dict() ;
+
+String
+Info_String_dict your_dict = new Info_String_dict() ;
+
+Vec
+Info_Vec_dict your_dict = new Info_Vec_dict() ;
+
+
+
+
+add value
+--
+dict.add(String name, Type var) ;
+> from '1' var... to '6' vars
+
+your_dict.add(String name, Type var, Type var, Type var, Type var, Type var, Type var) ;
+
+read value
+--
+your_dict.read() ;
+> return the name, the vars and the type of var used
+
+size
+--
+your_dict.size() ;
+> return the size of your dict
+
+get value
+--
+your_dict.get("name")) ;
+> return Array list of info with the target name
+
+your_dict.get(-1)) ;
+> return Object info
+
+remove Info
+--
+your_dict.remove("name") ;
+> remove all entries with this entry name
+
+your_dict.remove(0) ;
+>remove this entry from the list
+
+clear
+--
+your_dict.clear() ;
+>empty the list
+
+
+
+
+INFO 0.1.0
+--
+>class structure and build to return:
+>String + String(s) / String + int(s) / String + float(s) / String + Vec(s) / String + Object(s)
+
+
+>Info_String, Info_float, Info_int, Info_Vec, Info_obj.
+
+like that
+--
+Info info = new Info_int(String name,int... arg);
+
+Info info = new Info_String(String name,String... arg);
+
+Info info = new Info_float(String name,float... arg);
+
+Info info = new Info_vec(String name,Vec... arg);
+
+Info info = new Info_obj(String name,Object... a);
+
+
+
+
+You can catch or get the value with:
+--
+Object [] catch_all() ;
+>return array with all objects
+
+Object catch_obj(int target);
+>return a var from type Object
+
+You can also get the value with
+
+variable [] get() ;
+>return array with all argument of the info type.
+
+variable [] get(int target) ;
+>return a argument of the type info
+
+Can work with float, int, String and Vec class
+--
+Info(String name,type a);
+
+Info(String name,type a,type  b);
+
+Info(String name,type a,type b,type c);
+
+Info(String name,type a,type b,type c,type  d);
+
+Info(String name, type a,type b,type c,type d,type e);
+
+Info(String name,type a,type b,type c,type d,type e,type f);
+
+Info(String name,type  a,type b,type c,type d,type e,type f,type g);
+>if you mix different type of var in you Constructor, the class considere all param like Object type.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
