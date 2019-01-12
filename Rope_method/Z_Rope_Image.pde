@@ -1,6 +1,6 @@
 /**
 * ROPE IMAGE
-v 0.2.0
+v 0.3.0
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -1314,4 +1314,23 @@ String get_renderer(final PGraphics graph) {
   catch (ClassNotFoundException ex) {
   }
   return "Unknown";
+}
+
+
+
+
+
+
+String graphics_is(Object obj) {
+  if(obj instanceof PGraphics) {
+    return "PGraphics";
+  } else if(obj instanceof PGraphics2D) {
+    return "PGraphics";
+  } else if(obj instanceof PGraphics3D) {
+    return "PGraphics";
+  } else if(obj instanceof processing.javafx.PGraphicsFX2D) {
+    return "PGraphics";
+  } else if(obj instanceof PImage) {
+    return "PImage";
+  } else return null;
 }

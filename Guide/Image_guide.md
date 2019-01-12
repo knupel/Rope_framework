@@ -414,6 +414,11 @@ String get_renderer(PGraphics pg) ;
 boolean renderer_P3D() ;
 >retrun boolean true if the mode is P3D, return false with other renderers.
 
+String graphics_is(Object obj);
+return PIMage is the object is a Movie, Video or PImage
+return PGraphicsd is the object is a PGraphics, PGraphics2D, PGraphics3D, PGraphicsFX2D
+in the other case return null;
+
 
 
 

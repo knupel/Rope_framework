@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.54.0
+v 1.55.0
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -960,87 +960,7 @@ void event_PNG() {
 
 
 
-/**
-TABLE METHOD 
-v 0.0.3.1
-for Table with the first COLLUMN is used for name and the next 6 for the value.
-The method is used with the Class Info
 
-*/
-// table method for row sort
-void buildTable(Table table, TableRow [] tableRow, String [] col_name, String [] row_name) {
-  // add col
-  for(int i = 0 ; i < col_name.length ; i++) {
-    table.addColumn(col_name[i]);
-  }
-  // add row
-  tableRow = new TableRow[row_name.length] ;
-  buildRow(table, row_name) ;
-}
-
-void buildTable(Table table, String [] col_name) {
-  // add col
-  for(int i = 0 ; i < col_name.length ; i++) {
-    table.addColumn(col_name[i]);
-  }
-}
-
-void buildRow(Table table, String [] row_name) {
-  int num_row = table.getRowCount() ;
-  for(int i = 0 ; i < num_row ; i++) {
-    TableRow row = table.getRow(i) ;
-    row.setString(table.getColumnTitle(0), row_name[i]) ; 
-  }
-}
-
-void setTable(Table table, TableRow [] rows, Info_Object... info) {
-  for(int i = 0 ; i < rows.length ; i++) {
-    if(rows[i] != null) {
-      for(int j = 0 ; j < info.length ; j++) {
-        if(info[j] != null && info[j].get_name().equals(rows[i].getString(table.getColumnTitle(0)))) {
-          for(int k = 1 ; k < 7 ; k++) {
-            if(table.getColumnCount() > k && info[j].catch_obj(k-1) != null)  write_row(rows[i], table.getColumnTitle(k), info[j].catch_obj(k-1)) ;
-          }
-        }
-        
-      }
-    }
-  }
-}
-
-
-void setRow(Table table, Info_Object info) {
-  TableRow result = table.findRow(info.get_name(), table.getColumnTitle(0)) ;
-  if(result != null) {
-    for(int k = 1 ; k < 7 ; k++) {
-      if(table.getColumnCount() > k && info.catch_obj(k-1) != null)  write_row(result, table.getColumnTitle(k), info.catch_obj(k-1)) ;
-    }
-  }
-}
-
-void write_row(TableRow row, String col_name, Object o) {
-  if(o instanceof String) {
-    String s = (String) o ;
-    row.setString(col_name, s);
-  } else if(o instanceof Short) {
-    short sh = (Short) o ;
-    row.setInt(col_name, sh);
-  } else if(o instanceof Integer) {
-    int in = (Integer) o ;
-    row.setInt(col_name, in);
-  } else if(o instanceof Float) {
-    float f = (Float) o ;
-    row.setFloat(col_name, f);
-  } else if(o instanceof Character) {
-    char c = (Character) o ;
-    String s = Character.toString(c) ;
-    row.setString(col_name, s);
-  } else if(o instanceof Boolean) {
-    boolean b = (Boolean) o ;
-    String s = Boolean.toString(b) ;
-    row.setString(col_name, s);
-  } 
-}
 
 
 
@@ -1805,7 +1725,87 @@ boolean extension_is(String... data) {
 
 
 
+/**
+TABLE METHOD 
+v 0.0.3.1
+for Table with the first COLLUMN is used for name and the next 6 for the value.
+The method is used with the Class Info
 
+*/
+// table method for row sort
+void buildTable(Table table, TableRow [] tableRow, String [] col_name, String [] row_name) {
+  // add col
+  for(int i = 0 ; i < col_name.length ; i++) {
+    table.addColumn(col_name[i]);
+  }
+  // add row
+  tableRow = new TableRow[row_name.length] ;
+  buildRow(table, row_name) ;
+}
+
+void buildTable(Table table, String [] col_name) {
+  // add col
+  for(int i = 0 ; i < col_name.length ; i++) {
+    table.addColumn(col_name[i]);
+  }
+}
+
+void buildRow(Table table, String [] row_name) {
+  int num_row = table.getRowCount() ;
+  for(int i = 0 ; i < num_row ; i++) {
+    TableRow row = table.getRow(i) ;
+    row.setString(table.getColumnTitle(0), row_name[i]) ; 
+  }
+}
+
+void setTable(Table table, TableRow [] rows, Info_Object... info) {
+  for(int i = 0 ; i < rows.length ; i++) {
+    if(rows[i] != null) {
+      for(int j = 0 ; j < info.length ; j++) {
+        if(info[j] != null && info[j].get_name().equals(rows[i].getString(table.getColumnTitle(0)))) {
+          for(int k = 1 ; k < 7 ; k++) {
+            if(table.getColumnCount() > k && info[j].catch_obj(k-1) != null)  write_row(rows[i], table.getColumnTitle(k), info[j].catch_obj(k-1)) ;
+          }
+        }
+        
+      }
+    }
+  }
+}
+
+
+void setRow(Table table, Info_Object info) {
+  TableRow result = table.findRow(info.get_name(), table.getColumnTitle(0)) ;
+  if(result != null) {
+    for(int k = 1 ; k < 7 ; k++) {
+      if(table.getColumnCount() > k && info.catch_obj(k-1) != null)  write_row(result, table.getColumnTitle(k), info.catch_obj(k-1)) ;
+    }
+  }
+}
+
+void write_row(TableRow row, String col_name, Object o) {
+  if(o instanceof String) {
+    String s = (String) o ;
+    row.setString(col_name, s);
+  } else if(o instanceof Short) {
+    short sh = (Short) o ;
+    row.setInt(col_name, sh);
+  } else if(o instanceof Integer) {
+    int in = (Integer) o ;
+    row.setInt(col_name, in);
+  } else if(o instanceof Float) {
+    float f = (Float) o ;
+    row.setFloat(col_name, f);
+  } else if(o instanceof Character) {
+    char c = (Character) o ;
+    String s = Character.toString(c) ;
+    row.setString(col_name, s);
+  } else if(o instanceof Boolean) {
+    boolean b = (Boolean) o ;
+    String s = Boolean.toString(b) ;
+    row.setString(col_name, s);
+  } 
+}
 /**
 Info_dict 
 v 0.3.0.1
