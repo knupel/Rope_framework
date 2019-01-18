@@ -1,7 +1,7 @@
 /**
 Rope Costume
-* Copyleft (c) 2014-2018
-v 1.4.5
+* Copyleft (c) 2014-2019
+v 1.5.0
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
@@ -43,6 +43,9 @@ final int CUBE_LINE_ROPE = 1002;
 final int OCTOHEDRON_LINE_ROPE = 1003;
 final int RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE_ROPE = 1004;
 final int ICOSI_DODECAHEDRON_LINE_ROPE = 1005;
+
+
+final int HOUSE_ROPE = 2000;
 
 final int VIRUS_ROPE = 88_888_888;
 
@@ -109,6 +112,8 @@ void costume_list() {
 
 		costume_dict.add("STAR_ROPE",STAR_ROPE,2,3);
 		costume_dict.add("STAR_3D_ROPE",STAR_3D_ROPE,2,3);
+
+		costume_dict.add("HOUSE_ROPE",HOUSE_ROPE,3,0);
 
 		costume_dict.add("VIRUS_ROPE",VIRUS_ROPE,3,0);
 
@@ -1165,6 +1170,14 @@ public class Costume {
 			stop_matrix();
 		}
 
+		else if(this.get_type() == HOUSE_ROPE) {
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			house(size);
+			stop_matrix();
+		}
+
 
 	  else if(this.get_type() == VIRUS_ROPE) {
 			start_matrix();
@@ -1213,6 +1226,230 @@ public class Costume {
 		ratio_costume_size = 1;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+house method
+*/
+House house_costume_rope;
+void house(Vec3 size) {
+	if(house_costume_rope != null) {
+		house_costume_rope.set_size(size);
+		house_costume_rope.show();
+	} else {
+		house_costume_rope = new House();
+	}
+}
+/**
+Class House
+v 0.0.2
+*/
+public class House {
+	private int fill_roof;
+	private int fill_wall;
+	private int fill_ground;
+	private int level;
+	private Vec3 pos;
+	private Vec3 size;
+
+  private Vec3 [] pa;
+	private Vec3 [] pc;
+	public House() {
+		build();
+	}
+  
+  public House(float size) {
+  	this.size = Vec3(size);
+		build();
+	}
+
+	public House(float sx, float sy, float sz) {
+		this.size = Vec3(sx,sy,sz);
+		build();
+	}
+
+	public void set_pos(Vec3 pos) {
+		if(this.pos == null) {
+			this.pos = pos.copy();
+		} else {
+			this.pos.set(pos);
+		}
+	}
+
+	public void set_size(Vec3 size) {
+		if(this.size == null) {
+			this.size = size.copy();
+		} else {
+			this.size.set(size);
+		}
+	}
+
+	private void build() {
+		pa = new Vec3[5];
+		pc = new Vec3[5];
+		
+		pa[0] = Vec3(1,-1,-0.5);
+		pa[1] = Vec3(1,0,-1);
+		pa[2] = Vec3(1,1,-1);
+		pa[3] = Vec3(1,1,0);
+		pa[4] = Vec3(1,0,0);
+
+		pc[0] = Vec3(0,-1,-0.5);
+		pc[1] = Vec3(0,0,-1);
+		pc[2] = Vec3(0,1,-1);
+		pc[3] = Vec3(0,1,0);
+		pc[4] = Vec3(0,0,0);
+
+		Vec3 offset = Vec3(-.5,0,.5); // to center the house
+		for(int i = 0 ; i < pa.length ; i++) {
+			pa[i].add(offset);
+			pc[i].add(offset);
+		}
+	}
+  
+
+	public void show() {
+		float smallest_size = 0;
+		for(int i = 0 ; i < 3 ; i++) {
+			if(smallest_size == 0 || smallest_size > size.array()[i]) {
+			 	smallest_size = size.array()[i];
+			 }
+		}
+		// draw A
+		beginShape();
+		if(pos == null) {
+			vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+			for(int i = 1 ; i < pa.length ; i++) {
+				vertex(pa[i].copy().mult(size));
+			}
+		} else {
+			vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
+			for(int i = 1 ; i < pa.length ; i++) {
+				vertex(pa[i].copy().mult(size).add(pos));
+			}
+		}
+		endShape(CLOSE);
+
+	  // draw B
+		beginShape();
+		if(pos == null) {
+			vertex(pa[2].copy().mult(size));
+			vertex(pa[1].copy().mult(size));
+			vertex(pc[1].copy().mult(size));
+			vertex(pc[2].copy().mult(size));
+		} else {
+			vertex(pa[2].copy().mult(size).add(pos));
+			vertex(pa[1].copy().mult(size).add(pos));
+			vertex(pc[1].copy().mult(size).add(pos));
+			vertex(pc[2].copy().mult(size).add(pos));
+		}
+		endShape(CLOSE);
+
+	  // draw C
+		beginShape();
+		if(pos == null) {
+			vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+			for(int i = 1 ; i < pc.length ; i++) {
+				vertex(pc[i].copy().mult(size));
+			}
+		} else {
+			vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
+			for(int i = 1 ; i < pc.length ; i++) {
+				vertex(pc[i].copy().mult(size).add(pos));
+			}	
+		}
+		endShape(CLOSE);
+
+		// draw D
+		beginShape();
+		if(pos == null) {
+			vertex(pa[3].copy().mult(size));
+			vertex(pa[4].copy().mult(size));
+			vertex(pc[4].copy().mult(size));
+			vertex(pc[3].copy().mult(size));
+		} else {
+			vertex(pa[3].copy().mult(size).add(pos));
+			vertex(pa[4].copy().mult(size).add(pos));
+			vertex(pc[4].copy().mult(size).add(pos));
+			vertex(pc[3].copy().mult(size).add(pos));
+		}
+		endShape(CLOSE);
+
+		// draw E
+		beginShape();
+		if(pos == null) {
+			vertex(pa[4].copy().mult(size));
+			vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+			vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+			vertex(pc[4].copy().mult(size));
+		} else {
+			vertex(pa[4].copy().mult(size).add(pos));
+			vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
+			vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
+			vertex(pc[4].copy().mult(size).add(pos));
+		}
+		endShape(CLOSE);
+
+		// draw F
+		beginShape();
+		if(pos == null) {
+			vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+			vertex(pa[1].copy().mult(size));
+			vertex(pc[1].copy().mult(size));
+			vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+		} else {
+			vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
+			vertex(pa[1].copy().mult(size).add(pos));
+			vertex(pc[1].copy().mult(size).add(pos));
+			vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
+		}
+		endShape(CLOSE);
+
+		// draw G for ground
+		beginShape();
+		if(pos == null) {
+			vertex(pa[2].copy().mult(size));
+			vertex(pc[2].copy().mult(size));
+			vertex(pc[3].copy().mult(size));
+			vertex(pa[3].copy().mult(size));
+		} else {
+			vertex(pa[2].copy().mult(size).add(pos));
+			vertex(pc[2].copy().mult(size).add(pos));
+			vertex(pc[3].copy().mult(size).add(pos));
+			vertex(pa[3].copy().mult(size).add(pos));
+		}
+		endShape(CLOSE);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1434,6 +1671,13 @@ public class Star {
 
 
  
+
+
+
+
+
+
+
 
 
 
