@@ -7,18 +7,10 @@ ROPE - Romanesco processing environment –
 */
 // import processing.video.Movie;
 void setup() {
-  PImage img = createImage(200,200,RGB);
-  println(iVec2(img));
-  /*
-    println(all(equal(va,vb)));
-  println(any(equal(va,vb)));
-
-
-  bVec3 bv = bVec3(false,false,true);
-  println(bv.x,bv.y,bv.z);
-      println(all(bv));
-  println(any(bv));
-  */
+  Vec2 pos_a = Vec2(0,-1);
+  Vec2 pos_b = Vec2(0,-1);
+  Vec2 area = Vec2(1);
+  println(compare(pos_a,pos_b,area));
 
 }
 

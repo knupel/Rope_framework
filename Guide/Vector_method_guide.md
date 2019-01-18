@@ -184,11 +184,30 @@ Vec3 cross(Vec3 v1, Vec3 v2);
 
 *Compare
 
+boolean compare(iVec2 a, iVec2 b); 
+> see equal in GLSL_method.md guide
+
+boolean compare(iVec3 a, iVec3 b);
+> see equal in GLSL_method.md guide
+
+boolean compare(iVec4 a, iVec4 b);
+> see equal in GLSL_method.md guide
+
+boolean compare(iVec2 a, iVec2 b, iVec2 area);
+
+boolean compare(iVec3 a, iVec3 b, iVec3 area);
+
+boolean compare(iVec4 a, iVec4 b, iVec4 area);
+
+
 boolean compare(Vec2 a, Vec2 b);
+> see equal in GLSL_method.md guide
 
 boolean compare(Vec3 a, Vec3 b);
+> see equal in GLSL_method.md guide
 
-boolean compare(Vec4 a, Vec4 b) ;
+boolean compare(Vec4 a, Vec4 b);
+> see equal in GLSL_method.md guide
 
 boolean compare(Vec2 a, Vec2 b, Vec2 area);
 

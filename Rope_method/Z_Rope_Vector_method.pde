@@ -1,6 +1,6 @@
 /**
 Vec, iVec and bVec rope method
-v 0.1.4
+v 0.1.5
 * Copyleft (c) 2018-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -645,59 +645,59 @@ Vec3 cross(Vec3 v1, Vec3 v2, Vec3 target) {
 Equals
 v 0.0.2
 */
-/**
-* Compare Vector with or without area
-* we must add a compare method for the case when we need to compare in vector in the a class
-*
-* @return boolean
-*/
-// Vec2 equals
-
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
+/*
+@Deprecated // use compare()
 boolean equals(Vec2 v_a, Vec2 v_b) {
   return compare(v_a,v_b);
 }
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
+
+@Deprecated // use compare()
 boolean equals(Vec3 v_a, Vec3 v_b) {
   return compare(v_a,v_b);
 }
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
+
+@Deprecated // use compare()
 boolean equals(Vec4 v_a, Vec4 v_b) {
   return compare(v_a,v_b);
 }
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
+
+@Deprecated // use compare()
 boolean equals(Vec2 v_a, Vec2 v_b, Vec2 area) {
   return compare(v_a,v_b, area);
 }
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
+
+@Deprecated // use compare()
 boolean equals(Vec3 v_a, Vec3 v_b, Vec3 area) {
    return compare(v_a,v_b, area);
 }
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
+
+@Deprecated // use compare()
 boolean equals(Vec4 v_a, Vec4 v_b, Vec4 area) {
   return compare(v_a,v_b, area);
 }
+*/
 
 
 
+/** 
+* compare if the first vector is in the area of the second vector, 
+* the area of the second vector is define by a Vec area, 
+* that give the possibility of different size for each component
+* @return boolean
+* v 0.2.0
+*/
+
+boolean compare(iVec2 a, iVec2 b) {
+  return compare(Vec2(a),Vec2(b));
+}
+
+boolean compare(iVec3 a, iVec3 b) {
+  return compare(Vec3(a),Vec3(b));
+}
+
+boolean compare(iVec4 a, iVec4 b) {
+  return compare(Vec4(a),Vec4(b));
+}
 
 
 boolean compare(Vec2 a, Vec2 b) {
@@ -705,7 +705,7 @@ boolean compare(Vec2 a, Vec2 b) {
     println("Is not possible to compare", a, "to", b) ;
     return false ;
   } else {
-    return equals(Vec4(a.x,a.y,0,0),Vec4(b.x,b.y,0,0)) ;
+    return compare(Vec4(a.x,a.y,0,0),Vec4(b.x,b.y,0,0)) ;
   }
 }
 
@@ -715,14 +715,14 @@ boolean compare(Vec3 a, Vec3 b) {
     println("Is not possible to compare", a, "to", b) ;
     return false ;
   } else {
-    return equals(Vec4(a.x,a.y,a.z, 0),Vec4(b.x,b.y,b.z, 0)) ;
+    return compare(Vec4(a.x,a.y,a.z, 0),Vec4(b.x,b.y,b.z, 0)) ;
   }
 }
 // Vec4 compare
 boolean compare(Vec4 a, Vec4 b) {
   if(a != null && b != null ) {
     if((a.x == b.x) && (a.y == b.y) && (a.z == b.z) && (a.w == b.w)) {
-            return true ; 
+      return true ; 
     } else {
       return false ;
     }
@@ -732,22 +732,27 @@ boolean compare(Vec4 a, Vec4 b) {
 }
 
 
-/** 
-* compare if the first vector is in the area of the second vector, 
-* the area of the second vector is define by a Vec area, 
-* that give the possibility of different size for each component
-* @return boolean
-*/
-// Vec method
 /**
 * compare with area
 */
+boolean compare(iVec2 a, iVec2 b, iVec2 area) {
+  return compare(Vec2(a),Vec2(b),Vec2(area));
+}
+
+boolean compare(iVec3 a, iVec3 b, iVec3 area) {
+  return compare(Vec3(a),Vec3(b),Vec3(area));
+}
+
+boolean compare(iVec4 a, iVec4 b, iVec4 area) {
+  return compare(Vec4(a),Vec4(b),Vec4(area));
+}
+
 boolean compare(Vec2 a, Vec2 b, Vec2 area) {
   if(a == null || b == null || area == null) {
     println("Is not possible to compare", a, "with", b, "with", area) ;
     return false ;
   } else {
-    return equals(Vec4(a.x,a.y, 0, 0),Vec4(b.x,b.y, 0, 0),Vec4(area.x, area.y, 0, 0)) ;
+    return compare(Vec4(a.x,a.y, 0, 0),Vec4(b.x,b.y, 0, 0),Vec4(area.x, area.y, 0, 0)) ;
   }
 }
 
@@ -756,7 +761,7 @@ boolean compare(Vec3 a, Vec3 b, Vec3 area) {
     println("Is not possible to compare", a, "with", b, "with", area) ;
     return false ;
   } else {
-    return equals(Vec4(a.x,a.y,a.z, 0),Vec4(b.x,b.y,b.z, 0),Vec4(area.x, area.y, area.z, 0)) ;
+    return compare(Vec4(a.x,a.y,a.z, 0),Vec4(b.x,b.y,b.z, 0),Vec4(area.x, area.y, area.z, 0)) ;
   }
 }
 
