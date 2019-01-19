@@ -7,9 +7,11 @@ ROPE - Romanesco processing environment –
 */
 // import processing.video.Movie;
 
+House house;
 void setup() {
 	colorMode(HSB,360,100,100,100);
 	size(700,700,P3D);
+	house = new House();
 }
 
 
@@ -18,14 +20,13 @@ float rot_x = 0;
 float rot_y = 0;
 void draw() {
 	background(0);
-  stroke(0,0,100);
-  // noFill();
-  fill(0,100,50);
+
+	aspect(r.BLOOD,r.BLACK,1);
 
   float min = width/12;
 	float max = width *.4;
   
-
+  // house size
   float rx = abs(sin(frameCount *.002));
   float ry = abs(sin(frameCount *.004));
   float rz = abs(sin(frameCount *.006));
@@ -33,7 +34,21 @@ void draw() {
   float sy = map(ry,0,1,min,max);
   float sz = map(rz,0,1,min,max);
   Vec3 size = Vec3(sx,sy,sz);
-  // House house = new House(size,size*2,size);
+  house.set_size(size);
+
+  // house peak
+  float peak_a = abs(sin(frameCount *.005)) *.5;
+  float peak_b = abs(sin(frameCount *.005)) *.5;
+  house.set_peak(peak_a,peak_b);
+
+  // house colour roof
+   house.set_fill_wall(r.GRAY_3);
+   house.set_fill_roof(r.BLOOD);
+   house.set_fill_ground(r.BLACK);
+   house.set_stroke(r.GRAY_1);
+   house.set_thickness(2);
+
+  
   
   pushMatrix();
 	translate(width/2,height/2);
@@ -43,7 +58,8 @@ void draw() {
 	}
 	rotateX(rot_y);
 	rotateY(rot_x);
-	costume(Vec3(),size,HOUSE_ROPE);
+	house.show();
+	// costume(Vec3(),size,HOUSE_ROPE);
 	popMatrix();
 }
 

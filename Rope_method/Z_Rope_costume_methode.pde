@@ -44,7 +44,6 @@ final int OCTOHEDRON_LINE_ROPE = 1003;
 final int RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE_ROPE = 1004;
 final int ICOSI_DODECAHEDRON_LINE_ROPE = 1005;
 
-
 final int HOUSE_ROPE = 2000;
 
 final int VIRUS_ROPE = 88_888_888;
@@ -676,12 +675,9 @@ void cross_rect(iVec2 pos, int thickness, int radius) {
 	pos_temp.set(pos.x -floor(size.x/2) +(thickness /2),pos.y);
 	pos_temp.sub(thickness/2);
 	rect(pos_temp,size);
-
-
 	//rect(pos, size);
 	//rect(small_part, size.y, small_part);
 }
-
 
 void cross_box_2(Vec2 size) {
 	// float ratio = map(ratio_costume_size,0,1,.3,.9);
@@ -695,7 +691,7 @@ void cross_box_2(Vec2 size) {
 
 void cross_box_3(Vec3 size) {
 	// float ratio = .3;
-// void cross_box_3(Vec3 size, float ratio) {
+	// void cross_box_3(Vec3 size, float ratio) {
 	float scale_cross = size.sum() *.3;
 	float small_part = scale_cross *ratio_costume_size;
    
@@ -736,13 +732,10 @@ void virus(Vec pos, Vec size, float angle) {
 }
 
 
-
 // main method
 Virus virus_costume_rope;
 boolean make_virus = true ;
-
 void virus(Vec pos, Vec size, float angle, int close) {
-
 	if(make_virus) {
 		virus_costume_rope = new Virus() ;
 		make_virus = false ;
@@ -757,7 +750,6 @@ void virus(Vec pos, Vec size, float angle, int close) {
 	virus_costume_rope.show(close) ;	
 }
 
-
 void set_costume_virus_mutation(int mutation) {
 	if(virus_costume_rope != null && mutation != 0 && mutation != virus_costume_rope.get_mutation()) {
 		virus_costume_rope.set_mutation(abs(mutation));
@@ -769,7 +761,6 @@ void set_costume_virus_num(int num) {
 		virus_costume_rope.set_num(abs(num));
 	}
 }
-
 
 void set_costume_virus_node(int node) {
 	if(virus_costume_rope != null && node != 0 && node != virus_costume_rope.get_node()) {
@@ -807,7 +798,6 @@ void set_costume_virus_node(int node) {
 /**
 COSTUME INFO
 */
-
 // get costume
 int get_costume(int target) {
 	costume_list() ;
@@ -819,7 +809,6 @@ int get_costume(int target) {
 	}
 }
 
-
 // return size of the arrayList costume
 int costumes_size() {
 	costume_list() ;
@@ -829,19 +818,13 @@ int costumes_size() {
 
 
 
-
-
-
 Info_int_dict costume_dict = new Info_int_dict();
 boolean list_costume_is_built = false ;
 int ref_size_pic = -1 ;
-
 Costume aspect_rope;
-
 String costume_text_rope = null;
 boolean fill_rope_is = true;
 boolean stroke_rope_is = true;
-
 void costume_list() {
 	if(!list_costume_is_built) {
 		/* 
