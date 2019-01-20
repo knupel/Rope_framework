@@ -47,6 +47,7 @@ void draw() {
    house.set_fill_ground(r.BLACK);
    house.set_stroke(r.GRAY_1);
    house.set_thickness(2);
+   house.mode(BOTTOM);
 
   
   
@@ -59,7 +60,6 @@ void draw() {
 	rotateX(rot_y);
 	rotateY(rot_x);
 	house.show();
-	// costume(Vec3(),size,HOUSE_ROPE);
 	popMatrix();
 }
 
