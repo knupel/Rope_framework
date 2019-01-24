@@ -2,6 +2,33 @@ Guide Science
 --
 the sctech method tab is not included on this repository if you need
 @see https://github.com/StanLepunK/Old_code/tree/master/Science_rope_2017_12_8
+
+*RANDOM
+
+>Return random value smooth around the target, like gaussian curve, by default the range around the value is 40%, but it's the extreme case and it's very very rare.
+
+float random_gaussian(float value);
+
+float random_gaussian(float value, float range);
+>arg value is your value must be processing
+>arg range is use to contrain the gaussian random, by default the range is '.4' who give somethinf 20% up and down your value.
+
+
+
+float random_next_gaussian();
+>return a real gausian random from -1 to 1
+
+float random_next_gaussian(power n);
+>return a real gausian random from -1 to 1 but a the power 'n'
+
+float random_next_gaussian(float range);
+>return a real gausian random from '-range' to 'range'
+
+float random_next_gaussian(float range, power n);
+>return a real gausian random from '-range' to 'range' but at the power 'n'
+
+
+
 *Wave
 
 float sin_wave(float speed, float scale);

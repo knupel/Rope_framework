@@ -1,6 +1,6 @@
 /**
 * ROPE IMAGE
-v 0.3.0
+v 0.3.1
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -782,23 +782,23 @@ PImage paste_vertical(PImage img, int entry, int [] array_pix) {
 
 /**
 CANVAS
-v 0.1.2.1
+v 0.2.0
 */
-PImage [] canvas;
-int current_canvas;
+PImage [] rope_canvas;
+int current_canvas_rope;
 
 // build canvas
 void new_canvas(int num) {
-  canvas = new PImage[num];
+  rope_canvas = new PImage[num];
 }
 
 void create_canvas(int w, int h, int type) {
-  canvas = new PImage[1];
-  canvas[0] = createImage(w, h, type);
+  rope_canvas = new PImage[1];
+  rope_canvas[0] = createImage(w, h, type);
 }
 
 void create_canvas(int w, int h, int type, int which_one) {
-  canvas[which_one] = createImage(w, h, type);
+  rope_canvas[which_one] = createImage(w, h, type);
 }
 
 // clean
@@ -808,7 +808,7 @@ void clean_canvas(int which_canvas) {
 }
 
 void clean_canvas(int which_canvas, int c) {
-  if(which_canvas < canvas.length) {
+  if(which_canvas < rope_canvas.length) {
     select_canvas(which_canvas) ;
     for(int i = 0 ; i < get_canvas().pixels.length ; i++) {
       get_canvas().pixels[i] = c ;
@@ -823,46 +823,46 @@ void clean_canvas(int which_canvas, int c) {
 
 // misc
 int canvas_size() {
-  return canvas.length;
+  return rope_canvas.length;
 }
 
 // select the canvas must be used for your next work
 void select_canvas(int which_one) {
-  if(which_one < canvas.length && which_one >= 0) {
-    current_canvas = which_one;
+  if(which_one < rope_canvas.length && which_one >= 0) {
+    current_canvas_rope = which_one;
   } else {
     String message = ("void select_canvas(): Your selection " + which_one + " is not available, canvas '0' be use");
     printErr(message);
-    current_canvas = 0;
+    current_canvas_rope = 0;
   }
 }
 
 // get
 PImage get_canvas(int which) {
-  if(which < canvas.length) {
-    return canvas[which];
+  if(which < rope_canvas.length) {
+    return rope_canvas[which];
   } else return null; 
 }
 
 PImage get_canvas() {
-  return canvas[current_canvas];
+  return rope_canvas[current_canvas_rope];
 }
 
 int get_canvas_id() {
-  return current_canvas;
+  return current_canvas_rope;
 }
 
 // update
 void update_canvas(PImage img) {
-  update_canvas(img,current_canvas);
+  update_canvas(img,current_canvas_rope);
 }
 
 void update_canvas(PImage img, int which_one) {
-  if(which_one < canvas.length && which_one >= 0) {
-    canvas[which_one] = img;
+  if(which_one < rope_canvas.length && which_one >= 0) {
+    rope_canvas[which_one] = img;
   } else {
     println("void update_canvas() : Your selection" ,which_one, "is not available, canvas '0' be use");
-    canvas[0] = img;
+    rope_canvas[0] = img;
   }  
 }
 

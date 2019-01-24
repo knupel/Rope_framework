@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.55.0
+v 1.56.0
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -1169,71 +1169,7 @@ void freeze() {
 
 
 
-/**
-Gaussian randomize
-v 0.0.2
-*/
-@Deprecated
-float random_gaussian(float value) {
-  return random_gaussian(value, .4) ;
-}
 
-@Deprecated
-float random_gaussian(float value, float range) {
-  /*
-  * It's cannot possible to indicate a value result here, this part need from the coder ?
-  */
-  printErrTempo(240,"float random_gaussian(); method must be improved or totaly deprecated");
-  range = abs(range) ;
-  float distrib = random(-1, 1) ;
-  float result = 0 ;
-  if(value == 0) {
-    value = 1 ;
-    result = (pow(distrib,5)) *(value *range) +value ;
-    result-- ;
-  } else {
-    result = (pow(distrib,5)) *(value *range) +value ;
-  }
-  return result;
-}
-
-
-
-/**
-Next Gaussian randomize
-v 0.0.2
-*/
-/**
-* return value from -1 to 1
-* @return float
-*/
-Random random = new Random();
-float random_next_gaussian() {
-  return random_next_gaussian(1,1);
-}
-
-float random_next_gaussian(int n) {
-  return random_next_gaussian(1,n);
-}
-
-float random_next_gaussian(float range) {
-  return random_next_gaussian(range,1);
-}
-
-float random_next_gaussian(float range, int n) {
-  float roots = (float)random.nextGaussian();
-  float var = map(roots,-2.5,2.5,-1,1);  
-  if(n > 1) {
-    if(n%2 ==0 && var < 0) {
-       var = -1 *pow(var,n);
-     } else {
-       var = pow(var,n);
-     }
-     return var *range ;
-  } else {
-    return var *range ;
-  }
-}
 
 
 

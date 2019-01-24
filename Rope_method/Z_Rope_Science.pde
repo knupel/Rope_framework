@@ -1,6 +1,6 @@
 /**
 ROPE SCIENCE
-v 0.4.0
+v 0.5.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -9,6 +9,89 @@ v 0.4.0
 the sketch method tab is not included on this repository if you need
 * @see https://github.com/StanLepunK/Old_code/tree/master/Science_rope_2017_12_8
 */
+
+/**
+Gaussian randomize
+v 0.0.2
+*/
+@Deprecated
+float random_gaussian(float value) {
+  return random_gaussian(value, .4) ;
+}
+
+@Deprecated
+float random_gaussian(float value, float range) {
+  /*
+  * It's cannot possible to indicate a value result here, this part need from the coder ?
+  */
+  printErrTempo(240,"float random_gaussian(); method must be improved or totaly deprecated");
+  range = abs(range) ;
+  float distrib = random(-1, 1) ;
+  float result = 0 ;
+  if(value == 0) {
+    value = 1 ;
+    result = (pow(distrib,5)) *(value *range) +value ;
+    result-- ;
+  } else {
+    result = (pow(distrib,5)) *(value *range) +value ;
+  }
+  return result;
+}
+
+
+
+/**
+Next Gaussian randomize
+v 0.0.2
+*/
+/**
+* return value from -1 to 1
+* @return float
+*/
+Random random = new Random();
+float random_next_gaussian() {
+  return random_next_gaussian(1,1);
+}
+
+float random_next_gaussian(int n) {
+  return random_next_gaussian(1,n);
+}
+
+float random_next_gaussian(float range) {
+  return random_next_gaussian(range,1);
+}
+
+float random_next_gaussian(float range, int n) {
+  float roots = (float)random.nextGaussian();
+  float var = map(roots,-2.5,2.5,-1,1);  
+  if(n > 1) {
+    if(n%2 ==0 && var < 0) {
+       var = -1 *pow(var,n);
+     } else {
+       var = pow(var,n);
+     }
+     return var *range ;
+  } else {
+    return var *range ;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
 WAVE
@@ -109,7 +192,7 @@ float roots(float valueToRoots, int n) {
 
 // Decimal
 // @return a specific quantity of decimal after comma
-float decimale (float var, int n) {
+float decimale(float var, int n) {
   float div = pow(10, abs(n)) ;
   return Math.round(var *div) / div;
 }
