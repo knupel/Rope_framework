@@ -1,6 +1,6 @@
 /**
 ROPE PROCESSING METHOD
-v 2.1.2
+v 2.1.3
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -573,14 +573,15 @@ void stroke(iVec4 c) {
 
 /**
 text
+v 0.2.0
 */
 void text(String s, Vec pos) {
   if(pos instanceof Vec2 && s != null) {
     Vec2 p = (Vec2)pos;
-    text(s, p.x, p.y);
+    text(s,p.x,p.y);
   } else if(pos instanceof Vec3 && s != null) {
     Vec3 p = (Vec3)pos;
-    text(s, p.x, p.x, p.z);
+    text(s,p.x,p.y,p.z);
   } else {
     printErrTempo(60,"method text(): String message is null or Vec is not an instance of Vec3 or Vec2");
   }
@@ -592,7 +593,7 @@ void text(char c, Vec pos) {
     text(c, p.x, p.y);
   } else if(pos instanceof Vec3) {
     Vec3 p = (Vec3)pos;
-    text(c, p.x, p.x, p.z);
+    text(c,p.x,p.y,p.z);
   }
 }
 
@@ -602,7 +603,7 @@ void text(int num, Vec pos) {
     text(num, p.x, p.y);
   } else if(pos instanceof Vec3) {
     Vec3 p = (Vec3)pos;
-    text(num, p.x, p.x, p.z);
+    text(num,p.x,p.y,p.z);
   } 
 }
 
@@ -612,14 +613,14 @@ void text(float num, Vec pos) {
     text(num, p.x, p.y);
   } else if(pos instanceof Vec3) {
     Vec3 p = (Vec3) pos;
-    text(num, p.x, p.x, p.z);
+    text(num,p.x,p.y,p.z);
   } 
 }
 
 // iVec
 void text(String s, iVec pos) {
   if(pos instanceof iVec2 && s != null) {
-    Vec2 temp_pos = Vec2(pos.x, pos.y);
+    Vec2 temp_pos = Vec2(pos.x,pos.y);
     text(s, temp_pos);
   } else if(pos instanceof iVec2) {
     Vec3 temp_pos = Vec3(pos.x,pos.y,pos.z);
@@ -631,30 +632,30 @@ void text(String s, iVec pos) {
 
 void text(char c, iVec pos) {
   if(pos instanceof iVec2) {
-    Vec2 temp_pos = Vec2(pos.x, pos.y);
+    Vec2 temp_pos = Vec2(pos.x,pos.y);
     text(c, temp_pos);
   } else if(pos instanceof iVec2) {
-    Vec3 temp_pos = Vec3(pos.x, pos.y, pos.z);
+    Vec3 temp_pos = Vec3(pos.x,pos.y,pos.z);
     text(c, temp_pos);
   } 
 }
 
 void text(int num, iVec pos) {
   if(pos instanceof iVec2) {
-    Vec2 temp_pos = Vec2(pos.x, pos.y);
+    Vec2 temp_pos = Vec2(pos.x,pos.y);
     text(num, temp_pos);
   } else if(pos instanceof iVec2) {
-    Vec3 temp_pos = Vec3(pos.x, pos.y, pos.z);
+    Vec3 temp_pos = Vec3(pos.x,pos.y,pos.z);
     text(num, temp_pos);
   }
 }
 
 void text(float num, iVec pos) {
   if(pos instanceof iVec2) {
-    Vec2 temp_pos = Vec2(pos.x, pos.y);
+    Vec2 temp_pos = Vec2(pos.x,pos.y);
     text(num, temp_pos);
   } else if(pos instanceof iVec2) {
-    Vec3 temp_pos = Vec3(pos.x, pos.y, pos.z);
+    Vec3 temp_pos = Vec3(pos.x,pos.y,pos.z);
     text(num, temp_pos);
   } 
 }
