@@ -2,6 +2,11 @@
 
 Problem with CMJN jpg
 
+*SVG
+
+some bug to load svg ??? need to test
+
+
 *Costume
 
 Costume_rope() must became a class not just a method

@@ -1,6 +1,6 @@
 /**
 ROPE SVG
-v 1.3.0
+v 1.4.0
 * Copyleft (c) 2014-2018
 Rope – Romanesco Processing Environment – 
 * @author Stan le Punk
@@ -521,23 +521,23 @@ class ROPE_svg {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(target) ;
       if(b.kind == "polygon" || b.kind == "path" || b.kind == "polyline") {
         for(Vertices v : list_vertice_SVG) {
-          if(v.ID == b.ID) v.add_value(value) ;
+          if(v.ID == b.get_id()) v.add_value(value) ;
         }
       } else if(b.kind == "line") {
         for(Line l : list_line_SVG) {
-          if(l.ID == b.ID) l.add_value(value) ;
+          if(l.ID == b.get_id()) l.add_value(value) ;
         }
       } else if(b.kind == "circle" || b.kind == "ellipse") {
         for(Ellipse e : list_ellipse_SVG) {
-          if(e.ID == b.ID) e.add_value(value) ;
+          if(e.ID == b.get_id()) e.add_value(value) ;
         }
       } else if(b.kind == "rect") {
         for(Rectangle r : list_rectangle_SVG) {
-          if(r.ID == b.ID) r.add_value(value) ;
+          if(r.ID == b.get_id()) r.add_value(value) ;
         }
       } else if(b.kind == "text") {
-        for(Text t : list_text_SVG) {
-          if(t.ID == b.ID) t.add_value(value) ;
+        for(ROPEText t : list_text_SVG) {
+          if(t.get_id() == b.get_id()) t.add_value(value) ;
         }
       } 
     } 
@@ -996,7 +996,7 @@ class ROPE_svg {
         }
       }
     } else if(b.kind == "text") {
-      for(Text t : list_text_SVG) {
+      for(ROPEText t : list_text_SVG) {
         if(t.ID == b.ID) {
           build_text(pos, scale, jitter, t) ;
         }
@@ -1036,14 +1036,14 @@ class ROPE_svg {
   TEXT
   */
   // list of group SVG
-  ArrayList<Text> list_text_SVG = new ArrayList<Text>() ;
+  ArrayList<ROPEText> list_text_SVG = new ArrayList<ROPEText>() ;
       
   //
   private void text_count(XML xml_shape, int ID) {
     vec6 matrix = matrix_vec(xml_shape) ;
     String sentence = xml_shape.getChild("text").getContent() ;
 
-    Text t = new Text(matrix, sentence, ID) ;
+    ROPEText t = new ROPEText(matrix, sentence, ID) ;
     list_text_SVG.add(t) ;
   }
 
@@ -1054,7 +1054,7 @@ class ROPE_svg {
   /**
   Main method to draw text
   */
-  void build_text(vec3 pos, vec3 scale, vec3 jitter, Text t) {
+  void build_text(vec3 pos, vec3 scale, vec3 jitter, ROPEText t) {
     vec3 temp_pos = vec3(t.pos.x, t.pos.y,0)   ;
     // the order of operation is very weird, because is not a same for the build_vertex()
     if(position_center) {
@@ -2064,7 +2064,7 @@ class ROPE_svg {
   
   /**
   PRIVATE CLASS
-
+  
   */
   /**
   class brick
@@ -2138,6 +2138,10 @@ class ROPE_svg {
       String name = "no name" ;
       if(target.getString("id") != null) name = target.getString("id") ;
       return name ;
+    }
+
+    int get_id() {
+      return ID;
     }
 
     /**
@@ -2387,14 +2391,14 @@ class ROPE_svg {
   Class Text
   */
 
-  private class Text {
+  private class ROPEText {
     String shape_name ;
     vec3 pos ;
     vec6 matrix ;
     int ID ;
     String sentence = null ;
   
-    Text(vec6 matrix, String sentence, int ID) {
+    ROPEText (vec6 matrix, String sentence, int ID) {
       this.ID = ID ;
       this.pos = vec3(matrix.e, matrix.f,0) ;
       this.matrix = matrix ;
@@ -2404,6 +2408,10 @@ class ROPE_svg {
     
     void add_value(vec3... value) {
       pos.add(value[0]) ;
+    }
+
+    int get_id() {
+      return ID;
     }
   }
 
