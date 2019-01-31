@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.56.0
+v 1.56.1
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -1176,18 +1176,19 @@ void freeze() {
 
 /**
 PIXEL UTILS
-v 0.0.2
-2017-2017
+v 0.0.3
 */
 int [][] loadPixels_array_2D() {
-  int [][] array_pix ;
-  loadPixels() ;
+  int [][] array_pix;
+  loadPixels();
   array_pix = new int[height][width] ;
-  int which_pix = 0 ;
-  for(int y = 0 ; y < height ; y++) {
-    for(int x = 0 ; x < width ; x++) {
-      which_pix = y *width +x ;
-      array_pix[y][x] = pixels[which_pix] ;
+  int which_pix = 0;
+  if(pixels != null) {
+    for(int y = 0 ; y < height ; y++) {
+      for(int x = 0 ; x < width ; x++) {
+        which_pix = y *width +x ;
+        array_pix[y][x] = pixels[which_pix] ;
+      }
     }
   }
   if(array_pix != null) {

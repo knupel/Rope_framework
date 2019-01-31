@@ -1,7 +1,7 @@
 /**
 Costume method
 * Copyleft (c) 2014-2019
-v 1.5.0
+v 1.7.0
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope_method
 */
@@ -600,7 +600,7 @@ void star_3D_is(boolean is_3D) {
 }
 
 
-void set_costume_star_summits(int summits) {
+void star_summits(int summits) {
 	if(star_costume_rope != null) {
 		star_costume_rope.set_summits(summits);
 	} else {
@@ -608,7 +608,7 @@ void set_costume_star_summits(int summits) {
 	}
 }
 
-void set_costume_star_angle(float angle) {
+void star_angle(float angle) {
 	if(star_costume_rope != null) {
 		star_costume_rope.set_angle(angle);
 	} else {
@@ -616,7 +616,7 @@ void set_costume_star_angle(float angle) {
 	}
 }
 
-void set_costume_star_ratio(float... ratio) {
+void star_ratio(float... ratio) {
 	if(star_costume_rope != null) {
 		star_costume_rope.set_ratio(ratio);
 	} else {
@@ -750,19 +750,19 @@ void virus(vec pos, vec size, float angle, int close) {
 	virus_costume_rope.show(close) ;	
 }
 
-void set_costume_virus_mutation(int mutation) {
+void virus_mutation(int mutation) {
 	if(virus_costume_rope != null && mutation != 0 && mutation != virus_costume_rope.get_mutation()) {
 		virus_costume_rope.set_mutation(abs(mutation));
 	}
 }
 
-void set_costume_virus_num(int num) {
+void virus_num(int num) {
 	if(virus_costume_rope != null && num != 0 && num != virus_costume_rope.get_num()) {
 		virus_costume_rope.set_num(abs(num));
 	}
 }
 
-void set_costume_virus_node(int node) {
+void virus_node(int node) {
 	if(virus_costume_rope != null && node != 0 && node != virus_costume_rope.get_node()) {
 		virus_costume_rope.set_node(abs(node));
 	}
