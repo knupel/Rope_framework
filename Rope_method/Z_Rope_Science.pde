@@ -1,6 +1,6 @@
 /**
 ROPE SCIENCE
-v 0.5.0
+v 0.5.1
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -788,7 +788,6 @@ void primitive(vec pos_raw, float radius, int summits, float angle, vec2 dir_P3D
       points[i] = polygon_2D(summits, angle)[i].copy();
     }
   }
-
   draw_primitive(pos,dir_P3D,radius,points);
   
 
@@ -856,7 +855,7 @@ void draw_primitive(vec3 pos, vec2 dir, float radius, vec3 [] pts) {
     start_matrix_2D(vec2(pos.x, pos.y),0);
   }
   */
-  draw_primitive(vec3(),radius,pts);
+  draw_primitive(pos,radius,pts);
   // stop_matrix();
 }
 
