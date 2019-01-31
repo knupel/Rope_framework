@@ -1189,7 +1189,7 @@ bvec2 bvec2(boolean [] array) {
   }
 }
 
-bvec2 bvec2(bVec b) {
+bvec2 bvec2(bvec b) {
   if(b == null) {
     println("bVec null, instead 'false' is used to build bVec") ;
     return new bvec2(false,false) ;
@@ -1227,7 +1227,7 @@ bvec3 bvec3(boolean [] array) {
   }
 }
 
-bvec3 bvec3(bVec b) {
+bvec3 bvec3(bvec b) {
   if(b == null) {
     println("bVec null, instead 'false' is used to build bVec") ;
     return new bvec3(false,false,false) ;
@@ -1267,7 +1267,7 @@ bvec4 bvec4(boolean [] array) {
   }
 }
 
-bvec4 bvec4(bVec b) {
+bvec4 bvec4(bvec b) {
   if(b == null) {
     println("bVec null, instead 'false' is used to build bVec") ;
     return new bvec4(false,false,false,false) ;
@@ -1309,7 +1309,7 @@ bvec5 bvec5(boolean [] array) {
   }
 }
 
-bvec5 bvec5(bVec b) {
+bvec5 bvec5(bvec b) {
   if(b == null) {
     println("bVec null, instead 'false' is used to build bVec") ;
     return new bvec5(false,false,false,false,false) ;
@@ -1353,7 +1353,7 @@ bvec6 bvec6(boolean [] array) {
   }
 }
 
-bvec6 bvec6(bVec b) {
+bvec6 bvec6(bvec b) {
   if(b== null) {
     println("bVec null, instead 'false' is used to build bVec") ;
     return new bvec6(false,false,false,false,false,false) ;
