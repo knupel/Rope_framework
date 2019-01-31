@@ -1,65 +1,63 @@
-*iVec method
+*ivec method
 
 *Addition
 
-iVec2 iadd(iVec2 a, iVec2 b);
+ivec2 iadd(ivec2 a, ivec2 b);
 
-iVec3 iadd(iVec3 a, iVec3 b);
+ivec3 iadd(ivec3 a, ivec3 b);
 
-iVec4 iadd(iVec4 a, iVec4 b);
+ivec4 iadd(ivec4 a, ivec4 b);
 
-iVec2 iadd(iVec2 a, int arg);
+ivec2 iadd(ivec2 a, int arg);
 
-iVec3 iadd(iVec3 a, int arg);
+ivec3 iadd(ivec3 a, int arg);
 
-iVec4 iadd(iVec4 a, int arg);
+ivec4 iadd(ivec4 a, int arg);
 
 
 *Multiplication
 
-iVec2 imult(iVec2 a, iVec2 b);
+ivec2 imult(ivec2 a, ivec2 b);
 
-iVec3 imult(iVec3 a, iVec3 b);
+ivec3 imult(ivec3 a, ivec3 b);
 
-iVec4 imult(iVec4 a, iVec4 b);
+ivec4 imult(ivec4 a, ivec4 b);
 
-iVec2 imult(iVec2 a, int arg);
+ivec2 imult(ivec2 a, int arg);
 
-iVec3 imult(iVec3 a, int arg);
+ivec3 imult(ivec3 a, int arg);
 
-iVec4 imult(iVec4 a, int arg);
+ivec4 imult(ivec4 a, int arg);
 
 
 *Division
 
-iVec2 idiv(iVec2 a, iVec2 b);
+ivec2 idiv(ivec2 a, ivec2 b);
 
-iVec3 idiv(iVec3 a, iVec3 b);
+ivec3 idiv(ivec3 a, ivec3 b);
 
-iVec4 idiv(iVec4 a, iVec4 b);
+ivec4 idiv(ivec4 a, ivec4 b);
 
-iVec2 idiv(iVec2 a, int arg);
+ivec2 idiv(ivec2 a, int arg);
 
-iVec3 idiv(iVec3 a, int arg);
+ivec3 idiv(ivec3 a, int arg);
 
-iVec4 idiv(iVec4 a, int arg);
+ivec4 idiv(ivec4 a, int arg);
 
 
 *Substraction
 
-iVec2 isub(iVec2 a, iVec2 b);
+ivec2 isub(ivec2 a, ivec2 b);
 
-iVec3 isub(iVec3 a, iVec3 b);
+ivec3 isub(ivec3 a, ivec3 b);
 
-iVec4 isub(iVec4 a, iVec4 b);
+ivec4 isub(ivec4 a, ivec4 b);
 
-iVec2 isub(iVec2 a, int arg);
+ivec2 isub(ivec2 a, int arg);
 
-iVec3 isub(iVec3 a, int arg);
+ivec3 isub(ivec3 a, int arg);
 
-iVec4 isub(iVec4 a, int arg);
-
-
+ivec4 isub(ivec4 a, int arg);
 
 
 
@@ -67,240 +65,242 @@ iVec4 isub(iVec4 a, int arg);
 
 
 
-*Vec method
+
+
+*vec method
 
 *Addition
 
-Vec2 add(Vec2 a, Vec2 b);
+vec2 add(vec2 a, vec2 b);
 
-Vec3 add(Vec3 a, Vec3 b);
+vec3 add(vec3 a, vec3 b);
 
-Vec4 add(Vec4 a, Vec4 b);
+vec4 add(vec4 a, vec4 b);
 
-Vec2 add(iVec2 a, iVec2 b);
+vec2 add(ivec2 a, ivec2 b);
 
-Vec3 add(iVec3 a, iVec3 b);
+vec3 add(ivec3 a, ivec3 b);
 
-Vec4 add(iVec4 a, iVec4 b);
+vec4 add(ivec4 a, ivec4 b);
 
-Vec2 add(Vec2 a, float arg);
+vec2 add(vec2 a, float arg);
 
-Vec3 add(Vec3 a, float arg);
+vec3 add(vec3 a, float arg);
 
-Vec4 add(Vec4 a, float arg);
+vec4 add(vec4 a, float arg);
 
-Vec2 add(iVec2 a, float arg);
+vec2 add(ivec2 a, float arg);
 
-Vec3 add(iVec3 a, float arg);
+vec3 add(ivec3 a, float arg);
 
-Vec4 add(iVec4 a, float arg);
+vec4 add(ivec4 a, float arg);
 
 
 *Multiplication
 
-Vec2 mult(Vec2 a, Vec2 b);
+vec2 mult(vec2 a, vec2 b);
 
-Vec3 mult(Vec3 a, Vec3 b);
+vec3 mult(vec3 a, vec3 b);
 
-Vec4 mult(Vec4 a, Vec4 b);
+vec4 mult(vec4 a, vec4 b);
 
-Vec3 mult(iVec3 a, iVec3 b);
+vec3 mult(ivec3 a, ivec3 b);
 
-Vec4 mult(iVec4 a, iVec4 b);
+vec4 mult(ivec4 a, ivec4 b);
 
-Vec2 mult(Vec2 a, float arg);
+vec2 mult(vec2 a, float arg);
 
-Vec3 mult(Vec3 a, float arg);
+vec3 mult(vec3 a, float arg);
 
-Vec4 mult(Vec4 a, float arg);
+vec4 mult(vec4 a, float arg);
 
-Vec2 mult(iVec2 a, float arg);
+vec2 mult(ivec2 a, float arg);
 
-Vec3 mult(iVec3 a, float arg);
+vec3 mult(ivec3 a, float arg);
 
-Vec4 mult(iVec4 a, float arg);
+vec4 mult(ivec4 a, float arg);
 
 
 *Division
 
-Vec2 div(Vec2 a, Vec2 b) 
+vec2 div(vec2 a, vec2 b) 
 
-Vec3 div(Vec3 a, Vec3 b);
+vec3 div(vec3 a, vec3 b);
 
-Vec4 div(Vec4 a, Vec4 b);
+vec4 div(vec4 a, vec4 b);
 
-Vec2 div(iVec2 a, iVec2 b);
+vec2 div(ivec2 a, ivec2 b);
 
-Vec3 div(iVec3 a, iVec3 b);
+vec3 div(ivec3 a, ivec3 b);
 
-Vec4 div(iVec4 a, iVec4 b);
+vec4 div(ivec4 a, ivec4 b);
 
-Vec2 div(Vec2 a, float arg);
+vec2 div(vec2 a, float arg);
 
-Vec3 div(Vec3 a, float arg);
+vec3 div(vec3 a, float arg);
 
-Vec4 div(Vec4 a, float arg);
+vec4 div(vec4 a, float arg);
 
-Vec2 div(iVec2 a, float arg);
+vec2 div(ivec2 a, float arg);
 
-Vec3 div(iVec3 a, float arg);
+vec3 div(ivec3 a, float arg);
 
-Vec4 div(iVec4 a, float arg);
+vec4 div(ivec4 a, float arg);
 
 
 *Substraction
 
-Vec2 sub(Vec2 a, Vec2 b);
+vec2 sub(vec2 a, vec2 b);
 
-Vec3 sub(Vec3 a, Vec3 b);
+vec3 sub(vec3 a, vec3 b);
 
-Vec4 sub(Vec4 a, Vec4 b);
+vec4 sub(vec4 a, vec4 b);
 
-Vec2 sub(iVec2 a, iVec2 b);
+vec2 sub(ivec2 a, ivec2 b);
 
-Vec3 sub(iVec3 a, iVec3 b);
+vec3 sub(ivec3 a, ivec3 b);
 
-Vec4 sub(iVec4 a, iVec4 b);
+vec4 sub(ivec4 a, ivec4 b);
 
-Vec2 sub(Vec2 a, float arg);
+vec2 sub(vec2 a, float arg);
 
-Vec3 sub(Vec3 a, float arg);
+vec3 sub(vec3 a, float arg);
 
-Vec4 sub(Vec4 a, float arg);
+vec4 sub(vec4 a, float arg);
 
-Vec2 sub(iVec2 a, float arg);
+vec2 sub(ivec2 a, float arg);
 
-Vec3 sub(iVec3 a, float arg);
+vec3 sub(ivec3 a, float arg);
 
-Vec4 sub(iVec4 a, float arg);
+vec4 sub(ivec4 a, float arg);
 
 
 *Cross
 
-Vec3 cross(Vec3 v1, Vec3 v2);
+vec3 cross(vec3 v1, vec3 v2);
 
 
 
 
 *Compare
 
-boolean compare(iVec2 a, iVec2 b); 
+boolean compare(ivec2 a, ivec2 b); 
 > see equal in GLSL_method.md guide
 
-boolean compare(iVec3 a, iVec3 b);
+boolean compare(ivec3 a, ivec3 b);
 > see equal in GLSL_method.md guide
 
-boolean compare(iVec4 a, iVec4 b);
+boolean compare(ivec4 a, ivec4 b);
 > see equal in GLSL_method.md guide
 
-boolean compare(iVec2 a, iVec2 b, iVec2 area);
+boolean compare(ivec2 a, ivec2 b, ivec2 area);
 
-boolean compare(iVec3 a, iVec3 b, iVec3 area);
+boolean compare(ivec3 a, ivec3 b, ivec3 area);
 
-boolean compare(iVec4 a, iVec4 b, iVec4 area);
+boolean compare(ivec4 a, ivec4 b, ivec4 area);
 
 
-boolean compare(Vec2 a, Vec2 b);
+boolean compare(vec2 a, vec2 b);
 > see equal in GLSL_method.md guide
 
-boolean compare(Vec3 a, Vec3 b);
+boolean compare(vec3 a, vec3 b);
 > see equal in GLSL_method.md guide
 
-boolean compare(Vec4 a, Vec4 b);
+boolean compare(vec4 a, vec4 b);
 > see equal in GLSL_method.md guide
 
-boolean compare(Vec2 a, Vec2 b, Vec2 area);
+boolean compare(vec2 a, vec2 b, vec2 area);
 
-boolean compare(Vec3 a, Vec3 b, Vec3 area);
+boolean compare(vec3 a, vec3 b, vec3 area);
 
-boolean compare(Vec4 a, Vec4 b, Vec4 area);
+boolean compare(vec4 a, vec4 b, vec4 area);
 
 
 
 
 *Map
 
-Vec2 map(Vec2 v,float minIn, float maxIn, float minOut, float maxOut);
+vec2 map(vec2 v,float minIn, float maxIn, float minOut, float maxOut);
 
-Vec3 map(Vec3 v,float minIn, float maxIn, float minOut, float maxOut);
+vec3 map(vec3 v,float minIn, float maxIn, float minOut, float maxOut);
 
-Vec4 map(Vec4 v,float minIn, float maxIn, float minOut, float maxOut);
+vec4 map(vec4 v,float minIn, float maxIn, float minOut, float maxOut);
 
 
 *Magnitude or length
 
-float mag(Vec2 a);
+float mag(vec2 a);
 
-float mag(Vec2 a, Vec2 b);
+float mag(vec2 a, vec2 b);
 
-float mag(Vec3 a);
+float mag(vec3 a);
 
-float mag(Vec3 a, Vec3 b);
+float mag(vec3 a, vec3 b);
 
-float mag(Vec4 a);
+float mag(vec4 a);
 
-float mag(Vec4 a, Vec4 b);
+float mag(vec4 a, vec4 b);
 
 
 
 *Distance
 
-float dist(Vec2 a, Vec2 b);
+float dist(vec2 a, vec2 b);
 
-float dist(Vec3 a, Vec3 b);
+float dist(vec3 a, vec3 b);
 
-float dist(Vec4 a, Vec4 b);
+float dist(vec4 a, vec4 b);
 
 
 *Barycenter
 
-Vec2 barycenter(Vec2... v);
+vec2 barycenter(vec2... v);
 
-Vec3 barycenter(Vec3... v);
+vec3 barycenter(vec3... v);
 
-Vec4 barycenter(Vec4... v);
+vec4 barycenter(vec4... v);
 
 
 
 *Jitter
 
-Vec2 jitter_2D(int range);
+vec2 jitter_2D(int range);
 
-Vec2 jitter_2D(Vec2 range);
+vec2 jitter_2D(vec2 range);
 
-Vec2 jitter_2D(int range_x, int range_y);
+vec2 jitter_2D(int range_x, int range_y);
 
-Vec3 jitter_3D(int range);
+vec3 jitter_3D(int range);
 
-Vec3 jitter_3D(Vec3 range);
+vec3 jitter_3D(vec3 range);
 
-Vec3 jitter_3D(int range_x, int range_y, int range_z);
+vec3 jitter_3D(int range_x, int range_y, int range_z);
 
-Vec4 jitter_4D(int range);
+vec4 jitter_4D(int range);
 
-Vec4 jitter_4D(Vec4 range);
+vec4 jitter_4D(vec4 range);
 
-Vec4 jitter_4D(int range_x, int range_y, int range_z, int range_w);
+vec4 jitter_4D(int range_x, int range_y, int range_z, int range_w);
 
 
 *Normalize
 
-Vec2 norm_rad(float angle);
+vec2 norm_rad(float angle);
 
-Vec2 norm_deg(float angle);
+vec2 norm_deg(float angle);
 
-Vec2 norm_dir(String type, float direction);
+vec2 norm_dir(String type, float direction);
 
 
 *Color
 
-Vec4 color_hsba(int c);
+vec4 color_hsba(int c);
 
-Vec4 color_rgba(int c);
+vec4 color_rgba(int c);
 
-Vec3 color_hsb(int c);
+vec3 color_hsb(int c);
 
-Vec3 color_rgb(int c);
+vec3 color_rgb(int c);
 
 
 
@@ -320,60 +320,60 @@ Vec3 color_rgb(int c);
 
 
 
-*Return a new bVec
+*Return a new bvec
 
 
-bVec2 bVec2();
+bvec2 bvec2();
 
-Vec2(false,false);
+vec2(false,false);
 
-bVec2 bVec2(boolean b);
+bvec2 bvec2(boolean b);
 
-bVec2 bVec2(boolean x, boolean y);
+bvec2 bvec2(boolean x, boolean y);
 
-bVec2 bVec2(boolean [] array);
+bvec2 bvec2(boolean [] array);
 
-bVec2 bVec2(bVec b);
+bvec2 bvec2(bvec b);
 
-bVec3 bVec3();
+bvec3 bvec3();
 
-bVec3 bVec3(boolean b);
+bvec3 bvec3(boolean b);
 
-bVec3 bVec3(boolean x, boolean y, boolean z);
+bvec3 bvec3(boolean x, boolean y, boolean z);
 
-bVec3 bVec3(boolean [] array);
+bvec3 bvec3(boolean [] array);
 
-bVec3 bVec3(bVec b);
+bvec3 bvec3(bvec b);
 
-bVec4 bVec4();
+bvec4 bvec4();
 
-bVec4 bVec4(boolean b);
+bvec4 bvec4(boolean b);
 
-bVec4 bVec4(boolean x, boolean y, boolean z, boolean w);
+bvec4 bvec4(boolean x, boolean y, boolean z, boolean w);
 
-bVec4 bVec4(boolean [] array);
+bvec4 bvec4(boolean [] array);
 
-bVec4 bVec4(bVec b);
+bvec4 bvec4(bvec b);
 
-bVec5 bVec5();
+bvec5 bvec5();
 
-bVec5 bVec5(boolean b);
+bvec5 bvec5(boolean b);
 
-bVec5 bVec5(boolean a, boolean b, boolean c, boolean d, boolean e);
+bvec5 bvec5(boolean a, boolean b, boolean c, boolean d, boolean e);
 
-bVec5 bVec5(boolean [] array);
+bvec5 bvec5(boolean [] array);
 
-bVec5 bVec5(bVec b);
+bvec5 bvec5(bvec b);
 
-bVec6 bVec6();
+bvec6 bvec6();
 
-bVec6 bVec6(boolean b);
+bvec6 bvec6(boolean b);
 
-bVec6 bVec6(boolean a, boolean b, boolean c, boolean d, boolean e, boolean f);
+bvec6 bvec6(boolean a, boolean b, boolean c, boolean d, boolean e, boolean f);
 
-bVec6 bVec6(boolean [] array);
+bvec6 bvec6(boolean [] array);
 
-bVec6 bVec6(bVec b);
+bvec6 bvec6(bvec b);
 
 
 
@@ -384,231 +384,231 @@ bVec6 bVec6(bVec b);
 
 
 
-*Return a new iVec
+*Return a new ivec
 
-iVec2 iVec2();
+ivec2 ivec2();
 
-iVec2 iVec2(int v);
+ivec2 ivec2(int v);
 
-iVec2 iVec2(int x, int y);
+ivec2 ivec2(int x, int y);
 
-iVec2 iVec2(int [] array);
+ivec2 ivec2(int [] array);
 
-iVec2 iVec2(iVec p);
+ivec2 ivec2(ivec p);
 
-iVec2 iVec2(float v);
+ivec2 ivec2(float v);
 
-iVec2 iVec2(float x, float y);
+ivec2 ivec2(float x, float y);
 
-iVec2 iVec2(float [] array);
+ivec2 ivec2(float [] array);
 
-iVec2 iVec2(Vec p);
+ivec2 ivec2(vec p);
 
-iVec2 iVec2(PGraphics media);
+ivec2 ivec2(PGraphics media);
 
-iVec2 iVec2(PImage media);
+ivec2 ivec2(PImage media);
 
 --
 
-iVec3 iVec3();
+ivec3 ivec3();
 
-iVec3 iVec3(int v);
+ivec3 ivec3(int v);
 
-iVec3 iVec3(int x, int y, int z);
+ivec3 ivec3(int x, int y, int z);
 
-iVec3 iVec3(int [] array);
+ivec3 ivec3(int [] array);
 
-iVec3 iVec3(iVec p);
+ivec3 ivec3(ivec p);
 
-iVec3 iVec3(float v);
+ivec3 ivec3(float v);
 
-iVec3 iVec3(float x, float y, float z);
+ivec3 ivec3(float x, float y, float z);
 
-iVec3 iVec3(float [] array);
+ivec3 ivec3(float [] array);
 
-iVec3 iVec3(Vec p);
-
---
-
-iVec4 iVec4();
-
-iVec4 iVec4(int v);
-
-iVec4 iVec4(int x, int y, int z, int w);
-
-iVec4 iVec4(int [] array);
-
-iVec4 iVec4(iVec p);
-
-iVec4 iVec4(float v);
-
-iVec4 iVec4(float x, float y, float z, float w);
-
-iVec4 iVec4(float [] array);
-
-iVec4 iVec4(Vec p);
+ivec3 ivec3(vec p);
 
 --
 
-iVec5 iVec5();
+ivec4 ivec4();
 
-iVec5 iVec5(int v);
+ivec4 ivec4(int v);
 
-iVec5 iVec5(int a, int b, int c, int d, int e);
+ivec4 ivec4(int x, int y, int z, int w);
 
-iVec5 iVec5(int [] array);
+ivec4 ivec4(int [] array);
 
-iVec5 iVec5(iVec p);
+ivec4 ivec4(ivec p);
 
-iVec5 iVec5(Vec p);
+ivec4 ivec4(float v);
+
+ivec4 ivec4(float x, float y, float z, float w);
+
+ivec4 ivec4(float [] array);
+
+ivec4 ivec4(vec p);
 
 --
 
-iVec6 iVec6();
+ivec5 ivec5();
 
-iVec6 iVec6(int v);
+ivec5 ivec5(int v);
 
-iVec6 iVec6(int a, int b, int c, int d, int e, int f);
+ivec5 ivec5(int a, int b, int c, int d, int e);
 
-iVec6 iVec6(int [] array);
+ivec5 ivec5(int [] array);
 
-iVec6 iVec6(iVec p);
+ivec5 ivec5(ivec p);
 
-iVec6 iVec6(Vec p);
+ivec5 ivec5(vec p);
 
+--
 
+ivec6 ivec6();
 
+ivec6 ivec6(int v);
 
+ivec6 ivec6(int a, int b, int c, int d, int e, int f);
 
+ivec6 ivec6(int [] array);
 
+ivec6 ivec6(ivec p);
 
+ivec6 ivec6(vec p);
 
 
 
-*Return a new Vec
 
-Vec2 Vec2();
 
-Vec2 Vec2(float x, float y);
 
-Vec2 Vec2(float [] array);
 
-Vec2 Vec2(int [] array);
 
-Vec2 Vec2(float v);
 
-Vec2 Vec2(PVector p);
 
-Vec2 Vec2(Vec p);
+*Return a new vec
 
-Vec2 Vec2(iVec p);
+vec2 vec2();
 
-Vec2 Vec2(PGraphics media);
+vec2 vec2(float x, float y);
 
-Vec2 Vec2(PImage media);
+vec2 vec2(float [] array);
 
+vec2 vec2(int [] array);
 
-Vec3 Vec3();
+vec2 vec2(float v);
 
-Vec3 Vec3(float x, float y, float z);
+vec2 vec2(PVector p);
 
-Vec3 Vec3(float [] array);
+vec2 vec2(vec p);
 
-Vec3 Vec3(int [] array);
+vec2 vec2(ivec p);
 
-Vec3 Vec3(float v);
+vec2 vec2(PGraphics media);
 
-Vec3 Vec3(PVector p);
+vec2 vec2(PImage media);
 
-Vec3 Vec3(Vec p);
 
-Vec3 Vec3(iVec p);
+vec3 vec3();
 
-Vec4 Vec4();
+vec3 vec3(float x, float y, float z);
 
-Vec4 Vec4(float x, float y, float z, float w);
+vec3 vec3(float [] array);
 
-Vec4 Vec4(float [] array);
+vec3 vec3(int [] array);
 
-Vec4 Vec4(int [] array);
+vec3 vec3(float v);
 
-Vec4 Vec4(float v);
+vec3 vec3(PVector p);
 
-Vec4 Vec4(PVector p);
+vec3 vec3(vec p);
 
-Vec4 Vec4(Vec p);
+vec3 vec3(ivec p);
 
-Vec4 Vec4(iVec p);
+vec4 vec4();
 
-Vec5 Vec5();
+vec4 vec4(float x, float y, float z, float w);
 
-Vec5 Vec5(float a, float b, float c, float d, float e);
+vec4 vec4(float [] array);
 
-Vec5 Vec5(float [] array);
+vec4 vec4(int [] array);
 
-Vec5 Vec5(int [] array);
+vec4 vec4(float v);
 
-Vec5 Vec5(float v);
+vec4 vec4(PVector p);
 
-Vec5 Vec5(PVector p);
+vec4 vec4(vec p);
 
-Vec5 Vec5(Vec p);
+vec4 vec4(ivec p);
 
-Vec5 Vec5(iVec p);
+vec5 vec5();
 
-Vec6 Vec6();
+vec5 vec5(float a, float b, float c, float d, float e);
 
-Vec6 Vec6(float a, float b, float c, float d, float e, float f);
+vec5 vec5(float [] array);
 
-Vec6 Vec6(float [] array);
+vec5 vec5(int [] array);
 
-Vec6 Vec6(int [] array);
+vec5 vec5(float v);
 
-Vec6 Vec6(float v);
+vec5 vec5(PVector p);
 
-Vec6 Vec6(PVector p);
+vec5 vec5(vec p);
 
-Vec6 Vec6(Vec p);
+vec5 vec5(ivec p);
 
-Vec6 Vec6(iVec p);
+vec6 vec6();
 
+vec6 vec6(float a, float b, float c, float d, float e, float f);
 
+vec6 vec6(float [] array);
 
+vec6 vec6(int [] array);
 
+vec6 vec6(float v);
 
-*Return a new random range Vec 
+vec6 vec6(PVector p);
 
-@see Vector class guide for more detail
+vec6 vec6(vec p);
 
-Vec2 Vec2(String s, int x, int y);
+vec6 vec6(ivec p);
 
-Vec2 Vec2(String s, int a, int b, int c, int d);
 
-Vec2 Vec2(String s, int v);
 
-Vec3 Vec3(String s, int x, int y, int z);
 
-Vec3 Vec3(String s, int a, int b, int c, int d, int e, int f);
 
-Vec3 Vec3(String s, int v);
+*Return a new random range vec 
 
-Vec4 Vec4(String s, int x, int y, int z, int w);
+@see vector class guide for more detail
 
-Vec4 Vec4(String s, int a, int b, int c, int d, int e, int f, int g, int h);
+vec2 vec2(String s, int x, int y);
 
-Vec4 Vec4(String s, int v);
+vec2 vec2(String s, int a, int b, int c, int d);
 
-Vec5 Vec5(String s, int a, int b, int c, int d, int e);
+vec2 vec2(String s, int v);
 
-Vec5 Vec5(String s, int a, int b, int c, int d, int e, int f, int g, int h, int i, int j);
+vec3 vec3(String s, int x, int y, int z);
 
-Vec5 Vec5(String s, int v);
+vec3 vec3(String s, int a, int b, int c, int d, int e, int f);
 
-Vec6 Vec6(String s, int a, int b, int c, int d, int e, int f);
+vec3 vec3(String s, int v);
 
-Vec6 Vec6(String s, int a, int b, int c, int d, int e, int f, int g, int h, int i, int j, int k, int l);
+vec4 vec4(String s, int x, int y, int z, int w);
 
-Vec6 Vec6(String s, int v);
+vec4 vec4(String s, int a, int b, int c, int d, int e, int f, int g, int h);
+
+vec4 vec4(String s, int v);
+
+vec5 vec5(String s, int a, int b, int c, int d, int e);
+
+vec5 vec5(String s, int a, int b, int c, int d, int e, int f, int g, int h, int i, int j);
+
+vec5 vec5(String s, int v);
+
+vec6 vec6(String s, int a, int b, int c, int d, int e, int f);
+
+vec6 vec6(String s, int a, int b, int c, int d, int e, int f, int g, int h, int i, int j, int k, int l);
+
+vec6 vec6(String s, int v);
 
 
 

@@ -1,13 +1,13 @@
 
 Method Motion
 --
-Vec2 follow(float target_x, float target_y, float speed);
+vec2 follow(float target_x, float target_y, float speed);
 
-Vec2 follow(Vec2 target, float speed);
+vec2 follow(vec2 target, float speed);
 
-Vec3 follow(float target_x, float target_y, float target_y, float speed);
+vec3 follow(float target_x, float target_y, float target_y, float speed);
 
-Vec3 follow(Vec3 target, float speed);
+vec3 follow(vec3 target, float speed);
 
 
 
@@ -57,7 +57,7 @@ get
 --
 float get_velocity() ;
 
-Vec3 get_direction()  ;
+vec3 get_direction()  ;
 
 boolean acceleration_is() ;
 
@@ -96,9 +96,9 @@ void deceleration() ;
   
 void acceleration() ;
 
-Vec2 leading(Vec2 leading_pos, Vec2 exec_pos) ;
+vec2 leading(vec2 leading_pos, vec2 exec_pos) ;
 
-Vec3 leading(Vec3 leading_pos, Vec3 exec_pos) ;
+vec3 leading(vec3 leading_pos, vec3 exec_pos) ;
 
 
 
@@ -108,7 +108,7 @@ Vec3 leading(Vec3 leading_pos, Vec3 exec_pos) ;
 
 CLASS PATH
 --
-Dedicated class to build a trail for the object, worj with Vec3 coord x,y,z
+Dedicated class to build a trail for the object, worj with vec3 coord x,y,z
 
 CONSTRUCTOR
 --
@@ -128,13 +128,13 @@ void set_speed(float value) ;
 
 get
 --
-Vec3 [] path() ;
+vec3 [] path() ;
 
-ArrayList<Vec3> path_ArrayList() ;
+ArrayList<vec3> path_ArrayList() ;
 
 int path_size() ;
 
-Vec3 get_pos() ;
+vec3 get_pos() ;
 >return the current pos of your object
 
 
@@ -144,6 +144,6 @@ void add(int x, int y, int z) ;
 
 void add(int x, int y) ;
 
-void add(Vec pos) ;
+void add(vec pos) ;
 
 

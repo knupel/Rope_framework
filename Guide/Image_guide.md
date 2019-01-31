@@ -91,7 +91,7 @@ void set_show() ;
 
 void show_canvas(int num) ;
 
-iVec2 get_offset_canvas() ;
+ivec2 get_offset_canvas() ;
 >return the offset of canvas when there is a fullscreen mode
 
 int get_offset_canvas_x() ;
@@ -164,13 +164,13 @@ void image(PImage img, float coor);
 >display img with 'x' and 'y' with coor value
 
 
-void image(PImage img, iVec pos);
+void image(PImage img, ivec pos);
 
-void image(PImage img, iVec pos, iVec2 size);
+void image(PImage img, ivec pos, ivec2 size);
 
-void image(PImage img, Vec pos);
+void image(PImage img, vec pos);
 
-void image(PImage img, Vec pos, Vec2 size);
+void image(PImage img, vec pos, vec2 size);
 
 Effect
 --
@@ -318,11 +318,11 @@ void background_norm(float red, float green, float blue) ;
 
 void background_norm(float red, float green, float blue, float alpha) ;
 
-void background_norm(Vec2 grey_alpha) ;
+void background_norm(vec2 grey_alpha) ;
 
-void background_norm(Vec3 red_green_blue) ;
+void background_norm(vec3 red_green_blue) ;
 
-void background_norm(Vec4 red_green_blue_alpha) ;
+void background_norm(vec4 red_green_blue_alpha) ;
 
 
 Normal value, use values from your color environment
@@ -340,11 +340,11 @@ void background_rope(float red, float green, float blue, float alpha) ;
 
 void background_rope(float red, float green, float blue) ;
 
-void background_rope(Vec2 grey_alpha) ;
+void background_rope(vec2 grey_alpha) ;
 
-void background_rope(Vec3 red_green_blue) ;
+void background_rope(vec3 red_green_blue) ;
 
-void background_rope(Vec4 red_green_blue_alpha) ;
+void background_rope(vec4 red_green_blue_alpha) ;
 
 
 
@@ -369,25 +369,25 @@ void set_window(int px, int py, int sx, int sy);
 
 void set_window(int px, int py, int sx, int sy, int target);
 
-void set_window(iVec2 pos, iVec2 size);
+void set_window(ivec2 pos, ivec2 size);
 
-void set_window(iVec2 pos, iVec2 size, int target);
+void set_window(ivec2 pos, ivec2 size, int target);
 
-void set_window(iVec2 pos, iVec2 size, iVec2 pos_screen);
+void set_window(ivec2 pos, ivec2 size, ivec2 pos_screen);
 >to move and set window size, very helpfull with fullscreen for example.
 
 
-iVec2 screen_size() ;
+ivec2 screen_size() ;
 >return the width and the height of current display
 
-iVec2 screen_size(int target_screen)
+ivec2 screen_size(int target_screen)
 >return the width and the height of target display, if this one is available, if it's not the method return the size of the current display
 
 
-iVec2 screen_location() ;
+ivec2 screen_location() ;
 >return location x and y of current screen
 
-iVec2 screen_location(int target_screen)
+ivec2 screen_location(int target_screen)
 >return location x, y of target screeny, if no one is available, if it's not the method return the location of the current screen
 
 
@@ -395,8 +395,8 @@ int get_screen_num();
 >return the number of screen available
 Processing renderer
 
-iVec2 get_sketch_location()
->return the iVec2 of your sketch location
+ivec2 get_sketch_location()
+>return the ivec2 of your sketch location
 
 int get_sketch_location_x() {
 >return your sketch location in x

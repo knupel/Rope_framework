@@ -7,7 +7,7 @@ void init_rope();
 
 *WHEEL EVENT
 
-Vec2 get_scroll();
+vec2 get_scroll();
 >return scroll x and y of wheel, at this time x and y have a same value
 
 public void scroll(MouseEvent e);

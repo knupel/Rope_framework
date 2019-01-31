@@ -60,38 +60,38 @@ int [] color_pool(int num, int num_group, float hue_range);
 int [] color_pool(int num, int num_group, float key_hue, float hue_range);
 >return a list of color by hue component in camaieu group around your range, and where the first color hue if your key
 
-int [] color_pool(int num, int num_group, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range);
+int [] color_pool(int num, int num_group, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range);
 >return a list of color by hue component in camaieu group around your range, plus you can manage the saturation, brightness and the alpha.
->the Vec2 comppent for the saturation, brightness and alpha is used like that, the 'vec.x' is the low value and the 'vec.y' value is the high value, after a random value is used to define the value of each color in your pool.
+>the vec2 comppent for the saturation, brightness and alpha is used like that, the 'vec.x' is the low value and the 'vec.y' value is the high value, after a random value is used to define the value of each color in your pool.
 
-int [] color_pool(int num, int num_group, float key_hue, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range);
+int [] color_pool(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range);
 >you can also use a hue key value to start your palette, the value is between 0,360
 
->You can use the methode with Vec4 too with value HSB or RGB
+>You can use the methode with vec4 too with value HSB or RGB
 
-Vec4 [] color_pool_HSB(int num);
+vec4 [] color_pool_HSB(int num);
 
-Vec4 [] color_pool_HSB(int num, float key_hue);
+vec4 [] color_pool_HSB(int num, float key_hue);
 
-Vec4 [] color_pool_HSB(int num, int num_group, float hue_range);
+vec4 [] color_pool_HSB(int num, int num_group, float hue_range);
 
-Vec4 [] color_pool_HSB(int num, int num_group, float key_hue, float hue_range);
+vec4 [] color_pool_HSB(int num, int num_group, float key_hue, float hue_range);
 
-Vec4 [] color_pool_HSB(int num, int num_group, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range);
+vec4 [] color_pool_HSB(int num, int num_group, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range);
 
-Vec4 [] color_pool_HSB(int num, int num_group, float key_hue, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range);
+vec4 [] color_pool_HSB(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range);
 
-Vec4 [] color_pool_RGB(int num);
+vec4 [] color_pool_RGB(int num);
 
-Vec4 [] color_pool_RGB(int num, float key_hue);
+vec4 [] color_pool_RGB(int num, float key_hue);
 
-Vec4 [] color_pool_RGB(int num, int num_group, float hue_range);
+vec4 [] color_pool_RGB(int num, int num_group, float hue_range);
 
-Vec4 [] color_pool_RGB(int num, int num_group, float key_hue, float hue_range);
+vec4 [] color_pool_RGB(int num, int num_group, float key_hue, float hue_range);
 
-Vec4 [] color_pool_RGB(int num, int num_group, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range);
+vec4 [] color_pool_RGB(int num, int num_group, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range);
 
-Vec4 [] color_pool_RGB(int num, int num_group, float key_hue, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range);
+vec4 [] color_pool_RGB(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range);
 
 
 *check component color
@@ -120,13 +120,13 @@ boolean hue_range(float min, float max, int colour);
 
 *CONVERT
 
-Vec3 hsb_to_rgb(float hue, float saturation, float brightness);
+vec3 hsb_to_rgb(float hue, float saturation, float brightness);
 
-Vec4 to_cmyk(int c);
+vec4 to_cmyk(int c);
 
-Vec4 rgb_to_cmyk(float red, float green, float blue);
+vec4 rgb_to_cmyk(float red, float green, float blue);
 
-Vec3 cmyk_to_rgb(float cyan, float magenta, float yellow, float black);
+vec3 cmyk_to_rgb(float cyan, float magenta, float yellow, float black);
 
 int color_context(int color_ref, int threshold, int clear, int dark);
 >return new int color with a brightness threshold

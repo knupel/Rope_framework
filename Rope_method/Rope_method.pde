@@ -14,6 +14,9 @@ void setup() {
 		float y = height/2;
 		point(x,y);
 	}
+
+	ivec3 t = ivec3(5).add(5);
+	println(t);
 }
 
 

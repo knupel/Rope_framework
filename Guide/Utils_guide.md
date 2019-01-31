@@ -221,7 +221,7 @@ boolean in_range_wheel(float min, float max, float roof_max, float value) ;
 *GET TYPE
 
 String get_type(Object obj);
-> return the name of the type var you send, can be use with generic var like Object, can beturn if it's PVector, Vec or Ivec too.
+> return the name of the type var you send, can be use with generic var like Object, can beturn if it's PVector, vec or Ivec too.
 
 
 
@@ -588,21 +588,21 @@ byte[] to_byte(Object obj);
 
 PVector
 --
-convert Vec and iVec
+convert vec and ivec
 
 PVector to_PVector(Object obj);
 
 
 
-Vec4
+vec4
 --
-Vec4 array_to_Vec4_rgba(float... f);
+vec4 array_to_vec4_rgba(float... f);
 >It's a special converter
-if f[] array length equal 1, the Vec4 is Vec4(f[0],f[0],f[0],f[0]);
-if f[] array length equal 2, the Vec4 is Vec4(f[0],f[0],f[0],f[1]);
-if f[] array length equal 3, the Vec4 is Vec4(f[1],f[2],f[3],1);
-if f[] array length equal 4, the Vec4 is Vec4(f[1],f[2],f[3],f[4]);
-else the array is null or beyond 4 component the  Vec4(1,1,1,1);
+if f[] array length equal 1, the vec4 is vec4(f[0],f[0],f[0],f[0]);
+if f[] array length equal 2, the vec4 is vec4(f[0],f[0],f[0],f[1]);
+if f[] array length equal 3, the vec4 is vec4(f[1],f[2],f[3],1);
+if f[] array length equal 4, the vec4 is vec4(f[1],f[2],f[3],f[4]);
+else the array is null or beyond 4 component the  vec4(1,1,1,1);
 
 
 
@@ -688,8 +688,8 @@ Info_float_dict your_dict = new Info_float_dict() ;
 String
 Info_String_dict your_dict = new Info_String_dict() ;
 
-Vec
-Info_Vec_dict your_dict = new Info_Vec_dict() ;
+vec
+Info_vec_dict your_dict = new Info_vec_dict() ;
 
 
 
@@ -738,10 +738,10 @@ your_dict.clear() ;
 INFO 0.1.0
 --
 >class structure and build to return:
->String + String(s) / String + int(s) / String + float(s) / String + Vec(s) / String + Object(s)
+>String + String(s) / String + int(s) / String + float(s) / String + vec(s) / String + Object(s)
 
 
->Info_String, Info_float, Info_int, Info_Vec, Info_obj.
+>Info_String, Info_float, Info_int, Info_vec, Info_obj.
 
 like that
 --
@@ -751,7 +751,7 @@ Info info = new Info_String(String name,String... arg);
 
 Info info = new Info_float(String name,float... arg);
 
-Info info = new Info_vec(String name,Vec... arg);
+Info info = new Info_vec(String name,vec... arg);
 
 Info info = new Info_obj(String name,Object... a);
 
@@ -774,7 +774,7 @@ variable [] get() ;
 variable [] get(int target) ;
 >return a argument of the type info
 
-Can work with float, int, String and Vec class
+Can work with float, int, String and vec class
 --
 Info(String name,type a);
 

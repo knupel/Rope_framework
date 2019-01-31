@@ -31,21 +31,21 @@ void multiply_flip(boolean bx, boolean by);
 
 void multiply(PImage tex, PImage inc);
 
-void multiply(PImage tex, PImage inc, Vec2 ratio);
+void multiply(PImage tex, PImage inc, vec2 ratio);
 
-void multiply(PImage tex, PImage inc, Vec3 ratio);
+void multiply(PImage tex, PImage inc, vec3 ratio);
 
-void multiply(PImage tex, PImage inc, Vec4 ratio);
+void multiply(PImage tex, PImage inc, vec4 ratio);
 
 void multiply(PImage tex, PImage inc, float... ratio);
 
 void multiply(PGraphics p, PImage tex, PImage inc);
 
-void multiply(PGraphics p, PImage tex, PImage inc, Vec2 ratio);
+void multiply(PGraphics p, PImage tex, PImage inc, vec2 ratio);
 
-void multiply(PGraphics p, PImage tex, PImage inc, Vec3 ratio);
+void multiply(PGraphics p, PImage tex, PImage inc, vec3 ratio);
 
-void multiply(PGraphics p, PImage tex, PImage inc, Vec4 ratio);
+void multiply(PGraphics p, PImage tex, PImage inc, vec4 ratio);
 
 void multiply(PGraphics p, PImage tex, PImage inc, float... ratio);
 
@@ -63,21 +63,21 @@ void overlay_flip(boolean bx, boolean by);
 
 void overlay(PImage tex, PImage inc);
 
-void overlay(PImage tex, PImage inc, Vec2 ratio);
+void overlay(PImage tex, PImage inc, vec2 ratio);
 
-void overlay(PImage tex, PImage inc, Vec3 ratio);
+void overlay(PImage tex, PImage inc, vec3 ratio);
 
-void overlay(PImage tex, PImage inc, Vec4 ratio);
+void overlay(PImage tex, PImage inc, vec4 ratio);
 
 void overlay(PImage tex, PImage inc, float... ratio);
 
 void overlay(PGraphics p, PImage tex, PImage inc);
 
-void overlay(PGraphics p, PImage tex, PImage inc, Vec2 ratio);
+void overlay(PGraphics p, PImage tex, PImage inc, vec2 ratio);
 
-void overlay(PGraphics p, PImage tex, PImage inc, Vec3 ratio);
+void overlay(PGraphics p, PImage tex, PImage inc, vec3 ratio);
 
-void overlay(PGraphics p, PImage tex, PImage inc, Vec4 ratio);
+void overlay(PGraphics p, PImage tex, PImage inc, vec4 ratio);
 
 void overlay(PGraphics p, PImage tex, PImage inc, float... ratio);
 
@@ -93,21 +93,21 @@ void blend_flip_tex(boolean bx, boolean by);
 void blend_flip(boolean bx, boolean by);
 >change the orientation of the image : inc-rustation plus tex-ture
 
-void blend(PImage tex, PImage inc, float blend, Vec2 ratio);
+void blend(PImage tex, PImage inc, float blend, vec2 ratio);
 
-void blend(PImage tex, PImage inc, float blend, Vec3 ratio);
+void blend(PImage tex, PImage inc, float blend, vec3 ratio);
 
-void blend(PImage tex, PImage inc, float blend, Vec4 ratio);
+void blend(PImage tex, PImage inc, float blend, vec4 ratio);
 
 void blend(PImage tex, PImage inc, float blend, float... ratio);
 
 void blend(PGraphics p, PImage tex, float blend, PImage inc);
 
-void blend(PGraphics p, PImage tex, PImage inc, float blend, Vec2 ratio);
+void blend(PGraphics p, PImage tex, PImage inc, float blend, vec2 ratio);
 
-void blend(PGraphics p, PImage tex, PImage inc, float blend, Vec3 ratio);
+void blend(PGraphics p, PImage tex, PImage inc, float blend, vec3 ratio);
 
-void blend(PGraphics p, PImage tex, PImage inc, float blend, Vec4 ratio);
+void blend(PGraphics p, PImage tex, PImage inc, float blend, vec4 ratio);
 
 void blend(PGraphics p, PImage tex, PImage inc, float blend, float... ratio);
 
@@ -125,21 +125,21 @@ void mix_flip(boolean bx, boolean by);
 
 void mix(PImage tex, PImage inc);
 
-void mix(PImage tex, PImage inc, Vec2 ratio);
+void mix(PImage tex, PImage inc, vec2 ratio);
 
-void mix(PImage tex, PImage inc, Vec3 ratio);
+void mix(PImage tex, PImage inc, vec3 ratio);
 
-void mix(PImage tex, PImage inc, Vec4 ratio);
+void mix(PImage tex, PImage inc, vec4 ratio);
 
 void mix(PImage tex, PImage inc, float... ratio);
 
 void mix(PGraphics p, PImage tex, PImage inc);
 
-void mix(PGraphics p, PImage tex, PImage inc, Vec2 ratio);
+void mix(PGraphics p, PImage tex, PImage inc, vec2 ratio);
 
-void mix(PGraphics p, PImage tex, PImage inc, Vec3 ratio);
+void mix(PGraphics p, PImage tex, PImage inc, vec3 ratio);
 
-void mix(PGraphics p, PImage tex, PImage inc, Vec4 ratio);
+void mix(PGraphics p, PImage tex, PImage inc, vec4 ratio);
 
 void mix(PGraphics p, PImage tex, PImage inc, float... ratio);
 
@@ -149,21 +149,21 @@ void mix(PGraphics p, PImage tex, PImage inc, float... ratio);
 void level_flip(boolean bx, boolean by);
 >change the orientation of the image
 
-void level(PImage tex, Vec2 level);
+void level(PImage tex, vec2 level);
 
-void level(PImage tex, Vec3 level);
+void level(PImage tex, vec3 level);
 
-void level(PImage tex, Vec4 level);
+void level(PImage tex, vec4 level);
 
 void level(PImage tex, float... ratio);
 
 void level(PGraphics p, PImage tex, PImage inc);
 
-void level(PGraphics p, PImage tex, Vec2 ratio);
+void level(PGraphics p, PImage tex, vec2 ratio);
 
-void level(PGraphics p, PImage tex, Vec3 ratio);
+void level(PGraphics p, PImage tex, vec3 ratio);
 
-void level(PGraphics p, PImage tex, Vec4 ratio);
+void level(PGraphics p, PImage tex, vec4 ratio);
 
 void level(PGraphics p, PImage tex, float... ratio);
 

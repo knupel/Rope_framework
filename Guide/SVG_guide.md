@@ -56,7 +56,7 @@ CHANGE
 Permanente change
 --
 
-svg.add_def(int ID, Vec3 [] value)
+svg.add_def(int ID, vec3 [] value)
 > You can add value to your original list of point, this list of value is add in the order to the original. This effect is permanent.
 For the shape with path or polygone all the points list will be change, pro the primitive ellipse, circle and rect it's position will be change.
 
@@ -67,11 +67,11 @@ method, place before svg.draw() method
 --
 void pos(float x) ;
 
-void pos(Vec2 pos) ;
+void pos(vec2 pos) ;
 
 void pos(float x, float y) ;
 
-void pos(Vec3 pos) ;
+void pos(vec3 pos) ;
 
 void pos(float x, float y, float z) ;
 
@@ -80,11 +80,11 @@ void pos(float x, float y, float z) ;
 
 void scaling(float x) ;
 
-void scaling(Vec2 scale) ;
+void scaling(vec2 scale) ;
 
 void scaling(float x, float y) ;
 
-void scaling(Vec3 scale) ;
+void scaling(vec3 scale) ;
 
 void scaling(float x, float y, float z) ;
 
@@ -92,11 +92,11 @@ void scaling(float x, float y, float z) ;
 --
 void jitter(float x) ;
 
-void jitter(Vec2 jitter) ;
+void jitter(vec2 jitter) ;
 
 void jitter(int x, int y) ;
 
-void jitter(Vec3 jitter) ;
+void jitter(vec3 jitter) ;
 
 void jitter(int x, int y, int z) ;
 
@@ -126,13 +126,13 @@ void fill(float x, float y, float z);
 
 void fill(float x, float y, float z, float alpha); 
 
-void fill(Vec2 c) ; 
+void fill(vec2 c) ; 
 > field grey & alpha
 
-void fill(Vec3 c) ;
+void fill(vec3 c) ;
 > field red, blue and green
 
-void fill(Vec4 c) ; 
+void fill(vec4 c) ; 
 > field red, blue, green and alpha
 
 Stroke setting of your brick
@@ -149,13 +149,13 @@ void stroke(float x, float y, float z) ;
 
 void stroke(float x, float y, float z, float alpha) ; 
 
-void stroke(Vec2 c) ; 
+void stroke(vec2 c) ; 
 > field grey & alpha
 
-void stroke(Vec3 c) ; 
+void stroke(vec3 c) ; 
 > field red, blue and green
 
-void stroke(Vec4 c) ; 
+void stroke(vec4 c) ; 
 > field red, blue, green and alpha
 
 
@@ -184,11 +184,11 @@ Factor 'Normalize' color value
 
 void fill_factor(float x, float y, float z, float a) ; 
 
-void fill_factor(Vec4 f) ; 
+void fill_factor(vec4 f) ; 
 
 void stroke_factor(float x, float y, float z, float a) ; 
 
-void stroke_factor(Vec4 f) ; 
+void stroke_factor(vec4 f) ; 
 
 
 DISPLAY
@@ -252,7 +252,7 @@ svg.height_SVG(int target) ;
 svg.canvas_SVG() ;
 
 svg.canvas_SVG(int target) ;
-> return the width and the height of your SVG in Vec2, if this one is be loaded
+> return the width and the height of your SVG in vec2, if this one is be loaded
 
 
 String info
@@ -276,10 +276,10 @@ svg.kind_brick(ID)) ;
 > return String
 
 
-Vec3 list point of interest, like position or vertex coord
+vec3 list point of interest, like position or vertex coord
 --
-svg.list_svg_Vec(ID)) ;
-> return array [] Vec3 
+svg.list_svg_vec(ID)) ;
+> return array [] vec3 
 
 svg.list_svg_PVector(ID)) ;
 > return array [] PVector 

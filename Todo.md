@@ -11,27 +11,27 @@ Costume_rope() must became a class not just a method
 
 not possible no because cause a processing bug
 /*
-int color(Vec2 arg) {
+int color(vec2 arg) {
   return color(arg.x,arg.y);
 }
 
-int color(Vec3 arg) {
+int color(vec3 arg) {
   return color(arg.x,arg.y,arg.z);
 }
 
-int color(Vec4 arg) {
+int color(vec4 arg) {
   return color(arg.x,arg.y,arg.z,arg.w);
 }
 
-int color(iVec2 arg) {
+int color(ivec2 arg) {
   return color(arg.x,arg.y);
 }
 
-int color(iVec3 arg) {
+int color(ivec3 arg) {
   return color(arg.x,arg.y,arg.z);
 }
 
-int color(iVec4 arg) {
+int color(ivec4 arg) {
   return color(arg.x,arg.y,arg.z,arg.w);
 }
 

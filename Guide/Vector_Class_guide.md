@@ -1,36 +1,36 @@
-Vec and iVec Rope
+vec and ivec Rope
 --
-Vec is class and method to use vector and operation with float componenet
+vec is class and method to use vector and operation with float componenet
 
-iVec is class to store Integer component
+ivec is class to store Integer component
 
 
 
-CLASS bVec
+CLASS bvec
 v 0.0.1
 --
-> Not necessary to use 'new' to build your Vec
+> Not necessary to use 'new' to build your vec
 
-bVec3 b = bVec3() ;
+bvec3 b = bvec3() ;
 
-bVec3 b = bVec3(false) ;
+bvec3 b = bvec3(false) ;
 
-bVec3 b = bVec3(true,false,true) ;
+bvec3 b = bvec3(true,false,true) ;
 
 method
 --
 
 set
 --
-your_bVec.set(boolean x, boolean y) ;
+your_bvec.set(boolean x, boolean y) ;
 
-your_bVec.set(boolean x, boolean y, boolean z) ;
+your_bvec.set(boolean x, boolean y, boolean z) ;
 
-your_bVec.set(boolean x, boolean y, boolean z, boolean w) ;
+your_bvec.set(boolean x, boolean y, boolean z, boolean w) ;
 
-your_bVec.set(boolean a, boolean b, boolean c, boolean c, boolean e) ;
+your_bvec.set(boolean a, boolean b, boolean c, boolean c, boolean e) ;
 
-your_bVec.set(boolean a, boolean b, boolean c, boolean c, boolean e, boolean f) ;
+your_bvec.set(boolean a, boolean b, boolean c, boolean c, boolean e, boolean f) ;
 
 get
 --
@@ -40,39 +40,39 @@ boolean [] get_array();
 
 
 
-CLASS iVec
+CLASS ivec
 v 0.2.3
 --
-> Not necessary to use 'new' to build your Vec
+> Not necessary to use 'new' to build your vec
 
-iVec3 v = iVec3();
+ivec3 v = ivec3();
 
-iVec3 v = iVec3(0);
+ivec3 v = ivec3(0);
 
-iVec3 v = iVec3(1,2,3);
+ivec3 v = ivec3(1,2,3);
 
 method set global
 --
-iVec set(int x, int y);
+ivec set(int x, int y);
 
-iVec set(int x, int y, int z);
+ivec set(int x, int y, int z);
 
-iVec set(int x, int y, int z, int w);
+ivec set(int x, int y, int z, int w);
 
-iVec set(int a, int b, int c, int c, int e);
+ivec set(int a, int b, int c, int c, int e);
 
-iVec set(int a, int b, int c, int c, int e, int f);
+ivec set(int a, int b, int c, int c, int e, int f);
 
 
 method set specific
 --
-iVec set_x(int arg);
+ivec set_x(int arg);
 The method exist for each element of the class
-iVec2 : [x,y], [s,t], [u,v]
-iVec3 : [x,y,z], [r,v,b], [s,t,p]
-iVec4 : [x,y,z,w], [r,v,b,a], [s,t,p,q]
-iVec5 : [a,b,c,d,e]
-iVec6 : [a,b,c,d,e,f]
+ivec2 : [x,y], [s,t], [u,v]
+ivec3 : [x,y,z], [r,v,b], [s,t,p]
+ivec4 : [x,y,z,w], [r,v,b,a], [s,t,p,q]
+ivec5 : [a,b,c,d,e]
+ivec6 : [a,b,c,d,e,f]
 
 
 
@@ -80,114 +80,114 @@ iVec6 : [a,b,c,d,e,f]
 get
 --
 int [] get_array();
-> return the list of component in an array int, available for bVec type
+> return the list of component in an array int, available for bvec type
 
 
 int get_num();
-> return the number of componant of this Vec, iVec or bVec, this availaple in the upper class don't need to cast or check the instance to know it.
+> return the number of componant of this vec, ivec or bvec, this availaple in the upper class don't need to cast or check the instance to know it.
 
 
 
 
 OPERATION
 --
-> available for iVec2, iVec3 and iVec4
+> available for ivec2, ivec3 and ivec4
 
 Sum
 --
-iVec.sum();
->return the sum of all component, available for iVec type
+ivec.sum();
+>return the sum of all component, available for ivec type
 
 --
 Multiplication
 -- 
 
 --
-@ return iVec2, iVec3 or iVec4
+@ return ivec2, ivec3 or ivec4
 >multiplication vector by a same int
 
-iVec2.mult(int value,int value);
+ivec2.mult(int value,int value);
 
-iVec3.mult(int value,int value,int value);
+ivec3.mult(int value,int value,int value);
 
-iVec4.mult(int value,int value,int value,int value);
+ivec4.mult(int value,int value,int value,int value);
 
-iVec.mult(int value);
-iVec.mult(iVec v);
+ivec.mult(int value);
+ivec.mult(ivec v);
 
 --
 Division
 --
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 --
-@ return Vec2, Vec3 or Vec4
+@ return vec2, vec3 or vec4
 >division vector by int
 
-iVec2.div(int value,int value);
-iVec3.div(int value,int value,int value);
-iVec4.div(int value,int value,int value,int value);
+ivec2.div(int value,int value);
+ivec3.div(int value,int value,int value);
+ivec4.div(int value,int value,int value,int value);
 
-iVec.div(int value);
-iVec.div(iVec v);
+ivec.div(int value);
+ivec.div(ivec v);
 
 
 Addition
 --
->available for Vec2, Vec3 and Vec4, 
->Each Vec can accept any Vec. 
->For example, if you add a Vec2 in Vec3 the last compent is '0' in the other case the last compoenent is not used.
+>available for vec2, vec3 and vec4, 
+>Each vec can accept any vec. 
+>For example, if you add a vec2 in vec3 the last compent is '0' in the other case the last compoenent is not used.
 --
-@return Vec2, Vec3 or Vec4
+@return vec2, vec3 or vec4
 >add int value to the original
 
-iVec2.add(int value,int value);
-iVec3.add(int value,int value,int value);
-iVec4.add(int value,int value,int value,int value);
+ivec2.add(int value,int value);
+ivec3.add(int value,int value,int value);
+ivec4.add(int value,int value,int value,int value);
 
-iVec.add(int value);
-iVec.add(iVec v);
+ivec.add(int value);
+ivec.add(ivec v);
 
 
 Substraction
 --
->available for Vec2, Vec3 and Vec4.
->Each Vec can accept any Vec. 
->For example, if you add a Vec2 in Vec3 the last compent is '0' in the other case the last compoenent is not used.
+>available for vec2, vec3 and vec4.
+>Each vec can accept any vec. 
+>For example, if you add a vec2 in vec3 the last compent is '0' in the other case the last compoenent is not used.
 --
-@ return Vec2, Vec3 or Vec4
+@ return vec2, vec3 or vec4
 >sub int value to the original
 
-iVec2.sub(int value,int value);
-iVec3.sub(float value,int value,int value);
-iVec4.sub(int value,int value,int value,int value);
+ivec2.sub(int value,int value);
+ivec3.sub(float value,int value,int value);
+ivec4.sub(int value,int value,int value,int value);
 
-iVec.sub(int value);
-iVec.sub(iVec v);
+ivec.sub(int value);
+ivec.sub(ivec v);
 
 
 Equals
 --
-available for iVec2, iVec3 and iVec4
+available for ivec2, ivec3 and ivec4
 --
-> compares iVec too an other one, is like equals and sure in the future this method will be deprecated.
+> compares ivec too an other one, is like equals and sure in the future this method will be deprecated.
 @ return boolean
 
-iVec.equals(int target);
+ivec.equals(int target);
 
-iVec.equals(iVec2 target);
->you must compare same type of iVec
+ivec.equals(ivec2 target);
+>you must compare same type of ivec
 
-iVec2.equals(int target_x, int target_y);
+ivec2.equals(int target_x, int target_y);
 
-iVec3.equals(int target_x, int target_y, int target_z);
+ivec3.equals(int target_x, int target_y, int target_z);
 
-iVec4.equals(int target_x, int target_y, int target_z, int target_w);
+ivec4.equals(int target_x, int target_y, int target_z, int target_w);
 
 
 Copy
 --
-iVec copy()
->return a copy of the iVec
+ivec copy()
+>return a copy of the ivec
 
 
 
@@ -209,7 +209,7 @@ iVec copy()
 
 
 
-Class Vec
+Class vec
 
 --
 inspirated by GLSL and PVector Method of Daniel Shiffman
@@ -224,163 +224,163 @@ http://acko.net/files/dump/tiles/fieldlines.html
 
 BE CAREFUL
 --
-When you built Vec you don't use "new" like with PVector,
-you have acces to three type of vector, with boolean precision, interger precision and float precision. Like in GLSL, the name is bVec, iVec and Vec.
-You can create the three type like below, excepte the random method, only for Vec type.
+When you built vec you don't use "new" like with PVector,
+you have acces to three type of vector, with boolean precision, interger precision and float precision. Like in GLSL, the name is bvec, ivec and vec.
+You can create the three type like below, excepte the random method, only for vec type.
 
 CATCH
 --
-Vec2, iVec2
+vec2, ivec2
 >x,y / s,t / u,v
 
-bVec2
+bvec2
 >x,y,a,b
 
-Vec3, iVec3
+vec3, ivec3
 >x,y,z / r,g,b,s,t,p
 
-bVec3
+bvec3
 >x,y,z / a,b,c
 
-Vec4, iVec4
+vec4, ivec4
 >x,y,z,w / r,g,b,a / s,t,p,q
 
-bVec3
+bvec3
 >x,y,z,w / a,b,c,d
 
-Vec5, iVec5, bVec5
+vec5, ivec5, bvec5
 >a,b,c,d,e
 
-VeC, iVec6, bVec6
+VeC, ivec6, bvec6
 >a,b,c,d,e,f
 
 
-Vector 2
+vector 2
 --
-Vec2();
+vec2();
 
-Vec2(float value);
+vec2(float value);
 
-Vec2(float x, float y);
+vec2(float x, float y);
 
-Vec2(float [] array);
+vec2(float [] array);
 
-Vec2(int value);
+vec2(int value);
 
-Vec2(int x, int y);
+vec2(int x, int y);
 
-Vec2(int [] array);
+vec2(int [] array);
 
-Vec2(PVector p);
+vec2(PVector p);
 
-Vec2(Vec vec);
+vec2(vec vec);
 
-Vec2(iVec ivec);
+vec2(ivec ivec);
 
-Vector 3
+vector 3
 --
-Vec3();
+vec3();
 
-Vec3(float value);
+vec3(float value);
 
-Vec3(float x, float y,float z);
+vec3(float x, float y,float z);
 
-Vec3(float [] array);
+vec3(float [] array);
 
-Vec3(int value);
+vec3(int value);
 
-Vec3(int x, int y, int z);
+vec3(int x, int y, int z);
 
-Vec3(int [] array);
+vec3(int [] array);
 
-Vec3(PVector p);
+vec3(PVector p);
 
-Vec3(Vec vec);
+vec3(vec vec);
 
-Vec3(iVec ivec);
+vec3(ivec ivec);
 
 
-Vector 4
+vector 4
 --
-Vec4();
+vec4();
 
-Vec4(float value);
+vec4(float value);
 
-Vec4(float x,float y, float z, float w);
+vec4(float x,float y, float z, float w);
 
-Vec4(float [] array);
+vec4(float [] array);
 
-Vec4(int value);
+vec4(int value);
 
-Vec4(int x, int y, int z, int w);
+vec4(int x, int y, int z, int w);
 
-Vec4(int [] array);
+vec4(int [] array);
 
-Vec4(PVector p);
+vec4(PVector p);
 
-Vec4(Vec vec);
+vec4(vec vec);
 
-Vec4(iVec ivec);
+vec4(ivec ivec);
 
 
-Vector 5
+vector 5
 --
-Vec5();
+vec5();
 
-Vec5(float value);
+vec5(float value);
 
-Vec5(float a,float b, float c, float d, float e);
+vec5(float a,float b, float c, float d, float e);
 
-Vec5(int value);
+vec5(int value);
 
-Vec5(int a, int b, int c, int d, int e);
+vec5(int a, int b, int c, int d, int e);
 
-Vec5(int [] array);
+vec5(int [] array);
 
-Vec5(PVector p);
+vec5(PVector p);
 
-Vec5(Vec vec);
+vec5(vec vec);
 
-Vec5(iVec ivec);
+vec5(ivec ivec);
 
 
-Vector 6
+vector 6
 --
-Vec6();
+vec6();
 
-Vec6(float value);
+vec6(float value);
 
-Vec6(float a,float b, float c, float d, float e, float f);
+vec6(float a,float b, float c, float d, float e, float f);
 
-Vec6(int value);
+vec6(int value);
 
-Vec6(int a, int b, int c, int d, int e, int f);
+vec6(int a, int b, int c, int d, int e, int f);
 
-Vec6(int [] array);
+vec6(int [] array);
 
-Vec6(PVector p);
+vec6(PVector p);
 
-Vec6(Vec vec);
+vec6(vec vec);
 
-Vec6(iVec ivec);
-
-
+vec6(ivec ivec);
 
 
 
-Vec2 Random build
+
+
+vec2 Random build
 --
-new Vec2(String arg, float value);
+new vec2(String arg, float value);
 >String arg = "RANDOM" or "RANDOM ZERO"  
 
 >also use contante RANDOM or RANDOM_ZERO
 
-new Vec2(String arg, float x, float y);
+new vec2(String arg, float x, float y);
 >String arg = "RANDOM" or "RANDOM ZERO" or "RANDOM RANGE" 
 
 >also use contante RANDOM or RANDOM_ZERO
 
-new Vec2(String arg, float a1, float a2, float b1, float b2)  ;
+new vec2(String arg, float a1, float a2, float b1, float b2)  ;
 >arg = "RANDOM RANGE" 
 
 >also use constante RANDOM_RANGE
@@ -394,19 +394,19 @@ new Vec2(String arg, float a1, float a2, float b1, float b2)  ;
 
 
 
-Vec3 Random build
+vec3 Random build
 --
-Vec3(String arg, float value);
+vec3(String arg, float value);
 >arg = "RANDOM" or "RANDOM ZERO" 
 
 >also use contante RANDOM or RANDOM_ZERO
 
-new Vec3(String arg, float x, float y, float z);
+new vec3(String arg, float x, float y, float z);
 >arg = "RANDOM" or "RANDOM ZERO" 
 
 >also use use contante RANDOM or RANDOM_ZERO
 
-new Vec3(String arg, float a1, float a2, float b1, float b2, float c1, float c2);
+new vec3(String arg, float a1, float a2, float b1, float b2, float c1, float c2);
 >arg = "RANDOM RANGE" 
 
 >also use constante RANDOM_RANGE
@@ -420,15 +420,15 @@ new Vec3(String arg, float a1, float a2, float b1, float b2, float c1, float c2)
 
 
 
-Vec4 Random build
+vec4 Random build
 --
-new Vec4(String arg, float value);
+new vec4(String arg, float value);
 >String arg = "RANDOM" or "RANDOM ZERO" or use contante RANDOM or RANDOM_ZERO
 
-new Vec4(String arg, float x, float y, float z, float z);
+new vec4(String arg, float x, float y, float z, float z);
 >arg = "RANDOM" or "RANDOM ZERO" or use contante RANDOM or RANDOM_ZERO
 
-new Vec4(String arg, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2); 
+new vec4(String arg, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2); 
 >String arg = "RANDOM RANGE" or use constante RANDOM_RANGE
 
 >String arg = "RANDOM" 		if the String arg is equal to "RANDOM" the construtor a random value between float -value and float value
@@ -440,18 +440,18 @@ new Vec4(String arg, float a1, float a2, float b1, float b2, float c1, float c2,
 
 
 
-Vec5 Random build
+vec5 Random build
 --
-new Vec5(String arg, float value) 
+new vec5(String arg, float value) 
 >String arg = "RANDOM" or "RANDOM ZERO" 
 >also use contante RANDOM or RANDOM_ZERO
 
-new Vec5(String arg, float a, float b, float c, float d, float e) ;
+new vec5(String arg, float a, float b, float c, float d, float e) ;
 >String arg = "RANDOM" or "RANDOM ZERO" 
 
 >also use contante RANDOM or RANDOM_ZERO
 
-new Vec5(String arg, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2, float e1, float e2) ;
+new vec5(String arg, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2, float e1, float e2) ;
 >String arg = "RANDOM RANGE" 
 
 >also use constante RANDOM_RANGE
@@ -467,19 +467,19 @@ new Vec5(String arg, float a1, float a2, float b1, float b2, float c1, float c2,
 
 
 
-Vec6 Random build
+vec6 Random build
 --
-new Vec6(String arg, float value)  ;
+new vec6(String arg, float value)  ;
 >String arg = "RANDOM" or "RANDOM ZERO" 
 
 >also use contante RANDOM or RANDOM_ZERO
 
-new Vec6(String arg, float a, float b, float c, float d, float e, float f) ;
+new vec6(String arg, float a, float b, float c, float d, float e, float f) ;
 >String arg = "RANDOM" or "RANDOM ZERO" 
 
 >also use contante RANDOM or RANDOM_ZERO
 
-new Vec6(String arg, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2, float e1, float e2, float f1, float f2) ;
+new vec6(String arg, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2, float e1, float e2, float f1, float f2) ;
 >String arg = "RANDOM RANGE" 
 
 >also use constante RANDOM_RANGE
@@ -496,31 +496,31 @@ new Vec6(String arg, float a1, float a2, float b1, float b2, float c1, float c2,
 
 method set global
 --
-> set you Vec from Vec2 to Vec6
-Vec set(float value);
+> set you vec from vec2 to vec6
+vec set(float value);
 
-Vec set(float x, float y);
+vec set(float x, float y);
 
-Vec set(Vec a);
+vec set(vec a);
 
-Vec set(float [] list);
+vec set(float [] list);
 
 
 method set specific
 --
-Vec set_x(int arg);
+vec set_x(int arg);
 The method exist for each element of the class
-Vec2 : [x,y], [s,t], [u,v]
-Vec3 : [x,y,z], [r,v,b], [s,t,p]
-Vec4 : [x,y,z,w], [r,v,b,a], [s,t,p,q]
-Vec5 : [a,b,c,d,e]
-Vec6 : [a,b,c,d,e,f]
+vec2 : [x,y], [s,t], [u,v]
+vec3 : [x,y,z], [r,v,b], [s,t,p]
+vec4 : [x,y,z,w], [r,v,b,a], [s,t,p,q]
+vec5 : [a,b,c,d,e]
+vec6 : [a,b,c,d,e,f]
 
 
 GET
 --
 float [] get_array();
->return the list of component in an array float, available for Vec type
+>return the list of component in an array float, available for vec type
 
 
 
@@ -530,15 +530,15 @@ OPERATION
 Sum
 --
 
-iVec.sum();
->return the sum of all component, available for Vec2, Vec3 and Vec4
+ivec.sum();
+>return the sum of all component, available for vec2, vec3 and vec4
 
 --
 Multiplication
 -- 
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 --
-@ return Vec2, Vec3 or Vec4
+@ return vec2, vec3 or vec4
 >multiplication vector by a same float
 
 vec2.mult(float value,float value);
@@ -551,16 +551,16 @@ vec.mult(int value);
 
 vec.mult(float value);
 
-vec.mult(Vec v);
+vec.mult(vec v);
 
-vec.mult(iVec v);
+vec.mult(ivec v);
 
 --
 Division
 --
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 --
-@ return Vec2, Vec3 or Vec4
+@ return vec2, vec3 or vec4
 >division vector by float
 
 vec2.div(float value,float value);
@@ -573,19 +573,19 @@ vec.div(int value);
 
 vec.div(float value);
 
-vec.div(Vec v);
+vec.div(vec v);
 
-vec.div(iVec v);
+vec.div(ivec v);
 
 
 --
 Addition
 --
->available for Vec2, Vec3 and Vec4, 
->Each Vec can accept any Vec. 
->For example, if you add a Vec2 in Vec3 the last compent is '0' in the other case the last compoenent is not used.
+>available for vec2, vec3 and vec4, 
+>Each vec can accept any vec. 
+>For example, if you add a vec2 in vec3 the last compent is '0' in the other case the last compoenent is not used.
 --
-@return Vec2, Vec3 or Vec4
+@return vec2, vec3 or vec4
 >add float value to the original
 
 vec2.add(float value,float value);
@@ -598,19 +598,19 @@ vec.add(int value);
 
 vec.add(float value);
 
-vec.add(Vec v);
+vec.add(vec v);
 
-vec.add(iVec v);
+vec.add(ivec v);
 
 
 --
 Substraction
 --
->available for Vec2, Vec3 and Vec4.
->Each Vec can accept any Vec. 
->For example, if you add a Vec2 in Vec3 the last compent is '0' in the other case the last compoenent is not used.
+>available for vec2, vec3 and vec4.
+>Each vec can accept any vec. 
+>For example, if you add a vec2 in vec3 the last compent is '0' in the other case the last compoenent is not used.
 --
-@ return Vec2, Vec3 or Vec4
+@ return vec2, vec3 or vec4
 >sub float value to the original
 
 vec2.sub(float value,float value);
@@ -623,16 +623,16 @@ vec.sub(int value);
 
 vec.sub(float value);
 
-vec.sub(Vec v);
+vec.sub(vec v);
 
-vec.sub(iVec v);
+vec.sub(ivec v);
 
 
 
 --
 Average
 --
->available for Vec2, Vec3, Vec4
+>available for vec2, vec3, vec4
 
 float vec.average();
 >return the average of all components
@@ -642,67 +642,67 @@ float vec.average();
 --
 Direction normal
 --
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 --
 > give a normal and cartesian direction of your vector
-@return Vec2
+@return vec2
 your_vec2.dir();
 
-Vec2.dir(float x, float y);
+vec2.dir(float x, float y);
 
-Vec2.dir(Vec2 origin);
+vec2.dir(vec2 origin);
 
-@return Vec3
+@return vec3
 your_vec3.dir();
 
 your_vec3.dir(float x, float y, float z);
 
-your_vec3.dir(Vec3 origin);
+your_vec3.dir(vec3 origin);
 
-@return Vec4
+@return vec4
 your_vec4.dir();
 
 your_vec4.dir(float x, float y, float z,float w);
 
-your_vec4.dir(Vec4 origin);
+your_vec4.dir(vec4 origin);
 
 
 
 Dot
 --
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 --
 @ float
 >return float of the vector dot
 
-Vec2.dot(Vec2 target);
+vec2.dot(vec2 target);
 
-Vec2.dot(float x, float y);
+vec2.dot(float x, float y);
 
-Vec3.dot(Vec3 target);
+vec3.dot(vec3 target);
 
-Vec3.dot(float x, float y, float z);
+vec3.dot(float x, float y, float z);
 
-Vec4.dot(Vec4 target);
+vec4.dot(vec4 target);
 
-Vec4.dot(float x, float y, float z, float w);
+vec4.dot(float x, float y, float z, float w);
 
 
 Pow
 --
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 --
-@ Vec
->return Vec of pow of each component
+@ vec
+>return vec of pow of each component
 
-Vec pow(int n);
->available for Vec2, Vec3 and Vec4
+vec pow(int n);
+>available for vec2, vec3 and vec4
 
-Vec2 pow (int pow_x, int pow_y);
+vec2 pow (int pow_x, int pow_y);
 
-Vec3 pow(int pow_x, int pow_y, int pow_z);
+vec3 pow(int pow_x, int pow_y, int pow_z);
 
-Vec4 pos(int pow_x, int pow_y, int pow_z, int pow_w);
+vec4 pos(int pow_x, int pow_y, int pow_z, int pow_w);
 
 
 
@@ -714,55 +714,55 @@ MISC
 
 normalize
 --
->available for Vec2, Vec3 and Vec4.
->Each Vec can accept any Vec. 
->For example, if you add a Vec2 in Vec3 the last compent is '0' in the other case the last compoenent is not used.
+>available for vec2, vec3 and vec4.
+>Each vec can accept any vec. 
+>For example, if you add a vec2 in vec3 the last compent is '0' in the other case the last compoenent is not used.
 --
->return Vec2, Vec3 or Vec4
+>return vec2, vec3 or vec4
   
-Vec2 normalize(Vec target);
+vec2 normalize(vec target);
 
-Vec2 normalize();
+vec2 normalize();
 
 Map
 --
->available for Vec2, Vec3 and Vec4.
->return Vec2, Vec3 or Vec4
+>available for vec2, vec3 and vec4.
+>return vec2, vec3 or vec4
 
-Vec map_vec(float minIn, float maxIn, float minOut, float maxOut) ;
+vec map_vec(float minIn, float maxIn, float minOut, float maxOut) ;
 
-Vec map_vec(Vec2 minIn, Vec2 maxIn, Vec2 minOut, Vec2 maxOut);
+vec map_vec(vec2 minIn, vec2 maxIn, vec2 minOut, vec2 maxOut);
 
 
 --
 cross
 --
-@ Vec3
-your_vec3.cross(Vec3 a, Vec3 target);
+@ vec3
+your_vec3.cross(vec3 a, vec3 target);
 >return the cross of vectors
 
 
 Tangent
 --
->return a Vec2 normal direction of the tangent of your vector target
+>return a vec2 normal direction of the tangent of your vector target
 
-Vec2 tan();
+vec2 tan();
 
-Vec2 tan(Vec2 target);
+vec2 tan(vec2 target);
 
-Vec2 tan(float target_x, float target_y);
+vec2 tan(float target_x, float target_y);
 >the method tan with target, give the possibility to find the tan between two vectors in any position
 
-Vec3 tan(Vec3 vector_to_make_plane_ref);
+vec3 tan(vec3 vector_to_make_plane_ref);
 
-Vec3 tan(float vector_to_make_plane_ref, float ref_y, float ref_z);
+vec3 tan(float vector_to_make_plane_ref, float ref_y, float ref_z);
 
 
 
 
 Magnitude
 --
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 --
 @ return float
 >magnitude of the vectors 
@@ -770,7 +770,7 @@ available for Vec2, Vec3 and Vec4
 your_vec.mag();
 >magnitude of vector
 
-your_vec.mag(Vec2 v);
+your_vec.mag(vec2 v);
 >magnitude of two vectors, between himself and the target vector
 
 your_vec.magSq();
@@ -779,9 +779,9 @@ your_vec.magSq();
 
 Limit
 --
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 
-Vec limit();
+vec limit();
 
 
 Angle
@@ -796,21 +796,21 @@ float angle();
 
 Distance
 --
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 
->Each Vec can accept any Vec. 
->For example, if you add a Vec2 in Vec3 the last compent is '0' in the other case the last compoenent is not used.
+>Each vec can accept any vec. 
+>For example, if you add a vec2 in vec3 the last compent is '0' in the other case the last compoenent is not used.
 --
 > distance between himself and the target vector
 
-float dist(Vec v_target) ;
+float dist(vec v_target) ;
 
 
 
 
-Max and Min component of Vector
+Max and Min component of vector
 --
-available for Vec2 to Vec6
+available for vec2 to vec6
 
 float min_vec();
 
@@ -820,9 +820,9 @@ float max_vec();
 
 Copy
 --
-available from Vec2 to Vec6
+available from vec2 to vec6
 
-Vec copy();
+vec copy();
 >return a copy of himself
 
 
@@ -847,33 +847,33 @@ Vec copy();
 --
 Normalize
 --
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 --
->map Vec on different scale
+>map vec on different scale
 
->return a normalize Vec 
+>return a normalize vec 
 
-Vec2 method
+vec2 method
 
-vec.normalize(Vec2 min, Vec2 max);
+vec.normalize(vec2 min, vec2 max);
 
-vec.normalize(Vec2 max); // zero is the min value
+vec.normalize(vec2 max); // zero is the min value
 
 vec.normalize();
 
-Vec3 method
+vec3 method
 --
-vec.normalize(Vec3 min, Vec3 max);
+vec.normalize(vec3 min, vec3 max);
 
-vecnormalize(Vec3 max); // zero is the min value
+vecnormalize(vec3 max); // zero is the min value
 
 vec.normalize();
 
-Vec4 method
+vec4 method
 --
-vec.normalize(Vec4 min, Vec4 max);
+vec.normalize(vec4 min, vec4 max);
 
-vec.normalize(Vec4 max); // zero is the min value
+vec.normalize(vec4 max); // zero is the min value
 
 vec.normalize();
 
@@ -881,15 +881,15 @@ vec.normalize();
 
 Map
 --
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 --
->map Vec on different scale
+>map vec on different scale
 
-vec.mapVec(float minIn, float maxIn, float minOut, float maxOut);
+vec.mapvec(float minIn, float maxIn, float minOut, float maxOut);
 
-vec.mapVec(float minIn, float maxIn, float minOut, float maxOut);
+vec.mapvec(float minIn, float maxIn, float minOut, float maxOut);
 
-vec.mapVec(float minIn, float maxIn, float minOut, float maxOut);
+vec.mapvec(float minIn, float maxIn, float minOut, float maxOut);
 
 
 
@@ -900,21 +900,21 @@ Change or new methods
 --
 Equals
 --
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 --
-> compares Vec too an other one, is like equals and sure in the future this method will be deprecated.
+> compares vec too an other one, is like equals and sure in the future this method will be deprecated.
 @ return boolean
 vec.equals(float target);
 
-vec.equals(Vec2 target);
+vec.equals(vec2 target);
 
 vec.equals(float target_x, float target_y);
 
-vec.equals(Vec3 target);
+vec.equals(vec3 target);
 
 vec.equals(float target_x, float target_y, float target_z);
 
-vec.equals(Vec4 target);
+vec.equals(vec4 target);
 
 vec.equals(float target_x, float target_y, float target_z, float target_w);
 
@@ -922,68 +922,68 @@ vec.equals(float target_x, float target_y, float target_z, float target_w);
 
 Revolution
 --
-@ return Vec2
+@ return vec2
 >the vector position make a circular move around a center positon
 
 vec.revolution(int radius, int speed);
 
 vec.revolution(int rx, int ry, int speed);
 
-vec.revolution(Vec2 radius, int speed);
+vec.revolution(vec2 radius, int speed);
 
-@ return a Vec3
+@ return a vec3
 >the vector position make a circular move around a center positon
 
 vec.revolutionX(int radius, int speed);
 
 vec.revolutionX(int rx, int ry, int speed);
 
-vec.revolutionX(Vec2 radius, int speed);
+vec.revolutionX(vec2 radius, int speed);
 
 --
 vec.revolutionY(int radius, int speed);
 
 vec.revolutionY(int rx, int ry, int speed);
 
-vec.revolutionY(Vec2 radius, int speed);
+vec.revolutionY(vec2 radius, int speed);
 
 --
 vec.revolutionZ(int radius, int speed);
 
 vec.revolutionZ(int rx, int ry, int speed);
 
-vec.revolutionZ(Vec2 radius, int speed);
+vec.revolutionZ(vec2 radius, int speed);
 
 
 
 Jitter
 --
-available for Vec2, Vec3 and Vec4
+available for vec2, vec3 and vec4
 --
 > Return is a random gaussian vector with value between the pos minus the range and pos plus the range, some time the value can be greater or lesser of the range.
 --
-@ return a Vec2
+@ return a vec2
 vec.jitter(int range);
 
 vec.jitter(int range_x, int range_y);
 
-vec.jitter(Vec2 range);
+vec.jitter(vec2 range);
 
 
-@ return a Vec3
+@ return a vec3
 vec.jitter(int range);
 
 vec.jitter(int range_x, int range_y,, int range_z);
 
-vec.jitter(Vec3 range);
+vec.jitter(vec3 range);
 
 
-@ return a Vec4
+@ return a vec4
 vec.jitter(int range);
 
 vec.jitter(int range_x, int range_y, int range_z, int range_w) ;
 
-vec.jitter(Vec4 range) ;
+vec.jitter(vec4 range) ;
 
 
 

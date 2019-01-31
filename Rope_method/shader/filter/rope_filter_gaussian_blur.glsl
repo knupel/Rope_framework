@@ -78,7 +78,7 @@ void main() {
 
   float numBlurPixelsPerSide = float(blurSize / 2); 
  
-  vec2 blurMultiplyVec = horizontalPass? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec2 blurMultiplyvec = horizontalPass? vec2(1.0, 0.0) : vec2(0.0, 1.0);
  
   // Incremental Gaussian Coefficent Calculation (See GPU Gems 3 pp. 877 - 889)
   vec3 incrementalGaussian;
@@ -99,9 +99,9 @@ void main() {
     // Go through the remaining 8 vertical samples (4 on each side of the center)
     for (float i = 1.0; i <= numBlurPixelsPerSide; i++) { 
       avgValue += texture2D(texture, coord_tex - i * texOffset * 
-                            blurMultiplyVec) * incrementalGaussian.x;         
+                            blurMultiplyvec) * incrementalGaussian.x;         
       avgValue += texture2D(texture, coord_tex + i * texOffset * 
-                            blurMultiplyVec) * incrementalGaussian.x;   
+                            blurMultiplyvec) * incrementalGaussian.x;   
 
       coefficientSum += 2.0 * incrementalGaussian.x;
       incrementalGaussian.xy *= incrementalGaussian.yz;
@@ -114,9 +114,9 @@ void main() {
     // Go through the remaining 8 vertical samples (4 on each side of the center)
     for (float i = 1.0; i <= numBlurPixelsPerSide; i++) { 
       avgValue += texture2D(texture_PGraphics, coord_tex - i * texOffset * 
-                            blurMultiplyVec) * incrementalGaussian.x;         
+                            blurMultiplyvec) * incrementalGaussian.x;         
       avgValue += texture2D(texture_PGraphics, coord_tex + i * texOffset * 
-                            blurMultiplyVec) * incrementalGaussian.x;   
+                            blurMultiplyvec) * incrementalGaussian.x;   
 
       coefficientSum += 2.0 * incrementalGaussian.x;
       incrementalGaussian.xy *= incrementalGaussian.yz;

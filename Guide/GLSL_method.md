@@ -5,102 +5,102 @@
 
 float mix(float x, float y, float a);
 
-Vec2 mix(Vec2 x, Vec2 y, Vec2 a);
+vec2 mix(vec2 x, vec2 y, vec2 a);
 
-Vec3 mix(Vec3 x, Vec3 y, Vec3 a);
+vec3 mix(vec3 x, vec3 y, vec3 a);
 
-Vec4 mix(Vec4 x, Vec4 y, Vec4 a);
+vec4 mix(vec4 x, vec4 y, vec4 a);
 
 
 *fract
 
 float fract(float x);
 
-Vec2 fract(Vec2 v);
+vec2 fract(vec2 v);
 
-Vec3 fract(Vec3 v);
+vec3 fract(vec3 v);
 
-Vec4 fract(Vec4 v);
+vec4 fract(vec4 v);
 
 *sign
 
 float sign(float x);
 
-Vec2 sign(Vec2 x);
+vec2 sign(vec2 x);
 
-Vec3 sign(Vec3 x);
+vec3 sign(vec3 x);
 
-Vec4 sign(Vec4 x);
+vec4 sign(vec4 x);
 
 int sign(int x);
 
-iVec2 sign(iVec2 x);
+ivec2 sign(ivec2 x);
 
-iVec3 sign(iVec3 x);
+ivec3 sign(ivec3 x);
 
-iVec4 sign(iVec4 x);
+ivec4 sign(ivec4 x);
 
 
 *step
 
 float step(float edge, float x);
 
-Vec2 step(Vec2 edge, Vec2 x);
+vec2 step(vec2 edge, vec2 x);
 
-Vec3 step(Vec3 edge, Vec3 x);
+vec3 step(vec3 edge, vec3 x);
 
-Vec4 step(Vec4 edge, Vec4 x);
+vec4 step(vec4 edge, vec4 x);
 
 
 *smoothstep
 
 float smoothstep(float edge0, float edge1, float x);
 
-Vec2 smoothstep(Vec2 edge0, Vec2 edge1, Vec2 x);
+vec2 smoothstep(vec2 edge0, vec2 edge1, vec2 x);
 
-Vec3 smoothstep(Vec3 edge0, Vec3 edge1, Vec3 x);
+vec3 smoothstep(vec3 edge0, vec3 edge1, vec3 x);
 
-Vec4 smoothstep(Vec4 edge0, Vec4 edge1, Vec4 x);
+vec4 smoothstep(vec4 edge0, vec4 edge1, vec4 x);
 
 
 *mod
 
 float mod(float x, float y);
 
-Vec2 mod(Vec2 x, Vec2 y);
+vec2 mod(vec2 x, vec2 y);
 
-Vec3 mod(Vec3 x, Vec3 y);
+vec3 mod(vec3 x, vec3 y);
 
-Vec4 mod(Vec4 x, Vec4 y);
+vec4 mod(vec4 x, vec4 y);
 
-iVec2 mod(iVec2 x, iVec2 y);
+ivec2 mod(ivec2 x, ivec2 y);
 
-iVec3 mod(iVec3 x, iVec3 y);
+ivec3 mod(ivec3 x, ivec3 y);
 
-iVec4 mod(iVec4 x, iVec4 y);
+ivec4 mod(ivec4 x, ivec4 y);
 
 
 *clamp
 
 float clamp(float x, float min, float max);
 
-Vec2 clamp(Vec2 x, Vec2 min, Vec2 max);
+vec2 clamp(vec2 x, vec2 min, vec2 max);
 
-Vec3 clamp(Vec3 x, Vec3 min, Vec3 max);
+vec3 clamp(vec3 x, vec3 min, vec3 max);
 
-Vec4 clamp(Vec4 x, Vec4 min, Vec4 max);
+vec4 clamp(vec4 x, vec4 min, vec4 max);
 
 
 *all
 
-boolean all(bVec b)
->return true if all components of bVec are true
+boolean all(bvec b)
+>return true if all components of bvec are true
 
 
 *any
 
-boolean any(bVec b)
->return true if any component of bVec is true
+boolean any(bvec b)
+>return true if any component of bvec is true
 
 *lessThanEqual
 
@@ -110,10 +110,10 @@ boolean lessThanEqual(float x, float y);
 boolean lessThanEqual(int x, int y);
 >return true if x <= y
 
-bVec lessThanEqual(iVec x, iVec y);
+bvec lessThanEqual(ivec x, ivec y);
 >return true if x <= y
 
-bVec lessThanEqual(Vec x, Vec y);
+bvec lessThanEqual(vec x, vec y);
 >return true if x <= y
 
 
@@ -125,10 +125,10 @@ boolean lessThanEqual(float x, float y);
 boolean lessThanEqual(int x, int y);
 >return true if x < y
 
-bVec lessThanEqual(iVec x, iVec y);
+bvec lessThanEqual(ivec x, ivec y);
 >return true if x < y
 
-bVec lessThanEqual(Vec x, Vec y);
+bvec lessThanEqual(vec x, vec y);
 >return true if x < y
 
 
@@ -140,10 +140,10 @@ boolean greaterThanEqual(float x, float y);
 boolean greaterThanEqual(int x, int y);
 >return true if x >= y
 
-bVec greaterThanEqual(iVec x, iVec y);
+bvec greaterThanEqual(ivec x, ivec y);
 >return true if x >= y
 
-bVec greaterThanEqual(Vec x, Vec y);
+bvec greaterThanEqual(vec x, vec y);
 >return true if x >= y
 
 
@@ -155,10 +155,10 @@ boolean greaterThan(float x, float y);
 boolean greaterThan(int x, int y);
 >return true if x > y
 
-bVec greaterThan(iVec x, iVec y);
+bvec greaterThan(ivec x, ivec y);
 >return true if x > y
 
-bVec greaterThan(Vec x, Vec y);
+bvec greaterThan(vec x, vec y);
 >return true if x > y
 
 
@@ -170,10 +170,10 @@ boolean equal(float x, float y);
 boolean equal(int x, int y);
 >return true if x == y
 
-bVec equal(iVec x, iVec y);
+bvec equal(ivec x, ivec y);
 >return true if x == y
 
-bVec equal(Vec x, Vec y);
+bvec equal(vec x, vec y);
 >return true if x == y
 
 

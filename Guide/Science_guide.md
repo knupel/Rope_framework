@@ -33,19 +33,19 @@ float random_next_gaussian(float range, power n);
 
 float sin_wave(float speed, float scale);
 
-Vec2 sin_wave(Vec2 speed, Vec2 scale);
+vec2 sin_wave(vec2 speed, vec2 scale);
 
-Vec3 sin_wave(Vec3 speed, Vec3 scale);
+vec3 sin_wave(vec3 speed, vec3 scale);
 
-Vec4 sin_wave(Vec4 speed, Vec4 scale);
+vec4 sin_wave(vec4 speed, vec4 scale);
 
 float cos_wave(float speed, float scale);
 
-Vec2 cos_wave(Vec2 speed, Vec2 scale);
+vec2 cos_wave(vec2 speed, vec2 scale);
 
-Vec3 cos_wave(Vec3 speed, Vec3 scale);
+vec3 cos_wave(vec3 speed, vec3 scale);
 
-Vec4 cos_wave(Vec4 speed, Vec4 scale);
+vec4 cos_wave(vec4 speed, vec4 scale);
 
 
 
@@ -80,16 +80,16 @@ float perimeter_disc(int r) ;
 float radius_from_circle_surface(int surface) ;
 >calcul the radius of circle from the surface circle
 
-boolean inside(iVec2 pos, iVec2 size, iVec2 target);
+boolean inside(ivec2 pos, ivec2 size, ivec2 target);
 
-boolean inside(iVec2 pos, iVec2 size, iVec2 target, int type);
+boolean inside(ivec2 pos, ivec2 size, ivec2 target, int type);
 
-boolean inside(Vec2 pos, Vec2 size, Vec2 target);
+boolean inside(vec2 pos, vec2 size, vec2 target);
 >by default the shape detected is an ELLIPSE
 
-boolean inside(Vec2 pos, Vec2 size, Vec2 target, int type);
->Vec2 pos, position of the detection zone
->Vec2 size, size of the zone
+boolean inside(vec2 pos, vec2 size, vec2 target, int type);
+>vec2 pos, position of the detection zone
+>vec2 size, size of the zone
 >position of what must be detect
 >int type of shape, ELLIPSE or RECT
 
@@ -102,45 +102,45 @@ boolean inside(Vec2 pos, Vec2 size, Vec2 target, int type);
 direction
 >return the normal direction of the target
 
-Vec2 look_at(Vec2 target, Vec2 origin);
+vec2 look_at(vec2 target, vec2 origin);
 
-Vec3 look_at(Vec3 target, Vec3 origin);
-
-@Deprecated
-Vec2 target_direction(Vec2 target, Vec2 origin);
->return a normal Vec2 or Vec3 direction, but reverse
+vec3 look_at(vec3 target, vec3 origin);
 
 @Deprecated
-Vec3 target_direction(Vec3 target, Vec3 origin);
+vec2 target_direction(vec2 target, vec2 origin);
+>return a normal vec2 or vec3 direction, but reverse
+
+@Deprecated
+vec3 target_direction(vec3 target, vec3 origin);
 
 
 *Projection
 
->return Vec2
+>return vec2
 --
 cartesian
 --
-Vec2 projection(Vec2 direction) ;
+vec2 projection(vec2 direction) ;
 
-Vec2 projection(Vec2 direction, float radius) ;
+vec2 projection(vec2 direction, float radius) ;
 
-Vec2 projection(Vec2 direction, Vec2 origin, float radius) ;
+vec2 projection(vec2 direction, vec2 origin, float radius) ;
 
-polar Vec2
+polar vec2
 --
->return Vec2
-Vec2 projection(float angle) ;
+>return vec2
+vec2 projection(float angle) ;
 
-Vec2 projection(float angle, float radius) ;
+vec2 projection(float angle, float radius) ;
 
-polar Vec3
+polar vec3
 --
->return Vec3
-Vec3 projection(Vec3 direction) ;
+>return vec3
+vec3 projection(vec3 direction) ;
 
-Vec3 projection(Vec3 direction, float radius) ;
+vec3 projection(vec3 direction, float radius) ;
 
-Vec3 projection(Vec3 direction, Vec3 origin, float radius) ;
+vec3 projection(vec3 direction, vec3 origin, float radius) ;
 
 
 
@@ -152,19 +152,19 @@ float angle_radians(float y, float range);
 
 float angle_degrees(float y, float range);
 
-float angle(Vec2 a, Vec2 b);
+float angle(vec2 a, vec2 b);
 
-float angle(Vec2 v);
+float angle(vec2 v);
 
-float distance_vec(Vec2 a, Vec2 b)
+float distance_vec(vec2 a, vec2 b)
 @ float
 > return the distance between two vectors
 
-float deg360 (Vec2 dir)
+float deg360 (vec2 dir)
 @ return angle
 
 float deg360 (PVector dir)
-@ return angle from Vector 2D
+@ return angle from vector 2D
 
 
 
@@ -175,15 +175,15 @@ float deg360 (PVector dir)
 void rotation (float angle, float posX, float posY) ;
 >make rotation
 
-void rotation (float angle, Vec2 pos) ;
+void rotation (float angle, vec2 pos) ;
 >make rotation
 
-Vec2 rotation(Vec2 ref, Vec2 lattice, float angle)
-@ Vec2
+vec2 rotation(vec2 ref, vec2 lattice, float angle)
+@ vec2
 >return lattice position xy
 
-Vec2 rotation_lattice(Vec2 ref, Vec2 lattice, float angle)
-@ Vec2
+vec2 rotation_lattice(vec2 ref, vec2 lattice, float angle)
+@ vec2
 >return lattice position xy
 
 
@@ -193,8 +193,8 @@ Vec2 rotation_lattice(Vec2 ref, Vec2 lattice, float angle)
 
 *Polar
 
-Vec3 to_polar(Vec3 cart)
-@Vec3
+vec3 to_polar(vec3 cart)
+@vec3
 > return polar position from cartesian position 
 componant.x = latitude
 componant.y = longitude
@@ -206,27 +206,27 @@ componant.z = radius
 *Cartesian
 
 to_cartesian_3D(float latitude, float longitude)
-@ Vec3
+@ vec3
 > return xyz position normal position
 
 to_cartesian_3D(float latitude, float longitude, float radius)
-@ Vec3 
+@ vec3 
 > return xyz position radius position
 
-to_cartesian_3D(Vec2 pos, Vec2 range, float sizeField)
-@ Vec3
+to_cartesian_3D(vec2 pos, vec2 range, float sizeField)
+@ vec3
 > don't remember what's is returned :)
 
 to_cartesian_2D (float angle, float radius)
-@ Vec2
+@ vec2
 > return xy position radius position
 
 to_cartesian_2D (float angle)
-@return Vec2
+@return vec2
 > return xy position normal position
 
-to_cartesian_2D (float posMouse, Vec2 range, Vec2 targetRadian, float distance)
-@return Vec2
+to_cartesian_2D (float posMouse, vec2 range, vec2 targetRadian, float distance)
+@return vec2
 > don't remember what's is returned :)
 
 
@@ -251,22 +251,22 @@ triangle(float a_x, float a_y, float a_z,
 triangle(float a_x, float a_y,
 		float b_x, float b_y,,
 		float c_x, float c_y,)
-triangle(Vec2 a, Vec2 b, Vec2 c)
-triangle(Vec3 a, Vec3 b, Vec3 c)
+triangle(vec2 a, vec2 b, vec2 c)
+triangle(vec3 a, vec3 b, vec3 c)
 
 
 
 Create a regular polygon with "n" summits
 --
 primitve(float  radius, int summits) ;
-primitve(Vec2 pos, float radius, int summits) ;
-primitve(Vec2 pos, float  radius, int summits, float orientation) ;
+primitve(vec2 pos, float radius, int summits) ;
+primitve(vec2 pos, float  radius, int summits, float orientation) ;
 
-primitve(Vec3 pos, float  radius, int summits) ;
-primitve(Vec3 pos, float  radius, int summits, float orientation) ;
+primitve(vec3 pos, float  radius, int summits) ;
+primitve(vec3 pos, float  radius, int summits, float orientation) ;
 
-primitve(Vec3 pos, float  radius, int summits, Vec3 rotate) ;
-primitve(Vec3 pos, float  radius, int summits, float orientation, Vec3 rotate) ;
+primitve(vec3 pos, float  radius, int summits, vec3 rotate) ;
+primitve(vec3 pos, float  radius, int summits, float orientation, vec3 rotate) ;
 
 
 note 
@@ -285,23 +285,23 @@ note
 
 *SPHERE
 
-@ Vec3 [] point_coord
+@ vec3 [] point_coord
 > return the vector list of normal points of your sphere.
-Vec3 [] list_cartesian_fibonacci_sphere (int num, float step, float root) ;
+vec3 [] list_cartesian_fibonacci_sphere (int num, float step, float root) ;
 
-@ Vec3 position
+@ vec3 position
 > return position of specific point of cartesian sphere
-Vec3 distribution_cartesian_fibonacci_sphere(int n, int num, float step, float root)
+vec3 distribution_cartesian_fibonacci_sphere(int n, int num, float step, float root)
 
-@ Vec2 [] polar_direction
+@ vec2 [] polar_direction
 > return the vector list of polar direction, longitude and latitude
-Vec2 [] list_polar_fibonacci_sphere(int num, float step)
+vec2 [] list_polar_fibonacci_sphere(int num, float step)
 
 
 
-@ Vec polar_direction
+@ vec polar_direction
 > return direction of a specific point of the polar sphere
-Vec2 distribution_polar_fibonacci_sphere(int n, int num, float step)
+vec2 distribution_polar_fibonacci_sphere(int n, int num, float step)
 
 
 
