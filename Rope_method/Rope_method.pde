@@ -6,17 +6,27 @@ ROPE - Romanesco processing environment –
 * http://stanlepunk.xyz/
 */
 void setup() {
-	size(400,400);
-	background(0);
-	stroke(255);
-	for(int i = 0 ; i < width/3 ; i++) {
-		float x = map(random_next_gaussian(),-1,1,0,width);
-		float y = height/2;
-		point(x,y);
-	}
+	size(600,600,P3D);
 
-	ivec3 t = ivec3(5).add(5);
-	println(t);
+	
+}
+
+
+void draw() {
+	background(0);
+	float s = 300;
+	float sx = abs(cos(frameCount *.01))*s+20;
+	float sy = abs(cos(frameCount *.02))*s+20;
+	float sz = abs(cos(frameCount *.03))*s+20;
+
+	push();
+	translate(width/2,height/2,0);
+  rotateX(map(mouseY,0,height,0,TAU));
+  rotateY(map(mouseX,0,width,0,TAU));
+	costume(0,0,0,100,100,100,CROSS_RECT_ROPE);
+
+	pop();
+
 }
 
 

@@ -1,6 +1,7 @@
-RPE Costume 
+*COSTUME
+
 v 1.2.0
-2016-2018
+2016-2019
 --
 Mini library give a bestiary shape, in 2D or 3D
 
@@ -15,20 +16,90 @@ to change the aspect like fill, stroke or strokeWeight use aspect_rope();
 --
 
 
+*CLASS
 
 
+*PRIMITIVE
 
-
-
-
-
-
-
-Method shape
+Create a regular polygon with "n" summits
 --
+Primitive primtive = new Primtive()
+
+
+draw(float radius, int summits);
+draw(vec2 pos, float radius, int summits);
+draw(vec2 pos, float radius, int summits, float orientation);
+
+draw(vec3 pos, float radius, int summits) ;
+draw(vec3 pos, float radius, int summits, float orientation);
+
+draw(vec3 pos, float radius, int summits, vec3 rotate);
+draw(vec3 pos, float radius, int summits, float orientation, vec3 rotate);
+
+
+note 
+> orientation is in radians.
+> rotate is in radians, for X,Y and Z axi
+
+
+
+*STAR
+
+documentation comming before 2028
+
+
+
+*HOUSE
+
+documentation comming before 2028
+
+
+
+*VIRUS
+
+documentation comming before 2028
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*METHOD
+
+
+$*main
+
 when the targeting costume is a pixel few possibility is no more available to use, like move in 3D, change thickness...because for pixel the methode set(x,y,c) from Processing is used, see Processing method.
 
-costume(vec pos, vec size, float angle, vec3 dir, Costume costume);
+void costume(float x, float y, float sx, float sy, Costume costume);
+
+void costume(float x, float y, float z, float sx, float sy, Costume costume);
+
+void costume(float x, float y, float z, float sx, float sy, float sz, Costume costume);
+
+void costume(vec pos, vec size, float angle, vec3 dir, Costume costume);
 
 void costume(vec pos, vec size, vec3 dir, Costume costume);
 
@@ -36,18 +107,30 @@ void costume(vec pos, int size, int Costume costume);
 
 void costume(vec pos, vec size, int Costume costume)
 
-method by id costume
---
-costume(vec pos, vec size, float angle, vec3 dir, int which_costume);
+*method by id costume
 
-void costume(vec pos, vec size, vec3 dir, int which_costume);
+void costume(float x, float y, float sx, float sy, int which);
 
-void costume(vec pos, int size, int which_costume);
+void costume(float x, float y, float z, float sx, float sy, int which);
 
-void costume(vec pos, vec size, int which_costume);
+void costume(float x, float y, float z, float sx, float sy, float sz, int which);
 
-Method String
---
+costume(vec pos, vec size, float angle, vec3 dir, int which);
+
+void costume(vec pos, vec size, vec3 dir, int which);
+
+void costume(vec pos, int size, int which);
+
+void costume(vec pos, vec size, int which);
+
+*Method String
+
+void costume(float x, float y, float sx, float sy, String sentence);
+
+void costume(float x, float y, float z, float sx, float sy, String sentence);
+
+void costume(float x, float y, float z, float sx, float sy, float sz, String sentence);
+
 void costume(vec pos, int size, float angle, String sentence);
 
 void costume(vec2pos, vec size, float angle, String sentence);
@@ -62,11 +145,8 @@ void costume(vec pos, vec size, String sentence);
 
 
 
+*List
 
-
-
-List
---
 void print_list_costume() ;
 > return all the Integer constant ID, the name and the type of renderer.
 
@@ -77,12 +157,8 @@ void print_list_costume() ;
 
 
 
+*Aspect
 
-
-
-
-Aspect
---
 void aspect_is(boolean fill_is, boolean stroke_is) ;
 >used before aspect_rope() to display fill or stroke
 
@@ -97,19 +173,19 @@ void aspect(vec fill, vec stroke, float strokeWeight) ;
 void aspect(vec fill, vec stroke, float strokeWeight, int costume) ;
 >can be used with vec2, vec3 or vec4
 
-Text
---
+*Text
+
 void costume_text(String s) ;
 >use to set the text
 
-Costume available
---
+*Costume available
+
 costumes_size() ;
 >return the quantity of costumes available.
 
 
-ID costume
---
+*ID costume
+
 int get_costume(int target)
 >return ID of the costume at this rank, if this one don't exist, that return 0. 0 is ID of 'point'
 
@@ -120,8 +196,29 @@ COSTUME LIST
 
 
 
-ASPECT
---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*ASPECT
+
 >aspect method classic
 
 void aspect_rope(int fill, int stroke, float thickness)
@@ -151,8 +248,8 @@ float get_thickness_rope();
 
 
 
-RATIO SIZE
---
+*RATIO SIZE
+
 void set_ratio_costume_size(value);
 >it's opssible to set the ratio size, to change multiply the size of all elements,
 actullly available only for the CROSS_BOX_2_ROPE et CROSS_BOX_3_ROPE
@@ -161,10 +258,14 @@ actullly available only for the CROSS_BOX_2_ROPE et CROSS_BOX_3_ROPE
 
 
 
-SHAPE CATALOGUE
-method and class
---
---
+
+
+
+
+
+*SHAPE CATALOGUE
+
+
 STAR
 --
 void star(vec pos, int size_XY, int summits) ;
@@ -208,4 +309,5 @@ void virus(vec pos, vec size, int node, int num, float angle)  ;
 void virus(vec pos, vec size, int node, int num, int speed) ;
 
 void virus(vec pos, vec size, int node, int num, int speed_mutation, float angle, int close) ;
+
 
