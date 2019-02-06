@@ -1,7 +1,7 @@
 /**
 Costume method
 * Copyleft (c) 2014-2019
-v 1.7.1
+v 1.7.2
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope_method
 */
@@ -210,9 +210,13 @@ void costume(vec3 pos, vec3 size, vec rot, String sentence) {
 /**
 method to pass costume to class costume
 */
+Costume costume_rope_buffer;
 void costume(vec3 pos, vec3 size, vec rot, int which_costume) {
-	Costume costume = new Costume(which_costume);
-	costume.draw(pos,size,rot);
+	if(costume_rope_buffer == null) {
+		costume_rope_buffer = new Costume(which_costume);
+	}
+	// Costume costume = new Costume(which_costume);
+	costume_rope_buffer.draw(pos,size,rot);
 }
 
 void costume(vec3 pos, vec3 size, vec rot, Costume costume) {
