@@ -25,22 +25,57 @@ Create a regular polygon with "n" summits
 --
 Primitive primtive = new Primtive()
 
+draw
+--
+draw do void calc(), plus void show();
 
-draw(float radius, int summits);
-draw(vec2 pos, float radius, int summits);
-draw(vec2 pos, float radius, int summits, float orientation);
+void draw(float diam, int summits);
 
-draw(vec3 pos, float radius, int summits) ;
-draw(vec3 pos, float radius, int summits, float orientation);
+void draw(vec pos, float diam, int summits);
 
-draw(vec3 pos, float radius, int summits, vec3 rotate);
-draw(vec3 pos, float radius, int summits, float orientation, vec3 rotate);
+void draw(vec pos, float diam, int summits, float angle);
+
+void draw(vec pos, float diam, int summits, vec2 polar_coord);
+
+void draw(vec pos, float diam, int summits, float orientation, vec2 polar_coord);
 
 
-note 
-> orientation is in radians.
-> rotate is in radians, for X,Y and Z axi
+calc
+--
+compute the points
 
+void calc(float diam, int summits);
+
+void calc(vec pos, float diam, int summits);
+
+void calc(vec pos, float diam, int summits, float angle);
+
+void calc(vec pos, float diam, int summits, vec2 polar_coord);
+
+void calc(vec pos, float diam, int summits, float orientation, vec2 polar_coord);
+
+show
+--
+void show();
+
+get
+--
+vec3 [] get_normal();
+> return the normal position of the primitive
+
+vec3 get_pos();
+> return the real position of the primitive
+
+vec2 get_dir();
+> return the polar coord, don't work for the moment
+
+float get_diam();
+
+float get_radius();
+
+int get_summits();
+
+float get_angle();
 
 
 *STAR

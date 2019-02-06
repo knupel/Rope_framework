@@ -1,7 +1,7 @@
 /**
 COSTUME class
 * Copyleft (c) 2019-2019
-* v 0.5.0
+* v 0.6.0
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope_method
 * Here you finf the class Costume and all the class shape used.
@@ -1237,8 +1237,8 @@ public class Costume_pic {
 
 /**
 class Costume 
-2018-2018
-v 0.1.1
+2018-2019
+v 0.2.0
 */
 public class Costume {
 	boolean fill_is;
@@ -1256,6 +1256,7 @@ public class Costume {
 	float [] ratio;
 	boolean is_3D = false;
 	boolean is_vertex = true;
+	Primitive prim;
 
 	public Costume() {}
 
@@ -1538,7 +1539,6 @@ public class Costume {
 		if(rot.x != 0) costume_rotate_x();
 		if(rot.y != 0) costume_rotate_y();
 		if(rot.z != 0) costume_rotate_z();
-		Primitive prim = new Primitive();
 
 		if (this.get_type() == PIXEL_ROPE) {
 			set((int)pos.x,(int)pos.y,(int)get_fill_rope());
@@ -1560,64 +1560,75 @@ public class Costume {
 			stop_matrix();
 
 		} else if (this.get_type() == LINE_ROPE) {
+			if(prim == null) prim = new Primitive();
 			prim.draw(pos,size.x,2,rot.x);
 		}
 
 		else if (this.get_type() == TRIANGLE_ROPE) {
+			if(prim == null) prim = new Primitive();
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
 			prim.draw(vec3(0),size.x,3);
 			stop_matrix();
 		}  else if (this.get_type() == SQUARE_ROPE) {
+			if(prim == null) prim = new Primitive();
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
 			prim.draw(vec3(0),size.x,4);
 			stop_matrix();
 		} else if (this.get_type() == PENTAGON_ROPE) {
+			if(prim == null) prim = new Primitive();
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
 			prim.draw(vec3(0),size.x,5);
 			stop_matrix();
 		} else if (this.get_type() == HEXAGON_ROPE) {
+			if(prim == null) prim = new Primitive();
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
 			prim.draw(vec3(0),size.x,6);
 			stop_matrix() ;
 		} else if (this.get_type() == HEPTAGON_ROPE) {
+			if(prim == null) prim = new Primitive();
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
 			prim.draw(vec3(0),size.x,7);
 			stop_matrix();
 		} else if (this.get_type() == OCTOGON_ROPE) {
+			if(prim == null) prim = new Primitive();
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
 			prim.draw(vec3(0),size.x,8);
 			stop_matrix();
 		} else if (this.get_type() == NONAGON_ROPE) {
+			if(prim == null) prim = new Primitive();
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
 			prim.draw(vec3(0),size.x,9);
 			stop_matrix();
 		} else if (this.get_type() == DECAGON_ROPE) {
+			if(prim == null) prim = new Primitive();
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
 			prim.draw(vec3(0),size.x,10);
 			stop_matrix();
 		} else if (this.get_type() == HENDECAGON_ROPE) {
+			if(prim == null) prim = new Primitive();
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
 			prim.draw(vec3(0),size.x,11);
 			stop_matrix();
 		} else if (this.get_type() == DODECAGON_ROPE) {
+			if(prim == null) prim = new Primitive();
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
