@@ -15,10 +15,16 @@ PRIMITIVE
 v 0.1.0
 */
 public class Primitive implements RConstants {
+	vec3 pos;
+	float diam = 0;
+	vec2 dir;
+  vec3 [] pts;
+  int summits = 0;
+  float angle = 0;
 
 	public Primitive () {}
 
-
+  // draw
 	public void draw(float diam, int summits) {
 	  vec3 pos = vec3();
 	  float angle = 0;
@@ -43,37 +49,58 @@ public class Primitive implements RConstants {
 	  draw(pos,diam,summits,angle,dir_P3D);
 	}
 
+	public void draw(vec pos, float diam, int summits, float angle, vec2 dir_P3D) {
+    calc(pos,diam,summits,angle,dir_P3D);
+		show();
+	}
+  
+
+  // compute
+  public void calc(float diam, int summits) {
+	  calc(vec3(),diam,summits,0,vec2());
+	}
+
+	// Primitive with vec method
+	public void calc(vec pos, float diam, int summits) {
+	  calc(pos,diam,summits,0,vec2());
+	}
+
+	public void calc(vec pos, float diam, int summits, vec2 dir_P3D) {
+	  calc(pos,diam,summits,0,dir_P3D);
+	}
+
+	public void calc(vec pos, float diam, int summits, float angle) {
+	  calc(pos,diam,summits,angle,vec2());
+	}
 	// Primitive with vec method and angle to display
-	public void draw(vec pos_raw, float diam, int summits, float angle, vec2 dir_P3D) {
-	  vec3 pos = null ;
-	  if(pos_raw instanceof vec2) {
-	    pos = vec3(pos_raw.x, pos_raw.y, 0);
-	  } else if(pos_raw instanceof vec3) {
-	    pos = vec3(pos_raw.x, pos_raw.y, pos_raw.z);
-	  }
-    // security for the sinple, null or negative point quantity
-	  if(summits < 2) {
-	    summits = 2;
-	  }
+	public void calc(vec pos, float diam, int summits, float angle, vec2 dir_P3D) {
+		this.diam = diam;
 
-	  vec3 [] points = new vec3[summits];
-	  // create coord of the shape
-	  if(summits == 2 && angle == 0) {
-	    points[0] = vec3(-.5,0,0);
-	    points[1] = vec3(.5,0,0);
-	  } else {
-	    for (int i = 0 ; i < summits ; i++) {
-	      points[i] = polygon_2D(summits,angle)[i].copy();
-	    }
-	  }
+		if(this.pos == null) {
+			this.pos = vec3(pos.x,pos.y,pos.z);
+		} else {
+			this.pos.set(pos.x,pos.y,pos.z);
+		}
 
-	  show(pos,dir_P3D,diam,points);
+		if(this.dir == null) {
+			this.dir = vec2(dir_P3D.x,dir_P3D.y);
+		} else {
+			this.dir.set(dir_P3D.x,dir_P3D.y);
+		}
+    // println("this",this.summits,this.angle);
+    // println("new",summits,angle);
+    if(this.summits != summits || this.angle != angle) {
+    	this.summits = summits;
+    	this.angle = angle;
+    	build();
+    }
+
 	  /**
 	  * IN FUTURE MUST BE COMPUTE with POLYGON 3D may be in 2028 ??????
 
 	  if (dir_P3D != null && renderer_P3D()) {
 	    // polygon_3D()
-	    // method must be used in the future when this one is not shitty instead polugon2D() with matrix();
+	    // method must be used in the future when this one is not shitty instead polygon2D() with matrix();
 	    // classic version with polygon_2D method
 	    for (int i = 0 ; i < summits ; i++) {
 	      printTempo(60,"param",i,summits,angle);
@@ -101,43 +128,24 @@ public class Primitive implements RConstants {
 	}
 
 
+	private void build() {
 
-
-
-
-
-
-
-	// local method
-	private void show(vec3 [] pts) {
-	  vec3 pos = vec3() ;
-	  // vec2 dir_polar = vec2() ;
-	  int radius = 1 ;
-	  show(pos,radius,pts) ;
-	}
-
-	private void show(float radius, vec3 [] pts) {
-	  vec3 pos = vec3() ;
-	  // vec2 dir_polar = vec2() ;
-	  show(pos,radius,pts) ;
-	}
-
-	private void show(vec3 pos, vec2 dir, float radius, vec3 [] pts) {
-	  // special one because we have direction for the polygon, 
-	  // so we must use the matrix system until have a good algorithm for the cartesian direction
-	  /*
-	  if(renderer_P3D()) {
-	    start_matrix_3D(pos, dir); 
-	  } else {
-	    start_matrix_2D(vec2(pos.x, pos.y),0);
+    // security for the sinple, null or negative point quantity
+	  if(this.summits < 2) {
+	    this.summits = 2;
 	  }
-	  */
-	  show(pos,radius,pts);
-	  // stop_matrix();
+
+	  pts = new vec3[this.summits];
+	  // create coord of the shape
+	  if(this.summits == 2 && this.angle == 0) {
+	    pts[0] = vec3(-.5,0,0);
+	    pts[1] = vec3(.5,0,0);
+	  } else {
+	    for (int i = 0 ; i < this.summits ; i++) {
+	      pts[i] = polygon_2D(this.summits,this.angle)[i].copy();
+	    }
+	  }
 	}
-
-
-
 
 
 
@@ -148,35 +156,36 @@ public class Primitive implements RConstants {
 	* the line rendering is awful, very very low when there is a lot of shape,
 	* may be the compute on polygon_2D() is guilty
 	*/
-	private void show(vec3 pos, float diam, vec3 [] pts) {
+	private void show() {
 		float radius = diam *.5;
 	  boolean check_line = false;
-	  if(pts.length == 2) {
-	  	line(pts[0].mult(diam).add(pos),pts[1].mult(diam).add(pos));
-	  } else if(pts.length == 3) {
-	  	// faster method to display a lot of triangle
-	  	for(int i = 0 ; i < pts.length ; i++) {
-	  		pts[i].mult(diam*.5).add(pos);
+
+	  vec3 [] temp_pos = new vec3[pts.length];
+	  for(int i = 0 ; i < temp_pos.length ; i++) {
+	  	temp_pos[i] = pts[i].copy();
+	  }
+
+	  if(temp_pos.length == 2) {
+	  	for(int i = 0 ; i < temp_pos.length ; i++) {
+	  		temp_pos[i].mult(diam).add(pos);
 	  	}
-	  	triangle(pts[0],pts[1],pts[2]);
-	  	//triangle(pts[0].x,pts[0].y,pts[1].x,pts[1].y,pts[2].x,pts[2].y);
-	  } else if (pts.length == 4) {
+	  	line(temp_pos[0],temp_pos[1]);
+	  } else if(temp_pos.length == 3) {
+	  	// faster method to display a lot of triangle
+	  	for(int i = 0 ; i < temp_pos.length ; i++) {
+	  		temp_pos[i].mult(diam*.5).add(pos);
+	  	}
+	  	triangle(temp_pos[0],temp_pos[1],temp_pos[2]);
+	  } else if (temp_pos.length == 4) {
 	  	// faster method to display a lot of rect
 	  	rectMode(CENTER);
 	  	float side = diam*.5 *ROOT2;
 	  	square(pos.x,pos.y,side);
 	  } else {
 	    beginShape();
-	    for (int i = 0 ; i < pts.length ; i++) {
-	      if (pts[i] != null ) {
-	        pts[i].mult(radius);
-	        pts[i].add(pos);
-	        // test the rendering and if the shape if a line or not, to choice between vertex and line display
-	        if(renderer_P3D()) {
-	          vertex(pts[i].x,pts[i].y,pts[i].z);
-	        } else {
-	          vertex(pts[i].x,pts[i].y);
-	        }
+	    for (int i = 0 ; i < temp_pos.length ; i++) {
+	      if (temp_pos[i] != null ) {
+	        vertex(temp_pos[i].mult(radius).add(pos));
 	      }
 	    }
 	    endShape(CLOSE) ;
@@ -185,15 +194,13 @@ public class Primitive implements RConstants {
 
 
 
-
-
 	/**
 	POLYGON 2D
 	v 0.1.0
 	*/
 	public vec3 [] polygon_2D (int num) {
-	  float new_orientation = 0 ;
-	  return polygon_2D (num, new_orientation) ;
+	  float new_orientation = 0;
+	  return polygon_2D (num,new_orientation);
 	}
 
 
