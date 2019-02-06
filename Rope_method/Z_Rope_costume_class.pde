@@ -15,38 +15,78 @@ PRIMITIVE
 v 0.1.0
 */
 public class Primitive implements RConstants {
-	vec3 pos;
-	float diam = 0;
-	vec2 dir;
-  vec3 [] pts;
-  int summits = 0;
-  float angle = 0;
+	private vec3 pos;
+	private float diam = 0;
+	private vec2 dir;
+  private vec3 [] pts;
+  private int summits = 0;
+  private float angle = 0;
 
 	public Primitive () {}
+  
 
-  // draw
+  vec3 [] get_normal() {
+  	return pts;
+  }
+
+  vec3 [] get() {
+  	vec3 [] temp = new vec3[pts.length];
+  	float radius = diam *.5;
+  	for(int i = 0 ; i < temp.length ; i++) {
+  		temp[i] = pts[i].copy();
+  		if(temp.length == 2) {
+  			temp[i].mult(diam).add(pos);
+  		} else {
+  			temp[i].mult(radius).add(pos);
+  		}
+  	}
+  	return temp;
+  }
+
+
+  vec3 get_pos() {
+  	return pos;
+  }
+
+  vec2 get_dir() {
+  	return dir;
+  }
+
+  float get_diam() {
+  	return diam;
+  }
+
+  float get_radius() {
+  	return diam*.5;
+  }
+
+  int get_summits() {
+  	return summits;
+  }
+
+  float get_angle() {
+  	return angle;
+  }
+
+
+  /**
+  * draw
+  * calcule and show result in same methode
+  */
 	public void draw(float diam, int summits) {
-	  vec3 pos = vec3();
-	  float angle = 0;
-	  vec2 dir_P3D = vec2();
-	  draw(pos,diam,summits,angle,dir_P3D);
+	  draw(vec3(),diam,summits,0,vec2());
 	}
 
-	// Primitive with vec method
 	public void draw(vec pos, float diam, int summits) {
-	  float angle = 0;
-	  vec2 dir_P3D = vec2();
-	  draw(pos,diam,summits,angle,dir_P3D);
+	  draw(pos,diam,summits,0,vec2());
 	}
 
 	public void draw(vec pos, float diam, int summits, vec2 dir_P3D) {
-	  float angle = 0;
-	  draw(pos,diam,summits,angle,dir_P3D);
+	  draw(pos,diam,summits,0,dir_P3D);
 	}
 
 	public void draw(vec pos, float diam, int summits, float angle) {
-	  vec2 dir_P3D = vec2();
-	  draw(pos,diam,summits,angle,dir_P3D);
+	  draw(pos,diam,summits,angle,vec2());
 	}
 
 	public void draw(vec pos, float diam, int summits, float angle, vec2 dir_P3D) {
@@ -55,7 +95,9 @@ public class Primitive implements RConstants {
 	}
   
 
-  // compute
+  /**
+  * calcule all points for shape
+  */
   public void calc(float diam, int summits) {
 	  calc(vec3(),diam,summits,0,vec2());
 	}
@@ -128,8 +170,16 @@ public class Primitive implements RConstants {
 	}
 
 
-	private void build() {
 
+
+
+
+
+
+  /**
+  * build all the point if necessary, that increase the speed rendering
+  */
+	private void build() {
     // security for the sinple, null or negative point quantity
 	  if(this.summits < 2) {
 	    this.summits = 2;
@@ -152,7 +202,7 @@ public class Primitive implements RConstants {
 
 
 	/**
-	* main draw primitive
+	* main SHOW primitive
 	* the line rendering is awful, very very low when there is a lot of shape,
 	* may be the compute on polygon_2D() is guilty
 	*/
@@ -173,7 +223,7 @@ public class Primitive implements RConstants {
 	  } else if(temp_pos.length == 3) {
 	  	// faster method to display a lot of triangle
 	  	for(int i = 0 ; i < temp_pos.length ; i++) {
-	  		temp_pos[i].mult(diam*.5).add(pos);
+	  		temp_pos[i].mult(radius).add(pos);
 	  	}
 	  	triangle(temp_pos[0],temp_pos[1],temp_pos[2]);
 	  } else if (temp_pos.length == 4) {
@@ -295,6 +345,14 @@ public class Primitive implements RConstants {
 	  return p ;
 	}
 }
+
+
+
+
+
+
+
+
 
 
 

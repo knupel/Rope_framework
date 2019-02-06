@@ -13,7 +13,8 @@ void setup() {
 	size(800,800,P3D);
 	// 15_000 rect go down P2D
 	// 1500 primitive go down
-	prim = new Primitive[15000];
+	//prim = new Primitive[15000];
+	prim = new Primitive[10];
 
 	// prim = new Primitive[1500]; 
 	for(int i = 0 ; i < prim.length ; i++) {
@@ -44,8 +45,17 @@ float angle;
 void test_quantity() {
 	angle = map(mouseX,0,width,0,TAU);
 	for(int i = 0 ; i < prim.length ; i++) {
+		// prim[i].draw(vec3(random(width),random(height),0),40,3,angle);
+		
 		prim[i].calc(vec3(random(width),random(height),0),40,3,angle);
-		prim[i].show();
+		// prim[i].show();
+		beginShape();
+		for(int k = 0 ; k < prim[i].get().length ; k++) {
+			vertex(prim[i].get()[k]);
+		}
+		endShape(CLOSE);
+		//println(prim[i].get());
+		
 	}
 
 }
