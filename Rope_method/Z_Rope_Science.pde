@@ -756,53 +756,6 @@ END DISC and CIRCLE
 
 
 
-/**
-TRIANGLE
-*/
-void triangle(float x_a, float y_a, float z_a, float x_b, float y_b, float z_b, float x_c, float y_c, float z_c) {
-  vec3 a = vec3(x_a, y_a, z_a) ;
-  vec3 b = vec3(x_b, y_b, z_b) ;
-  vec3 c = vec3(x_c, y_c, z_c) ;
-  triangle(a, b, c) ;
-}
-void triangle(float x_a, float y_a, float x_b, float y_b, float x_c, float y_c) {
-  vec3 a = vec3(x_a, y_a, 0) ;
-  vec3 b = vec3(x_b, y_b, 0) ;
-  vec3 c = vec3(x_c, y_c, 0) ;
-  triangle(a, b, c) ;
-}
-
-void triangle(vec2 aa, vec2 bb, vec2 cc) {
-  vec3 a = vec3(aa.x, aa.y, 0) ;
-  vec3 b = vec3(bb.x, bb.y, 0) ;
-  vec3 c = vec3(cc.x, cc.y, 0) ;
-  triangle(a,b,c) ;
-}
-
-void triangle(vec3 a, vec3 b, vec3 c) {
-  beginShape();
-  vertex(a);
-  vertex(b);
-  vertex(c);
-  endShape(CLOSE);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

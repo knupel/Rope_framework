@@ -5,29 +5,74 @@ ROPE - Romanesco processing environment –
 * https://github.com/StanLepunK
 * http://stanlepunk.xyz/
 */
-void setup() {
-	size(600,600,P3D);
 
-	
+
+Primitive [] prim;
+void setup() {
+	size(800,800,P2D);
+	// 15_000 rect go down P2D
+	// 1500 primitive go down
+	prim = new Primitive[1500]; 
+	// prim = new Primitive[1500]; 
+	for(int i = 0 ; i < prim.length ; i++) {
+		prim[i] = new Primitive();
+	}
+
+
 }
 
 
 void draw() {
-	background(0);
-	float s = 300;
-	float sx = abs(cos(frameCount *.01))*s+20;
-	float sy = abs(cos(frameCount *.02))*s+20;
-	float sz = abs(cos(frameCount *.03))*s+20;
+	println((int)frameRate);
+	background(255);
+	noFill();
+	test_shape();
+	
 
-	push();
-	translate(width/2,height/2,0);
-  rotateX(map(mouseY,0,height,0,TAU));
-  rotateY(map(mouseX,0,width,0,TAU));
-	costume(0,0,0,100,100,100,CROSS_RECT_ROPE);
+	
+	// square(mouseX,mouseY,40);
 
-	pop();
+	
+	for(int i = 0 ; i < prim.length ; i++) {
+		//prim[i] = new Primitive();
+		// rectangle(random(width),random(height),40,40);
+		//rect(random(width),random(height),40,40);
+		//prim[i].draw(vec3(random(width),random(height),0),40);
+	}
+	
+}
+
+
+void test_shape() {
+	int diam = 100;
+	for(int i = 0 ; i < width/diam +1 ; i++) {
+		new Primitive().draw(vec2(i*diam,height/2),diam,2);
+		new Primitive().draw(vec2(i*diam,height/2),diam,3);
+		new Primitive().draw(vec2(i*diam,height/2),diam,4);
+		new Primitive().draw(vec2(i*diam,height/2),diam,8);
+		ellipse(i*diam,height/2,diam,diam);
+	}
 
 }
+
+
+void rectangle(float x, float y, float w, float h) {
+	// quad(x,y,  w,y,  w,h,  x,h);
+	rect(x,y,w,h);
+	/*
+	beginShape();
+	vertex(x,y);
+	vertex(x+w,y);
+	vertex(x+w,y+h);
+	vertex(x,y+h);
+	endShape(CLOSE);
+	*/
+	
+}
+	
+
+
+
 
 
 

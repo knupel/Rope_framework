@@ -1,7 +1,7 @@
 Guide Science
 --
 the sctech method tab is not included on this repository if you need
-@see https://github.com/StanLepunK/Old_code/tree/master/Science_rope_2017_12_8
+@see https://github.com/StanLepunK/Old_code/tree/master/rope_method
 
 *RANDOM
 
@@ -242,44 +242,6 @@ to_cartesian_2D (float posMouse, vec2 range, vec2 targetRadian, float distance)
 
 
 *Primitive
-
-*Triangle
-
-triangle(float a_x, float a_y, float a_z,
-		float b_x, float b_y, float b_z,
-		float c_x, float c_y, float c_z)
-triangle(float a_x, float a_y,
-		float b_x, float b_y,,
-		float c_x, float c_y,)
-triangle(vec2 a, vec2 b, vec2 c)
-triangle(vec3 a, vec3 b, vec3 c)
-
-
-
-Create a regular polygon with "n" summits
---
-primitve(float  radius, int summits) ;
-primitve(vec2 pos, float radius, int summits) ;
-primitve(vec2 pos, float  radius, int summits, float orientation) ;
-
-primitve(vec3 pos, float  radius, int summits) ;
-primitve(vec3 pos, float  radius, int summits, float orientation) ;
-
-primitve(vec3 pos, float  radius, int summits, vec3 rotate) ;
-primitve(vec3 pos, float  radius, int summits, float orientation, vec3 rotate) ;
-
-
-note 
-> orientation is in radians.
-> rotate is in radians, for X,Y and Z axis
-
-
-
-
-
-
-
-
 
 
 
