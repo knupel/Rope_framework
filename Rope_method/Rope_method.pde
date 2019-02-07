@@ -37,7 +37,8 @@ void draw() {
 	background(255);
 	noFill();
 	// test_shape();
-	test_quantity();
+	// test_quantity();
+	println(abs(vec3().wave_sin(frameCount,.1)));
 
 }
 

@@ -1,6 +1,6 @@
 /**
 ROPE PROCESSING METHOD
-v 2.2.0
+v 2.3.0
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -120,6 +120,34 @@ vec3 ceil(vec3 arg) {
 
 vec4 ceil(vec4 arg) {
   return vec4(ceil(arg.x),ceil(arg.y),ceil(arg.z),ceil(arg.w));
+}
+
+
+/**
+abs
+*/
+vec2 abs(vec2 arg) {
+  return vec2(abs(arg.x),abs(arg.y));
+}
+
+vec3 abs(vec3 arg) {
+  return vec3(abs(arg.x),abs(arg.y),abs(arg.z));
+}
+
+vec4 abs(vec4 arg) {
+  return vec4(abs(arg.x),abs(arg.y),abs(arg.z),abs(arg.w));
+}
+
+ivec2 abs(ivec2 arg) {
+  return ivec2(abs(arg.x),abs(arg.y));
+}
+
+ivec3 abs(ivec3 arg) {
+  return ivec3(abs(arg.x),abs(arg.y),abs(arg.z));
+}
+
+ivec4 abs(ivec4 arg) {
+  return ivec4(abs(arg.x),abs(arg.y),abs(arg.z),abs(arg.w));
 }
 
 
