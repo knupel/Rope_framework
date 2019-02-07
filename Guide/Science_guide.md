@@ -29,24 +29,6 @@ float random_next_gaussian(float range, power n);
 
 
 
-*Wave
-
-float sin_wave(float speed, float scale);
-
-vec2 sin_wave(vec2 speed, vec2 scale);
-
-vec3 sin_wave(vec3 speed, vec3 scale);
-
-vec4 sin_wave(vec4 speed, vec4 scale);
-
-float cos_wave(float speed, float scale);
-
-vec2 cos_wave(vec2 speed, vec2 scale);
-
-vec3 cos_wave(vec3 speed, vec3 scale);
-
-vec4 cos_wave(vec4 speed, vec4 scale);
-
 
 
 

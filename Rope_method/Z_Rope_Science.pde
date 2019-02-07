@@ -1,13 +1,14 @@
 /**
 ROPE SCIENCE
-v 0.6.0
-* Copyleft (c) 2014-2018 
+v 0.7.0
+* Copyleft (c) 2014-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope_method
 *
 the sketch method tab is not included on this repository if you need
 * @see https://github.com/StanLepunK/Old_code/tree/master/Science_rope_2017_12_8
+* Processing 3.5.3
 */
 
 /**
@@ -75,79 +76,6 @@ float random_next_gaussian(float range, int n) {
     return var *range ;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-WAVE
-*/
-float sin_wave(float speed, float scale) {
-  return sin(frameCount*speed)*scale;
-}
-
-vec2 sin_wave(vec2 speed, vec2 scale) {
-  float x = sin(frameCount*speed.x)*scale.x;
-  float y = sin(frameCount*speed.y)*scale.y;
-  return vec2(x,y);
-}
-
-vec3 sin_wave(vec3 speed, vec3 scale) {
-  float x = sin(frameCount*speed.x)*scale.x;
-  float y = sin(frameCount*speed.y)*scale.y;
-  float z = sin(frameCount*speed.z)*scale.z;
-  return vec3(x,y,z);
-}
-
-vec4 sin_wave(vec4 speed, vec4 scale) {
-  float x = sin(frameCount*speed.x)*scale.x;
-  float y = sin(frameCount*speed.y)*scale.y;
-  float z = sin(frameCount*speed.z)*scale.z;
-  float w = sin(frameCount*speed.w)*scale.w;
-  return vec4(x,y,z,w);
-}
-
-
-float cos_wave(float speed, float scale) {
-  return cos(frameCount*speed)*scale;
-}
-
-vec2 cos_wave(vec2 speed, vec2 scale) {
-  float x = cos(frameCount*speed.x)*scale.x;
-  float y = cos(frameCount*speed.y)*scale.y;
-  return vec2(x,y);
-}
-
-vec3 cos_wave(vec3 speed, vec3 scale) {
-  float x = cos(frameCount*speed.x)*scale.x;
-  float y = cos(frameCount*speed.y)*scale.y;
-  float z = cos(frameCount*speed.z)*scale.z;
-  return vec3(x,y,z);
-}
-
-vec4 cos_wave(vec4 speed, vec4 scale) {
-  float x = cos(frameCount*speed.x)*scale.x;
-  float y = cos(frameCount*speed.y)*scale.y;
-  float z = cos(frameCount*speed.z)*scale.z;
-  float w = cos(frameCount*speed.w)*scale.w;
-  return vec4(x,y,z,w);
-}
-
-
 
 
 
