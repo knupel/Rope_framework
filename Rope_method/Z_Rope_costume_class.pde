@@ -1,7 +1,7 @@
 /**
 COSTUME class
 * Copyleft (c) 2019-2019
-* v 0.6.0
+* v 0.6.1
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope_method
 * Here you finf the class Costume and all the class shape used.
@@ -1001,7 +1001,7 @@ public class Virus {
 		branch = new vec3 [node][num] ;
 		for(int i = 0 ; i < node ; i++) {
 			for(int k = 0 ; k < num ; k++) {
-				vec3 dir = new vec3("RANDOM", 1) ;
+				vec3 dir = vec3().rand(-1,1);
 				branch[i][k] = projection(dir) ;
 			}
 		}
@@ -1044,7 +1044,7 @@ public class Virus {
 	public void reset() {
 		for(int i = 0 ; i < node ; i++) {
 			for(int k = 0 ; k < num ; k++) {
-				vec3 dir = new vec3("RANDOM", 1) ;
+				vec3 dir = vec3().rand(-1,1);
 				branch[i][k].set(projection(dir)) ;
 			}
 		}
