@@ -11,7 +11,22 @@ Primitive [] prim;
 Primitive [] primitive;
 void setup() {
 	size(800,800,P3D);
-	// 15_000 rect go down P2D
+	// primitive_setup();
+	vec2 v = vec2().rand(vec2(2,3),vec2(4,5));
+
+
+}
+
+
+void draw() {
+	//primitive_draw();
+
+
+}
+
+
+void primitive_setup() {
+		// 15_000 rect go down P2D
 	// 1500 primitive go down
 	//prim = new Primitive[15000];
 	prim = new Primitive[10];
@@ -27,13 +42,10 @@ void setup() {
 		primitive[i] = new Primitive();
 	}
 
-
-
 }
 
-
-void draw() {
-	println((int)frameRate);
+void primitive_draw() {
+		println((int)frameRate);
 	background(255);
 	noFill();
 	// test_shape();
