@@ -1,6 +1,6 @@
 /**
 ROPE SCIENCE
-v 0.7.0
+v 0.7.1
 * Copyleft (c) 2014-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -235,7 +235,11 @@ vec3 to_polar(vec3 cart) {
 }
 
 
-///////////////
+
+
+
+
+
 // Cartesian 3D
 /*
 @ return vec3
@@ -288,25 +292,26 @@ vec3 to_cartesian_3D(float longitude, float latitude, float radius) {
 
 
 
-//Step 1 : translate the mouse position x and y  on the sphere, we must do that separately
-/*
-@ return vec2 
-return linear value on the circle perimeter
-*/
+
+
+
+
+// To cartesian 2D
 vec2 to_cartesian_2D (float posMouse, vec2 range, vec2 targetRadian, float distance) {
   float rotationPlan = map(posMouse, range.x, range.y, targetRadian.x, targetRadian.y)  ;
   return to_cartesian_2D (rotationPlan, distance) ;
 }
 
-vec2 to_cartesian_2D (float angle) {
-  float radius_normal = 1 ;
-  return to_cartesian_2D (angle, radius_normal) ;
+
+vec2 to_cartesian_2D (float angle, float radius) {
+  return to_cartesian_2D(angle).mult(radius);
 }
 
+
 // main method
-vec2 to_cartesian_2D (float angle, float radius) {
-  float x = cos(angle) *radius;
-  float y = sin(angle) *radius ;
+vec2 to_cartesian_2D (float angle) {
+  float x = cos(angle);
+  float y = sin(angle);
   return vec2(x,y) ;
 }
 

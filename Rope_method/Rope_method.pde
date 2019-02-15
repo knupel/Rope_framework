@@ -12,17 +12,20 @@ Primitive [] primitive;
 void setup() {
 	size(800,800,P3D);
 	// primitive_setup();
-	vec2 v = vec2().rand(vec2(2,3),vec2(4,5));
+	// vec2 v = vec2().rand(vec2(2,3),vec2(4,5));
+	println(to_cartesian_2D(map(mouseX,0,width,0,TAU),10));
 
 
 }
 
 
 void draw() {
+	println(to_cartesian_2D(map(mouseX,0,width,0,TAU),10));
 	//primitive_draw();
 
 
 }
+
 
 
 void primitive_setup() {
