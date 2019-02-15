@@ -1,6 +1,6 @@
 /**
 ROPE SCIENCE
-v 0.7.1
+v 0.7.2
 * Copyleft (c) 2014-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -933,7 +933,6 @@ void polyhedron_draw_vertex(String name) {
     rotateY(PI/4) ;
     int n = 4 ; // quantity of face of Tetrahedron
     for(int i = 0 ; i < n ; i++) {
-      // println("je suis là face",i);
       // choice of each point
       int a = i ;
       int b = i+1 ;
