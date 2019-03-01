@@ -292,22 +292,6 @@ vec2 norm_deg(float angle);
 vec2 norm_dir(String type, float direction);
 
 
-*Color
-
-vec4 color_hsba(int c);
-
-vec4 color_rgba(int c);
-
-vec3 color_hsb(int c);
-
-vec3 color_rgb(int c);
-
-
-
-
-
-
-
 
 
 

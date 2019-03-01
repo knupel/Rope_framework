@@ -128,6 +128,13 @@ vec4 rgb_to_cmyk(float red, float green, float blue);
 
 vec3 cmyk_to_rgb(float cyan, float magenta, float yellow, float black);
 
+vec3 to_hsb(int c);
+
+vec4 to_rgba(int c);
+
+vec3 to_rgb(int c);
+
+vec4 to_hsba(int c);
 int color_context(int color_ref, int threshold, int clear, int dark);
 >return new int color with a brightness threshold
 >arg color_ref is the color of the object

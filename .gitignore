@@ -2,6 +2,7 @@
 
 # build stuff in case there is
 Rope_method/build-tmp/
+test_pde
 
 # Runtime data
 pids
