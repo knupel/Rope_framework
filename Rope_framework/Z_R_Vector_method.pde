@@ -4,7 +4,7 @@ v 0.4.0
 * Copyleft (c) 2018-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+* @see https://github.com/StanLepunK/Rope_framework
 */
 
 

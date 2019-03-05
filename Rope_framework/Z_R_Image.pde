@@ -4,6 +4,7 @@
 * v 0.4.0
 * Copyleft (c) 2014-2019
 * Processing 3.5.3
+* @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
 
