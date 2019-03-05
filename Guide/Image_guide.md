@@ -305,28 +305,62 @@ PImage get(String target_name);
 
 
 
-
 *BACKGROUND
 
-Normalize background, with those methods use value between 0 and 1
---
-void background_norm(float grey, float alpha) ;
+void background(vec4 c);
 
-void background_norm(float grey) ;
+void background(vec3 c);
 
-void background_norm(float red, float green, float blue) ;
+void background(vec2 c);
 
-void background_norm(float red, float green, float blue, float alpha) ;
+void background(ivec4 c);
 
-void background_norm(vec2 grey_alpha) ;
+void background(ivec3 c);
 
-void background_norm(vec3 red_green_blue) ;
+void background(ivec2 c);
 
-void background_norm(vec4 red_green_blue_alpha) ;
+*BACKGROUND IMAGE
+
+method to improve Processing method background(PImage img)
+3 mode : CENTER, SCREEN, r.SCALE
+the mode SCALE is for set position and scale
+the color compoent use RGB colorMode
+
+void background(PImage img, int mode);
+
+void background(PImage img, int mode, float red, float green, float blue);
+
+void background(PImage img, float px, float py, float red, float green, float blue);
+
+void background(PImage img, float px, float py, float scale_x, float red, float green, float blue);
+
+void background(PImage img, float px, float py, float scale_x, float red, float green, float blue, float curtain_position);
+
+void background(PImage img, vec2 pos, vec2 scale, vec3 colour_background, vec4 pos_curtain, int mode);
 
 
-Normal value, use values from your color environment
---
+*BACKGROUND NORM
+
+Normalize background, use value between 0 and 1,
+this background work with alpha.
+
+void background_norm(float grey, float alpha);
+
+void background_norm(float grey);
+
+void background_norm(float red, float green, float blue);
+
+void background_norm(float red, float green, float blue, float alpha);
+
+void background_norm(vec2 grey_alpha);
+
+void background_norm(vec3 red_green_blue);
+
+void background_norm(vec4 red_green_blue_alpha);
+
+*BACKGROUND ROPE
+
+this mode supply the alpha problem of classic background
 
 void background_rope(int colour);
 
@@ -336,15 +370,15 @@ void background_rope(float grey);
 
 void background_rope(float grey, float alpha);
 
-void background_rope(float red, float green, float blue, float alpha) ;
+void background_rope(float red, float green, float blue, float alpha);
 
-void background_rope(float red, float green, float blue) ;
+void background_rope(float red, float green, float blue);
 
-void background_rope(vec2 grey_alpha) ;
+void background_rope(vec2 gray_alpha);
 
-void background_rope(vec3 red_green_blue) ;
+void background_rope(vec3 rgb);
 
-void background_rope(vec4 red_green_blue_alpha) ;
+void background_rope(vec4 rgba);
 
 
 
@@ -377,7 +411,7 @@ void set_window(ivec2 pos, ivec2 size, ivec2 pos_screen);
 >to move and set window size, very helpfull with fullscreen for example.
 
 
-ivec2 screen_size() ;
+ivec2 screen_size();
 >return the width and the height of current display
 
 ivec2 screen_size(int target_screen)
