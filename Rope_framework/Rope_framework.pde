@@ -9,17 +9,19 @@ ROPE - Romanesco processing environment –
 PImage img ;
 void setup() {
   size(900,375,P3D); // valeur reporté dans le cahier pour les mesures
+  // size(459,600,P3D); // valeur reporté dans le cahier pour les mesures
 
 	// size(350,650,P3D); // valeur reporté dans le cahier pour les mesures
 	// size(700,300,P3D); // valeur reporté dans le cahier pour les mesures
 	// img = loadImage("jpg file/petite_puros_girl.jpg"); // a l'italienne
 	img = loadImage("jpg file/small_dame_hermine.jpg"); // à la française
 	// img = loadImage("jpg file/square_dame_hermine.jpg"); // carré
+	surface.setSize(img.width,img.height);
 
 }
 
 void draw() {
-	println(int(frameRate));
+	// println(int(frameRate));
 
   // EXAMPLE 1
 	// background(img,SCREEN);
