@@ -607,10 +607,10 @@ void reset_reverse_g(boolean state){
 /**
 * render shader
 * this method test if the shader must be display on the main Processing render or return a PGraphics
-* v 0.0.4
+* v 0.0.5
 */
 void render_shader(PShader ps, PGraphics pg, PImage src, boolean on_g) {
-	if(pg != null && !on_g) {
+	if(pg != null && pg.width > 0 && pg.height > 0 && !on_g) {
   	pg.beginDraw();
   	pg.shader(ps);
   	pg.image(src,0,0,src.width,src.height);

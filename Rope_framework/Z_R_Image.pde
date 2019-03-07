@@ -1035,7 +1035,7 @@ void background(PImage src, vec2 pos, vec2 scale, vec3 colour_background, vec4 p
 
 PShader img_shader_calc_rope;
 void background_calc(PImage src, vec2 pos, vec2 scale, vec3 colour_background, vec4 pos_curtain, int mode) {
-  if(src != null && src.width >0 && src.height > 0) {
+  if(src != null && src.width > 0 && src.height > 0) {
     if(img_shader_calc_rope == null) {
       img_shader_calc_rope = loadShader("shader/fx_post/image.glsl");
     }
