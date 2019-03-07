@@ -37,9 +37,16 @@ void draw() {
 	// background(img,mouseX,mouseY,size,255,255,0);
 
   // EXAMPLE 5
-	float size = abs(sin(frameCount *.01));
-	float curtain_pos = map(sin(frameCount *.02),-1,1,0,.5);
-	background(img,mouseX,mouseY,size,255,255,0,curtain_pos);
+  //  float size = abs(sin(frameCount *.01));
+	// float curtain_pos = map(sin(frameCount *.02),-1,1,0,.5);
+	// background(img,mouseX,mouseY,size,255,255,0,curtain_pos);
+
+	// EXAMPLE 6
+	vec3 level = abs(vec3().wave_sin(frameCount,.01,.02,.03));
+	int mode = 0;
+	background(fx_level(img,false,mode,level.array()),CENTER,255,255,0);
+	println((int)frameRate);
+
 
   // grid
 	stroke(255,0,0);

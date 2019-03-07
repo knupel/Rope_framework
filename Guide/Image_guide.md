@@ -450,7 +450,7 @@ boolean renderer_P3D() ;
 
 String graphics_is(Object obj);
 return PIMage is the object is a Movie, Video or PImage
-return PGraphicsd is the object is a PGraphics, PGraphics2D, PGraphics3D, PGraphicsFX2D
+return PGraphics is the object is a PGraphics, PGraphics2D, PGraphics3D, PGraphicsFX2D
 in the other case return null;
 
 
