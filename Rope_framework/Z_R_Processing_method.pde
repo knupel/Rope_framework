@@ -1,6 +1,6 @@
 /**
 ROPE PROCESSING METHOD
-v 2.4.0
+v 2.4.1
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
@@ -1028,14 +1028,10 @@ void matrix_start() {
 /**
 GHOST METHODS for PROCESSING
 2018-2018
-v 0.2.0
+v 0.2.2
 */
 boolean get_layer_is_correct() {
-  if(get_layer() != null && get_layer().width > 0 && get_layer().height > 0 && get_layer().pixels != null) {
-    println("layer",get_layer());
-    println("width",get_layer().width);
-    println("height",get_layer().height);
-    println("pixels",get_layer().pixels);
+  if(get_layer() != null && get_layer().width > 0 && get_layer().height > 0) {
     return true;
   } else {
     return false;
@@ -2621,7 +2617,7 @@ void textFont(PFont font) {
 }
 
 void textFont(PFont font, float size) {
-  if(font != null && get_layer().width > 0 && get_layer().height > 0) {
+  if(get_layer_is_correct()) {
     if(get_layer() != null) {
       get_layer().textFont(font,size);
     } else {
