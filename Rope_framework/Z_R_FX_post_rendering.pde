@@ -2,7 +2,7 @@
 * POST FX shader collection
 *
 * 2019-2019
-* v 0.1.13
+* v 0.1.14
 * all filter bellow has been tested.
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Shader
@@ -385,7 +385,7 @@ PGraphics fx_blur_radial(PImage source, boolean on_g, vec2 pos, float strength, 
 
 /**
 * Colour change A by Stan le punk
-v 0.2.2
+v 0.2.3
 2018-2019
 */
 
@@ -396,9 +396,9 @@ PGraphics fx_colour_change_a(PImage source, FX fx) {
 
 // test
 PGraphics fx_colour_change_a(PImage source, boolean on_g) {
-	vec3 col_0 = vec3().wave_sin(frameCount,.001,.02,.005).mult(10);
-  vec3 col_1 = vec3().wave_cos(frameCount,.001,.02,.005).mult(10);
-  vec3 col_2 = vec3().wave_sin(frameCount,.01,.002,.002).mult(10);
+	vec3 col_0 = vec3().sin_wave(frameCount,.001,.02,.005).mult(10);
+  vec3 col_1 = vec3().cos_wave(frameCount,.001,.02,.005).mult(10);
+  vec3 col_2 = vec3().sin_wave(frameCount,.01,.002,.002).mult(10);
 		// 	vec3 col_0 = vec3(-1,0,1);
 		// vec3 col_1 = vec3(1,0,-1);
 		// vec3 col_2 = vec3(-1,0,1);	
@@ -1153,7 +1153,7 @@ PGraphics fx_level(PImage source, FX fx) {
 // PGraphics filtering
 PGraphics fx_level(PImage source, boolean on_g) {
 	int mode = 0;
-	vec3 level = abs(vec3().wave_sin(frameCount,.01,.02,.04));
+	vec3 level = abs(vec3().sin_wave(frameCount,.01,.02,.04));
 	return fx_level(source,on_g,mode,level.array());
 }
 
@@ -1274,8 +1274,8 @@ PGraphics fx_mix(PImage source, PImage layer, FX fx) {
 // test
 PGraphics fx_mix(PImage source, PImage layer, boolean on_g) {
 	int mode = 1; // multiply
-	vec3 level_source = abs(vec3().wave_sin(frameCount,.01,.025,.05));
-	vec3 level_layer = abs(vec3().wave_cos(frameCount,.01,.025,.05));
+	vec3 level_source = abs(vec3().sin_wave(frameCount,.01,.025,.05));
+	vec3 level_layer = abs(vec3().cos_wave(frameCount,.01,.025,.05));
 	return fx_mix(source,layer,on_g,mode,level_source,level_layer);
 }
 
