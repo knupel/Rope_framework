@@ -1,7 +1,7 @@
 /**
 COSTUME class
 * Copyleft (c) 2019-2019
-* v 0.6.1
+* v 0.6.2
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Here you finf the class Costume and all the class shape used.
@@ -12,7 +12,7 @@ COSTUME class
 /**
 PRIMITIVE
 2019-2019
-v 0.1.0
+v 0.1.1
 */
 public class Primitive implements RConstants {
 	private vec3 pos;
@@ -90,7 +90,8 @@ public class Primitive implements RConstants {
 	}
 
 	public void draw(vec pos, float diam, int summits, float angle, vec2 dir_P3D) {
-    calc(pos,diam,summits,angle,dir_P3D);
+    calc(pos,summits,angle,dir_P3D);
+    this.diam = diam;
 		show();
 	}
   
@@ -98,26 +99,24 @@ public class Primitive implements RConstants {
   /**
   * calcule all points for shape
   */
-  public void calc(float diam, int summits) {
-	  calc(vec3(),diam,summits,0,vec2());
+  public void calc(int summits) {
+	  calc(vec3(),summits,0,vec2());
 	}
 
 	// Primitive with vec method
-	public void calc(vec pos, float diam, int summits) {
-	  calc(pos,diam,summits,0,vec2());
+	public void calc(vec pos, int summits) {
+	  calc(pos,summits,0,vec2());
 	}
 
-	public void calc(vec pos, float diam, int summits, vec2 dir_P3D) {
-	  calc(pos,diam,summits,0,dir_P3D);
+	public void calc(vec pos, int summits, vec2 dir_P3D) {
+	  calc(pos,summits,0,dir_P3D);
 	}
 
-	public void calc(vec pos, float diam, int summits, float angle) {
-	  calc(pos,diam,summits,angle,vec2());
+	public void calc(vec pos, int summits, float angle) {
+	  calc(pos,summits,angle,vec2());
 	}
 	// Primitive with vec method and angle to display
-	public void calc(vec pos, float diam, int summits, float angle, vec2 dir_P3D) {
-		this.diam = diam;
-
+	public void calc(vec pos, int summits, float angle, vec2 dir_P3D) {
 		if(this.pos == null) {
 			this.pos = vec3(pos.x,pos.y,pos.z);
 		} else {
@@ -233,12 +232,13 @@ public class Primitive implements RConstants {
 	  	square(pos.x,pos.y,side);
 	  } else {
 	    beginShape();
-	    for (int i = 0 ; i < temp_pos.length ; i++) {
+	    for (int i = 0 ; i < temp_pos.length ; i++) {	    	// if(i == temp_pos.length) i = 0; // to close the shape without use method endShape(CLOSE);
 	      if (temp_pos[i] != null ) {
-	        vertex(temp_pos[i].mult(radius).add(pos));
+	        vertex(temp_pos[i].xyz().mult(radius).add(pos));
 	      }
 	    }
-	    endShape(CLOSE) ;
+	    if (temp_pos[0] != null ) vertex(temp_pos[0].xyz().mult(radius).add(pos));
+	    endShape();
 	  }
 	}
 
