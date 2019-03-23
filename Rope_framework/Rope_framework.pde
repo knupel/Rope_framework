@@ -20,7 +20,8 @@ void setup() {
 void draw() {
   background(255);
   // via_method_flower();
-  via_method_costume();
+  // via_method_costume();
+  via_method_costume_with_class_Costume();
 
 }
 
@@ -38,11 +39,20 @@ void via_method_flower() {
 }
 
 
-float rot;
 void via_method_costume() {
   vec2 pos = vec2(mouseX,mouseY);
   int diam = width;
   costume(pos,vec2(diam),FLOWER_ROPE);
+}
+
+
+void via_method_costume_with_class_Costume() {
+  vec2 pos = vec2(mouseX,mouseY);
+  int diam = width;
+  Costume flower = new Costume(this);
+  flower.set_type(FLOWER_ROPE);
+  flower.set_summit(50);
+  costume(pos,vec2(diam),flower);
 }
 
 

@@ -1,7 +1,9 @@
 /**
-Costume method
+* Costume method
 * Copyleft (c) 2014-2019
-v 1.7.4
+* v 1.8.0
+* processing 3.5.3
+* Rope Library 0.4.0
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -31,21 +33,16 @@ void costume(float x, float y, float z, float sx, float sy, float sz, Object dat
 void costume(vec pos, int size_int, Object data) {
 	int which_costume = 0;
 	String sentence = null;
+	vec3 rotation = vec3();
+	vec3 size = vec3(size_int);
 	if(data instanceof Costume) {
-		which_costume = ((Costume)data).get_type();
+		costume_impl(pos,size,rotation,(Costume)data);
 	} else if(data instanceof Integer) {
 		which_costume = (int)data;
+		costume_management(pos,size,rotation,which_costume,null);
 	} else if(data instanceof String) {
 		sentence = (String)data;
 		which_costume = MAX_INT;
-	}
-
-	// int which_costume = cast_data(costume_obj);
-	vec3 rotation = vec3();
-	vec3 size = vec3(size_int);
-	if(sentence == null) {
-		costume_management(pos,size,rotation,which_costume,null);
-	} else {
 		costume_management(pos,size,rotation,which_costume,sentence);
 	}
 }
@@ -53,57 +50,47 @@ void costume(vec pos, int size_int, Object data) {
 void costume(vec pos, vec size, Object data) {
 	int which_costume = 0;
 	String sentence = null;
+	vec3 rotation = vec3();
 	if(data instanceof Costume) {
-		which_costume = ((Costume)data).get_type();
+		costume_impl(pos,size,rotation,(Costume)data);
 	} else if(data instanceof Integer) {
 		which_costume = (int)data;
+		costume_management(pos,size,rotation,which_costume,null);
 	} else if(data instanceof String) {
 		sentence = (String)data;
 		which_costume = MAX_INT;
-	}
-
-	vec3 rotation = vec3() ;
-	if(sentence == null) {
-		costume_management(pos,size,rotation,which_costume,null);
-	} else {
 		costume_management(pos,size,rotation,which_costume,sentence);
 	}
 }
 
-void costume(vec pos, vec size, float rotation, Object data) {
+void costume(vec pos, vec size, float rot, Object data) {
 	int which_costume = 0;
 	String sentence = null;
+	vec3 rotation = vec3(0,0,rot);
 	if(data instanceof Costume) {
-		which_costume = ((Costume)data).get_type();
+		costume_impl(pos,size,rotation,(Costume)data);
 	} else if(data instanceof Integer) {
 		which_costume = (int)data;
+		costume_management(pos,size,rotation,which_costume,null);
 	} else if(data instanceof String) {
 		sentence = (String)data;
 		which_costume = MAX_INT;
+		costume_management(pos,size,rotation,which_costume,sentence);
 	}
 
-	if(sentence == null) {
-		costume_management(pos, size, vec3(0,0,rotation),which_costume,null);
-	} else {
-		costume_management(pos,size,vec3(0,0,rotation),which_costume,sentence);
-	}
 }
 
 void costume(vec pos, vec size, vec rotation, Object data) {
 	int which_costume = 0;
 	String sentence = null;
 	if(data instanceof Costume) {
-		which_costume = ((Costume)data).get_type();
+		costume_impl(pos,size,rotation,(Costume)data);
 	} else if(data instanceof Integer) {
 		which_costume = (int)data;
+		costume_management(pos,size,rotation,which_costume,null);
 	} else if(data instanceof String) {
 		sentence = (String)data;
 		which_costume = MAX_INT;
-	}
-
-	if(sentence == null) {
-		costume_management(pos,size,rotation,which_costume,null);
-	} else {
 		costume_management(pos,size,rotation,which_costume,sentence);
 	}
 }
@@ -119,6 +106,7 @@ void costume(vec pos, vec size, vec rotation, Object data) {
 /**
 managing costume rope method
 */
+@Deprecated
 void costume_management(vec pos, vec size, vec rotation, int which_costume, String sentence) {
   vec3 pos_final = vec3(0) ;
   vec3 size_final = vec3(1) ;
@@ -191,8 +179,8 @@ void costume_impl(vec3 pos, vec3 size, vec rot, int which_costume) {
 	costume_rope_buffer.draw(pos,size,rot);
 }
 
-void costume_impl(vec3 pos, vec3 size, vec rot, Costume costume) {
-	costume.draw(pos,size,rot);
+void costume_impl(vec pos, vec size, vec rot, Costume costume) {
+	costume.draw(vec3(pos),vec3(size),rot);
 }
 
 

@@ -591,6 +591,8 @@ public class Costume {
 			rotate_behavior(rot);
 
 			star_3D_is(false);
+			if(get_summit() == 0 ) set_summit(5);
+			star_summits(get_summit());
 			star(vec3(),size);
 			stop_matrix();
 		} else if (this.get_type() == STAR_3D_ROPE) {
@@ -600,6 +602,8 @@ public class Costume {
 			rotate_behavior(rot);
 
 			star_3D_is(true);
+			if(get_summit() == 0 ) set_summit(5);
+			star_summits(get_summit());
 			star(vec3(),size);
 			stop_matrix();
 		}
@@ -609,8 +613,9 @@ public class Costume {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			int num_petals = 12;
-			if(get_summit() < num_petals) set_summit(num_petals);
+			// int num_petals = 3;
+			// println(get_summit(),frameCount);
+			if(get_summit() == 0 ) set_summit(5);
 			if(get_pair() == null) {
 				pair = new vec2[get_summit()*2];
 			}
