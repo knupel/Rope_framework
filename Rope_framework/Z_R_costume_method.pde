@@ -1,9 +1,9 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.8.0
+* v 1.8.1
 * processing 3.5.3
-* Rope Library 0.4.0
+* Rope Library 0.5.1
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -527,19 +527,20 @@ void house(vec3 size) {
 /**
 * flower method
 * 2019-2019
-* v 0.0.1
+* v 0.0.2
 */
 import rope.costume.R_Circle;
 import rope.costume.R_Bezier;
 R_Circle flower_costume_rope;
 void flower(vec pos, int diam, int petals_num) {
-	if(flower_costume_rope != null) {
+	if(flower_costume_rope == null || flower_costume_rope.get_summit() != petals_num) {
+		flower_costume_rope = new R_Circle(this,petals_num);
+	} else {
 		flower_costume_rope.pos(pos);
 		flower_costume_rope.size(diam);
 		flower_costume_rope.show();
-	} else {
 		// if(petals_num < 3) petals_num = 3;
-		flower_costume_rope = new R_Circle(this,petals_num);
+		
 	}
 }
 

@@ -1,12 +1,12 @@
 /**
 * COSTUME class
 * Copyleft (c) 2019-2019
-* v 0.7.0
+* v 0.8.1
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Here you finf the class Costume and all the class shape used.
 * Processing 3.5.3
-* Rope Library 0.4.0
+* Rope Library 0.5.1
 */
 final int POINT_ROPE = 1;
 final int ELLIPSE_ROPE = 2;
@@ -76,7 +76,7 @@ final int VIRUS_ROPE = 88_888_888;
 /**
 class Costume 
 2018-2019
-v 0.3.0
+v 0.3.1
 */
 import rope.costume.R_Primitive;
 public class Costume {
@@ -616,10 +616,10 @@ public class Costume {
 			// int num_petals = 3;
 			// println(get_summit(),frameCount);
 			if(get_summit() == 0 ) set_summit(5);
-			if(get_pair() == null) {
+			if(get_pair() == null || get_pair().length != get_summit()*2) {
 				pair = new vec2[get_summit()*2];
 			}
-			if(get_strength() == null) {
+			if(get_strength() == null || get_strength().length != get_summit()*2) {
 				strength = new float[get_summit()*2];
 			}
 
