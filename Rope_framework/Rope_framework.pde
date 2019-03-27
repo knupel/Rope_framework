@@ -10,50 +10,32 @@
 * import rope.vector.*; > imported in the tab Z_R_core.pde
 * 
 */
-
+PImage temp;
 void setup() {
   size(300,300);
+  temp = createImage(width,height,ARGB);
+  println(get_OS());
+  println(get_OS_family());
 }
 
 
 
 void draw() {
-  background(255);
-  // via_method_flower();
-  // via_method_costume();
-  via_method_costume_with_class_Costume();
+  background(255,0,0);
+  fill(0);
+  ellipse(mouseX,mouseY,50,50);
+  temp.copy(g,0,0,width,height, 0,0,width,height);
+  image(temp,0,height/2);
+
+
+  fill(255);
+  ellipse(mouseY,mouseX,50,50);
+
+
 
 }
 
-void via_method_flower() {
-  vec2 pos = vec2(mouseX,mouseY);
-  int diam = width;
-  int petals_num = 10;
-  flower(pos,diam,petals_num);
-  vec2 petal_left = vec2(.01,.02);
-  float strength_left = 1;
-  vec2 petal_right = vec2(.02,.01);
-  float strength_right = 1.;
-  flower_static(petal_left,strength_left,petal_right,strength_right);
-  // flower_wind(petal_left,strength_left,petal_right,strength_right);
-}
 
-
-void via_method_costume() {
-  vec2 pos = vec2(mouseX,mouseY);
-  int diam = width;
-  costume(pos,vec2(diam),FLOWER_ROPE);
-}
-
-
-void via_method_costume_with_class_Costume() {
-  vec2 pos = vec2(mouseX,mouseY);
-  int diam = width;
-  Costume flower = new Costume(this);
-  flower.set_type(FLOWER_ROPE);
-  flower.set_summit(50);
-  costume(pos,vec2(diam),flower);
-}
 
 
 

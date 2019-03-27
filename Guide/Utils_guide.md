@@ -218,6 +218,8 @@ boolean in_range_wheel(float min, float max, float roof_max, float value) ;
 >return boolean, test value in univers with no low and hight value, whe the value is hight of the max that's return to the min value.
 
 
+
+
 *GET TYPE
 
 String get_type(Object obj);
@@ -225,6 +227,14 @@ String get_type(Object obj);
 
 
 
+
+*GET OS
+
+String get_OS()
+> return the exact OS
+
+String get_OS_family()
+>return the family OS: "mac","win","unix","solaris"
 
 
 
