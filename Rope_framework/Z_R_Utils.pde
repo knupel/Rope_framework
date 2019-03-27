@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.56.4
+v 1.56.5
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
@@ -1278,13 +1278,13 @@ String get_type(Object obj) {
 
 /**
 * Check OS
-* v 0.0.1
+* v 0.0.2
 */
-String get_OS() {
+String get_os() {
   return System.getProperty("os.name").toLowerCase();
 }
 
-String get_OS_family() {
+String get_os_family() {
   String os = System.getProperty("os.name").toLowerCase();
   String family = "";
   if(os.indexOf("win") >= 0) {
