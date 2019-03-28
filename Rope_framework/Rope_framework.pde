@@ -14,8 +14,10 @@ PImage temp;
 void setup() {
   size(300,300);
   temp = createImage(width,height,ARGB);
-  println(get_OS());
-  println(get_OS_family());
+  println(get_os());
+  println(get_os_family());
+
+
 }
 
 

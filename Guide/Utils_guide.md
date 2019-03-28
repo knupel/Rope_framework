@@ -1,8 +1,16 @@
-*UTILS ROPE
-2015–2018
-Rope – Romanesco Processing Environment
 
+
+
+
+*UTILS ROPE
+
+2015–2019
+Rope – Romanesco Processing Environment
 All the methods similare or closer of Processing is writing in 'camelCase' the really Rope methods are write with '_underscore_' !
+
+
+
+
 
 
 *WINDOW SIZE
@@ -31,27 +39,104 @@ public void print_constants();
 
 *SELECT FOLDER and INPUT
 
-INPUT
---
+
+*INPUT
+
 void select_input();
 >Open window to select input
 
-void select_input(String message);
->Open window to select input
->String message is the sentence write on your window when the method is used
+void select_input(String type);
+>String type: "default",
+							"image","media","shape","shape","text","video",
+              "load",
+              "preference","setting"
+When this method is used that's create a specific data for each type.
 
-boolean input_selected_is();
+*default
+
+boolean input_default_is();
 >return true if a input is selected
 
-void reset_input_selection();
+void reset_input_default();
 >make the input_selected be "false"
 
 String input();
 >return the String path of the last input selected
 
+String input_default();
+>return the String path of the last input selected
 
-FOLDER
---
+
+
+
+*image
+
+boolean input_image_is();
+
+void reset_input_image();
+
+String input_image();
+
+*media
+
+boolean input_media_is();
+
+void reset_input_media();
+
+String input_media();
+
+*shape
+
+boolean input_shape_is();
+
+void reset_input_shape();
+
+String input_shape();
+
+*text
+
+boolean input_text_is();
+
+void reset_input_text();
+
+String input_text();
+
+
+*video
+
+boolean input_video_is();
+
+void reset_input_video();
+
+String input_video();
+
+*load
+
+boolean input_load_is();
+
+void reset_input_load();
+
+String input_load();
+
+*preference
+
+boolean input_preference_is();
+
+void reset_input_preference();
+
+String input_preference();
+
+*setting
+
+boolean input_setting_is();
+
+void reset_input_setting();
+
+String input_setting();
+
+
+*FOLDER
+
 void select_folder();
 >Open window to select folder
 
@@ -59,10 +144,10 @@ void select_folder(String message);
 >Open window to select folder
 >String message is the sentence write on your window when the method is used
 
-boolean folder_selected_is();
+boolean folder_is();
 >return true if a folder is selected
 
-void reset_folder_selection();
+void reset_folder();
 >make the folder_selected be "false"
 
 String folder();
