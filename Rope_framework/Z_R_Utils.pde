@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.58.0
+v 1.58.3
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
@@ -140,7 +140,7 @@ class Constant_list {
 
 /**
 * FOLDER & FILE MANAGER
-* v 0.5.0
+* v 0.5.3
 */
 String warning_input_file_folder_message = "Window was closed or the user hit cancel.";
 String warning_input_file_not_accepted = "This file don't match with any extension accepted:";
@@ -154,12 +154,13 @@ R_Input [] input_rope;
 
 
 // filter
-static final String[] ext_image = { "png", "jpeg", "jpg"};
-static final String[] ext_movie = { "mov", "avi", "mp4", "mpg"};
+static final String[] ext_image = { "png", "jpeg", "jpg", "tif", "tga", "gif"};
+static final String[] ext_movie = { "mov", "avi", "mp4", "mpg", "mkv"};
 static final String[] ext_setting = { "csv", "txt", "json"};
 static final String[] ext_shape = { "svg", "obj"};
 static final String[] ext_sound = { "mp3", "wav"};
 static final String[] ext_text = { "txt", "md"};
+
 
 
 void print_extension_filter() {
@@ -303,7 +304,7 @@ static final File[] get_folder_for_setting(File dir) {
 
 /*
 * INPUT PART
-* v 0.2.0
+* v 0.2.1
 * 2017-2019
 */
 
@@ -444,8 +445,10 @@ boolean input_is(String type) {
   boolean result = false;
   for (int i = input_type.length; i-- != 0;) {
     if(input_type[i].equals(type)) {
-      result = input_rope[i].get_is();
-      break;
+      if(input_rope != null && input_rope[i] != null) {
+        result = input_rope[i].get_is();
+        break;
+      }
     }
   }
   return result;
@@ -467,6 +470,20 @@ void reset_input(String type) {
 }
 
 
+void input_is(boolean is) {
+  input_is("default",is);;
+}
+
+void input_is(String type, boolean is) {
+  for (int i = input_type.length; i-- != 0;) {
+    if(input_type[i].equals(type)) {
+      input_rope[i].set_is(is);
+      break;
+    }
+  }
+}
+
+
 String input() {
   return input("default");
 }
@@ -476,8 +493,10 @@ String input(String type) {
   String path = null;
   for (int i = input_type.length; i-- != 0;) {
     if(input_type[i].equals(type)) {
-      path = input_rope[i].get_path();
-      break;
+      if(input_rope != null) {
+        path = input_rope[i].get_path();
+        break;
+      }
     }
   }
   return path;
@@ -685,7 +704,7 @@ void input_setting(File selection) {
 
 /*
 * FOLDER PART
-* v 0.1.1
+* v 0.1.2
 * 2017-2019
 */
 String selected_path_folder = null;
@@ -721,6 +740,10 @@ boolean folder_is() {
 
 void reset_folder() {
   folder_selected_is = false;
+}
+
+void folder_is(boolean is) {
+  folder_selected_is = is;
 }
 
 String folder() {

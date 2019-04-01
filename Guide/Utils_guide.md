@@ -64,6 +64,9 @@ boolean input_is();
 void reset_input();
 >make the input_selected be "false"
 
+void input_is(boolean is)
+>set the input state
+
 String input();
 >return the String path of the last input selected
 
@@ -78,6 +81,9 @@ boolean input_is(String type);
 
 void reset_input(String type);
 >make the input_selected be "false"
+
+void input_is(String type, boolean is)
+>set the input state
 
 String input(String type);
 >return the String path of the last input selected
@@ -101,27 +107,30 @@ void select_folder(String message);
 >String message is the sentence write on your window when the method is used
 
 boolean folder_is();
->return true if a folder is selected
+>Return true if a folder is selected
+
+void folder_is(boolean is);
+>Set folder to is state;
 
 void reset_folder();
->make the folder_selected be "false"
+>Make the folder_selected be "false"
 
 String folder();
->return the String path of the last folder selected
+>Return the String path of the last folder selected
 
 void explore_folder(String path, String... extension);
 
 void explore_folder(String path, boolean sub_folder, String... extension);
 >this method create a list a file of a class File
 >You need to give the path of the main folder or input selected
-> With the boolean sub_folder you can ask to explorer the subfolder or not, only with the method void select_folder()
-> and you can add each extension you want add in your list, like "jpg" and "wave" for example.
+>With the boolean sub_folder you can ask to explorer the subfolder or not, only with the method void select_folder()
+>and you can add each extension you want add in your list, like "jpg" and "wave" for example.
 
 ArrayList<File> get_files()
-> return the list of file selected with the method explore_folder();
+>Return the list of file selected with the method explore_folder();
 
 String [] get_files_sort()
-> return list of absolutePath sort from down to up;
+>Return list of absolutePath sort from down to up;
 
 
 
