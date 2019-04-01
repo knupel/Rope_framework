@@ -12,15 +12,20 @@
 */
 
 void setup() {
-  select_input("movie");
+  // select_input("movie");
+  // print_extension_filter();
+  select_input();
   print_extension_filter();
+  set_filter_input("default","psd");
+  print_extension_filter("default");
+
 }
 
 
 void draw() {
-  println(input_is("movie"));
-  println(input_file("movie"));
-  println(input("movie"));
+  // println(input_is("movie"));
+  // println(input_file("movie"));
+  // println(input("movie"));
 }
 
 

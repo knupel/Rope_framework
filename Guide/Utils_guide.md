@@ -39,6 +39,23 @@ public void print_constants();
 
 *SELECT FOLDER and INPUT
 
+type: "default",
+			"image","media","shape","shape","text","video",
+      "load",
+      "preference","setting"
+>there is few available type to load input, that's can be use to make different filtering or keep easily the diffente path or file for each type.
+
+
+void print_extension_filter()
+>return all the current filter extension
+
+void print_extension_filter(String type)
+>return the current filter extension for this type
+
+
+void set_filter_input(String type, String... ext);
+>set the filtering extension by type.
+
 
 *INPUT
 
@@ -46,11 +63,7 @@ void select_input();
 >Open window to select input
 
 void select_input(String type);
->String type: "default",
-							"image","media","shape","shape","text","video",
-              "load",
-              "preference","setting"
-When this method is used that's create a specific data for each type.
+>select input by selecting the type of input you want.
 
 
 print_input()
