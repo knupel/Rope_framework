@@ -52,87 +52,43 @@ void select_input(String type);
               "preference","setting"
 When this method is used that's create a specific data for each type.
 
+
+print_input()
+>print type and extensions files accepted if a specific input type is used.
+
 *default
 
-boolean input_default_is();
+boolean input_is();
 >return true if a input is selected
 
-void reset_input_default();
+void reset_input();
 >make the input_selected be "false"
 
 String input();
 >return the String path of the last input selected
 
-String input_default();
+File input_file();
+>return File of the last input selected
+
+
+*by type
+
+boolean input_is(String type);
+>return true if a input is selected
+
+void reset_input(String type);
+>make the input_selected be "false"
+
+String input(String type);
 >return the String path of the last input selected
 
+File input_file(String type);
+>return File of the last input selected
 
 
 
-*image
-
-boolean input_image_is();
-
-void reset_input_image();
-
-String input_image();
-
-*media
-
-boolean input_media_is();
-
-void reset_input_media();
-
-String input_media();
-
-*shape
-
-boolean input_shape_is();
-
-void reset_input_shape();
-
-String input_shape();
-
-*text
-
-boolean input_text_is();
-
-void reset_input_text();
-
-String input_text();
 
 
-*video
-
-boolean input_video_is();
-
-void reset_input_video();
-
-String input_video();
-
-*load
-
-boolean input_load_is();
-
-void reset_input_load();
-
-String input_load();
-
-*preference
-
-boolean input_preference_is();
-
-void reset_input_preference();
-
-String input_preference();
-
-*setting
-
-boolean input_setting_is();
-
-void reset_input_setting();
-
-String input_setting();
 
 
 *FOLDER
@@ -153,10 +109,6 @@ void reset_folder();
 String folder();
 >return the String path of the last folder selected
 
-
-
-FOLDER and INPUT
---
 void explore_folder(String path, String... extension);
 
 void explore_folder(String path, boolean sub_folder, String... extension);

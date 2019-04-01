@@ -10,32 +10,23 @@
 * import rope.vector.*; > imported in the tab Z_R_core.pde
 * 
 */
-PImage temp;
+
 void setup() {
-  size(300,300);
-  temp = createImage(width,height,ARGB);
-  println(get_os());
-  println(get_os_family());
-
-
+  select_input("movie");
+  print_extension_filter();
 }
-
 
 
 void draw() {
-  background(255,0,0);
-  fill(0);
-  ellipse(mouseX,mouseY,50,50);
-  temp.copy(g,0,0,width,height, 0,0,width,height);
-  image(temp,0,height/2);
-
-
-  fill(255);
-  ellipse(mouseY,mouseX,50,50);
-
-
-
+  println(input_is("movie"));
+  println(input_file("movie"));
+  println(input("movie"));
 }
+
+
+
+
+
 
 
 
