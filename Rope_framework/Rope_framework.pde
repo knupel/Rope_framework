@@ -32,8 +32,9 @@ void draw() {
   // println(input_file("movie"));
   // println(input_file("sound"));
   
-
-  explore_folder(folder(),"mov");
+  boolean explore_sub_folder = true;
+  String [] ext = {"mov"};
+  explore_folder(folder(),explore_sub_folder,ext); 
 
   if(get_files() != null && get_files().size() > 0) {
   	println("size",get_files().size());

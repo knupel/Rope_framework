@@ -657,17 +657,17 @@ void explore_folder(String path, boolean check_sub_folder, String... extension) 
  
     ArrayList allFiles = list_files(path, check_sub_folder);
   
-    String fileName = "";
+    String file_name = "";
     int count_pertinent_file = 0 ;
   
     for (int i = 0; i < allFiles.size(); i++) {
       File f = (File) allFiles.get(i);   
-      fileName = f.getName(); 
+      file_name = f.getName(); 
       // Add it to the list if it's not a directory
       if (f.isDirectory() == false) {
         for(int k = 0 ; k < extension.length ; k++) {
           String ext = extension[k].toLowerCase();
-          if(extension(fileName).equals(ext)) {
+          if(extension(file_name) != null && extension(file_name).equals(ext)) {
             count_pertinent_file += 1 ;
             println(count_pertinent_file, "/", i, f.getName());
             files.add(f);
