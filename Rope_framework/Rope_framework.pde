@@ -12,20 +12,48 @@
 */
 
 void setup() {
-  // select_input("movie");
+	// set_filter_input("movie","mov");
+  // select_input();
+  
+  print_extension_filter("truc");
+  // select_input();
   // print_extension_filter();
-  select_input();
-  print_extension_filter();
-  set_filter_input("default","psd");
-  print_extension_filter("default");
+  // set_filter_input("default","psd");
+  // print_extension_filter("default");
 
 }
 
 
 void draw() {
   // println(input_is("movie"));
+  // println(input_file());
+  // println(input_file("image"));
+  // println(input_file("text"));
   // println(input_file("movie"));
+  // println(input_file("sound"));
+  
+
+  explore_folder(folder(),"mov");
+
+  if(get_files() != null && get_files().size() > 0) {
+  	println("size",get_files().size());
+  	for(File f : get_files()) {
+	  	println(f);
+	  }
+  }
+  
+  //println(input_file("movie"));
   // println(input("movie"));
+}
+
+
+void keyPressed() {
+	if(key == 'i') select_input("image");
+	if(key == 't') select_input("text");
+	if(key == 'm') select_input("movie");
+	if(key == 's') select_input("sound");
+
+	if(key == 'f') select_folder();
 }
 
 

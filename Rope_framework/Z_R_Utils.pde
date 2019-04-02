@@ -140,8 +140,12 @@ class Constant_list {
 
 /**
 * FOLDER & FILE MANAGER
-* v 0.6.0
+* v 0.7.0
 */
+import java.awt.FileDialog;
+import java.awt.Frame;
+import java.io.FilenameFilter;
+
 String warning_input_file_folder_message = "Window was closed or the user hit cancel.";
 String warning_input_file_not_accepted = "This file don't match with any extension accepted:";
 
@@ -166,122 +170,42 @@ String[] ext_sound = { "mp3", "wav"};
 String[] ext_text = { "txt", "md"};
 
 
-void set_filter_input(String type, String... ext) {
-  if(type.equals("image")) {
-    ext_image = ext;
-  } else if(type.equals("movie")) {
-    ext_movie = ext;
-  } else if(type.equals("setting")) {
-    ext_setting = ext;
-  } else if(type.equals("shape")) {
-    ext_shape = ext;
-  } else if(type.equals("sound")) {
-    ext_sound = ext;
-  } else if(type.equals("text")) {
-    ext_text = ext;
-  } else if(type.equals("default")) {
-    ext_default = ext;
-  }
-}
+
+
+
+
 
 void print_extension_filter() {
   print_extension_filter("all");
 }
 
+
 void print_extension_filter(String type) {
-  if(type.equals("all")) {
-    if(ext_default == null) {
-      println("default: no filter");
+  if(get_inputs() != null && get_inputs().length > 0) {
+    if(type.equals("all")) {
+      for(int i = 0 ; i < get_inputs().length ; i++) {
+        println(get_input(i).get_type());
+        printArray(get_input(i).get_filter());
+      }
     } else {
-      println("default:");
-      printArray(ext_default);
+      int count = 0;
+      for(int i = 0 ; i < input_type.length ; i++) {
+        count++;
+        if(input_type[i].equals(type)) {
+          println(get_input(type).get_type());
+          printArray(get_input(type).get_filter());
+          break;
+        }
+        if(count == input_type.length) {
+          printErr("method print_extension_filter(): no input available for this type:",type);
+        }
+      }
     }
-    println("image:");
-    printArray(ext_image);
-    if(ext_load == null) {
-      println("load: no filter");
-    } else {
-      println("load:");
-      printArray(ext_load);
-    }
-    if(ext_media == null) {
-      println("media: no filter");
-    } else {
-      println("media:");
-      printArray(ext_media);
-    }
-    println("movie:");
-    printArray(ext_movie);
-    if(ext_preference == null) {
-      println("preference: no filter");
-    } else {
-      println("preference:");
-      printArray(ext_preference);
-    }
-    println("setting:");
-    printArray(ext_setting);
-    println("shape:");
-    printArray(ext_shape);
-    println("sound:");
-    printArray(ext_sound);
-  // default
-  } else if(type.equals("default")) {
-    if(ext_default == null) {
-      println("default: no filter");
-    } else {
-      println("default:");
-      printArray(ext_default);
-    }
-  // image
-  } else if(type.equals("image")) {
-    println("image:");
-    printArray(ext_image);
-  // load  
-  } else if(type.equals("load")) {
-    if(ext_load == null) {
-      println("load: no filter");
-    } else {
-      println("load:");
-      printArray(ext_load);
-    }
-  // media  
-  } else if(type.equals("media")) {
-    if(ext_media == null) {
-      println("media: no filter");
-    } else {
-      println("media:");
-      printArray(ext_media);
-    }
-  // movie
-  } else if(type.equals("movie")) {
-    println("movie:");
-    printArray(ext_movie);
-  // preference  
-  } else if(type.equals("preference")) {
-    if(ext_preference == null) {
-      println("preference: no filter");
-    } else {
-      println("preference:");
-      printArray(ext_preference);
-    }
-  // setting
-  } else if(type.equals("setting")) {
-    println("setting:");
-    printArray(ext_setting);
-  // shape
-  } else if(type.equals("shape")) {
-    println("shape:");
-    printArray(ext_shape);
-  // sound
-  } else if(type.equals("sound")) {
-    println("sound:");
-    printArray(ext_sound);
-  // text
-  } else if(type.equals("text")) {
-    println("text:");
-    printArray(ext_text);
+  } else {
+    printErr("method print_extension_filter(): no input available");
   }
 }
+
 
 
 
@@ -300,6 +224,7 @@ class R_Input {
   String callback = null;
   String path = null;
   String prompt = null;
+  String [] filter = null;
   boolean is;
   R_Input() { }
   
@@ -327,6 +252,10 @@ class R_Input {
   void set_callback(String callback) {
     this.callback = callback;
   }
+
+  void set_filter(String [] filter) {
+    this.filter = filter;
+  }
   
   // get
   File get_file() {
@@ -352,6 +281,10 @@ class R_Input {
   String get_callback() {
     return callback;
   }
+
+  String [] get_filter() {
+    return filter;
+  }
 }
 
 
@@ -364,36 +297,113 @@ class R_Input {
 /**
 * method input
 */
+// set input
+void init_input_group() {
+  if(input_rope == null) {
+    input_rope = new R_Input[input_type.length];
+    for(int i = 0 ; i < input_rope.length ; i++) {
+      input_rope[i] = new R_Input();
+      set_input(input_rope[i],input_type[i]);
+    }
+  }
+}
+
+void set_input(R_Input input, String type) { 
+  input.set_type(type);
+  input.set_prompt("select "+type);
+  if(type.equals("default")) input.set_filter(ext_default);
+  else if(type.equals("image")) input.set_filter(ext_image);
+  else if(type.equals("load")) input.set_filter(ext_load);
+  else if(type.equals("media")) input.set_filter(ext_media);
+  else if(type.equals("movie")) input.set_filter(ext_movie);
+  else if(type.equals("preference")) input.set_filter(ext_preference);
+  else if(type.equals("setting")) input.set_filter(ext_setting);
+  else if(type.equals("shape")) input.set_filter(ext_shape);
+  else if(type.equals("sound")) input.set_filter(ext_sound);
+  else if(type.equals("text")) input.set_filter(ext_text);
+}
+
+
+void set_filter_input(String type, String... ext) {
+  init_input_group();
+  if(type.equals("default")) {
+    ext_default = ext;
+  } else if(type.equals("image")) {
+    ext_image = ext;
+  } else if(type.equals("load")) {
+    ext_load = ext;
+  } else if(type.equals("media")) {
+    ext_media = ext;
+  } else if(type.equals("movie")) {
+    ext_movie = ext;
+    set_input(get_input(type),type);
+  } else if(type.equals("preference")) {
+    ext_preference = ext;
+  } else if(type.equals("setting")) {
+    ext_setting = ext;
+  } else if(type.equals("shape")) {
+    ext_shape = ext;
+  } else if(type.equals("sound")) {
+    ext_sound = ext;
+  } else if(type.equals("text")) {
+    ext_text = ext;
+  } else if(type.equals("default")) {
+    ext_default = ext;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+// get input
 String [] get_input_type() {
   return input_type;
 }
+
+R_Input get_input(String type) {
+  R_Input input = null;
+  if(input_rope != null && input_rope.length > 0) {
+    for(int i = 0 ; i < input_rope.length ; i++) {
+      if(input_rope[i].get_type().equals(type)) {
+        input = input_rope[i];
+        break;
+      }
+    }
+  }
+  return input;
+}
+
+R_Input [] get_inputs() {
+  return input_rope;
+}
+
+R_Input get_input(int target) {
+  if(input_rope != null && target < input_rope.length && target >= 0) {
+    return input_rope[target];
+  } else {
+    return null;
+  }
+}
+
+
 
 void select_input() {
   select_input("default");
 }
 
 void select_input(String type) {
-  String callback_method = "input_default";
-  String prompt = "select input default";
-  if(input_rope == null) {
-    input_rope = new R_Input[input_type.length];
-    for(int i = 0 ; i < input_rope.length ; i++) {
-      input_rope[i] = new R_Input();
-      input_rope[i].set_type(input_type[i]);
-      input_rope[i].set_prompt("select "+input_type[i]);
-      input_rope[i].set_callback("input_"+input_type[i]);
-    }
-  }
-
-
+  init_input_group();
   int check_for_existing_method = 0 ;
   for(int i = 0 ; i < input_rope.length ; i++) {
     check_for_existing_method++;
     if(type.toLowerCase().equals(input_rope[i].get_type())){
-      type = input_rope[i].get_type();
-      prompt = input_rope[i].get_prompt();
-      callback_method = input_rope[i].get_callback();
-      selectInput(prompt,callback_method);
+      select_single_file(input_rope[i]);
       break;
     }
   }
@@ -402,6 +412,36 @@ void select_input(String type) {
     printErr("type available:");
     printArray(input_type);
   }
+}
+
+int max_filter_input;
+String [] temp_filter_list;
+void select_single_file(R_Input input) {
+  Frame frame = null;
+  FileDialog dialog = new FileDialog(frame, input.get_prompt(), FileDialog.LOAD);
+  if(input.get_filter() != null && input.get_filter().length > 0) {
+    temp_filter_list = input.get_filter();
+    dialog.setFilenameFilter(new FilenameFilter() {
+      @Override
+      public boolean accept(File dir, String name) {
+        name = name.toLowerCase();
+        for (int i = 0; i < temp_filter_list.length ; i++) {
+          if (name.endsWith(temp_filter_list[i]))  {
+            return true;
+          }
+        }
+        return false;
+      }}
+    );
+  }  
+  dialog.setVisible(true);
+  String directory = dialog.getDirectory();
+  String filename = dialog.getFile();
+
+  if (filename != null) {
+    input.set_file(new File(directory, filename));
+  }
+  if(input.get_file() != null) println(input.get_file().getPath());
 }
 
 
@@ -444,6 +484,7 @@ void reset_input() {
 }
 
 void reset_input(String type) {
+  init_input_group();
   for (int i = input_type.length; i-- != 0;) {
     if(input_type[i].equals(type)) {
       input_rope[i].set_is(false);
@@ -513,203 +554,6 @@ void set_input(String type, File file) {
     }
   }
 }
-
-
-/**
-* method call back
-*/
-// default method
-void input_default(File selection) {
-  if(selection == null) {
-    println(warning_input_file_folder_message);
-  } else {
-    println("Input default path is:" + selection.getAbsolutePath());
-    if(ext_image == null) {
-      set_input("default",selection);
-    } else {
-      if(accept_input(selection.getAbsolutePath(),ext_default)) {
-        set_input("default",selection);
-      } else {
-        printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
-        println("extension accepted:");
-        printArray(ext_default);
-      }
-    }
-  }
-}
-
-// input image
-void input_image(File selection) {
-  if (selection == null) {
-    println(warning_input_file_folder_message);
-  } else {
-    println("Input image path is:",selection.getAbsolutePath());
-    if(accept_input(selection.getAbsolutePath(),ext_image)) {
-      set_input("image",selection);
-    } else {
-      printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
-      println("extension accepted:");
-      printArray(ext_image);
-    }  
-  }
-}
-
-// input media
-void input_media(File selection) {
-  if (selection == null) {
-    println(warning_input_file_folder_message);
-  } else {
-    println("Input media path is:" +selection.getAbsolutePath());
-    if(ext_media == null) {
-      set_input("media",selection);
-    } else {
-      if(accept_input(selection.getAbsolutePath(),ext_media)) {
-        set_input("media",selection);
-      } else {
-        printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
-        println("extension accepted:");
-        printArray(ext_media);
-      }
-    }
-  }
-}
-
-// input movie
-void input_movie(File selection) {
-  if (selection == null) {
-    println(warning_input_file_folder_message);
-  } else {
-    println("Input movie path is:" +selection.getAbsolutePath());
-    if(accept_input(selection.getAbsolutePath(),ext_movie)) {
-      set_input("movie",selection);
-    } else {
-      printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
-      println("extension accepted:");
-      printArray(ext_movie);
-    }
-  }
-}
-
-
-
-// input shape
-void input_shape(File selection) {
-  if (selection == null) {
-    println(warning_input_file_folder_message);
-  } else {
-    println("Input shape path is:" +selection.getAbsolutePath());
-    if(accept_input(selection.getAbsolutePath(),ext_shape)) {
-      set_input("shape",selection);
-    } else {
-      printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
-      println("extension accepted:");
-      printArray(ext_shape);
-    } 
-  }
-}
-
-// input sound
-void input_sound(File selection) {
-  if (selection == null) {
-    println(warning_input_file_folder_message);
-  } else {
-    println("Input sound path is:" +selection.getAbsolutePath());
-    if(accept_input(selection.getAbsolutePath(),ext_sound)) {
-      set_input("sound",selection);
-    } else {
-      printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
-      println("extension accepted:");
-      printArray(ext_sound);
-    } 
-  }
-}
-
-// input text
-void input_text(File selection) {
-  if (selection == null) {
-    println(warning_input_file_folder_message);
-  } else {
-    println("Input text path is:" +selection.getAbsolutePath());
-    if(accept_input(selection.getAbsolutePath(),ext_text)) {
-      set_input("text",selection);
-    } else {
-      printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
-      println("extension accepted:");
-      printArray(ext_text);
-    }
-  }
-}
-
-// input load
-void input_load(File selection) {
-  if (selection == null) {
-    println(warning_input_file_folder_message);
-  } else {
-    println("Input load path is:" +selection.getAbsolutePath());
-    if(ext_load == null) {
-      set_input("load",selection);
-    } else {
-      if(accept_input(selection.getAbsolutePath(),ext_load)) {
-        set_input("load",selection);
-      } else {
-        printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
-        println("extension accepted:");
-        printArray(ext_load);
-      }
-    }
-  }
-}
-
-// input preference
-void input_preference(File selection) {
-  if (selection == null) {
-    println(warning_input_file_folder_message);
-  } else {
-    println("Input preference path is:" +selection.getAbsolutePath());
-    if(ext_preference == null) {
-      set_input("preference",selection);
-    } else {
-      if(accept_input(selection.getAbsolutePath(),ext_preference)) {
-        set_input("preference",selection);
-      } else {
-        printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
-        println("extension accepted:");
-        printArray(ext_preference);
-      }
-    }
-  }
-}
-
-
-// input setting
-void input_setting(File selection) {
-  if (selection == null) {
-    println(warning_input_file_folder_message);
-  } else {
-    println("Input setting path is:" +selection.getAbsolutePath());
-    if(accept_input(selection.getAbsolutePath(),ext_setting)) {
-      set_input("setting",selection);
-    } else {
-      printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
-      println("extension accepted:");
-      printArray(ext_setting);
-    }
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
