@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.58.4
+v 1.58.5
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
@@ -211,7 +211,7 @@ void print_extension_filter(String type) {
 
 /*
 * INPUT PART
-* v 0.2.1
+* v 0.2.2
 * 2017-2019
 */
 
@@ -336,7 +336,6 @@ void set_filter_input(String type, String... ext) {
     ext_media = ext;
   } else if(type.equals("movie")) {
     ext_movie = ext;
-    set_input(get_input(type),type);
   } else if(type.equals("preference")) {
     ext_preference = ext;
   } else if(type.equals("setting")) {
@@ -350,6 +349,7 @@ void set_filter_input(String type, String... ext) {
   } else if(type.equals("default")) {
     ext_default = ext;
   }
+  set_input(get_input(type),type);
 }
 
 
@@ -565,11 +565,12 @@ void set_input(String type, File file) {
 
 /*
 * FOLDER PART
-* v 0.1.2
+* v 0.1.3
 * 2017-2019
 */
 String selected_path_folder = null;
 boolean folder_selected_is;
+boolean explore_subfolder_is = false;
 
 void select_folder() {
   select_folder("");
@@ -594,6 +595,14 @@ void folder_selected(File selection) {
   }
 }
 
+
+void explore_subfolder_is(boolean is) {
+  explore_subfolder_is = is;
+}
+
+boolean explore_subfolder_is() {
+  return explore_subfolder_is;
+}
 
 boolean folder_is() {
   return folder_selected_is;
@@ -647,7 +656,6 @@ String [] get_files_sort() {
 
 void explore_folder(String path_folder, String... extension) {
   explore_folder(path_folder, false, extension);
-
 }
 
 void explore_folder(String path, boolean check_sub_folder, String... extension) {

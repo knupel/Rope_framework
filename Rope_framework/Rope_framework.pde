@@ -12,10 +12,11 @@
 */
 
 void setup() {
-	// set_filter_input("movie","mov");
+	set_filter_input("movie","mov");
+  set_filter_input("image","psd");
   // select_input();
   
-  print_extension_filter("truc");
+  print_extension_filter();
   // select_input();
   // print_extension_filter();
   // set_filter_input("default","psd");
@@ -43,7 +44,7 @@ void draw() {
 	  }
   }
   
-  //println(input_file("movie"));
+  // println(input_file("movie"));
   // println(input("movie"));
 }
 
