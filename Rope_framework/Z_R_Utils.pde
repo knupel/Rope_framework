@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.59.0
+v 1.59.2
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
@@ -28,23 +28,30 @@ import processing.pdf.*;
 /**
 * METHOD MANAGER
 * to create method from String name, add in a list and recall from this String name later
-* v 0.0.1
+* v 0.0.3
 * 2019-2019
 */
 // main method
-void create_method(String name, PApplet pa, Class... classes) {
+void template_method(String name, PApplet pa, Class... classes) {
   if(method_index == null) {
     method_index = new ArrayList<Method_Manager>();
   } 
   init_method(name,pa,classes);
 }
 
+boolean method_exist_is = true;
+boolean method_is() {
+  return method_exist_is;
+}
+
 void method(String name, PApplet pa, Object... args) {
+  method_exist_is = true;
   Method method = method_exist(name, args);
   if(method != null) {
     invoke_method(method, pa, args);
   } else {
     println("method(): no method exist for this name:",name,"or this order of arguments:");
+    method_exist_is = false;
     for(int i = 0 ; i < args.length ; i++) {
       println("[",i,"]",args[i].getClass().getName());
     } 
@@ -127,7 +134,7 @@ void init_method(String name, PApplet pa, Class... classes) {
     Method_Manager method_manager = new Method_Manager(method,name,classes);
     method_index.add(method_manager);
   } else {
-    println("create_method(): this method",name,"with those classes organisation already exist");
+    println("template_method(): this method",name,"with those classes organisation already exist");
   }
 }
 
@@ -143,7 +150,6 @@ class Method_Manager {
     index = new String[classes.length];
     for(int i = 0 ; i < index.length ; i++) {
       index[i] = classes[i].getName();
-      //index_name += classes[i].getCanonicalName();
     }
     this.method = method;
     this.name = name;

@@ -9,7 +9,10 @@ All the methods similare or closer of Processing is writing in 'camelCase' the r
 
 *CREATE METHOD
 
-void create_method(String name, PApplet pa, Class... classes);
+void template_method(String name, PApplet pa, Class... classes);
+
+booleans method_is();
+>return true if the method exist, need to use just after method() because it's refresh in this one.
 
 void method(String name, PApplet pa, Object... args);
 >call the method you've add before... don't forget to write this one to can use it!
