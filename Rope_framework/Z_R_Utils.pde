@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.59.2
+v 1.59.3
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
@@ -28,7 +28,7 @@ import processing.pdf.*;
 /**
 * METHOD MANAGER
 * to create method from String name, add in a list and recall from this String name later
-* v 0.0.3
+* v 0.0.4
 * 2019-2019
 */
 // main method
@@ -421,7 +421,7 @@ void print_extension_filter(String type) {
 
 /*
 * INPUT PART
-* v 0.2.2
+* v 0.2.3
 * 2017-2019
 */
 
@@ -441,6 +441,7 @@ class R_Input {
   // set
   void set_file(File file) {
     this.file = file;
+    this.path = file.getPath();
   }
 
   void set_is(boolean is) {
@@ -651,7 +652,10 @@ void select_single_file(R_Input input) {
   if (filename != null) {
     input.set_file(new File(directory, filename));
   }
-  if(input.get_file() != null) println(input.get_file().getPath());
+  if(input.get_file() != null) {
+    println("method select_single_file(",input.get_type(),"):",input.get_file().getPath());
+    println("method select_single_file(",input.get_type(),"):",input.get_path());
+  }
 }
 
 
