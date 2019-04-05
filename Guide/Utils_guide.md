@@ -1,7 +1,3 @@
-
-
-
-
 *UTILS ROPE
 
 2015–2019
@@ -11,6 +7,13 @@ All the methods similare or closer of Processing is writing in 'camelCase' the r
 
 
 
+*CREATE METHOD
+
+void create_method(String name, PApplet pa, Class... classes);
+
+void method(String name, PApplet pa, Object... args);
+>call the method you've add before... don't forget to write this one to can use it!
+see example : 
 
 
 *WINDOW SIZE
