@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.59.3
+v 1.59.4
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
@@ -421,7 +421,7 @@ void print_extension_filter(String type) {
 
 /*
 * INPUT PART
-* v 0.2.3
+* v 0.2.4
 * 2017-2019
 */
 
@@ -654,7 +654,6 @@ void select_single_file(R_Input input) {
   }
   if(input.get_file() != null) {
     println("method select_single_file(",input.get_type(),"):",input.get_file().getPath());
-    println("method select_single_file(",input.get_type(),"):",input.get_path());
   }
 }
 
