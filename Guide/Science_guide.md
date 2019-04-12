@@ -3,6 +3,11 @@ Guide Science
 the sctech method tab is not included on this repository if you need
 @see https://github.com/StanLepunK/Old_code/tree/master/rope_method
 
+*PRIME
+
+boolean is_prime(int n);
+>return true is the number is aprime number
+
 *RANDOM
 
 >Return random value smooth around the target, like gaussian curve, by default the range around the value is 40%, but it's the extreme case and it's very very rare.
