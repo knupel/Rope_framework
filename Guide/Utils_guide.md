@@ -32,6 +32,8 @@ boolean window_change_is();
 
 void print_constants_rope();
 
+void print_constants_colour_rope();
+
 void print_constants_processing();
 
 public void print_constants();
