@@ -1,10 +1,10 @@
 /**
-Rope COLOUR
-v 0.7.1
+* Rope COLOUR
+*v 0.8.0
 * Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
-Rope – Romanesco Processing Environment – 
-Processing 3.5.3
+* Processing 3.5.3
+* Library Rope 0.7.0.1
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 *
@@ -20,81 +20,258 @@ Processing 3.5.3
 
 /**
 COLOUR LIST class
-v 0.0.2
+v 0.1.0
 */
 /**
 * Idea for the future add a list name for colour
 
 * get the colour by index or name
 */
-public class ROPE_colour implements rope.core.R_Constants {
-	int [] c;
-	public ROPE_colour(int... c) {
-		this.c = new int[c.length];
-		for(int i = 0; i < c.length ; i++) {
-			this.c[i] = c[i];
-		}
-	}
+public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Colour {
+  ArrayList<Integer> list;
+  PApplet pa;
+  public R_Colour(PApplet pa, int... list_colour) {
+    this.list = new ArrayList<Integer>();
+    this.pa = pa;
+    // this.list = new int[list.length];
+    for(int i = 0; i < list_colour.length ; i++) {
+      this.list.add(list_colour[i]);
+    }
+  }
 
-	public int[] get_colour() {
-		return c;
-	}
+  public void clear() {
+    list.clear();
+  }
 
-	float[] get_hue() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = hue(c[i]);
-		}
-		return component;
-	}
+  public void add(int c) {
+    list.add(c);
+  }
 
-	public float[] get_saturation() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = saturation(c[i]);
-		}
-		return component;
-	}
+  public void remove(int target) {
+    if(target >= 0 && target < list.size()) {
+      list.remove(target);
+    } else {
+      System.err.println("class R_Color method remove() no target match with your demand");
+    } 
+  }
 
-	public float[] get_brightness() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = brightness(c[i]);
-		}
-		return component;
-	}
+  public int [] get() {
+    int [] result = new int[list.size()];
+    for(int i = 0 ; i < list.size() ; i++) {
+      result[i] = list.get(i);
+    }
+    return result;
+  }
 
-	public float[] get_red() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = red(c[i]);
-		}
-		return component;
-	}
+  public int get(int target) {
+    if(target >= 0 && target < list.size()) {
+      return list.get(target);
+    } else {
+      System.err.println("class R_Color method get() no target match with your demand, instead '0' is return");
+      return 0;
+    }
+  }
 
-	public float[] get_green() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = green(c[i]);
-		}
-		return component;
-	}
+  public float get_hue(int target) {
+    if(target >= 0 && target < list.size()) {
+      return pa.hue(list.get(target));
+    } else {
+      System.err.println("class R_Color method get() no target match with your demand, instead '0' is return");
+      return 0;
+    }
+  }
 
-	public float[] get_blue() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = blue(c[i]);
-		}
-		return component;
-	}
+  public float get_saturation(int target) {
+    if(target >= 0 && target < list.size()) {
+      return pa.saturation(list.get(target));
+    } else {
+      System.err.println("class R_Color method get() no target match with your demand, instead '0' is return");
+      return 0;
+    }
+  }
 
-	public float[] get_alpha() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = blue(c[i]);
-		}
-		return component;
-	}
+  public float get_brightness(int target) {
+    if(target >= 0 && target < list.size()) {
+      return pa.brightness(list.get(target));
+    } else {
+      System.err.println("class R_Color method get() no target match with your demand, instead '0' is return");
+      return 0;
+    }
+  }
+
+  public float get_red(int target) {
+    if(target >= 0 && target < list.size()) {
+      return pa.red(list.get(target));
+    } else {
+      System.err.println("class R_Color method get() no target match with your demand, instead '0' is return");
+      return 0;
+    }
+  }
+
+  public float get_green(int target) {
+    if(target >= 0 && target < list.size()) {
+      return pa.green(list.get(target));
+    } else {
+      System.err.println("class R_Color method get() no target match with your demand, instead '0' is return");
+      return 0;
+    }
+  }
+
+  public float get_blue(int target) {
+    if(target >= 0 && target < list.size()) {
+      return pa.blue(list.get(target));
+    } else {
+      System.err.println("class R_Color method get() no target match with your demand, instead '0' is return");
+      return 0;
+    }
+  }
+
+  public float get_alpha(int target) {
+    if(target >= 0 && target < list.size()) {
+      return pa.alpha(list.get(target));
+    } else {
+      System.err.println("class R_Color method get() no target match with your demand, instead '0' is return");
+      return 0;
+    }
+  }
+
+  public vec3 get_hsb(int target) {
+    if(target >= 0 && target < list.size()) {
+      int c = list.get(target);
+      return vec3(pa.hue(c),pa.saturation(c),pa.brightness(c));
+    } else {
+      System.err.println("class R_Color method get() no target match with your demand, instead 'null' is return");
+      return null;
+    }
+  }
+
+  public vec4 get_hsba(int target) {
+    if(target >= 0 && target < list.size()) {
+      int c = list.get(target);
+      return vec4(pa.hue(c),pa.saturation(c),pa.brightness(c),pa.alpha(c));
+    } else {
+      System.err.println("class R_Color method get() no target match with your demand, instead 'null' is return");
+      return null;
+    }
+  }
+
+
+  public vec3 get_rgb(int target) {
+    if(target >= 0 && target < list.size()) {
+      int c = list.get(target);
+      return vec3(pa.red(c),pa.green(c),pa.blue(c));
+    } else {
+      System.err.println("class R_Color method get() no target match with your demand, instead 'null' is return");
+      return null;
+    }
+  }
+
+  public vec4 get_rgba(int target) {
+    if(target >= 0 && target < list.size()) {
+      int c = list.get(target);
+      return vec4(pa.red(c),pa.green(c),pa.blue(c),pa.alpha(c));
+    } else {
+      System.err.println("class R_Color method get() no target match with your demand, instead 'null' is return");
+      return null;
+    }
+  }
+
+
+
+
+
+  public vec3 [] hsb() {
+    vec3[] component = new vec3[list.size()];
+    for(int i = 0 ; i < list.size() ; i++) {
+      int c = list.get(i);
+      component[i] = vec3(pa.hue(c),pa.saturation(c),pa.brightness(c));
+    }
+    return component;
+  }
+
+  public vec3 [] rgb() {
+    vec3[] component = new vec3[list.size()];
+    for(int i = 0 ; i < list.size() ; i++) {
+      int c = list.get(i);
+      component[i] = vec3(pa.red(c),pa.green(c),pa.blue(c));
+    }
+    return component;
+  }
+
+
+  public vec4 [] hsba() {
+    vec4[] component = new vec4[list.size()];
+    for(int i = 0 ; i < list.size() ; i++) {
+      int c = list.get(i);
+      component[i] = vec4(pa.hue(c),pa.saturation(c),pa.brightness(c),pa.alpha(c));
+    }
+    return component;
+  }
+
+  public vec4 [] rgba() {
+    vec4[] component = new vec4[list.size()];
+    for(int i = 0 ; i < list.size() ; i++) {
+      int c = list.get(i);
+      component[i] = vec4(pa.red(c),pa.green(c),pa.blue(c),pa.alpha(c));
+    }
+    return component;
+  }
+
+  public float [] hue() {
+    float[] component = new float[list.size()];
+    for(int i = 0 ; i < list.size() ; i++) {
+      component[i] = pa.hue(list.get(i));
+    }
+    return component;
+  }
+
+  public float [] saturation() {
+    float[] component = new float[list.size()];
+    for(int i = 0 ; i < list.size() ; i++) {
+      component[i] = pa.saturation(list.get(i));
+    }
+    return component;
+  }
+
+  public float [] brightness() {
+    float[] component = new float[list.size()];
+    for(int i = 0 ; i < list.size() ; i++) {
+      component[i] = pa.brightness(list.get(i));
+    }
+    return component;
+  }
+
+  public float [] red() {
+    float[] component = new float[list.size()];
+    for(int i = 0 ; i < list.size() ; i++) {
+      component[i] = pa.red(list.get(i));
+    }
+    return component;
+  }
+
+  public float [] green() {
+    float[] component = new float[list.size()];
+    for(int i = 0 ; i < list.size() ; i++) {
+      component[i] = pa.green(list.get(i));
+    }
+    return component;
+  }
+
+  public float [] blue() {
+    float[] component = new float[list.size()];
+    for(int i = 0 ; i < list.size() ; i++) {
+      component[i] = pa.blue(list.get(i));
+    }
+    return component;
+  }
+
+  public float [] alpha() {
+    float[] component = new float[list.size()];
+    for(int i = 0 ; i < list.size() ; i++) {
+      component[i] = pa.blue(list.get(i));
+    }
+    return component;
+  }
 }
 
 

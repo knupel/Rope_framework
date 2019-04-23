@@ -1,28 +1,71 @@
 Colour guide
 v 0.1.0
-2017-2018
+2017-2019
 
 *colour list
 
 CONSTRUCTOR
 
-public ROPE_colour(int... c);
+public R_Colour(PApplet pa, int... c);
 
-int[] get_color();
+int[] get();
+>return all color component
 
-float[] get_hue();
+int get(int target);
+>return specific element;
 
-float[] get_saturation();
+void add(int colour);
 
-float[] get_brightness();
+void clear();
 
-float[] get_red();
+void remove(int target);
 
-float[] get_green();
+vec3 [] hsb();
 
-float[] get_blue();
+vec3 [] rgb();
 
-float[] get_alpha();
+vec4 [] hsba();
+
+vec4 [] rgba();
+
+float[] hue();
+
+float[] saturation();
+
+float[] brightness();
+
+float[] red();
+
+float[] green();
+
+float[] blue();
+
+float[] alpha();
+
+
+
+vec3 get_hsb(int target);
+
+vec3 get_rgb(int target);
+
+vec4 get_hsba(int target);
+
+vec4 get_rgba(int target);
+
+float get_hue(int target);
+
+float get_saturation(int target);
+
+float get_brightness(int target);
+
+float get_red(int target);
+
+float get_green(int target);
+
+float get_blue(int target);
+
+float get_alpha(int target);
+
 
 
 
