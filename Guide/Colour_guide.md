@@ -2,69 +2,144 @@ Colour guide
 v 0.1.0
 2017-2019
 
-*colour list
+*R_COLOUR
 
-CONSTRUCTOR
 
-public R_Colour(PApplet pa, int... c);
+*CONSTRUCTOR
+R_Colour(PApplet pa, int... list_colour);
 
-int[] get();
->return all color component
 
-int get(int target);
->return specific element;
+*METHOD
+
+void add(int [] colour);
+
+void add(int [] colour, int group);
+
+void add(int colour, int group);
 
 void add(int colour);
 
+
+
 void clear();
+
+void clear(int group);
 
 void remove(int target);
 
-vec3 [] hsb();
-
-vec3 [] rgb();
-
-vec4 [] hsba();
-
-vec4 [] rgba();
-
-float[] hue();
-
-float[] saturation();
-
-float[] brightness();
-
-float[] red();
-
-float[] green();
-
-float[] blue();
-
-float[] alpha();
+void remove(int target, int group);
 
 
+*GET
 
-vec3 get_hsb(int target);
+*if no group is targeted by default the group '0' is targeted
 
-vec3 get_rgb(int target);
+int [] get();
 
-vec4 get_hsba(int target);
+int [] get(int group);
 
-vec4 get_rgba(int target);
+int get_colour(int target);
 
+int get_colour(int target, int group);
+
+
+*SIMPLE COMPONENT COLOUR
+
+// single component
 float get_hue(int target);
 
+float get_hue(int target, int group);
+  
 float get_saturation(int target);
 
+float get_saturation(int target, int group);
+  
 float get_brightness(int target);
+
+float get_brightness(int target, int group);
 
 float get_red(int target);
 
+float get_red(int target, int group);
+  
 float get_green(int target);
+
+float get_green(int target, int group);
 
 float get_blue(int target);
 
 float get_alpha(int target);
+
+float get_alpha(int target, int group);
+
+// multi component
+vec3 get_hsb(int target);
+
+vec3 get_hsb(int target, int group);
+
+vec4 get_hsba(int target);
+
+vec4 get_hsba(int target, int group);
+
+vec3 get_rgb(int target);
+
+vec3 get_rgb(int target, int group);
+  
+vec4 get_rgba(int target);
+
+vec4 get_rgba(int target, int group);
+  
+
+*ARRAY COMPONENT COLOUR
+
+// single compoent colour 
+float [] hue();
+
+float [] hue(int group);
+
+float [] saturation();
+
+float [] saturation(int group);
+
+float [] brightness();
+
+float [] brightness(int group);
+
+float [] red();
+
+float [] red(int group);
+
+float [] green();
+
+float [] green(int group);
+  
+float [] blue();
+
+float [] blue(int group);
+
+float [] alpha();
+
+float [] alpha(int group);
+
+// multi component colour
+vec3 [] hsb();
+  
+vec3 [] hsb(int group);
+  
+vec3 [] rgb();
+
+vec3 [] rgb(int group);
+
+vec4 [] hsba();
+
+vec4 [] hsba(int group);
+  
+vec4 [] rgba();
+
+vec4 [] rgba(int group);
+
+
+
 
 
 
