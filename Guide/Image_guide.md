@@ -322,6 +322,7 @@ void background(ivec2 c);
 *BACKGROUND IMAGE
 
 method to improve Processing method background(PImage img)
+WARNING: only work in P2D or P3D rendering mode
 3 mode : CENTER, SCREEN, r.SCALE
 the mode SCALE is for set position and scale
 the color compoent use RGB colorMode
