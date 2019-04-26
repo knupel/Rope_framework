@@ -24,6 +24,6 @@ void setup() {
 
 void draw() {
 	println("window", window.hasFocus());
-	println("surface", surface.hasFocus());
+	// println("surface", surface.hasFocus());
 
 }
