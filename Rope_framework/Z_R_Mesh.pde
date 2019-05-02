@@ -4,10 +4,150 @@
 * v 0.0.1
 * 2019-2019
 */
+/**
+method
+*/
+boolean in_plane(vec3 a, vec3 b, vec3 c, vec3 any, float range) {
+  vec3 n = get_plane_normal(a, b, c);
+  // Calculate nearest distance between the plane represented by the vectors
+  // a,b and c, and the point any
+  float d = n.x()*any.x() + n.y()*any.y() + n.z()*any.z() - n.x()*a.x() - n.y()*a.y() - n.z()*a.z();
+  // A perfect result would be d == 0 but this will not hapen with realistic
+  // float data so the smaller d the closer the point. 
+  // Here I have decided the point is on the plane if the distance is less than 
+  // range unit.
+  return abs(d) < range; 
+}
+
+
+vec3 get_plane_normal(vec3 a, vec3 b, vec3 c) {
+	return new R_Plane().get_plane_normal(a,b,c);
+}
+
+/**
+* R_Plane
+* 2019-2019
+*/
+class R_Plane {
+	vec3 plane;
+	vec3 a;
+	float range = 1;
+	boolean debug = false;
+	ArrayList<R_Node> nodes;
+
+	public R_Plane() {}
+
+	public R_Plane(vec3 a, vec3 b, vec3 c) {
+		this.a = a;
+		this.plane = get_plane_normal(a,b,c);
+	}
+
+	public void set_plane(vec3 a, vec3 b, vec3 c) {
+		this.a = a;
+		this.plane = get_plane_normal(a,b,c);
+	}
+
+	public void set_range(float range) {
+		this.range = range;
+	}
+
+	public vec3 get_plane_normal(vec3 a, vec3 b, vec3 c) {
+  	return (sub(a,c).cross(sub(b,c))).normalize();
+	}
+
+	public float get_range() {
+		return range;
+	}
+
+	public R_Node [] get_nodes() {
+		if(nodes != null) {
+			return nodes.toArray(new R_Node[nodes.size()]);
+		} else {
+			return null;
+		}
+	}
+
+	private boolean in_plane(vec3 any, float range) {
+	  // Calculate nearest distance between the plane represented by the vectors
+	  // a,b and c, and the point any
+	  float d = plane.x()*any.x() + plane.y()*any.y() + plane.z()*any.z() - plane.x()*a.x() - plane.y()*a.y() - plane.z()*a.z();
+	  // A perfect result would be d == 0 but this will not hapen with realistic
+	  // float data so the smaller d the closer the point. 
+	  // Here I have decided the point is on the plane if the distance is less than 
+	  // range unit.
+	  return abs(d) < range; 
+	}
+
+
+	public void debug(boolean bebug) {
+		this.debug = debug;
+	}
+
+	public void clear() {
+		if(nodes != null) {
+			nodes.clear();
+		}
+	}
+
+	public int size() {
+		if(nodes != null) {
+			return nodes.size();
+		} else {
+			return -1;
+		}
+	}
+
+	public void add(R_Node any) {
+		if(in_plane(any.pos(),range)) {
+			if(nodes == null) {
+				nodes = new ArrayList<R_Node>();
+			} 
+			// println("in plane",any,frameCount);
+			nodes.add(any);
+		} else if(debug) {
+			println("class R_Plane method add():",any,"not in the plane",plane);
+		}
+	}
+}
+
+
+
+
+
+/**
+* R_Face
+* v 0.0.1
+*/
+public class R_Face {
+	vec3 a,b,c;
+	public R_Face(vec3 a, vec3 b, vec3 c) {
+		this.a = a.copy();
+		this.b = b.copy();
+		this.c = c.copy();
+	}
+
+	public vec3 [] get() {
+		vec3 [] summits = new vec3[3];
+		summits[0] = a.copy();
+		summits[1] = b.copy();
+		summits[2] = c.copy();
+		return summits;
+	}
+
+	public void show() {
+		beginShape();
+		vertex(a);
+		vertex(b);
+		vertex(c);
+		vertex(a); // close
+		endShape();
+	}
+}
+
 
 /**
 * R_Node
-* v 0.1.0
+* v 0.1.1
 * 2019-2019
 */
 public class R_Node {
@@ -16,6 +156,13 @@ public class R_Node {
 	private int branch = 4;
 	private int id;
 
+	public R_Node() {}
+
+	public R_Node(vec pos) {
+		this.id = (int)random(MAX_INT);
+		this.pos = vec3(pos);
+	}
+
 	public R_Node(vec pos, vec from) {
 		this.id = (int)random(MAX_INT);
 		this.pos = vec3(pos);
@@ -23,9 +170,23 @@ public class R_Node {
 		dest_list.add(vec3(from));
 	}
 
+	
+	public R_Node copy() {
+		R_Node node = new R_Node();
+		if(dest_list != null) {
+			node.dest_list = new ArrayList<vec3>(dest_list);
+		}
+		node.pos(this.pos);
+		node.set_branch(branch);
+		node.set_id(id);
+		return node;
+	}
+
+
+
 
 	public boolean add_destination(vec dst) {
-		if(dest_list.size() < branch && !all(equal(get_pos(),vec3(dst)))) {
+		if(dest_list.size() < branch && !all(equal(pos(),vec3(dst)))) {
 			boolean equal_is = false;
 			vec3 [] list = get_destination();
 			for(int i = 0 ; i < list.length ; i++) {
@@ -52,14 +213,47 @@ public class R_Node {
 	public void set_id(int id) {
 		this.id = id;
 	}
+  
+  public void set_branch(int branch) {
+  	this.branch = branch;
+  }
 
-	public void set_branch(int branch) {
-		if(branch > 1 && branch > dest_list.size()) {
-			this.branch = branch;
-		} 
+  public void pos(vec pos) {
+  	if(this.pos != null) {
+  		this.pos.set(pos.x(),pos.y(),pos.z());
+  	} else if(pos != null) {
+  		this.pos = new vec3(pos.x(),pos.y(),pos.z());
+  	}	else {
+  		this.pos = new vec3();
+  	}
+	}
+
+	public void x(float x) {
+		if(this.pos != null) {
+			this.pos.x(x);
+		} else {
+			this.pos = new vec3(x,0,0);
+		}
+	}
+
+	public void y(float y) {
+		if(this.pos != null) {
+			this.pos.y(y);
+		} else {
+			this.pos = new vec3(0,y,0);
+		}
+	}
+
+	public void z(float z) {
+		if(this.pos != null) {
+			this.pos.z(z);
+		} else {
+			this.pos = new vec3(0,0,z);
+		}
 	}
 
   
+
   // get
 	public int get_id() {
 		return id;
@@ -77,8 +271,20 @@ public class R_Node {
 		return dest_list.toArray(new vec3[dest_list.size()]);
 	}
 
-	public vec3 get_pos() {
-		return pos;
+	public vec3 pos() {
+		return pos.xyz();
+	}
+
+	public float x() {
+		return pos.x();
+	}
+
+	public float y() {
+		return pos.y();
+	}
+
+	public float z() {
+		return pos.z();
 	}
 }
 
@@ -183,3 +389,10 @@ public class R_Segment {
   	}
   }
 }
+
+
+
+
+
+
+
