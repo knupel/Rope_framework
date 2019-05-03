@@ -160,6 +160,17 @@ int camaieu(float max, float color_ref, float range);
 >arg color_ref is the average value to do camaieu
 >arg range is used to contrain the method around the color_ref
 
+
+
+
+
+
+
+*palette R_Colour
+
+R_Colour hue_palette(int master_colour, int num_colour, int num_group, float spectrum);
+
+
 *color pool
 
 The color give the possiblity to built a color palette.

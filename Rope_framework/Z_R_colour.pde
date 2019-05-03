@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.10.0
+*v 0.10.1
 * Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * Processing 3.5.3
@@ -11,6 +11,7 @@
 * Pack of method to use colour, palette and method conversion
 *
 */
+
 
 
 
@@ -477,16 +478,16 @@ float [] getColorMode() {
 
 /**
 camaieu 
-v 0.1.1
+v 0.1.2
 */
-// return hue or other date in range of specific data float
-float camaieu(float max, float color_ref, float range) {
+// return hue or other data in range of specific data float
+float camaieu(float max, float reference, float range) {
   float camaieu = 0 ;
-  float which_color = random(-range, range) ;
-  camaieu = color_ref +which_color ;
-  if(camaieu < 0 ) camaieu = max +camaieu ;
-  if(camaieu > max) camaieu = camaieu -max ;
-  return camaieu ;
+  float choice = random(-range,range);
+  camaieu = reference + choice;
+  if(camaieu < 0 ) camaieu = max +camaieu;
+  if(camaieu > max) camaieu = camaieu -max;
+  return camaieu;
 }
 
 
@@ -494,6 +495,21 @@ float camaieu(float max, float color_ref, float range) {
 
 
 
+
+
+/**
+simple color pool
+*/
+R_Colour hue_palette(int master_colour, int num_colour, int num_group, float spectrum) {
+  if(num_group > num_colour) num_group = num_colour;
+  float div = 1.0 / num_group;
+  int hue_range = int(spectre*div); // > 360 / 2
+  int hue_key = (int)hue(master_colour);
+  vec2 range_sat = vec2(saturation(master_colour));
+  vec2 range_bri = vec2(brightness(master_colour));
+  vec2 range_alp = vec2(100);
+  int [] list_temp = color_pool(num_colour,num_group, hue_key,hue_range, range_sat,range_bri,range_alp);
+}
 
 /**
 color pool 
