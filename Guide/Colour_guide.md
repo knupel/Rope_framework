@@ -166,9 +166,9 @@ int camaieu(float max, float color_ref, float range);
 
 
 
-*palette R_Colour
+*simple hue colour generator
 
-R_Colour hue_palette(int master_colour, int num_colour, int num_group, float spectrum);
+int [] hue_palette(int master_colour, int num_colour, int num_group, float spectrum);
 
 
 *color pool
