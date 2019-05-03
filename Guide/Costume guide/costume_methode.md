@@ -1,4 +1,4 @@
-*COSTUME
+*COSTUME METHODE
 
 v 1.2.0
 2016-2019
@@ -16,104 +16,6 @@ to change the aspect like fill, stroke or strokeWeight use aspect_rope();
 --
 
 
-*CLASS
-
-
-*PRIMITIVE
-
-Create a regular polygon with "n" summits
---
-Primitive primtive = new Primtive()
-
-draw
---
-draw do void calc(), plus void show();
-
-void draw(float diam, int summits);
-
-void draw(vec pos, float diam, int summits);
-
-void draw(vec pos, float diam, int summits, float angle);
-
-void draw(vec pos, float diam, int summits, vec2 polar_coord);
-
-void draw(vec pos, float diam, int summits, float orientation, vec2 polar_coord);
-
-
-calc
---
-compute the points
-
-void calc(float diam, int summits);
-
-void calc(vec pos, float diam, int summits);
-
-void calc(vec pos, float diam, int summits, float angle);
-
-void calc(vec pos, float diam, int summits, vec2 polar_coord);
-
-void calc(vec pos, float diam, int summits, float orientation, vec2 polar_coord);
-
-show
---
-void show();
-
-get
---
-vec3 [] get_normal();
-> return the normal position of the primitive
-
-vec3 get_pos();
-> return the real position of the primitive
-
-vec2 get_dir();
-> return the polar coord, don't work for the moment
-
-float get_diam();
-
-float get_radius();
-
-int get_summits();
-
-float get_angle();
-
-
-*STAR
-
-documentation comming before 2028
-
-
-
-*HOUSE
-
-documentation comming before 2028
-
-
-
-*VIRUS
-
-documentation comming before 2028
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -124,7 +26,7 @@ documentation comming before 2028
 *METHOD
 
 
-$*main
+*main
 
 when the targeting costume is a pixel few possibility is no more available to use, like move in 3D, change thickness...because for pixel the methode set(x,y,c) from Processing is used, see Processing method.
 
