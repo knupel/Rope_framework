@@ -63,7 +63,7 @@ void setup() {
 
 	// too use pointer method you need to be sure all your chain is the same Object vec3
 	// Use this method can be the possibility to pass the initial object all along your way
-	face.set(plane.get_nodes()[0].pointer(),plane.get_nodes()[1].pointer(),plane.get_nodes()[2].pointer()); 
+	face.set(plane.get_nodes().get(0).pointer(),plane.get_nodes().get(1).pointer(),plane.get_nodes().get(2).pointer()); 
 
 
 }
@@ -77,9 +77,9 @@ void draw() {
 		cloud[i].jitter(20);
 	}
   println("new round", frameCount);
-	for(int i = 0 ; i < plane.get_nodes().length ; i++) {
-		println("plane pos",plane.get_nodes()[i].pos()); // here you don't method pointer because the pos is refresh just above
-		println("plane pointer",plane.get_nodes()[i].pointer());
+	for(int i = 0 ; i < plane.get_nodes().size() ; i++) {
+		println("plane pos",plane.get_nodes().get(i).pos()); // here you don't method pointer because the pos is refresh just above
+		println("plane pointer",plane.get_nodes().get(i).pointer());
 	}
 
 	face.show();
