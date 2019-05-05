@@ -1,7 +1,7 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.0.2
+* v 0.0.3
 * 2019-2019
 */
 /**
@@ -27,6 +27,7 @@ vec3 get_plane_normal(vec3 a, vec3 b, vec3 c) {
 /**
 * R_Plane
 * 2019-2019
+* 0.0.2
 */
 class R_Plane {
 	vec3 plane;
@@ -42,7 +43,7 @@ class R_Plane {
 		this.plane = get_plane_normal(a,b,c);
 	}
 
-	public void set_plane(vec3 a, vec3 b, vec3 c) {
+	public void set(vec3 a, vec3 b, vec3 c) {
 		this.a = a;
 		this.plane = get_plane_normal(a,b,c);
 	}
@@ -165,7 +166,7 @@ public class R_Face {
 
 /**
 * R_Node
-* v 0.1.1
+* v 0.2.0
 * 2019-2019
 */
 public class R_Node {
@@ -176,16 +177,17 @@ public class R_Node {
 
 	public R_Node() {}
 
-	public R_Node(vec pos) {
+
+	public R_Node(vec3 pos) {
 		this.id = (int)random(MAX_INT);
-		this.pos = vec3(pos);
+		this.pos = pos;
 	}
 
-	public R_Node(vec pos, vec from) {
+	public R_Node(vec3 pos, vec3 from) {
 		this.id = (int)random(MAX_INT);
-		this.pos = vec3(pos);
+		this.pos = pos;
 		dest_list = new ArrayList<vec3>();
-		dest_list.add(vec3(from));
+		dest_list.add(from);
 	}
 
 	
@@ -203,7 +205,7 @@ public class R_Node {
 
 
 
-	public boolean add_destination(vec dst) {
+	public boolean add_destination(vec3 dst) {
 		if(dest_list.size() < branch && !all(equal(pos(),vec3(dst)))) {
 			boolean equal_is = false;
 			vec3 [] list = get_destination();
@@ -236,13 +238,11 @@ public class R_Node {
   	this.branch = branch;
   }
 
-  public void pos(vec pos) {
-  	if(this.pos != null) {
-  		this.pos.set(pos.x(),pos.y(),pos.z());
-  	} else if(pos != null) {
-  		this.pos = new vec3(pos.x(),pos.y(),pos.z());
-  	}	else {
+  public void pos(vec3 pos) {
+  	if(pos == null) {
   		this.pos = new vec3();
+  	}	else {
+  		this.pos = pos;
   	}
 	}
 
