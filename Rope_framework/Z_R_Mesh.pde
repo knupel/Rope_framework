@@ -1,7 +1,7 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.0.3
+* v 0.0.4
 * 2019-2019
 */
 /**
@@ -117,23 +117,32 @@ class R_Plane {
 
 /**
 * R_Face
-* v 0.0.2
+* v 0.0.4
 */
 public class R_Face {
 	vec3 a,b,c;
 	int fill;
 	int stroke;
+	public R_Face() {}
+
 	public R_Face(vec3 a, vec3 b, vec3 c) {
-		this.a = a.copy();
-		this.b = b.copy();
-		this.c = c.copy();
+		this.a = a;
+		this.b = b;
+		this.c = c;
 	}
+
+	public void set(vec3 a, vec3 b, vec3 c) {
+		this.a = a;
+		this.b = b;
+		this.c = c;
+	}
+
 
 	public vec3 [] get() {
 		vec3 [] summits = new vec3[3];
-		summits[0] = a.copy();
-		summits[1] = b.copy();
-		summits[2] = c.copy();
+		summits[0] = a;
+		summits[1] = b;
+		summits[2] = c;
 		return summits;
 	}
 
@@ -291,6 +300,10 @@ public class R_Node {
 
 	public vec3 pos() {
 		return pos.xyz();
+	}
+
+	public vec3 pointer() {
+		return pos;
 	}
 
 	public float x() {
