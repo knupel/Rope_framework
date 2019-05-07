@@ -1,23 +1,28 @@
 Colour guide
-v 0.1.0
+v 0.2.0
 2017-2019
 
 *R_COLOUR
 
 
 *CONSTRUCTOR
+
 R_Colour(PApplet pa, int... list_colour);
+
+R_Colour(PApplet pa);
 
 
 *METHOD
 
+void add(int colour);
+
 void add(int [] colour);
 
-void add(int [] colour, int group);
+void add(int group, int [] colour);
 
-void add(int colour, int group);
+void add(int group, int colour);
 
-void add(int colour);
+
 
 
 
@@ -27,7 +32,7 @@ void clear(int group);
 
 void remove(int target);
 
-void remove(int target, int group);
+void remove( int group, int target);
 
 
 *GET
@@ -40,7 +45,7 @@ int [] get(int group);
 
 int get_colour(int target);
 
-int get_colour(int target, int group);
+int get_colour(int group, int target);
 
 
 *SIMPLE COMPONENT COLOUR
@@ -48,46 +53,26 @@ int get_colour(int target, int group);
 // single component
 float get_hue(int target);
 
-float get_hue(int target, int group);
+float get_hue(int group, int target);
+
+float get_saturation(int group, int target);
   
-float get_saturation(int target);
+float get_brightness(int group, int target);
 
-float get_saturation(int target, int group);
-  
-float get_brightness(int target);
+float get_red(int group, int target);
 
-float get_brightness(int target, int group);
+float get_green(int group, int target);
 
-float get_red(int target);
-
-float get_red(int target, int group);
-  
-float get_green(int target);
-
-float get_green(int target, int group);
-
-float get_blue(int target);
-
-float get_alpha(int target);
-
-float get_alpha(int target, int group);
+float get_alpha(int group, int target);
 
 // multi component
-vec3 get_hsb(int target);
+vec3 get_hsb(int group, int target);
 
-vec3 get_hsb(int target, int group);
+vec4 get_hsba(int group, int target);
 
-vec4 get_hsba(int target);
+vec3 get_rgb(int group, int target);
 
-vec4 get_hsba(int target, int group);
-
-vec3 get_rgb(int target);
-
-vec3 get_rgb(int target, int group);
-  
-vec4 get_rgba(int target);
-
-vec4 get_rgba(int target, int group);
+vec4 get_rgba(int group, int target);
   
 
 *ARRAY COMPONENT COLOUR
@@ -168,7 +153,7 @@ int camaieu(float max, float color_ref, float range);
 
 *simple hue colour generator
 
-int [] hue_palette(int master_colour, int num_colour, int num_group, float spectrum);
+int [] hue_palette(int master_colour, int num_group, int num_colour, float spectrum);
 
 
 *color pool
@@ -190,15 +175,16 @@ int [] color_pool(int num);
 
 int [] color_pool(int num, float key_hue, float hue_range);
 
-int [] color_pool(int num, int num_group, float key_hue, float hue_range);
+int [] color_pool(int num_group, int num, float key_hue, float hue_range);
 
-int [] color_pool(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range);
+int [] color_pool(int num_group, int num, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range);
+
 
 int [] color_pool(int num, int colour, float hue_range, float sat_range, float bri_range);
 
-int [] color_pool(int num, int num_group, int colour, float hue_range, float sat_range, float bri_range);
+int [] color_pool(int num_group, int num, int colour, float hue_range, float sat_range, float bri_range);
 
-int [] color_pool(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range);
+int [] color_pool(int num_group, int num, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range);
 
 
 *check component color
