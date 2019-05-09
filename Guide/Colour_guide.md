@@ -43,6 +43,12 @@ int [] get();
 
 int [] get(int group);
 
+int rand();
+>return a random colour from all colours available
+
+int rand(in group);
+>return random colour from available colour of a specific group
+
 int get_colour(int target);
 
 int get_colour(int group, int target);
