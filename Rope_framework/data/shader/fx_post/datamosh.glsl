@@ -5,7 +5,7 @@
 * @see https://github.com/StanLepunK/Shader
 * original shader from Alexandre Rivaux
 * @see https://github.com/alexr4/datamoshing-GLSL
-* v 0.0.1
+* v 0.0.2
 * 2019-2019
 */
 
@@ -14,6 +14,8 @@ precision mediump float;
 precision mediump int;
 #endif
 #define PROCESSING_TEXTURE_SHADER
+varying vec4 vertColor;
+varying vec4 vertTexCoord;
 
 #define PI 3.14159265359
 
@@ -28,8 +30,6 @@ uniform sampler2D texture_layer;
 uniform vec2 resolution;
 
 
-
-
 //optical flow variables
 uniform float minVel= 0.01; 
 uniform float maxVel = 0.5; 
@@ -42,16 +42,10 @@ uniform float time;
 uniform float threshold = 0.15;
 uniform float strength = 5.0;
 
-
-uniform float offsetRGB = 0.025;
-
 uniform vec2 offset_red;
 uniform vec2 offset_green;
 uniform vec2 offset_blue;
 
-in vec4 vertTexCoord;
-in vec4 vertColor;
-out vec4 fragColor;
 
 
 
@@ -205,32 +199,20 @@ void main() {
   st.y = uv.y + flow.y * texel.y *strength;
 
   //shift rgb
-  
   vec2 shift = vec2(cos(flow.x * PI + time * 0.1), sin(flow.y * PI + time * 0.1));
   vec2 shift_red = st +(shift *offset_red);
   vec2 shift_green = st +(shift *offset_green);
   vec2 shift_blue = st +(shift *offset_blue);
-  float r = texture(texture_layer,shift_red).r;
-  float g = texture(texture_layer,shift_green).g;
-  float b = texture(texture_layer,shift_blue).b;
+  float r = texture2D(texture_layer,shift_red).r;
+  float g = texture2D(texture_layer,shift_green).g;
+  float b = texture2D(texture_layer,shift_blue).b;
   
-  
-
-  /*
-  // vec2 shift = vec2(cos(flow.x * PI + time * 0.1), sin(flow.y * PI + time * 0.1)) * offsetRGB;
-  vec2 shift = vec2(cos(flow.x * PI + time * 0.1), sin(flow.y * PI + time * 0.1)) * offset_red.x;
-  float r = texture(texture_layer, st + shift).r;
-  float g = texture(texture_layer, st ).g;
-  float b = texture(texture_layer, st - shift).b;
-  */
-  
-
-  vec4 datamosh = texture(texture_layer, st);
+  vec4 datamosh = texture2D(texture_layer, st);
   datamosh.rgb = vec3(r, g, b) * stepper;
 
-  vec4 color = texture(texture, uv.st);
+  vec4 color = texture2D(texture, uv.st);
   
-  fragColor =  color * (1.0 - stepper) + datamosh * stepper;;
+  gl_FragColor =  color * (1.0 - stepper) + datamosh * stepper;;
 }
 
 
