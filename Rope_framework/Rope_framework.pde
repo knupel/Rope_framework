@@ -12,25 +12,58 @@
 * import rope.vector.*; > imported in the tab Z_R_core.pde
 * 
 */
+PImage img_a;
+PImage img_b;
+PImage img_c;
+PImage result;
+PGraphics mask;
 
 void setup() {
-	size(640,480,P2D);
+	size(640,480,P3D);
+	mask = createGraphics(width,height,get_renderer());
+
 	create_mask();
+	//mask.loadPixels();
 	select_input();
+	img_a = loadImage("jpg file/small_dame_hermine.jpg");
+	img_b = loadImage("jpg file/petite_joconde.jpg");
+	// img_c = loadImage("jpg file/petite_joconde.jpg");
+	// println(img_a.width,img_a.height);
+
 }
 
-PImage img;
+
 void draw() {
-	if(input() != null && img == null) {
-		img = loadImage(input());
-	}
-	
-	if(img != null) {
-		background(img,SCREEN);
+	if(img_c != null) {
+		// background(img_c,SCREEN);
+		background(r.PINK);
+	} else {
+		background(r.PINK);
 	}
 
-	show_mask();
+	if(img_a != null) {
+		render_mask(mask);
+		PImage temp = mask;
+		// result = fx_mask(img_a,temp,false);
+		result = fx_mask(img_a,img_b,false);
+		// result = fx_mask(img_a,img_b,false);
+		// image(temp);
+		image(result);
+	}
+
+
+  if(input() != null && img_c == null) { 
+  	img_c = loadImage(input());
+  	if(img_a.width != width && img_a.height != height) {
+			surface.setSize(img_a.width,img_a.height);
+			mask.setSize(img_a.width,img_a.height);
+		}
+ 	}
+
+
+	
 }
+
 
 vec2 [] coord ;
 void create_mask() {
@@ -40,15 +73,24 @@ void create_mask() {
 	}
 }
 
-void show_mask() {
-	fill(r.VERMILLON);
-	noStroke();
-	beginShape();
+void render_mask(PGraphics pg) {
+	pg.beginDraw();
+	pg.clear();
+	// shape
+	vec3 fill = abs(vec3().sin_wave(frameCount,.01,.02,.03)).mult(256);
+	println("rgb",fill.red(),fill.gre(),fill.blu());
+	pg.fill(fill.red(),fill.gre(),fill.blu());
+	// pg.fill(r.BLOOD);
+	//pg.fill(r.WHITE);
+	pg.noStroke();
+	pg.beginShape();
 	for(vec2 v : coord) {
-		vertex(v);
+		pg.vertex(v.x(),v.y());
 	}
-	vertex(coord[0]);
-	endShape();
+	pg.vertex(coord[0].x(),coord[0].y());
+	pg.endShape();
+	//
+	pg.endDraw();
 }
 
 void keyPressed() {
