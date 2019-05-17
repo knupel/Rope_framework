@@ -17,39 +17,53 @@ PImage img_b;
 PImage img_c;
 PImage result;
 PGraphics mask;
+PGraphics pattern;
 
 void setup() {
-	size(640,480,P3D);
+	size(640,480,P2D);
 	mask = createGraphics(width,height,get_renderer());
+	pattern = createGraphics(width,height,get_renderer());
 
 	create_mask();
 	//mask.loadPixels();
-	select_input();
+	// select_input();
 	img_a = loadImage("jpg file/small_dame_hermine.jpg");
 	img_b = loadImage("jpg file/petite_joconde.jpg");
 	// img_c = loadImage("jpg file/petite_joconde.jpg");
 	// println(img_a.width,img_a.height);
+	surface.setSize(img_a.width,img_a.height);
+	mask.setSize(img_a.width,img_a.height);
+	pattern = pattern_noise(img_a.width,img_a.height,0.01);
 
 }
 
 
 void draw() {
+	background(r.PINK);
+	/*
 	if(img_c != null) {
 		// background(img_c,SCREEN);
 		background(r.PINK);
 	} else {
 		background(r.PINK);
 	}
+	*/
 
 	if(img_a != null) {
 		render_mask(mask);
-		PImage temp = mask;
-		// result = fx_mask(img_a,temp,false);
-		result = fx_mask(img_a,img_b,false);
-		// result = fx_mask(img_a,img_b,false);
+		// result = fx_mask(img_a,pattern,false);
+		//result = fx_mask(img_a,mask,false);
+		boolean on_g = false;
+		boolean filter_is = true;
+		result = fx_mask(img_a,img_b,on_g,filter_is);
+		// result = fx_mask(img_b,img_a,false);
 		// image(temp);
 		image(result);
+		// image(pattern);
 	}
+
+	//println("alpha",alpha(result.get(25,25)));
+
 
 
   if(input() != null && img_c == null) { 
@@ -59,10 +73,22 @@ void draw() {
 			mask.setSize(img_a.width,img_a.height);
 		}
  	}
-
-
-	
 }
+
+
+
+void keyPressed() {
+	if(key == 'n') {
+		create_mask();
+		pattern.clear();
+		pattern = pattern_noise(img_a.width,img_a.height,0.01);
+	}
+}
+
+
+
+
+
 
 
 vec2 [] coord ;
@@ -77,8 +103,9 @@ void render_mask(PGraphics pg) {
 	pg.beginDraw();
 	pg.clear();
 	// shape
-	vec3 fill = abs(vec3().sin_wave(frameCount,.01,.02,.03)).mult(256);
-	println("rgb",fill.red(),fill.gre(),fill.blu());
+	// vec3 fill = abs(vec3().sin_wave(frameCount,.01)).mult(256);
+	float value = map(mouseX,0,width,0,256);
+	vec3 fill = vec3(value);
 	pg.fill(fill.red(),fill.gre(),fill.blu());
 	// pg.fill(r.BLOOD);
 	//pg.fill(r.WHITE);
@@ -93,6 +120,3 @@ void render_mask(PGraphics pg) {
 	pg.endDraw();
 }
 
-void keyPressed() {
-	if(key == 'n') create_mask();
-}
