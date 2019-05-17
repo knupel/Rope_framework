@@ -26,37 +26,40 @@ void setup() {
 
 	create_mask();
 	//mask.loadPixels();
-	// select_input();
-	img_a = loadImage("jpg file/small_dame_hermine.jpg");
+	select_input();
+	img_a = loadImage("jpg file/small_dame_hermine_2.jpg");
 	img_b = loadImage("jpg file/petite_joconde.jpg");
 	// img_c = loadImage("jpg file/petite_joconde.jpg");
 	// println(img_a.width,img_a.height);
-	surface.setSize(img_a.width,img_a.height);
-	mask.setSize(img_a.width,img_a.height);
+	
 	pattern = pattern_noise(img_a.width,img_a.height,0.01);
 
 }
 
 
 void draw() {
-	background(r.PINK);
-	/*
+	boolean on_g = false;
+	boolean filter_is = true;
+	if(width != img_a.width && height != img_b.height && input() != null) {
+		resize(img_a);
+	}
+
+	
 	if(img_c != null) {
-		// background(img_c,SCREEN);
-		background(r.PINK);
+		background(img_c,SCREEN);
+		// background(r.PINK);
 	} else {
 		background(r.PINK);
 	}
-	*/
 
 	if(img_a != null) {
 		render_mask(mask);
-		// result = fx_mask(img_a,pattern,false);
-		//result = fx_mask(img_a,mask,false);
-		boolean on_g = false;
-		boolean filter_is = true;
-		result = fx_mask(img_a,img_b,on_g,filter_is);
-		// result = fx_mask(img_b,img_a,false);
+		// result = fx_mask(img_a,pattern,on_g,filter_is);
+		result = fx_mask(img_a,mask,on_g,filter_is);
+
+		// result = fx_mask(img_a,img_b,on_g,filter_is);
+		// result = fx_mask(img_b,img_a,on_g,filter_is);
+		// result = fx_mask(img_a,img_b,on_g,filter_is);
 		// image(temp);
 		image(result);
 		// image(pattern);
@@ -74,6 +77,12 @@ void draw() {
 		}
  	}
 }
+
+void resize(PImage canvas) {
+	surface.setSize(canvas.width,canvas.height);
+	mask.setSize(canvas.width,canvas.height);
+}
+
 
 
 
@@ -94,17 +103,18 @@ void keyPressed() {
 vec2 [] coord ;
 void create_mask() {
 	coord = new vec2[3];
+	int marge = 50;
 	for(int i = 0 ; i < coord.length ; i++) {
-		coord[i] = vec2().rand(vec2(0,width),vec2(0,height));
+		coord[i] = vec2().rand(vec2(-marge,width+marge),vec2(-marge,height+marge));
 	}
 }
 
 void render_mask(PGraphics pg) {
 	pg.beginDraw();
-	pg.clear();
+	if(mousePressed) pg.clear();
 	// shape
 	// vec3 fill = abs(vec3().sin_wave(frameCount,.01)).mult(256);
-	float value = map(mouseX,0,width,0,256);
+	float value = abs(sin(frameCount *0.02)*g.colorModeX);
 	vec3 fill = vec3(value);
 	pg.fill(fill.red(),fill.gre(),fill.blu());
 	// pg.fill(r.BLOOD);

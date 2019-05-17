@@ -9,7 +9,7 @@
 #ifdef GL_ES
 precision highp float;
 #endif
-// #define PROCESSING_TEXTURE_SHADER
+#define PROCESSING_TEXTURE_SHADER
 varying vec4 vertColor;
 varying vec4 vertTexCoord;
 uniform vec2 resolution; // WARNING VERY IMPORTANT // need this name for unknow reason :( here your pass your resolution texture
@@ -77,15 +77,9 @@ void main() {
   vec4 colour_source = texture2D(texture_source,uv_source);
 
   vec4 colour_mask = texture2D(texture_layer,uv_layer);
-  // float remove = colour_mask.x + colour_mask.y + colour_mask.z;
-  vec4 remove = vec4(colour_mask.x + colour_mask.y + colour_mask.z);
-  // vec4 remove = vec4((colour_mask.x + colour_mask.y + colour_mask.z) / 3.0);
-  // float remove = (colour_mask.x + colour_mask.y + colour_mask.z) / 1.5;
-  // float remove = (colour_mask.x + colour_mask.y + colour_mask.z) / 3.0;
+  vec4 remove = vec4((colour_mask.x + colour_mask.y + colour_mask.z) / 3.0);
   colour_source.xyzw = colour_source.xyzw - remove;
   gl_FragColor = colour_source;
-  // gl_FragColor = vec4(1,1,1,0);
-  // gl_FragColor = vec4(0,1,0,.5);
 }
 
 
