@@ -222,8 +222,7 @@ int size();
 void clear()
 >clear the library
 
-ArrayList<ROPImage> list();
-> return the list of component ROPImage
+
 
 void add(PImage pg)
 >add PImage or PGraphics to library
@@ -237,21 +236,38 @@ void set(PImage pg, int target)
 void set(PImage pg, String target_name) 
 >replane an image by an other one
 
-int get_rank(String target);
-> return the rank of the target
 
-String get_name();
-> return String name of the current ROPImage
+get
+--
+ArrayList<R_Image> list();
+>return the list of component ROPImage
 
-String get_name(int target);
-> return the String name of the target ROPImage
+PImage [] get() 
+>return all PImage available from the library list
 
+PImage get_current();
+>return the current PImage is there is, if not return the first PImage from the list
 
 PImage get(int target);
 >return a specific image from the bank image
 
 PImage get(String target_name);
 >return a specific image from the bank image
+
+R_Image rand();
+>return a random R_image from the library list
+
+
+int get_rank(String target);
+> return the rank of the target
+
+String get_current name();
+> return String name of the current R_Image
+
+
+String get_name(int target);
+> return the String name of the target R_Image
+
 
 
 
@@ -265,11 +281,13 @@ R_Image(String path);
 
 R_Image(PImage img);
 
-R_Image(PImage img, String name);
+R_Image(PImage img, String name, int id);
   
 methodes
 --
 R_Image get();
+
+int get_id() 
 
 String get_name();
 
