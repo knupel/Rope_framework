@@ -198,7 +198,7 @@ PImage paste(PImage img, int entry, int [] array_pix, boolean verticale_is) ;
 
 *CLASS IMAGE MANAGER
 
-class ROPImage_Manager;
+class R_Image_Manager;
 >This little class giv you a possibility to make a dynamic bank image
 
 
@@ -246,8 +246,6 @@ String get_name();
 String get_name(int target);
 > return the String name of the target ROPImage
 
-PImage get();
->return the current image
 
 PImage get(int target);
 >return a specific image from the bank image
@@ -257,6 +255,25 @@ PImage get(String target_name);
 
 
 
+
+*CLASS IMAGE
+
+
+contructor
+--
+R_Image(String path);
+
+R_Image(PImage img);
+
+R_Image(PImage img, String name);
+  
+methodes
+--
+R_Image get();
+
+String get_name();
+
+PImage get_image();
 
 
 
