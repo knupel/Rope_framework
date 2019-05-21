@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.5.1
+* v 0.5.2
 * Copyleft (c) 2014-2019
 * Processing 3.5.3.269
 * Rope library 0.7.1.25
@@ -246,11 +246,13 @@ void select_layer(int target) {
 
 /**
 PImage manager library
-v 0.6.1
+v 0.6.2
 */
-class R_Image_Manager {
+public class R_Image_Manager {
   ArrayList<R_Image> library ;
   int which_img;
+
+  public R_Image_Manager() {}
 
   private void build() {
     if(library == null) {
@@ -993,7 +995,7 @@ void show_canvas(int num) {
 
 /**
 * BACKGROUND
-* v 0.2.4
+* v 0.2.5
 * 2015-2019
 */
 /**
@@ -1106,7 +1108,7 @@ void background_calc(PImage src, vec2 pos, vec2 scale, vec3 colour_background, v
     }
     
     int shader_mode = 0;
-    if(mode == CENTER) {
+    if(mode == r.FIT) {
       shader_mode = 0;
     } else if(mode == SCREEN) {
       shader_mode = 1;
