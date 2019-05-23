@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.5.2
+* v 0.5.1
 * Copyleft (c) 2014-2019
 * Processing 3.5.3.269
 * Rope library 0.7.1.25
@@ -653,10 +653,10 @@ void image(PImage img, vec pos) {
     image(img, p.x, p.y) ;
   } else if(pos instanceof vec3) {
     vec3 p = (vec3) pos ;
-    start_matrix() ;
+    push() ;
     translate(p) ;
     image(img, 0,0) ;
-    stop_matrix() ;
+    pop() ;
   }
 }
 
@@ -666,10 +666,10 @@ void image(PImage img, vec pos, vec2 size) {
     image(img, p.x, p.y, size.x, size.y) ;
   } else if(pos instanceof vec3) {
     vec3 p = (vec3) pos ;
-    start_matrix() ;
+    push() ;
     translate(p) ;
     image(img, 0,0, size.x, size.y) ;
-    stop_matrix() ;
+    pop() ;
   }
 }
 

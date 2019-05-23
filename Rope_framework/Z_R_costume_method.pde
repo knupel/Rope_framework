@@ -1,7 +1,7 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.8.5
+* v 1.8.6
 * processing 3.5.3.269
 * Rope Library 0.7.1.25
 * @author @stanlepunk
@@ -164,11 +164,11 @@ void costume_impl(vec3 pos, vec3 size, vec rot, String sentence) {
 	if(rot.y != 0) costume_rotate_y();
 	if(rot.z != 0) costume_rotate_z();
 
-	start_matrix();
+	push();
 	translate(pos);
 	rotate_behavior(rot);
   text(sentence,0,0);
-	stop_matrix();
+	pop();
 }
 
 /**

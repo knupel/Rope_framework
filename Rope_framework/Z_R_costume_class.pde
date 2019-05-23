@@ -451,12 +451,21 @@ public class Costume {
 		strokeWeight(this.thickness);
 	}
 
+  /**
+  * travail de demain pour pouvoir passer le rendu de costume sur une autre PGRaphics
+  *
+  *
+  *
+  *
+  *
+  */
+
+  public void draw(vec3 pos, vec3 size, vec rot) {
+  	draw(pos,size,rot,null);
+  }
 
 
-
-
-
-	public void draw(vec3 pos, vec3 size, vec rot) {
+	public void draw(vec3 pos, vec3 size, vec rot, PGraphics other) {
 		if(rot.x != 0) costume_rotate_x();
 		if(rot.y != 0) costume_rotate_y();
 		if(rot.z != 0) costume_rotate_z();
@@ -467,135 +476,136 @@ public class Costume {
 	    strokeWeight(size.x);
 			point(pos);
 		} else if (this.get_type() == ELLIPSE_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
-			ellipse(vec2(),size);
-			stop_matrix();
+			println(size);
+			ellipse(vec2(),vec2(size));
+			pop();
 
 		} else if (this.get_type() == RECT_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			rect(vec2(-size.x,-size.y).div(2),vec2(size.x,size.y));
-			stop_matrix();
+			pop();
 
 		} else if (this.get_type() == LINE_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,2);
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			prim.size((int)size.x);
 			prim.show();
-			stop_matrix();
+			pop();
 		}
 
 		else if (this.get_type() == TRIANGLE_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,3);
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			prim.size((int)size.x);
 			prim.show();
-			stop_matrix();
+			pop();
 		}  else if (this.get_type() == SQUARE_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,4);
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			prim.size((int)size.x);
 			prim.show();
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == PENTAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,5);
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			prim.size((int)size.x);
 			prim.show();
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == HEXAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,6);
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			prim.size((int)size.x);
 			prim.show();
-			stop_matrix() ;
+			pop() ;
 		} else if (this.get_type() == HEPTAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,7);
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			prim.size((int)size.x);
 			prim.show();
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == OCTOGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,8);
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot) ;
 			prim.size((int)size.x);
 			prim.show();
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == NONAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,9);
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot) ;
 			prim.size((int)size.x);
 			prim.show();
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == DECAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,10);
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot) ;
 			prim.size((int)size.x);
 			prim.show();
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == HENDECAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,11);
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot) ;
 			prim.size((int)size.x);
 			prim.show();
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == DODECAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,12);
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot) ;
 			prim.size((int)size.x);
 			prim.show();
-			stop_matrix();
+			pop();
 		}
 
 		else if (this.get_type() == CROSS_RECT_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			cross_rect(ivec2(0),(int)size.y,(int)size.x);
-			stop_matrix() ;
+			pop() ;
 		} else if (this.get_type() == CROSS_BOX_2_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			cross_box_2(vec2(size.x, size.y));
-			stop_matrix() ;
+			pop() ;
 		} else if (this.get_type() == CROSS_BOX_3_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			cross_box_3(size);
-			stop_matrix();
+			pop();
 		}
 
 
 
 	  else if(this.get_type() == TEXT_ROPE) {
-	  	start_matrix();
+	  	push();
 	  	translate(pos);
 	  	rotate_behavior(rot);
 	  	textSize(size.x);
@@ -605,46 +615,46 @@ public class Costume {
 	  		costume_text_rope = "ROPE";
 	  		text(costume_text_rope,0,0);
 	  	}
-	  	stop_matrix();
+	  	pop();
 	  }
 
 		else if (this.get_type() == SPHERE_LOW_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			sphereDetail(5);
 			sphere(size.x);
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == SPHERE_MEDIUM_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			sphereDetail(12);
 			sphere(size.x);
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == SPHERE_HIGH_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			sphere(size.x);
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == TETRAHEDRON_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			polyhedron("TETRAHEDRON","VERTEX",(int)size.x);
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == BOX_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			box(size);
-			stop_matrix();
+			pop();
 		}
 
 		else if (this.get_type() == STAR_ROPE) {
 			float [] ratio = {.38};
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 
@@ -652,10 +662,10 @@ public class Costume {
 			if(get_summit() == 0 ) set_summit(5);
 			star_summits(get_summit());
 			star(vec3(),size);
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == STAR_3D_ROPE) {
 			float [] ratio = {.38};
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 
@@ -663,12 +673,12 @@ public class Costume {
 			if(get_summit() == 0 ) set_summit(5);
 			star_summits(get_summit());
 			star(vec3(),size);
-			stop_matrix();
+			pop();
 		}
 
 
 		else if (this.get_type() == FLOWER_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			if(get_summit() == 0 ) set_summit(5);
@@ -693,63 +703,63 @@ public class Costume {
 				flower_static(pair[i],strength[i],pair[i+get_summit()],strength[i+get_summit()]);
 			}
 			flower(vec3(),(int)size.x,get_summit());
-			stop_matrix();
+			pop();
 		}
 
 
 		else if (this.get_type() == TETRAHEDRON_LINE_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			polyhedron("TETRAHEDRON","LINE",(int)size.x);
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == CUBE_LINE_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			polyhedron("CUBE","LINE",(int)size.x);
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == OCTOHEDRON_LINE_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			polyhedron("OCTOHEDRON","LINE",(int)size.x);
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			polyhedron("RHOMBIC COSI DODECAHEDRON SMALL","LINE",(int)size.x);
-			stop_matrix();
+			pop();
 		} else if (this.get_type() == ICOSI_DODECAHEDRON_LINE_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			polyhedron("ICOSI DODECAHEDRON","LINE",(int)size.x);
-			stop_matrix();
+			pop();
 		}
 
 		else if(this.get_type() == HOUSE_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			house(size);
-			stop_matrix();
+			pop();
 		}
 
 
 	  else if(this.get_type() == VIRUS_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			virus(vec3(),size,0,-1);
-			stop_matrix();
+			pop();
 		}
 
 
 
 		else if(this.get_type() < 0) {
-			start_matrix() ;
+			push() ;
 			translate(pos) ;
 			rotate_behavior(rot) ;
 			for(int i = 0 ; i < costume_pic_list.size() ; i++) {
@@ -778,7 +788,7 @@ public class Costume {
 					}		
 				}
 			}
-			stop_matrix() ;
+			pop() ;
 		}
 
 	  // reset variable can be change the other costume, if the effect is don't use.

@@ -283,44 +283,23 @@ rotateXYZ(ivec3 rot) ;
 
 *New Matrix method
 
-start_matrix() ;
-
-stop_matrix() ;
-
-start_matrix_2D(vec2 pos, float orientation) ;
+push_2D(vec2 pos, float orientation) ;
 >use matrix 2D with cartesian coord
 
-start_matrix_3D(vec3 pos, vec3 dir_cart) ;
+push_3D(vec3 pos, vec3 dir_cart) ;
 >use matrix 3D with cartesian coord
 
-start_matrix_3D(vec3 pos, vec2 dir_polar) ;
+push_3D(vec3 pos, vec2 dir_polar) ;
 >use matrix 3D with polar coord
 
-start_matrix_2D(ivec2 pos, float orientation) ;
+push_2D(ivec2 pos, float orientation) ;
 >use matrix 2D with cartesian coord
 
-start_matrix_3D(ivec3 pos, ivec3 dir_cart) ;
+push_3D(ivec3 pos, ivec3 dir_cart) ;
 >use matrix 3D with cartesian coord
 
-start_matrix_3D(ivec3 pos, ivec2 dir_polar) ;
+push_3D(ivec3 pos, ivec2 dir_polar) ;
 >use matrix 3D with polar coord
-
-
-DEPRECATED
-Matrix_start & matrix_end is 
---
-matrix_start() ;
-matrix_end() ;
-
-matrix_2D_start(vec2 pos, float orientation);
->use matrix 2D with cartesian coord
-
-matrix_3D_start(vec3 pos, vec3 dir_cart);
->use matrix 3D with cartesian coord
-
-matrix_3D_start(vec3 pos, vec2 dir_polar);
->use matrix 3D with polar coord
-
 
 
 
