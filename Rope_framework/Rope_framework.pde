@@ -17,14 +17,22 @@ PGraphics pg;
 
 void setup() {
 	size(300,300,P3D);
-	pg = createGraphics(width,height,P3D);
+	ivec2 a = ivec2(2);
+	ivec2 b = ivec2(10);
+	ivec2 area = ivec2(9);
+	println(vec4(a));
+	println(vec4(a.x,a.y,0,0));
 	
 
 
 
 }
+/*
+void draw() {i
+	pg = createGraphics(width,height,P3D);
+	
 
-void draw() {
+
 	println((int)frameRate);
 	background(255,0,0);
 	costume = new Costume(this,RECT_ROPE);
@@ -53,4 +61,5 @@ void draw() {
 	
 
 }
+*/
 
