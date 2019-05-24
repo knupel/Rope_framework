@@ -382,8 +382,8 @@ void costume_text(String s) {
 
 
 /**
-rotate behavior
-v 0.1.0
+* rotate behavior
+* v 0.2.0
 */
 boolean costume_rot_x;
 boolean costume_rot_y;
@@ -402,16 +402,20 @@ void costume_rotate_z() {
 }
 
 void rotate_behavior(vec rotate) {
+	rotate_behavior(rotate,null);
+}
+
+void rotate_behavior(vec rotate, PGraphics other) {
 	if(costume_rot_x && rotate.x != 0) {
-		rotateX(rotate.x);
+		rotateX(rotate.x,other);
 		costume_rot_x = false;
 	}
 	if(costume_rot_y && rotate.y != 0) {
-		rotateY(rotate.y);
+		rotateY(rotate.y,other);
 		costume_rot_y = false;
 	}
 	if(costume_rot_z && rotate.z != 0) {
-		rotateZ(rotate.z);
+		rotateZ(rotate.z,other);
 		costume_rot_z = false;
 	}
 }

@@ -17,18 +17,9 @@ PGraphics pg;
 
 void setup() {
 	size(300,300,P3D);
-	ivec2 a = ivec2(2);
-	ivec2 b = ivec2(10);
-	ivec2 area = ivec2(9);
-	println(vec4(a));
-	println(vec4(a.x,a.y,0,0));
-	
-
-
-
 }
-/*
-void draw() {i
+
+void draw() {
 	pg = createGraphics(width,height,P3D);
 	
 
@@ -48,18 +39,31 @@ void draw() {i
 	// ellipse(mouseX,mouseY,50,50,pg);
 	//rect(mouseX,mouseY,50,50,pg);
 	float z = sin(frameCount *.1) *(width/2);
+	 test(pos,size) ;
 	// rect(vec3(mouseX,mouseY,z),vec2(50),pg);
 	//ellipse(vec3(mouseX,mouseY,z),vec2(50),pg);
 	// triangle(vec3(10,10,50),vec3(30,10,40),vec3(30,100,-100),pg);
   // line(vec3(random(width),random(width),random(width)),vec3(random(width),random(width),random(width)),pg);
-  stroke(r.YELLOW,pg);
-  strokeWeight(mouseX,pg);
-	point(vec3(random(width),random(width),random(width)),pg);
+ //  stroke(r.YELLOW,pg);
+ //  strokeWeight(mouseX,pg);
+	// point(vec3(random(width),random(width),random(width)),pg);
+	// costume()
+
+
+	costume.draw(vec3(pos),vec3(size),vec2(),pg); // pos marche pas, dans la method test oui
 	endDraw(pg);
 
 	image(pg);
 	
 
 }
-*/
+
+void test(vec2 pos, vec2 size) {
+	push(pg);
+  translate(pos);
+  rect(vec2(-size.x,-size.y).div(2),vec2(size.x,size.y),pg);
+	pop(pg);
+
+}
+
 

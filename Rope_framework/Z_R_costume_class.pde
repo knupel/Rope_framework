@@ -484,11 +484,17 @@ public class Costume {
 			pop();
 
 		} else if (this.get_type() == RECT_ROPE) {
-			push();
-			translate(pos);
-			rotate_behavior(rot);
-			rect(vec2(-size.x,-size.y).div(2),vec2(size.x,size.y));
-			pop();
+			// push();
+			// translate(pos);
+			// rotate_behavior(rot);
+			// rect(vec2(-size.x,-size.y).div(2),vec2(size.x,size.y));
+			// pop();
+			push(other);
+			println("class Costume draw():",pos);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			rect(vec2(-size.x,-size.y).div(2),vec2(size.x,size.y),other);
+			pop(other);
 
 		} else if (this.get_type() == LINE_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,2);

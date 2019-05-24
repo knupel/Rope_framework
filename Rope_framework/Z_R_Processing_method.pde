@@ -1391,16 +1391,20 @@ void text(float f, ivec pos, PGraphics other) {
 */
 void translate(float x, float y, float z, PGraphics other) {
   if(other != null) {
+    println("translate other 3D",x,y,z);
     other.translate(x,y,z);
   } else {
+    println("translate other 3D null",x,y,z);
     translate(x,y,z);
   }
 }
 
 void translate(float x, float y, PGraphics other) {
   if(other != null) {
+    println("translate other 2D",x,y);
     other.translate(x,y);
   } else {
+    println("translate other 2D null",x,y);
     translate(x,y);
   }
 }
