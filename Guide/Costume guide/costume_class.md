@@ -5,7 +5,7 @@
 
 public Costume(PApplet pa);
 
-public Costume(PApplet pa,int type);
+public Costume(PApplet pa, int type);
   
 *SET
 
@@ -25,6 +25,8 @@ void set_angle(float angle);
 
 void set_ratio(float... ratio);
 
+void set_align(int align);
+
 void set_strength(float... strength);
 
 void set_pair(vec2... pair);
@@ -32,6 +34,8 @@ void set_pair(vec2... pair);
 void is_3D(boolean is_3D);
 
 void is_vertex(boolean is_vertex);
+
+void pass_graphic(PGraphics other);
 
 
 

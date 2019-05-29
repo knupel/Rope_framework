@@ -257,7 +257,9 @@ vec2 distribution_polar_fibonacci_sphere(int n, int num, float step)
 
 *POLYHEDRON
 
-polyhedron(String whichPolyhedron, String whichStyleToDraw, int size) ;
+void polyhedron(String whichPolyhedron, String whichStyleToDraw, int size);
+
+void polyhedron(String whichPolyhedron, String whichStyleToDraw, int size, Pgraphics other);
 -
 String which_polyhedron = 
 "TETRAHEDRON", "CUBE", "OCTOHEDRON","DODECAHEDRON",

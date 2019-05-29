@@ -156,21 +156,18 @@ COSTUME LIST
 
 *ASPECT
 
->aspect method classic
+void aspect_is(boolean fill_is, boolean stroke_is, boolean alpha_is);
 
-void aspect_rope(int fill, int stroke, float thickness)
->manage the fill, stroke and strokeWeight
+void init_bool_aspect();
 
-void aspect_rope(vec4 fill, vec4 stroke, float thickness)
->manage the fill, stroke and strokeWeight
+void aspect(int fill, int stroke, float thickness);
 
->aspect work with the mini library costume for the id catalogue
+void aspect(int fill, int stroke, float thickness, PGraphics other);
 
-void aspect_rope(int fill, int stroke, float thickness, int id_costume)
->manage the fill, stroke and strokeWeight
+void aspect(vec fill, vec stroke, float thickness);
 
-void aspect_rope(vec4 fill, vec4 stroke, float thickness, int id_costume)
->manage the fill, stroke and strokeWeight
+void aspect(vec fill, vec stroke, float thickness, PGraphics other);
+
 
 float get_fill_rope();
 >return the fill component
@@ -205,20 +202,19 @@ actullly available only for the CROSS_BOX_2_ROPE et CROSS_BOX_3_ROPE
 
 STAR
 --
-void star(vec pos, int size_XY, int summits) ;
+void star(vec position, vec size);
 
-void star(vec pos, int size_XY, int summits, float angle) ;
+void star(vec position, vec size, PGraphics other);
 
-void star(vec pos, int size_XY, int summits, float angle, float... ratio) ;
+void star_3D_is(boolean is_3D);
 
-void star(vec pos, vec2 size, int summits) ;
+void star_summits(int summits);
 
-void star(vec pos, vec2 size, int summits, float angle) ;
+void star_angle(float angle);
 
-void star(vec pos, vec2 size, int summits, float angle, float... ratio) ;
+void star_ratio(float... ratio);
 
-void star(vec pos, vec2 size, int summits, float angle, float[] ratio) ;
---
+
 star argument
 --
 >Pos, you can send a 'vec2' or 'vec3'
@@ -227,7 +223,7 @@ star argument
 >angle, in the rotation angle of the star in radians.
 >the ratio is the 'raidus' or 'size' multiplicator to make difference on the higher or lower points, note you can use a sequence to make something weird like a compass : 
 
-star(pos, size, summits, 2., .5, 1., .5, 1., .5) ;
+
 
 CROSS
 --
@@ -236,6 +232,13 @@ void cross_rect(ivec2 pos, int thickness, int radius);
 void cross_box_2(vec2 size,float ratio);
 
 void cross_box_3(vec3 size,float ratio);
+
+void cross_rect(ivec2 pos, int thickness, int radius, PGraphics other);
+
+void cross_box_2(vec2 size,float ratio, PGraphics other);
+
+void cross_box_3(vec3 size,float ratio, PGraphics other);
+
 
 VIRUS
 --
@@ -246,5 +249,17 @@ void virus(vec pos, vec size, int node, int num, float angle)  ;
 void virus(vec pos, vec size, int node, int num, int speed) ;
 
 void virus(vec pos, vec size, int node, int num, int speed_mutation, float angle, int close) ;
+
+
+
+FLOWER
+--
+void flower(vec pos, int diam, int petals_num);
+
+void flower(vec pos, int diam, int petals_num, PGraphics other);
+
+void flower_wind(vec2 petal_left, float strength_left, vec2 petal_right, float strength_right);
+
+void flower_static(vec2 petal_left, float strength_left, vec2 petal_right, float strength_right);
 
 

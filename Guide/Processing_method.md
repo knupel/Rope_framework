@@ -1,9 +1,31 @@
-/** 
-* PGraphics Method
-*/
+ 
+*PGraphics Method
+
+All graphics method can be use on g or with an other PGrahics, just add the name of the PGraphics target to the end of method.
+You can also allowed a PGraphics with method the layering method see Image chapter part LAYER, in this case the current PGraphics is detected automatcly.
+
+
+
+
 /**
 * beginDraw and enDraw() is write here juste to keep a syntew cohesion withe PGraphics other system
 */
+
+*set
+
+void set(int x, int y, int c, PGraphics other);
+
+void set(vec2 pos, int c, PGraphics other);
+
+void set(vec2 pos, int c);
+
+void set(ivec2 pos, int c, PGraphics other);
+
+void set(ivec2 pos, int c);
+
+
+*draw
+
 void beginDraw(PGraphics other);
 
 void endDraw(PGraphics other);
@@ -101,6 +123,16 @@ void box(ivec3 p);
 
 void box(ivec3 p, PGraphics other);
 
+
+/**
+* sphere
+*/
+
+void sphere(float radius, PGraphics other);
+
+void sphereDetail(int res, PGraphics other);
+
+void sphereDetail(int ures, int vres, PGraphics other);
 
 
 
@@ -462,6 +494,16 @@ void text(int i, ivec pos, PGraphics other);
 void text(float f, ivec pos);
 
 void text(float f, ivec pos, PGraphics other);
+
+
+void texAlign(int type, PGraphics other);
+
+
+void textSize(float size, PGraphics other);
+
+
+
+
 
 
 
