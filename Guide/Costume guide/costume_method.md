@@ -42,7 +42,22 @@ void costume(vec pos, vec size, vec3 dir, Costume costume);
 
 void costume(vec pos, int size, int Costume costume);
 
-void costume(vec pos, vec size, int Costume costume)
+void costume(vec pos, vec size, int Costume costume);
+
+// with other PGraphics
+void costume(float x, float y, float sx, float sy, Costume costume, PGraphics pg);
+
+void costume(float x, float y, float z, float sx, float sy, Costume costume, PGraphics pg);
+
+void costume(float x, float y, float z, float sx, float sy, float sz, Costume costume, PGraphics pg);
+
+void costume(vec pos, vec size, float angle, vec3 dir, Costume costume, PGraphics pg);
+
+void costume(vec pos, vec size, vec3 dir, Costume costume, PGraphics pg);
+
+void costume(vec pos, int size, int Costume costume, PGraphics pg);
+
+void costume(vec pos, vec size, int Costume costume, PGraphics pg);
 
 *method by id costume
 
@@ -52,13 +67,28 @@ void costume(float x, float y, float z, float sx, float sy, int which);
 
 void costume(float x, float y, float z, float sx, float sy, float sz, int which);
 
-costume(vec pos, vec size, float angle, vec3 dir, int which);
+void costume(vec pos, vec size, float angle, vec3 dir, int which);
 
 void costume(vec pos, vec size, vec3 dir, int which);
 
 void costume(vec pos, int size, int which);
 
 void costume(vec pos, vec size, int which);
+
+// with other PGraphics
+void costume(float x, float y, float sx, float sy, int which, PGraphics pg);
+
+void costume(float x, float y, float z, float sx, float sy, int which, PGraphics pg);
+
+void costume(float x, float y, float z, float sx, float sy, float sz, int which, PGraphics pg);
+
+void costume(vec pos, vec size, float angle, vec3 dir, int which, PGraphics pg);
+
+void costume(vec pos, vec size, vec3 dir, int which, PGraphics pg);
+
+void costume(vec pos, int size, int which, PGraphics pg);
+
+void costume(vec pos, vec size, int which, PGraphics pg);
 
 *Method String
 
@@ -75,6 +105,21 @@ void costume(vec2pos, vec size, float angle, String sentence);
 void costume(vec pos, int size, String sentence);
 
 void costume(vec pos, vec size, String sentence);
+
+// with other PGraphics
+void costume(float x, float y, float sx, float sy, String sentence, PGraphics pg);
+
+void costume(float x, float y, float z, float sx, float sy, String sentence, PGraphics pg);
+
+void costume(float x, float y, float z, float sx, float sy, float sz, String sentence, PGraphics pg);
+
+void costume(vec pos, int size, float angle, String sentence, PGraphics pg);
+
+void costume(vec2pos, vec size, float angle, String sentence, PGraphics pg);
+
+void costume(vec pos, int size, String sentence, PGraphics pg);
+
+void costume(vec pos, vec size, String sentence, PGraphics pg);
 
 
 
@@ -94,21 +139,7 @@ void print_list_costume() ;
 
 
 
-*Aspect
 
-void aspect_is(boolean fill_is, boolean stroke_is) ;
->used before aspect_rope() to display fill or stroke
-
-void aspect(int fill, int stroke, float strokeWeight) ;
-
-void aspect(int fill, int stroke, float strokeWeight, int costume) ;
->Note, in case where the costume POINT_ROPE is used, it's not the stroke is used but the fill component.
-
-void aspect(vec fill, vec stroke, float strokeWeight) ;
->can be used with vec2, vec3 or vec4
-
-void aspect(vec fill, vec stroke, float strokeWeight, int costume) ;
->can be used with vec2, vec3 or vec4
 
 *Text
 
