@@ -1,7 +1,7 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.9.0
+* v 1.9.1
 * processing 3.5.3.269
 * Rope Library 0.8.1.26
 * @author @stanlepunk
@@ -467,7 +467,7 @@ void costume_text(String s) {
 
 /**
 * rotate behavior
-* v 0.2.0
+* v 0.3.0
 */
 boolean costume_rot_x;
 boolean costume_rot_y;
@@ -490,18 +490,33 @@ void rotate_behavior(vec rotate) {
 }
 
 void rotate_behavior(vec rotate, PGraphics other) {
-	if(costume_rot_x && rotate.x != 0) {
-		rotateX(rotate.x,other);
-		costume_rot_x = false;
-	}
-	if(costume_rot_y && rotate.y != 0) {
-		rotateY(rotate.y,other);
-		costume_rot_y = false;
-	}
-	if(costume_rot_z && rotate.z != 0) {
-		rotateZ(rotate.z,other);
-		costume_rot_z = false;
-	}
+  if(get_renderer() == P3D) {
+  	if(costume_rot_x && rotate.x() != 0) {
+			rotateX(rotate.x(),other);
+			costume_rot_x = false;
+		}
+		if(costume_rot_y && rotate.y() != 0) {
+			rotateY(rotate.y(),other);
+			costume_rot_y = false;
+		}
+		if(costume_rot_z && rotate.z() != 0) {
+			rotateZ(rotate.z(),other);
+			costume_rot_z = false;
+		}
+  } else {
+  	if(rotate.x() == 0 && rotate.y() == 0 && rotate.z() != 0 && costume_rot_x) {
+  		rotate(rotate.z(),other);
+  		costume_rot_x = false;
+  	} 
+  	if(costume_rot_x && rotate.x() != 0) {
+  		rotateX(rotate.x(),other);
+  		costume_rot_x = false;
+  	}
+  	if(costume_rot_y && rotate.y() != 0) {
+  		rotateY(rotate.y(),other);
+  		costume_rot_y = false;
+  	}
+  }
 }
 
 
