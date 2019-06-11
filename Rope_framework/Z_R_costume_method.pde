@@ -1,7 +1,7 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.9.1
+* v 1.9.2
 * processing 3.5.3.269
 * Rope Library 0.8.1.26
 * @author @stanlepunk
@@ -115,7 +115,6 @@ void costume(vec pos, vec size, vec rotation, Object data) {
 
 
 void costume(vec pos, vec size, vec rotation, Object data, PGraphics pg) {
-	println("ici 6");
 	int which_costume = 0;
 	String sentence = null;
 	if(data instanceof Costume) {
