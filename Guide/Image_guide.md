@@ -242,7 +242,7 @@ get
 ArrayList<R_Image> list();
 >return the list of component ROPImage
 
-PImage [] get() 
+R_Image [] get() 
 >return all PImage available from the library list
 
 PImage get_current();
