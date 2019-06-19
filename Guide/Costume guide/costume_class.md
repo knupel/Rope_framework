@@ -6,10 +6,16 @@
 public Costume(PApplet pa);
 
 public Costume(PApplet pa, int type);
+
+public Costume(PApplet pa, String arg);
   
 *SET
 
 void set_name(String name);
+>name of the Object
+
+void set_text(String arg);
+>text use to be display
 
 void set_type(int type);
 
@@ -109,7 +115,9 @@ void aspect(vec fill, vec stroke, float thickness, int costume);
 
 *DRAW
 
-void draw(vec3 pos, vec3 size, vec rot);
+void show();
+
+void show(vec3 pos, vec3 size, vec rot);
 
  
 
