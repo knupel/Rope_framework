@@ -977,8 +977,8 @@ int costumes_size() {
 
 
 Info_int_dict costume_dict = new Info_int_dict();
-boolean list_costume_is_built = false ;
-int ref_size_pic = -1 ;
+boolean list_costume_is_built = false;
+int ref_size_pic = -1;
 // String costume_text_rope = null;
 boolean fill_rope_is = true;
 boolean stroke_rope_is = true;
@@ -1033,7 +1033,7 @@ void costume_list() {
 
 		costume_dict.add("VIRUS",VIRUS,3,0);
 
-		list_costume_is_built = true ;
+		list_costume_is_built = true;
 	}
 
   // add costume from your SVG or PNG
