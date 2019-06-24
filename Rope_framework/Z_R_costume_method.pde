@@ -213,6 +213,7 @@ void costume_impl(vec3 pos, vec3 size, vec rot, int which_costume, PGraphics pg)
 	costume_rope_buffer.show(pos,size,rot);
 }
 
+
 void costume_impl(vec pos, vec size, vec rot, Costume costume, PGraphics pg) {
 	costume.pass_graphic(pg);
 	costume.show(vec3(pos),vec3(size),rot);
@@ -623,8 +624,10 @@ void house(vec3 size, PGraphics other) {
 	if(house_costume_rope != null) {
 		house_costume_rope.size(size);
 		house_costume_rope.pass_graphic(other);
+		// house_costume_rope.show(g);
 		house_costume_rope.show();
 	} else {
+		//house_costume_rope = new House();
 		house_costume_rope = new House(this);
 	}
 }

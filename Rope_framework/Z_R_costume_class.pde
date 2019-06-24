@@ -1,13 +1,23 @@
 /**
-* COSTUME class
+* COSTUME classes
 * Copyleft (c) 2019-2019
-* v 0.10.1
+* v 0.10.2
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Here you finf the class Costume and all the class shape used.
 * Processing 3.5.3.269
 * Rope Library 0.8.3.28
 */
+
+
+
+
+
+
+
+
+
+
 
 
 final int POINT = 2; // processing value
@@ -971,10 +981,9 @@ public class Costume_pic {
 /**
 Class House
 2019-2019
-v 0.2.0
+v 0.2.1
 */
-import rope.costume.R_Shape;
-public class House extends rope.costume.R_Shape  {
+public class House extends R_Shape  {
 	private int fill_roof = r.BLOOD;
 	private int fill_wall = r.GRAY[6];
 	private int fill_ground = r.BLACK;
@@ -993,6 +1002,7 @@ public class House extends rope.costume.R_Shape  {
 	private vec3 [] pc;
 
 	private int type = CENTER;
+	
 	public House(PApplet pa) {
 		super(pa);
 		build();
@@ -1009,6 +1019,7 @@ public class House extends rope.costume.R_Shape  {
 		size(sx,sy,sz);
 		build();
 	}
+	
 
 	public void mode(int type) {
 		this.type = type;
@@ -1203,13 +1214,16 @@ public class House extends rope.costume.R_Shape  {
 
 
 	  // draw B : WALL > main wall
+	  // println("ma maison");
 	  beginShape(other);
 		if(def_pos == null) {
+			// println("ma maison def pos");
 			vertex(pa[2].copy().mult(size),other);
 			vertex(pa[1].copy().mult(size),other);
 			vertex(pc[1].copy().mult(size),other);
 			vertex(pc[2].copy().mult(size),other);
 		} else {
+			//println("ma maison pos");
 			vertex(pa[2].copy().mult(size).add(def_pos),other);
 			vertex(pa[1].copy().mult(size).add(def_pos),other);
 			vertex(pc[1].copy().mult(size).add(def_pos),other);
