@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.5.2
+* v 0.5.3
 * Copyleft (c) 2014-2019
 * Processing 3.5.3.269
 * Rope library 0.8.3.28
@@ -473,7 +473,7 @@ public class R_Image {
 
 /**
 resize image
-v 0.0.2
+v 0.0.3
 */
 /**
 * resize your picture proportionaly to the window sketch of the a specificic PGraphics
@@ -487,8 +487,12 @@ void image_resize(PImage src, boolean fullfit) {
 }
 
 void image_resize(PImage src, PGraphics pg, boolean fullfit) {
-  float ratio_w = pg.width / (float)src.width;
-  float ratio_h = pg.height / (float)src.height;
+  image_resize(src, pg.width, pg.height, fullfit);
+}
+
+void image_resize(PImage src, int target_width, int target_height, boolean fullfit) {
+  float ratio_w = target_width / (float)src.width;
+  float ratio_h = target_height / (float)src.height;
   if(!fullfit) {
     if(ratio_w > ratio_h) {
       src.resize(ceil(src.width *ratio_w), ceil(src.height *ratio_w));

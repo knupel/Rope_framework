@@ -1,6 +1,6 @@
 /**
 ROPE PROCESSING METHOD
-v 2.7.2
+v 2.7.3
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
@@ -260,12 +260,12 @@ float random(ivec2 v) {
 
 /**
 * PImage method
-* v 0.2.0
+* v 0.2.1
 */
-rope.costume.R_Shape buffer;
+rope.costume.R_Shape buffer_rope_framework;
 void set_buffer_shape(PGraphics other) {
-  if(buffer == null) {
-    buffer = new rope.costume.R_Shape(this,other);
+  if(buffer_rope_framework == null) {
+    buffer_rope_framework = new rope.costume.R_Shape(this,other);
   }
 }
 
@@ -285,7 +285,7 @@ void set(vec2 pos, int c) {
 void set(int x, int y, int c, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.set(x,y,c,other);
+    buffer_rope_framework.set(x,y,c,other);
   } else {
     set(x,y,c);
   }
@@ -620,7 +620,7 @@ void endShape_rope(int mode) {
 void beginShape(PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.beginShape(other);
+    buffer_rope_framework.beginShape(other);
   } else {
     beginShape();
   }
@@ -629,7 +629,7 @@ void beginShape(PGraphics other) {
 void beginShape(int kind, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.beginShape(kind,other);
+    buffer_rope_framework.beginShape(kind,other);
   } else {
     beginShape(kind);
   }
@@ -639,7 +639,7 @@ void beginShape(int kind, PGraphics other) {
 void endShape(PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.endShape(other);
+    buffer_rope_framework.endShape(other);
   } else {
     endShape();
   }
@@ -648,7 +648,7 @@ void endShape(PGraphics other) {
 void endShape(int mode, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.endShape(mode,other);
+    buffer_rope_framework.endShape(mode,other);
   } else {
     endShape(mode);
   }
@@ -662,7 +662,7 @@ void endShape(int mode, PGraphics other) {
 void vertex(float x, float y, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.vertex(x,y,other);
+    buffer_rope_framework.vertex(x,y,other);
   } else {
     vertex(x,y);
   }
@@ -671,7 +671,7 @@ void vertex(float x, float y, PGraphics other) {
 void vertex(float x, float y, float z, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.vertex(x,y,z,other);
+    buffer_rope_framework.vertex(x,y,z,other);
   } else {
     vertex(x,y,z);
   }
@@ -681,7 +681,7 @@ void vertex(float x, float y, float z, PGraphics other) {
 void vertex(float [] v, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.vertex(v,other);
+    buffer_rope_framework.vertex(v,other);
   } else {
     vertex(v);
   }
@@ -691,7 +691,7 @@ void vertex(float [] v, PGraphics other) {
 void vertex(float x, float y, float u, float v, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.vertex(x,y,u,v,other);
+    buffer_rope_framework.vertex(x,y,u,v,other);
   } else {
     vertex(x,y,u,v,other);
   }
@@ -700,7 +700,7 @@ void vertex(float x, float y, float u, float v, PGraphics other) {
 void vertex(float x, float y, float z, float u, float v, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.vertex(x,y,z,u,v,other);
+    buffer_rope_framework.vertex(x,y,z,u,v,other);
   } else {
     vertex(x,y,z,u,v,other);
   }
@@ -720,7 +720,7 @@ void vertex(vec coord) {
 void vertex(vec coord, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.vertex(coord,other);
+    buffer_rope_framework.vertex(coord,other);
   } else {
     vertex(coord);
   }
@@ -740,7 +740,7 @@ void vertex(vec3 coord, vec2 uv) {
 void vertex(vec2 coord, vec2 uv, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.vertex(coord,uv,other);
+    buffer_rope_framework.vertex(coord,uv,other);
   } else {
     vertex(coord,uv);
   }
@@ -750,7 +750,7 @@ void vertex(vec2 coord, vec2 uv, PGraphics other) {
 void vertex(vec3 coord, vec2 uv, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.vertex(coord,uv,other);
+    buffer_rope_framework.vertex(coord,uv,other);
   } else {
     vertex(coord,uv);
   }
@@ -765,7 +765,7 @@ void vertex(vec3 coord, vec2 uv, PGraphics other) {
 void bezierVertex(float x2, float y2, float x3, float y3,  float x4, float y4, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.bezierVertex(x2,y2, x3,y3,  x4,y4, other);
+    buffer_rope_framework.bezierVertex(x2,y2, x3,y3,  x4,y4, other);
   } else {
     bezierVertex(x2,y2, x3,y3,  x4,y4);
   }
@@ -774,7 +774,7 @@ void bezierVertex(float x2, float y2, float x3, float y3,  float x4, float y4, P
 void bezierVertex(float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.bezierVertex(x2,y2,z2, x3,y3,z3,  x4,y4,z4, other);
+    buffer_rope_framework.bezierVertex(x2,y2,z2, x3,y3,z3,  x4,y4,z4, other);
   } else {
     bezierVertex(x2,y2,z2, x3,y3,z3,  x4,y4,z4);
   }
@@ -797,7 +797,7 @@ void bezierVertex(vec a, vec b, vec c) {
 void bezierVertex(vec a, vec b, vec c, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.bezierVertex(a,b,c,other);
+    buffer_rope_framework.bezierVertex(a,b,c,other);
   } else {
     bezierVertex(a,b,c);
   }
@@ -821,7 +821,7 @@ Quadratic Vertex
 void quadraticVertex(float cx, float cy, float x3, float y3, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.quadraticVertex(cx,cy, x3,y3,other);
+    buffer_rope_framework.quadraticVertex(cx,cy, x3,y3,other);
   } else {
     quadraticVertex(cx,cy, x3,y3);
   }
@@ -830,7 +830,7 @@ void quadraticVertex(float cx, float cy, float x3, float y3, PGraphics other) {
 void quadraticVertex(float cx, float cy, float cz, float x3, float y3, float z3, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.quadraticVertex(cx,cy,cz, x3,y3,z3,other);
+    buffer_rope_framework.quadraticVertex(cx,cy,cz, x3,y3,z3,other);
   } else {
     quadraticVertex(cx,cy,cz, x3,y3,z3);
   }
@@ -851,7 +851,7 @@ void quadraticVertex(vec a, vec b) {
 void quadraticVertex(vec a, vec b, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.quadraticVertex(a,b,other);
+    buffer_rope_framework.quadraticVertex(a,b,other);
   } else {
     quadraticVertex(a,b);
   }
@@ -876,7 +876,7 @@ Curve Vertex
 void curveVertex(float x, float y, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.curveVertex(x,y,other);
+    buffer_rope_framework.curveVertex(x,y,other);
   } else {
     curveVertex(x,y);
   }
@@ -885,7 +885,7 @@ void curveVertex(float x, float y, PGraphics other) {
 void curveVertex(float x, float y, float z, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer.curveVertex(x,y,z,other);
+    buffer_rope_framework.curveVertex(x,y,z,other);
   } else {
     curveVertex(x,y,z);
   } 
@@ -905,7 +905,7 @@ void curveVertex(vec a) {
 void curveVertex(vec a, PGraphics other) {
    if(other != null) {
     set_buffer_shape(other);
-    buffer.curveVertex(a,other);
+    buffer_rope_framework.curveVertex(a,other);
   } else {
     curveVertex(a);
   }

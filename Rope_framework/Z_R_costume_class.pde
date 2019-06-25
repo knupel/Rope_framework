@@ -1,7 +1,7 @@
 /**
 * COSTUME classes
 * Copyleft (c) 2019-2019
-* v 0.10.2
+* v 0.10.3
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Here you finf the class Costume and all the class shape used.
@@ -560,14 +560,14 @@ public class Costume {
 		} else if (this.get_type() == ELLIPSE) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			ellipse(vec2(),vec2(size),other);
 			pop(other);
 
 		} else if (this.get_type() == RECT) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			rect(vec2(-size.x(),-size.y()).div(2),vec2(size.x(),size.y()),other);
 			pop(other);
 
@@ -575,7 +575,7 @@ public class Costume {
 			if(prim == null) prim = new R_Primitive(papplet,2);
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			prim.pass_graphic(other);
 			prim.size((int)size.x());
 			prim.show();
@@ -586,7 +586,7 @@ public class Costume {
 			if(prim == null) prim = new R_Primitive(papplet,3);
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			prim.pass_graphic(other);
 			prim.size((int)size.x());
 			prim.show();
@@ -595,7 +595,7 @@ public class Costume {
 			if(prim == null) prim = new R_Primitive(papplet,4);
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			prim.pass_graphic(other);
 			prim.size((int)size.x());
 			prim.show();
@@ -604,7 +604,7 @@ public class Costume {
 			if(prim == null) prim = new R_Primitive(papplet,5);
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			prim.pass_graphic(other);
 			prim.size((int)size.x());
 			prim.show();
@@ -613,7 +613,7 @@ public class Costume {
 			if(prim == null) prim = new R_Primitive(papplet,6);
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			prim.pass_graphic(other);
 			prim.size((int)size.x());
 			prim.show();
@@ -622,7 +622,7 @@ public class Costume {
 			if(prim == null) prim = new R_Primitive(papplet,7);
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			prim.pass_graphic(other);
 			prim.size((int)size.x());
 			prim.show();
@@ -631,7 +631,7 @@ public class Costume {
 			if(prim == null) prim = new R_Primitive(papplet,8);
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			prim.pass_graphic(other);
 			prim.size((int)size.x());
 			prim.show();
@@ -640,7 +640,7 @@ public class Costume {
 			if(prim == null) prim = new R_Primitive(papplet,9);
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			prim.pass_graphic(other);
 			prim.size((int)size.x());
 			prim.show();
@@ -649,7 +649,7 @@ public class Costume {
 			if(prim == null) prim = new R_Primitive(papplet,10);
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			prim.pass_graphic(other);
 			prim.size((int)size.x());
 			prim.show();
@@ -658,7 +658,7 @@ public class Costume {
 			if(prim == null) prim = new R_Primitive(papplet,11);
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			prim.pass_graphic(other);
 			prim.size((int)size.x());
 			prim.show();
@@ -667,7 +667,7 @@ public class Costume {
 			if(prim == null) prim = new R_Primitive(papplet,12);
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			prim.pass_graphic(other);
 			prim.size((int)size.x());
 			prim.show();
@@ -677,19 +677,19 @@ public class Costume {
 		else if (this.get_type() == CROSS_RECT) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			cross_rect(ivec2(0),(int)size.y(),(int)size.x(),other);
 			pop(other) ;
 		} else if (this.get_type() == CROSS_BOX_2) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			cross_box_2(vec2(size.x(), size.y()),other);
 			pop(other) ;
 		} else if (this.get_type() == CROSS_BOX_3) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			cross_box_3(size,other);
 			pop(other);
 		}
@@ -699,7 +699,7 @@ public class Costume {
 	  else if(this.get_type() == TEXT_ROPE) {
 	  	push(other);
 	  	translate(pos,other);
-	  	rotate_behavior(rot,other);
+	  	costume_rotate(rot,other);
 	  	textAlign(align,other);
 	  	textSize(size.x(),other);
 	  	text(costume_text,0,0,other);
@@ -709,33 +709,33 @@ public class Costume {
 		else if (this.get_type() == SPHERE_LOW) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			sphereDetail(5,other);
 			sphere(size.x(),other);
 			pop(other);
 		} else if (this.get_type() == SPHERE_MEDIUM) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			sphereDetail(12,other);
 			sphere(size.x(),other);
 			pop(other);
 		} else if (this.get_type() == SPHERE_HIGH || this.get_type() == SPHERE) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			sphere(size.x(),other);
 			pop(other);
 		} else if (this.get_type() == TETRAHEDRON) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			polyhedron("TETRAHEDRON","VERTEX",(int)size.x,other);
 			pop(other);
 		} else if (this.get_type() == BOX) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			box(size,other);
 			pop(other);
 		}
@@ -744,7 +744,7 @@ public class Costume {
 			float [] ratio = {.38};
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 
 			star_3D_is(false);
 			if(get_summit() == 0 ) set_summit(5);
@@ -755,7 +755,7 @@ public class Costume {
 			float [] ratio = {.38};
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 
 			star_3D_is(true);
 			if(get_summit() == 0 ) set_summit(5);
@@ -768,7 +768,7 @@ public class Costume {
 		else if (this.get_type() == FLOWER) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			if(get_summit() == 0 ) set_summit(5);
 			if(get_pair() == null || get_pair().length != get_summit()*2) {
 				pair = new vec2[get_summit()*2];
@@ -798,31 +798,31 @@ public class Costume {
 		else if (this.get_type() == TETRAHEDRON_LINE) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			polyhedron("TETRAHEDRON","LINE",(int)size.x(),other);
 			pop(other);
 		} else if (this.get_type() == CUBE_LINE) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			polyhedron("CUBE","LINE",(int)size.x(),other);
 			pop(other);
 		} else if (this.get_type() == OCTOHEDRON_LINE) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			polyhedron("OCTOHEDRON","LINE",(int)size.x(),other);
 			pop(other);
 		} else if (this.get_type() == RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			polyhedron("RHOMBIC COSI DODECAHEDRON SMALL","LINE",(int)size.x(),other);
 			pop(other);
 		} else if (this.get_type() == ICOSI_DODECAHEDRON_LINE) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			polyhedron("ICOSI DODECAHEDRON","LINE",(int)size.x(),other);
 			pop(other);
 		}
@@ -830,7 +830,7 @@ public class Costume {
 		else if(this.get_type() == HOUSE) {
 			push(other);
 			translate(pos,other);
-			rotate_behavior(rot,other);
+			costume_rotate(rot,other);
 			if(size.z() == 1) {
 				house(size.xyy(),other);
 			} else {
@@ -844,7 +844,7 @@ public class Costume {
 	  else if(this.get_type() == VIRUS) {
 			push();
 			translate(pos);
-			rotate_behavior(rot);
+			costume_rotate(rot);
 			virus(vec3(),size,0,-1);
 			pop();
 		}
@@ -854,7 +854,7 @@ public class Costume {
 		else if(this.get_type() < 0) {
 			push() ;
 			translate(pos) ;
-			rotate_behavior(rot) ;
+			costume_rotate(rot) ;
 			for(int i = 0 ; i < costume_pic_list.size() ; i++) {
 				Costume_pic p = costume_pic_list.get(i);
 				if(p.get_id() == this.get_type()) {

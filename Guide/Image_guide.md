@@ -124,13 +124,16 @@ int get_offset_canvas_y() ;
 METHOD RESIZE PImage
 --
 void image_resize(PImage src);
->resize Pimage to window sketch size proportionaly
+>resize PImage to window sketch size proportionaly
 
 void image_resize(PImage src, boolean fullfit);
->resize Pimage to window sketch size proportionaly
+>resize PImage to window sketch size proportionaly
 
 void image_resize(PImage src, PGraphics pg, boolean fullfit);
->resize Pimage to PGraphics size proportionaly
+>resize PImage to PGraphics size proportionaly
+
+void image_resize(PImage src, int target_width, int target_height, boolean fullfit);
+>resize PImage to PGraphics size proportionaly
 
 >Parameters 
 PImage src : the image targeting
