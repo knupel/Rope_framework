@@ -158,11 +158,22 @@ int get_costume(int target)
 >return ID of the costume at this rank, if this one don't exist, that return 0. 0 is ID of 'point'
 
 
-COSTUME LIST
---
-@see file costume_list.txt
+*rotate
 
+void costume_rotate_x();
+> give authorization to raotate
 
+void costume_rotate_y();
+> give authorization to raotate
+
+void costume_rotate_z();
+> give authorization to raotate
+
+void costume_rotate(vec rotate);
+> pass value for rotation
+
+void costume_rotate(vec rotate, PGraphics other);
+> pass value for rotation
 
 
 
