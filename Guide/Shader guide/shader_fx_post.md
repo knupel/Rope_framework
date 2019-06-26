@@ -1,29 +1,29 @@
 *FX POST FX
 
 
-*FX POST RENDERING BLUR CIRCULAR
+*fx post rendering BLUR CIRCULAR
 PGraphics fx_blur_circular(PImage source, FX fx);
 PGraphics fx_blur_circular(PImage source, boolean on_g, boolean filter_is, vec3 strength, int num);
 
 
-*FX POST RENDERING BLUR GAUSSIAN
+*fx post rendering BLUR GAUSSIAN
 PGraphics fx_blur_gaussian(PImage source, FX fx)
 PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean filter_is, boolean second_pass, ivec2 resolution, float strength);
 
 
-*FX POST RENDERING BLUR RADIAL
+*fx post rendering BLUR RADIAL
 PGraphics fx_blur_radial(PImage source, FX fx);
 PGraphics fx_blur_radial(PImage source, boolean on_g, boolean filter_is, vec2 pos, float strength, float scale);
 
 
 
 
-*FX POST RENDERING COLOUR CHANGE A
+*fx post rendering COLOUR CHANGE A
 PGraphics fx_colour_change_a(PImage source, FX fx);
 PGraphics fx_colour_change_a(PImage source, boolean on_g, boolean filter_is, int num, vec3... mat);
 
 
-*FX POST RENDERING COLOUR CHANGE B
+*fx post rendering COLOUR CHANGE B
 PGraphics fx_colour_change_b(PImage source, FX fx);
 PGraphics fx_colour_change_b(PImage source, boolean on_g, boolean filter_is, float angle, float strength);
 
@@ -31,7 +31,7 @@ PGraphics fx_colour_change_b(PImage source, boolean on_g, boolean filter_is, flo
 
 
 
-*FX POST RENDERING DITHER BAYER 8
+*fx post rendering DITHER BAYER 8
 PGraphics fx_dither_bayer_8(PImage source, FX fx);
 PGraphics fx_dither_bayer_8(PImage source, boolean on_g, boolean filter_is, vec3 level, int mode);
 
@@ -39,7 +39,7 @@ PGraphics fx_dither_bayer_8(PImage source, boolean on_g, boolean filter_is, vec3
 
 
 
-*FX POST RENDERING GRAIN
+*fx post rendering GRAIN
 PGraphics fx_grain(PImage source, FX fx);
 PGraphics fx_grain(PImage source, boolean on_g, boolean filter_is, float offset, int mode);
 
@@ -52,17 +52,17 @@ PGraphics fx_grain_scatter(PImage source, boolean on_g, boolean filter_is,float 
 
 
 
-*FX POST RENDERING HALFTONE DOT
+*fx post rendering HALFTONE DOT
 PGraphics fx_halftone_dot(PImage source, FX fx);
 PGraphics fx_halftone_dot(PImage source, boolean on_g, boolean filter_is, vec2 pos, float size, float angle, float threshold);
 
 
-*FX POST RENDERING HALFTONE LINE
+*fx post rendering HALFTONE LINE
 PGraphics fx_halftone_line(PImage source, FX fx);
 PGraphics fx_halftone_line(PImage source, boolean on_g, boolean filter_is, vec2 pos, vec3 angle, int mode, int num, float quality, vec3 threshold);
 
 
-*FX POST RENDERING HALFTONE MULTI
+*fx post rendering HALFTONE MULTI
 PGraphics fx_halftone_multi(PImage source, FX fx);
 PGraphics fx_halftone_multi(PImage source, boolean on_g, boolean filter_is, vec2 pos, float size, float angle, float quality, float threshold, float saturation, int mode);
 
@@ -73,17 +73,37 @@ PGraphics fx_halftone_multi(PImage source, boolean on_g, boolean filter_is, vec2
 
 
 
-*FX POST RENDERING IMAGE
+*fx post rendering IMAGE
 PGraphics fx_image(PImage source, FX fx);
 PGraphics fx_image(PImage source, boolean on_g, boolean filter_is, vec2 pos, vec2 scale, vec3 colour_background, vec4 pos_curtain, int mode);
 
 
-*FX POST RENDERING LEVEL
+
+
+
+*fx post rendering LEVEL
 PGraphics fx_level(PImage source, FX fx);
 PGraphics fx_level(PImage source, boolean on_g, boolean filter_is, int mode, float... level);
 
 
-*FX POST RENDERING MIX
+
+
+*fx post rendering MASK
+
+PGraphics fx_mask(PImage source, PImage mask, FX fx);
+
+PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is, int mode, int num);
+
+int mode : 0 for gray mask
+
+int num : quantity of threshold separation, the minimum is 2
+
+
+
+
+
+
+*fx post rendering MIX
 > MODE
 > -2 main
 > -1 layer 
@@ -121,7 +141,7 @@ PGraphics fx_mix(PImage source, PImage layer, boolean on_g, boolean filter_is, i
 
 
 
-*FX POST RENDERING PIXEL
+*fx post rendering PIXEL
 PGraphics fx_pixel(PImage source, FX fx);
 PGraphics fx_pixel(PImage source, boolean on_g, boolean filter_is, ivec2 size, int num, vec3 level_source, boolean effect_is);
 
@@ -129,7 +149,7 @@ PGraphics fx_pixel(PImage source, boolean on_g, boolean filter_is, ivec2 size, i
 
 
 
-*FX POST RENDERING REACTION DIFFUSION
+*fx post rendering REACTION DIFFUSION
 WARNING
 the g part is not not not not optimized...too slow :((((((
 *
@@ -141,7 +161,7 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 
 
 
-*FX POST RENDERING SPLIT RGB
+*fx post rendering SPLIT RGB
 PGraphics fx_split_rgb(PImage source, FX fx);
 PGraphics fx_split_rgb(PImage source, boolean on_g, boolean filter_is, vec2 offset_red, vec2 offset_green, vec2 offset_blue);
 
@@ -150,7 +170,7 @@ PGraphics fx_split_rgb(PImage source, boolean on_g, boolean filter_is, vec2 offs
 
 
 
-*FX POST RENDERING THRESHOLD
+*fx post rendering THRESHOLD
 PGraphics fx_threshold(PImage source, FX fx);
 PGraphics fx_threshold(PImage source, boolean on_g, boolean filter_is, vec3 level, int mode);
 
@@ -159,18 +179,18 @@ PGraphics fx_threshold(PImage source, boolean on_g, boolean filter_is, vec3 leve
 
 
 
-*FX POST RENDERING WARP PROCEDURAL
+*fx post rendering WARP PROCEDURAL
 PGraphics fx_warp_proc(PImage source, FX fx);
 PGraphics fx_warp_proc(PImage source, boolean on_g, boolean filter_is, float strength);
 
 
 
-*FX POST RENDERING WARP TEXTURAL A
+*fx post rendering WARP TEXTURAL A
 PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, FX fx);
 PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, boolean on_g, boolean filter_is, int mode, float strength);
 
 
-*FX POST RENDERING WARP TEXTURAL B
+*fx post rendering WARP TEXTURAL B
 PGraphics fx_warp_tex_b(PImage source, PImage layer, FX fx);
 PGraphics fx_warp_tex_b(PImage source, PImage layer, boolean on_g, boolean filter_is, float strength);
 
