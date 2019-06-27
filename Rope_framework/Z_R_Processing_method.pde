@@ -1,6 +1,6 @@
 /**
 ROPE PROCESSING METHOD
-v 2.7.4
+v 2.7.5
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
@@ -260,7 +260,7 @@ float random(ivec2 v) {
 
 /**
 * PImage method
-* v 0.2.1
+* v 0.2.2
 */
 rope.costume.R_Shape buffer_rope_framework;
 void set_buffer_shape(PGraphics other) {
@@ -297,7 +297,8 @@ void set(int x, int y, int c, PGraphics other) {
 
 
 /** 
-* PGraphics Method / R_Shape Rope
+* PGraphics Method
+* v 0.1.0
 */
 /**
 * beginDraw and enDraw() is write here juste to keep a syntew cohesion withe PGraphics other system
@@ -316,7 +317,7 @@ void endDraw(PGraphics other) {
 }
 
 void clear(PGraphics other) {
-  if(other != null) {
+  if(other != null && other.pixels != null) {
     other.clear();
   } else {
     g.clear();
@@ -325,8 +326,7 @@ void clear(PGraphics other) {
 
 
 /**
-Ellipse
-v 0.2.0
+* Ellipse
 */
 void ellipse(float px, float py, float sx, float sy, PGraphics other) {
   if(other != null) {
@@ -354,7 +354,7 @@ void ellipse(vec p, float x, PGraphics other) {
 
 
 /**
-main method
+* main method
 */
 void ellipse(vec p, vec s) {
   ellipse(p,s,null);
@@ -378,7 +378,7 @@ void ellipse(vec p, vec s, PGraphics other) {
 
 
 /**
-Rect
+* Rect
 */
 
 void rect(float px, float py, float sx, float sy, PGraphics other) {
@@ -407,7 +407,6 @@ void rect(vec p, vec s, PGraphics other) {
 
 /**
 * triangle
-* v 0.2.0
 */
 void triangle(float x1, float y1, float x2, float y2, float x3, float y3, PGraphics other) {
   if(other != null) {
@@ -444,7 +443,6 @@ void triangle(vec a, vec b, vec c, PGraphics other) {
 
 /**
 * Box
-* v 0.2.0
 */
 void box(float size, PGraphics other) {
   box(size,size,size,other);
@@ -502,7 +500,6 @@ void sphereDetail(int ures, int vres, PGraphics other) {
 
 /**
 * point
-* v 0.2.0
 */
 void point(float x, float y, float z, PGraphics other) {
   if(other != null) {
@@ -538,7 +535,7 @@ void point(vec p, PGraphics other) {
 
 
 /**
-Line
+* Line
 */
 void line(float x1, float y1, float x2, float y2, PGraphics other) {
   if(other != null) {
@@ -585,7 +582,6 @@ void line(vec a, vec b, PGraphics other){
 
 /**
 * shape
-* v 0.3.0
 */
 void beginShape(PGraphics other) {
   if(other != null) {
@@ -627,7 +623,6 @@ void endShape(int mode, PGraphics other) {
 
 /**
 * vertex
-* v 0.2.2
 */
 void vertex(float x, float y, PGraphics other) {
   if(other != null) {
@@ -742,7 +737,6 @@ void vertex(vec3 coord, vec2 uv, PGraphics other) {
 
 /**
 * Bezier Vertex
-* v 0.2.1
 */
 void bezierVertex(float x2, float y2, float x3, float y3,  float x4, float y4, PGraphics other) {
   if(other != null) {
@@ -811,7 +805,7 @@ void bezierVertex(vec a, vec b, vec c, PGraphics other) {
 
 
 /**
-Quadratic Vertex
+* Quadratic Vertex
 */
 void quadraticVertex(float cx, float cy, float x3, float y3, PGraphics other) {
   if(other != null) {
@@ -878,7 +872,7 @@ void quadraticVertex(vec a, vec b, PGraphics other) {
 
 
 /**
-Curve Vertex
+* Curve Vertex
 */
 void curveVertex(float x, float y, PGraphics other) {
   if(other != null) {
@@ -960,7 +954,6 @@ void noStroke(PGraphics other) {
 
 /**
 * Fill
-* v 0.2.0
 */
 void fill(int rgb, PGraphics other) {
   if(other != null) {
@@ -1052,7 +1045,7 @@ void fill(vec4 c, PGraphics other) {
 
 
 /**
-Stroke
+* Stroke
 */
 void stroke(int rgb, PGraphics other) {
   if(other != null) {
@@ -1145,8 +1138,7 @@ void stroke(vec4 c, PGraphics other) {
 
 
 /**
-text
-v 0.2.0
+* text
 */
 
 void text(String s, float x, float y, PGraphics other) {
@@ -1303,7 +1295,6 @@ void textSize(float size, PGraphics other) {
 
 /**
 * Translate
-* v 0.2.0
 */
 void translate(float x, float y, float z, PGraphics other) {
   if(other != null) {
@@ -1367,7 +1358,7 @@ void translateZ(float f, PGraphics other) {
 
 
 /**
-Rotate
+* Rotate
 */
 void rotate(float f, PGraphics other) {
   if(other != null) {
@@ -1448,8 +1439,7 @@ void rotateXYZ(vec3 rot, PGraphics other) {
 
 
 /**
-Matrix
-v 0.2.0
+* Matrix
 */
 // vec
 void push_3D(vec pos, vec3 dir_cart) {
