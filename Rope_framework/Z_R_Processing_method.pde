@@ -1,6 +1,6 @@
 /**
 ROPE PROCESSING METHOD
-v 2.7.3
+v 2.7.4
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
@@ -580,36 +580,6 @@ void line(vec a, vec b, PGraphics other){
 
 
 
-/**
-* shape rope 
-* 
-*/
-/*
-void vertex_rope(vec coord) {
-  // println("ici et pas ailleurs", frameCount);
-  if(coord instanceof vec2) {
-    vertex(coord.x(),coord.y());
-  } else if(coord instanceof vec3) {
-    vertex(coord.x(),coord.y(),coord.z());
-  }
-}
-
-void beginShape_rope() {
-  beginShape();
-}
-
-void beginShape_rope(int kind) {
-  beginShape(kind);
-}
-
-void endShape_rope() {
-  endShape();
-}
-
-void endShape_rope(int mode) {
-  endShape(mode);
-}
-*/
 
 
 
@@ -657,7 +627,7 @@ void endShape(int mode, PGraphics other) {
 
 /**
 * vertex
-* v 0.2.1
+* v 0.2.2
 */
 void vertex(float x, float y, PGraphics other) {
   if(other != null) {
@@ -671,7 +641,11 @@ void vertex(float x, float y, PGraphics other) {
 void vertex(float x, float y, float z, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer_rope_framework.vertex(x,y,z,other);
+    if(renderer_P3D()) {
+      buffer_rope_framework.vertex(x,y,z,other);
+    } else {
+      buffer_rope_framework.vertex(x,y,other);
+    }   
   } else {
     vertex(x,y,z);
   }
@@ -700,7 +674,11 @@ void vertex(float x, float y, float u, float v, PGraphics other) {
 void vertex(float x, float y, float z, float u, float v, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer_rope_framework.vertex(x,y,z,u,v,other);
+    if(renderer_P3D()) {
+      buffer_rope_framework.vertex(x,y,u,v,other);
+    } else {
+      buffer_rope_framework.vertex(x,y,z,u,v,other);
+    }
   } else {
     vertex(x,y,z,u,v,other);
   }
@@ -708,11 +686,10 @@ void vertex(float x, float y, float z, float u, float v, PGraphics other) {
 
 
 void vertex(vec coord) {
-  // println("ici et pas ailleurs", frameCount);
-  if(coord instanceof vec2) {
-    vertex(coord.x(),coord.y());
-  } else if(coord instanceof vec3) {
+  if(renderer_P3D() && coord instanceof vec3) {
     vertex(coord.x(),coord.y(),coord.z());
+  } else {
+    vertex(coord.x(),coord.y());
   }
 }
 
@@ -734,7 +711,12 @@ void vertex(vec2 coord, vec2 uv) {
 }
 
 void vertex(vec3 coord, vec2 uv) {
-  vertex(coord.x(),coord.y(),coord.z(),uv.x(),uv.y());
+  if(renderer_P3D()) {
+    vertex(coord.x(),coord.y(),coord.z(),uv.x(),uv.y());
+  } else {
+    vertex(coord.x(),coord.y(),uv.x(),uv.y());
+  }
+  
 }
 
 void vertex(vec2 coord, vec2 uv, PGraphics other) {
@@ -774,9 +756,18 @@ void bezierVertex(float x2, float y2, float x3, float y3,  float x4, float y4, P
 void bezierVertex(float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer_rope_framework.bezierVertex(x2,y2,z2, x3,y3,z3,  x4,y4,z4, other);
+    if(renderer_P3D()) {
+      buffer_rope_framework.bezierVertex(x2,y2,z2, x3,y3,z3,  x4,y4,z4, other);
+    } else {
+      buffer_rope_framework.bezierVertex(x2,y2, x3,y3,  x4,y4, other);
+    }
   } else {
-    bezierVertex(x2,y2,z2, x3,y3,z3,  x4,y4,z4);
+    if(renderer_P3D()) {
+      bezierVertex(x2,y2,z2, x3,y3,z3,  x4,y4,z4);
+    } else {
+      bezierVertex(x2,y2, x3,y3,  x4,y4);
+    }
+    
   }
 }
 
@@ -787,7 +778,11 @@ void bezierVertex(vec a, vec b, vec c) {
   if(a instanceof vec2 && b instanceof vec2 && b instanceof vec2) {
     bezierVertex(a.x(),a.y(),b.x(),b.y(),c.x(),c.y());
   } else if(a instanceof vec3 && b instanceof vec3 && b instanceof vec3) {
-    bezierVertex(a.x(),a.y(),a.z(), b.x(),b.y(),b.z(), c.x(),c.y(),c.z());
+    if(renderer_P3D()) {
+      bezierVertex(a.x(),a.y(),a.z(), b.x(),b.y(),b.z(), c.x(),c.y(),c.z());
+    } else {
+      bezierVertex(a.x(),a.y(), b.x(),b.y(), c.x(),c.y());
+    }    
   } else {
     printErr("method bezierVertex() all arg need to be vec2 or vec3");
     exit();
@@ -830,9 +825,17 @@ void quadraticVertex(float cx, float cy, float x3, float y3, PGraphics other) {
 void quadraticVertex(float cx, float cy, float cz, float x3, float y3, float z3, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer_rope_framework.quadraticVertex(cx,cy,cz, x3,y3,z3,other);
+    if(renderer_P3D()) {
+      buffer_rope_framework.quadraticVertex(cx,cy,cz, x3,y3,z3,other);
+    } else {
+      buffer_rope_framework.quadraticVertex(cx,cy, x3,y3,other);
+    }    
   } else {
-    quadraticVertex(cx,cy,cz, x3,y3,z3);
+    if(renderer_P3D()) {
+      quadraticVertex(cx,cy,cz, x3,y3,z3);
+    } else {
+      quadraticVertex(cx,cy, x3,y3);
+    }
   }
 }
 
@@ -841,7 +844,11 @@ void quadraticVertex(vec a, vec b) {
   if(a instanceof vec2 && b instanceof vec2) {
     quadraticVertex(a.x(),a.y(), b.x(),b.y());
   } else if(a instanceof vec3 && b instanceof vec3) {
-    quadraticVertex(a.x(),a.y(),a.z(), b.x(),b.y(),b.z());
+    if(renderer_P3D()) {
+      quadraticVertex(a.x(),a.y(),a.z(), b.x(),b.y(),b.z());
+    } else {
+      quadraticVertex(a.x(),a.y(), b.x(),b.y());
+    } 
   } else {
     printErr("method quadraticVertex() all arg need to be vec2 or vec3");
     exit();
@@ -885,9 +892,17 @@ void curveVertex(float x, float y, PGraphics other) {
 void curveVertex(float x, float y, float z, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
-    buffer_rope_framework.curveVertex(x,y,z,other);
+    if(renderer_P3D()) {
+      buffer_rope_framework.curveVertex(x,y,z,other);
+    } else {
+      buffer_rope_framework.curveVertex(x,y,other);
+    }   
   } else {
-    curveVertex(x,y,z);
+    if(renderer_P3D()) {
+      curveVertex(x,y,z);
+    } else {
+      curveVertex(x,y);
+    } 
   } 
 }
 
@@ -895,10 +910,10 @@ void curveVertex(float x, float y, float z, PGraphics other) {
 
 //
 void curveVertex(vec a) {
-  if(a instanceof vec2) {
-    curveVertex(a.x(),a.y());
-  } else {
+  if(renderer_P3D() && a instanceof vec3) {
     curveVertex(a.x(),a.y(),a.z());
+  } else {
+    curveVertex(a.x(),a.y());
   } 
 }
 
