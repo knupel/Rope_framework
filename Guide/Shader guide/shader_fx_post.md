@@ -92,11 +92,15 @@ PGraphics fx_level(PImage source, boolean on_g, boolean filter_is, int mode, flo
 
 PGraphics fx_mask(PImage source, PImage mask, FX fx);
 
-PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is, int mode, int num);
+PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is, int mode, int num, vec2 threshold, vec4 level_layer);
 
 int mode : 0 for gray mask
 
 int num : quantity of threshold separation, the minimum is 2
+
+vec2 threshold : define the min and the max where the mask have an effect, from 0 to 1
+
+vec4 level_layer : define the power of mask effect on each color component red, green, alpha and alpha : the algorithm multiply the the remove part by the level. by exemply if the level is 1, there is no effect, if it's 3 its a big remove effect, if it's 0.5 thats reduce the effect. the range it's from 0 to 6.
 
 
 
