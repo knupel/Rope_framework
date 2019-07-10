@@ -14,11 +14,44 @@
 */
 
 
-vec2 value = new vec2(-1, 2);
+
+
+
 void setup() {
-  println(value.constrain(0,1));
-  value.set(-1,2);
-	println(value.constrain(new vec2(0,1), new vec2(0,3)));
+  size(640,480);
+}
+ivec2 src = ivec2();
+void draw() {
+  background(125);
+  if(mousePressed) {
+  	src = ivec2(mouseX,mouseY);
+  }
+  float radius = 30;
+  int num = 10;
+  //loadPixels();
+  g.loadPixels();
+  for(int i = 0 ; i < num ; i++) {
+    float dir = random(TAU);
+    float x = sin(dir);
+    float y = cos(dir);
+    float from_center = random_next_gaussian(radius);
+    vec2 dst = vec2(x,y).mult(from_center).add(src);
+    dst.constrain(vec2(0),vec2(width,height));
+    printTempo(60," ");
+    printTempo(60,"x",dst.x());
+    printTempo(60,"y",dst.y());
+    int target = (int)dst.y() * width + (int)dst.x();
+
+    printTempo(60,dst.y(),"*",width,"+",dst.x(),"=",target);
+    //int target = int(dst.x() * width + dst.y());
+    
+    // println(g.pixels.length);
+    if(target >= g.pixels.length) target = 0;
+    g.pixels[target] = color(0);
+    
+  }
+  g.updatePixels();
+  
 }
 
 

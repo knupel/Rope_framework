@@ -193,25 +193,78 @@ String [] get_files_sort()
 
 *METHOD SAVE LOAD FRAME
 
+LOAD FRAME
+--
+PImage load_image_BMP(String fileName);
+
+
+
+
 SAVE FRAME
 --
 Actually work for 'jpg' and 'bmp'
 
-void saveFrame(String where, String filename, PImage img) ;
+void save_frame(String where, String filename, PImage img) ;
 
-void saveFrame(String where, String filename) ;
+void save_frame(String where, String filename) ;
 
-void saveFrame(String where, String filename, float compression);
+void save_frame(String where, String filename, float compression);
 
-void saveFrame(String where, String filename, float compression, PImage img);
+void save_frame(String where, String filename, float compression, PImage img);
 >String where is the path where you want save your file, from the sketchPath
 >String filenam is the name of your file, don't add the extension
 >float compression, in cas you save a jpeg, you can choice the rate compression from '0' to '1'
 >PImage if you don't want same all the window you can save PImage.
 
-LOAD FRAME
+
+
+
+
+
+
+
+PDF
 --
-PImage loadImageBMP(String fileName);
+>start_PDF() use at the top of draw() to start the recording.
+>stop_PDF() use at the end of draw() to recard the display
+
+To make a shot use the method 'event_PDF()', for instance used in void keyPressed() 
+
+>Note, if you want save the background for your PDF, you must use the method 'background_rope()', it 's almost the same as 'background()' of Processing.
+
+
+void start_PDF() ;
+>Save in default folder, with a default ranking file name.
+
+void start_PDF(String name_file) ;
+>Choose a file name for your file
+
+void start_PDF(String path_folder, String name_file) ;
+>Choose a folder and file name for yours shots.
+
+void event_PDF() ;
+>make true the boolean: give authorization to shot !
+
+void save_PDF() ;
+>save your PNG, put this method at the end of list of method must be save
+
+
+
+PNG
+--
+>For the PNG, if you want use a default setting, you don't need to use a method 'start_PNG()'
+
+void save_PNG(String path_folder, String name_file) ;
+>save your PNG, put this method at the end of list of method must be save
+
+void save_PNG();
+>save frame in data folder
+
+
+void event_PNG() ;
+>Make true the boolean that give autorisation to shot !
+
+
 
 
 
@@ -327,47 +380,7 @@ String get_OS_family()
 
 
 
-*SCREEN SHOT 
 
->Make a shot of your work easily, in PDf or PNG
-
-pdf shot
---
->start_PDF() use at the top of draw() to start the recording.
->stop_PDF() use at the end of draw() to recard the display
-
-To make a shot use the method 'event_PDF()', for instance used in void keyPressed() 
-
->Note, if you want save the background for your PDF, you must use the method 'background_rope()', it 's almost the same as 'background()' of Processing.
-
-
-void start_PDF() ;
->Save in default folder, with a default ranking file name.
-
-void start_PDF(String name_file) ;
->Choose a file name for your file
-
-void start_PDF(String path_folder, String name_file) ;
->Choose a folder and file name for yours shots.
-
-void event_PDF() ;
->make true the boolean: give authorization to shot !
-
-void save_PDF() ;
->save your PNG, put this method at the end of list of method must be save
-
-png shot
---
->For the PNG, if you want use a default setting, you don't need to use a method 'start_PNG()'
-
-void start_PNG(String path_folder, String name_file) ;
->Choose a folder and file name for yours shots.
-
-void event_PNG() ;
->Make true the boolean that give autorisation to shot !
-
-void save_PNG() ;
->save your PNG, put this method at the end of list of method must be save
 
 
 
@@ -714,159 +727,6 @@ String float_to_String_3(float data) ;
 
 
 
-
-
-
-
-*TABLE METHOD 0.0.3
-
-build
---
-void buildTable(Table table, TableRow [] tableRow, String [] col_name, String [] row_name) ;
-
-void buildTable(Table table, String [] col_name) ;
->build your table with the collumn name that you need until 7 col, the first is always for the data type. Be caraful, used the method in the SETUP()
-
-
-set
---
-void setTable(Table table, TableRow [] rows, Info_obj... info) ;
-
-add rows with info that you need.
-Here we use the Class Info_obj to put every thing what you need in each row, no matter if it's String, float, int...
-the first param of Info is in String and be use in the first col, the other are Object type and be use in the next col.
-
-
-void setRow(Table table, Info_obj info) ;
->Set a specific row.
-
-
-
-
-
-*INFO DICT 0.2.3
-
-Generic Dict_list
---
-Object
-Info_dict your_dict = new Info_dict() ;
-
-Be careful Info_dict return only var of type Object. So before use it, you must check the type before cast it.
-Plus the method get() don't work in Dict_list, instead use catch_all() or catch_obj(int arg)
-
-Special Dict_list
---
-Integer
-Info_int_dict your_dict = new Info_int_dict() ;
-
-Float
-Info_float_dict your_dict = new Info_float_dict() ;
-
-String
-Info_String_dict your_dict = new Info_String_dict() ;
-
-vec
-Info_vec_dict your_dict = new Info_vec_dict() ;
-
-
-
-
-add value
---
-dict.add(String name, Type var) ;
-> from '1' var... to '6' vars
-
-your_dict.add(String name, Type var, Type var, Type var, Type var, Type var, Type var) ;
-
-read value
---
-your_dict.read() ;
-> return the name, the vars and the type of var used
-
-size
---
-your_dict.size() ;
-> return the size of your dict
-
-get value
---
-your_dict.get("name")) ;
-> return Array list of info with the target name
-
-your_dict.get(-1)) ;
-> return Object info
-
-remove Info
---
-your_dict.remove("name") ;
-> remove all entries with this entry name
-
-your_dict.remove(0) ;
->remove this entry from the list
-
-clear
---
-your_dict.clear() ;
->empty the list
-
-
-
-
-INFO 0.1.0
---
->class structure and build to return:
->String + String(s) / String + int(s) / String + float(s) / String + vec(s) / String + Object(s)
-
-
->Info_String, Info_float, Info_int, Info_vec, Info_obj.
-
-like that
---
-Info info = new Info_int(String name,int... arg);
-
-Info info = new Info_String(String name,String... arg);
-
-Info info = new Info_float(String name,float... arg);
-
-Info info = new Info_vec(String name,vec... arg);
-
-Info info = new Info_obj(String name,Object... a);
-
-
-
-
-You can catch or get the value with:
---
-Object [] catch_all() ;
->return array with all objects
-
-Object catch_obj(int target);
->return a var from type Object
-
-You can also get the value with
-
-variable [] get() ;
->return array with all argument of the info type.
-
-variable [] get(int target) ;
->return a argument of the type info
-
-Can work with float, int, String and vec class
---
-Info(String name,type a);
-
-Info(String name,type a,type  b);
-
-Info(String name,type a,type b,type c);
-
-Info(String name,type a,type b,type c,type  d);
-
-Info(String name, type a,type b,type c,type d,type e);
-
-Info(String name,type a,type b,type c,type d,type e,type f);
-
-Info(String name,type  a,type b,type c,type d,type e,type f,type g);
->if you mix different type of var in you Constructor, the class considere all param like Object type.
 
 
 
