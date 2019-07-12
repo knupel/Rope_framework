@@ -151,7 +151,14 @@ int camaieu(float max, float color_ref, float range);
 >arg color_ref is the average value to do camaieu
 >arg range is used to contrain the method around the color_ref
 
+*mixer
 
+int mixer(int color_0, int color_1, float normal_threshold);
+The method make the difference between the two colors, this difference is multiply by the threshold, it's reason why this one must be normal from 0 to 1.
+>return an int color argument
+>arg color_0 : is the original color
+>arg color_1 : is the targeting color
+>arg normal_threshold
 
 
 

@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.10.3
+*v 0.10.4
 * Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * Processing 3.5.3
@@ -512,6 +512,15 @@ float [] getColorMode() {
   return getColorMode(false);
 }
 
+
+
+
+
+
+
+
+
+
 /**
 camaieu 
 v 0.1.2
@@ -525,6 +534,48 @@ float camaieu(float max, float reference, float range) {
   if(camaieu > max) camaieu = camaieu -max;
   return camaieu;
 }
+
+
+
+
+
+
+/**
+* mixer
+* v 0.0.1
+* mix color together with the normal threshold variation
+*/
+int mixer(int o, int d, float threshold) {
+  if(g.colorMode == 1) {
+    float x = gradient_value(red(o),red(d),threshold);
+    float y = gradient_value(green(o),green(d),threshold);
+    float z = gradient_value(blue(o),blue(d),threshold);
+    return color(x,y,z);
+  } else {
+    float x = gradient_value(hue(o),hue(d),threshold);
+    float y = gradient_value(saturation(o),saturation(d),threshold);
+    float z = gradient_value(brightness(o),brightness(d),threshold);
+    return color(x,y,z);
+  }
+}
+
+float gradient_value(float origin, float destination, float threshold) {
+  float gradient = origin;
+  float range = origin - destination;
+  float power = range * threshold;
+  return gradient - power;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
