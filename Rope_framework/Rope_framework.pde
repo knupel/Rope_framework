@@ -1,16 +1,13 @@
 /**
 * Rope Framework
-* v 1.1.2
+* v 1.1.3
 * Copyleft (c) 2014-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * 
-* note:
+* work with
 * Processing 3.5.3
-* Rope library 0.7.1.25
-* import rope.core.*; > imported in the tab Z_R_core.pde
-* import rope.vector.*; > imported in the tab Z_R_core.pde
-* 
+* Rope library 0.8.3.28
 */
 
 
@@ -231,17 +228,6 @@ void draw_line_no_aa(float x0, float y0, float x1, float y1, PGraphics pg) {
 
 
 
-void plot(int x, int y, int colour, float alpha, PGraphics pg) {
-  int bg = pg.get(x,y);
-  int col = colour;
-  if(alpha < 1) {
-    col = mixer(bg,colour,alpha);
-  } 
-  int rank = x + y * pg.width;
-  if(rank >= 0 && rank < pg.pixels.length && x >= 0 && x < pg.width) {
-    pg.pixels[rank] = col; 
-  }  
-}
 
 
 

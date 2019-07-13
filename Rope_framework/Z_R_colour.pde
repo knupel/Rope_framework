@@ -578,6 +578,14 @@ float gradient_value(float origin, float destination, float threshold) {
 * v 0.0.2
 * set pixel color with alpha and PGraphics management 
 */
+void plot(int x, int y, int colour) {
+  plot(x, y, colour, 1.0, g);
+}
+
+void plot(int x, int y, int colour, PGraphics pg) {
+  plot(x, y, colour, 1.0, pg);
+}
+
 void plot(int x, int y, int colour, float alpha) {
   plot(x, y, colour, alpha, g);
 }

@@ -163,7 +163,12 @@ The method make the difference between the two colors, this difference is multip
 
 *plot
 
-set pixel color with alpha and PGraphics management, the alpha must hava a normal value
+set pixel color with alpha and PGraphics management, the alpha must hava a normal value.
+This method is like set() from processing but faster because the pixel is not updated, so when you use it, you must loadPixels() and updatePixels() by yourself
+
+void plot(int x, int y, int colour);
+
+void plot(int x, int y, int colour, Pgraphics pg);
 
 void plot(int x, int y, int colour, float alpha);
 
