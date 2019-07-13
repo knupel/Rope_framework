@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.10.4
+*v 0.10.5
 * Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * Processing 3.5.3
@@ -570,6 +570,29 @@ float gradient_value(float origin, float destination, float threshold) {
 
 
 
+
+
+
+/**
+* plot
+* v 0.0.2
+* set pixel color with alpha and PGraphics management 
+*/
+void plot(int x, int y, int colour, float alpha) {
+  plot(x, y, colour, alpha, g);
+}
+
+void plot(int x, int y, int colour, float alpha, PGraphics pg) {
+  int bg = pg.get(x,y);
+  int col = colour;
+  if(alpha < 1) {
+    col = mixer(bg,colour,alpha);
+  } 
+  int rank = x + y * pg.width;
+  if(rank >= 0 && rank < pg.pixels.length && x >= 0 && x < pg.width) {
+    pg.pixels[rank] = col; 
+  }  
+}
 
 
 

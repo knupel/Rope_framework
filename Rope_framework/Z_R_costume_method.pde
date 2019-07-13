@@ -3,7 +3,7 @@
 * Copyleft (c) 2014-2019
 * v 1.9.2
 * processing 3.5.3.269
-* Rope Library 0.8.1.26
+* Rope Library 0.8.3.28
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -316,7 +316,9 @@ void aspect(vec fill, vec stroke, float thickness, PGraphics other) {
 }
 
 
-
+/**
+* Deprecated part
+*/
 @Deprecated
 void aspect(int fill, int stroke, float thickness, Costume costume) {
 	PGraphics other = null;

@@ -161,6 +161,15 @@ The method make the difference between the two colors, this difference is multip
 >arg normal_threshold
 
 
+*plot
+
+set pixel color with alpha and PGraphics management, the alpha must hava a normal value
+
+void plot(int x, int y, int colour, float alpha);
+
+void plot(int x, int y, int colour, float alpha, PGraphics pg);
+
+
 
 
 
