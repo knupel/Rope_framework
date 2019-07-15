@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.10.5
+*v 0.10.7
 * Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * Processing 3.5.3
@@ -17,11 +17,25 @@
 
 
 
+R_Colour colour_rope;
+void colour(int... list_colour) {
+  if(colour_rope == null) {
+    colour_rope = new R_Colour(this,list_colour);
+  } else {
+    colour_rope.clear();
+    colour_rope.add(0,list_colour);
+  }
+}
 
+int [] get_colour() {
+  if(colour_rope != null) {
+    return colour_rope.get();
+  } else return null;
+}
 
 /**
 * COLOUR LIST class
-* v 0.3.2
+* v 0.3.3
 * 2017-2019
 */
 public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Colour {
@@ -90,6 +104,11 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
     return list.size();
   }
 
+
+  public int size() {
+    return size(0);
+  }
+
   public int size(int group) {
     if(group >= 0 && group < list.size()) {
       return list.get(group).size();
@@ -98,7 +117,13 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
       return -1;
     }
   }
+  
 
+
+
+  public int [] get() {
+    return get(0);
+  }
 
   public int [] get(int group) {
     if(group >= 0 && group < list.size()) {
@@ -251,6 +276,10 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
   }
   
 
+  public float [] hue() {
+    return hue(0);
+  }
+
   public float [] hue(int group) {
     if(group >= 0 && group < list.size()) {
       float[] component = new float[list.get(group).size()];
@@ -265,6 +294,11 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
     }
   }
 
+
+  
+  public float [] saturation() {
+    return saturation(0);
+  }
 
   public float [] saturation(int group) {
     if(group >= 0 && group < list.size()) {
@@ -281,6 +315,11 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
   }
 
 
+
+  public float [] brightness() {
+    return brightness(0);
+  }
+  
   public float [] brightness(int group) {
     if(group >= 0 && group < list.size()) {
       float[] component = new float[list.get(group).size()];
@@ -293,6 +332,11 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
       printErr("class R_Color method brightness(",group,") no group match with your demand, instead 'null' is return");
       return null; 
     }
+  }
+
+
+  public float [] red() {
+    return red(0);
   }
 
   public float [] red(int group) {
@@ -309,6 +353,10 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
     }
   }
 
+  
+  public float [] green() {
+    return green(0);
+  }
 
   public float [] green(int group) {
     if(group >= 0 && group < list.size()) {
@@ -323,8 +371,12 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
       return null; 
     }
   }
-  
 
+
+  public float [] blue() {
+    return blue(0);
+  }
+  
   public float [] blue(int group) {
     if(group >= 0 && group < list.size()) {
       float[] component = new float[list.get(group).size()];
@@ -339,6 +391,10 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
     }
   }
 
+
+  public float [] alpha() {
+    return alpha(0);
+  }
 
   public float [] alpha(int group) {
     if(group >= 0 && group < list.size()) {
@@ -355,6 +411,11 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
   }
 
   
+
+  public vec3 [] hsb() {
+    return hsb(0);
+  }
+
   public vec3 [] hsb(int group) {
     if(group >= 0 && group < list.size()) {
       vec3[] component = new vec3[list.get(group).size()];
@@ -369,6 +430,10 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
     }
   }
 
+
+  public vec3 [] rgb() {
+    return rgb(0);
+  }
 
   public vec3 [] rgb(int group) {
     if(group >= 0 && group < list.size()) {
@@ -386,6 +451,10 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
   }
 
 
+  public vec4 [] hsba() {
+    return hsba(0);
+  }
+
   public vec4 [] hsba(int group) {
     if(group >= 0 && group < list.size()) {
       vec4[] component = new vec4[list.get(0).size()];
@@ -400,6 +469,10 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
     }
   }
 
+
+  public vec4 [] rgba() {
+    return rgba(0);
+  }
 
   public vec4 [] rgba(int group) {
     if(group >= 0 && group < list.size()) {

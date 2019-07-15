@@ -2,7 +2,22 @@ Colour guide
 v 0.2.0
 2017-2019
 
-*R_COLOUR
+
+
+
+*colour
+
+void colour(int... arg);
+
+int [] get_colour();
+>return int array setting with colour(int.. arg);
+
+
+
+
+
+
+*CLASS R_COLOUR
 
 
 *CONSTRUCTOR
@@ -128,6 +143,15 @@ vec4 [] hsba(int group);
 vec4 [] rgba();
 
 vec4 [] rgba(int group);
+
+
+
+
+
+
+
+
+
 
 
 

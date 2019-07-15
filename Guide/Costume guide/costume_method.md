@@ -3,7 +3,7 @@
 v 1.2.0
 2016-2019
 --
-Mini library give a bestiary shape, in 2D or 3D
+Mini library give a bestiary shape or stuff to draw , in 2D or 3D
 
 When use pass a float angle, that must be in radians -PI to PI
 
@@ -20,10 +20,67 @@ to change the aspect like fill, stroke or strokeWeight use aspect_rope();
 
 
 
+*LINE 2D
+
+
+*void line2()
+
+void line2D(vec2 p1, vec2 p2, boolean aa_is, boolean update_pix_is, PGraphics pg);
+
+void line2D(vec2 p1, vec2 p2, boolean aa_is , boolean update_pix_is);
+
+void line2D(float x1, float y1, float x2, float y2, boolean aa_is, boolean update_pix_is);
+
+void line2D(float x1, float y1, float x2, float y2, boolean aa_is, boolean update_pix_is, PGraphics pg);
+
+>arg position, define the first and the last point of your line
+vec2 p1, p2
+
+float x1,y1 and x2,y2 
+>arg boolean as_is
+define if your line use antialiasing or not
+
+>arg boolean update_pis_is
+define if the methode must use the internal method PGraphics.loadPixels() and PGraphics.updatePixels()
+
+>arg PGraphics pg
+use to pass a specific render context.
+
+*void alpha_line2D()
+
+
+alpha_line2D(float entry, float exit);
+>define the alpha evolution between the first and the point, the argument must be normal from 0 to 1
 
 
 
-*METHOD
+Note: with those methods you can use method
+void colour(int... color argument);
+>useful to create a line with different colour.
+
+void tempo(float... argument);
+>useful to define the size of the different colour use on the line, you can create adash colour for example
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*method COSTUME
 
 
 *main

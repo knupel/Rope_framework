@@ -7,6 +7,31 @@ All the methods similare or closer of Processing is writing in 'camelCase' the r
 
 
 
+
+*TEMPO
+
+void tempo(float... tempo);
+>define the tempo partition
+
+float sum_tempo();
+>return the sum of all elements of tempo partition
+
+float get_tempo(float time);
+>return value of the tempo of the value on the tempo line
+
+int get_tempo_pos(float time);
+>return position of the value on the tempo line
+
+float [] tempo();
+return value of each value of tempo partion
+
+
+
+
+
+
+
+
 *CREATE METHOD
 
 void template_method(String name, PApplet pa, Class... classes);
