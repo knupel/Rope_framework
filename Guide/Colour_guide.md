@@ -5,11 +5,11 @@ v 0.2.0
 
 
 
-*colour
+*palette
 
-void colour(int... arg);
+void palette(int... arg);
 
-int [] get_colour();
+int [] get_palette();
 >return int array setting with colour(int.. arg);
 
 

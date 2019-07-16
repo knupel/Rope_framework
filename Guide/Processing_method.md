@@ -32,6 +32,29 @@ void endDraw(PGraphics other);
 
 void clear(PGraphics other);
 
+
+
+
+/**
+* background
+*/
+
+void background(int rgb, PGraphics other);
+
+void background(int rgb, float alpha, PGraphics other);
+
+void background(float gray, PGraphics other);
+
+void background(float gray, float alpha, PGraphics other);
+
+void background(float v1, float v2, float v3, PGraphics other);
+
+void background(float v1, float v2, float v3, float alpha, PGraphics other);
+
+void background(PImage img, PGraphics other);
+
+
+
 /**
 Ellipse
 v 0.2.0
@@ -52,6 +75,7 @@ void ellipse(vec p, float x, PGraphics other);
 /**
 main method
 */
+
 void ellipse(vec p, vec s);
 
 void ellipse(vec p, vec s, PGraphics other);

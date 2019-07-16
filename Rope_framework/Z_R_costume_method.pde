@@ -35,11 +35,35 @@ void line2D(float x1, float y1, float x2, float y2, boolean aa_is, boolean updat
   if(!aa_is) {
     draw_line_no_aa(x1, y1, x2, y2, update_pix_is, pg);
   } else {
-    if(x1 != x2 && y1 != y2) {
-    	draw_line_aa_wu(x1, y1, x2, y2, update_pix_is, pg);
-    } else {
-    	draw_line_no_aa(x1, y1, x2, y2, update_pix_is, pg);
-    }
+  	boolean exception_is = false;
+  	vec2 src = vec2(x1,y1);
+  	vec2 dst = vec2(x2,y2);
+  	float angle = src.angle(dst) +HALF_PI;
+  	float range = 0.005;
+  	float north = PI + HALF_PI;
+  	float north_west = TAU - QUARTER_PI;
+  	float north_east = PI + QUARTER_PI;
+  	float east = PI;
+  	float south = HALF_PI;
+
+  	if(	(x1 != x2 && y1 != y2) || 
+  			(angle > north - range && angle < north + range) || 
+  			(angle > north_west - range && angle < north_west + range) ||
+  			(angle > north_east - range && angle < north_east + range) ||
+  			(angle > east - range && angle < east + range) ||
+  			(angle > south - range && angle < south + range)
+  		) {
+  		exception_is = true;
+  	}
+    
+
+  	
+  	if(exception_is) {
+  		draw_line_no_aa(x1, y1, x2, y2, update_pix_is, pg);
+  	} else {
+  		draw_line_aa_wu(x1, y1, x2, y2, update_pix_is, pg);
+  	}	
+    
   } 
 }
 
@@ -97,12 +121,7 @@ void draw_line_aa_wu(double x_0, double y_0, double x_1, double y_1, boolean upd
   vec2 src = vec2((float)x_0,(float)y_0);
   vec2 dst = vec2((float)x_1,(float)y_1);
   float angle = src.angle(dst) +HALF_PI;
-  println("angle",angle,frameCount);
-  // printTempo(60,"angle",angle,frameCount);
-  // printTempo(60,"radius",dist(src,dst),frameCount);
 
-
-  // printTempo(60,"dist>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><",dist(src,dst));
   boolean steep = Math.abs(y_1 - y_0) > Math.abs(x_1 - x_0);
   double buffer;
   if (steep) {
@@ -133,17 +152,15 @@ void draw_line_aa_wu(double x_0, double y_0, double x_1, double y_1, boolean upd
   // colour part
   float radius = dist(vec2((float)x_0,(float)y_0),vec2((float)x_1,(float)y_1));
   float step_palette = radius;
-   int [] col = {pg.strokeColor};
-  if(get_colour() != null) {
-    col = get_colour();
-    step_palette = radius / col.length;  
-  }
-  colorMode(HSB,TAU,100,100,100);
-  int colour = color(angle,g.colorModeY,g.colorModeZ);
-  
-  colorMode(RGB,255,255,255,255);
-  // int colour = col[0];
+  int [] col = {pg.strokeColor};
+  int colour = col[0];
   float alpha_ratio = 1.0;
+  if(get_palette() != null) {
+    col = get_palette();
+    step_palette = radius / col.length;  
+  } else {
+
+  }
 
 
   // BACK to ALGORITHM
@@ -158,12 +175,12 @@ void draw_line_aa_wu(double x_0, double y_0, double x_1, double y_1, boolean upd
   double start_intery = y_1 + gradient * (x_end_1 - x_1);
   double x_gap_1 = fpart(x_1 + 0.5);
 
-  // colour = colour_wu_line_pixel(steep,stop_intery, start_intery, stop_intery, radius, step_palette, col);
-  // alpha_ratio = alpha_ratio_wu_line_pixel(steep,stop_intery, start_intery, stop_intery, radius, step_palette);
+  colour = colour_wu_line_pixel(stop_intery, start_intery, stop_intery, radius, step_palette, col, angle);
+  alpha_ratio = alpha_ratio_wu_line_pixel(stop_intery, start_intery, stop_intery, radius, step_palette, angle);
   pixel_wu(steep, x_end_0, stop_intery, x_gap_0, colour, alpha_ratio, pg);
 
-  // colour = colour_wu_line_pixel(steep,start_intery, start_intery, stop_intery, radius, step_palette, col);
-  // alpha_ratio = alpha_ratio_wu_line_pixel(steep,start_intery, start_intery, stop_intery, radius, step_palette);
+  colour = colour_wu_line_pixel(start_intery, start_intery, stop_intery, radius, step_palette, col, angle);
+  alpha_ratio = alpha_ratio_wu_line_pixel(start_intery, start_intery, stop_intery, radius, step_palette, angle);
   pixel_wu(steep, x_end_1, start_intery, x_gap_1, colour, alpha_ratio, pg);
 
   // main loop
@@ -173,8 +190,8 @@ void draw_line_aa_wu(double x_0, double y_0, double x_1, double y_1, boolean upd
   double intery = y_end_0 + gradient;
   for (int x = x_end_0 ; x <= x_end_1 ; x++) {
     double gap = 1.0;
-    // colour = colour_wu_line_pixel(steep,intery, start_intery, stop_intery, radius, step_palette, col);
-    //alpha_ratio = alpha_ratio_wu_line_pixel(steep,intery, start_intery, stop_intery, radius, step_palette);
+    colour = colour_wu_line_pixel(intery, start_intery, stop_intery, radius, step_palette, col, angle);
+    alpha_ratio = alpha_ratio_wu_line_pixel(intery, start_intery, stop_intery, radius, step_palette, angle);
     pixel_wu(steep, x, intery, gap, colour, alpha_ratio, pg);
     intery += gradient;
   }
@@ -187,13 +204,11 @@ void pixel_wu(boolean steep, int x, double intery, double gap, int colour, float
   double alpha = 0;
 
   if (steep) {
-  	// printTempo(60,"YES steep",yes_steep++);
     alpha = rfpart(intery) * gap;
     plot(int(ipart(intery) + 0), x, colour, (float)alpha *alpha_ratio, pg);
     alpha = fpart(intery) * gap;
     plot(int(ipart(intery) + 1), x, colour, (float)alpha *alpha_ratio, pg);
   } else {
-  	//printTempo(60,"NO steep",no_steep++);
     alpha = rfpart(intery) * gap;
     plot(x, int(ipart(intery) + 0), colour, (float)alpha *alpha_ratio, pg);
     alpha = fpart(intery) * gap;
@@ -202,70 +217,9 @@ void pixel_wu(boolean steep, int x, double intery, double gap, int colour, float
 }
 
 
-float alpha_ratio_wu_line_pixel(boolean steep, double intery, double start, double stop, float radius, float step) {
-	if(start == stop) {
-		start -= 1;
-	}
-	float index = 1;
-	// index = map((float)intery,(float)start,(float)stop,0,radius);
-	boolean inverse_is = false;
-	if(stop > start) {
-		inverse_is = true;
-	}
-	if(inverse_is && steep) {
+float alpha_ratio_wu_line_pixel(double intery, double start, double stop, float radius, float step, float angle) {
+	float index = index_wu(intery, start, stop, radius, angle);
 
-	} else if (inverse_is && !steep) {
-
-	} else if (!inverse_is && steep) {
-
-	} else if (!inverse_is && !steep) {
-
-	}
-		
-
-
-  /*
-	if(inverse_is) {
-		if(steep) {
-			index = map((float)intery,(float)start,(float)stop,0,radius);
-		} else {
-			index = map((float)intery,(float)stop,(float)start,0,radius);
-		}	
-	} else {
-		if(steep) {
-	  	index = map((float)intery,(float)stop,(float)start,0,radius);
-	  } else {
-	  	index = map((float)intery,(float)start,(float)stop,0,radius);
-	  }
-	}
-	*/
-	/*
-	if(steep) {
-	  if(inverse_is) {
-	  	index = map((float)intery,(float)start,(float)stop,0,radius);
-	  } else {
-	  	index = map((float)intery,(float)stop,(float)start,0,radius);
-	  }
-		// printTempo(60,"index start-stop",index,start,stop);
-	} else {
-		// index = map((float)intery,(float)stop,(float)start,0,radius);
-		// index = map((float)intery,(float)start,(float)stop,0,radius);
-		
-		if(inverse_is) {
-	  	index = map((float)intery,(float)stop,(float)start,0,radius);
-	  } else {
-	  	index = map((float)intery,(float)start,(float)stop,0,radius);
-	  }
-	  
-		//printTempo(60,"index stop-start",index,stop,start);
-	}
-	*/
-	
-	// printTempo(60,"index after",index,start,stop);
-	if(index < 0) index = 0;
-	if(index > radius) index = radius;
-
-  // float index = map((float)intery,(float)start,(float)stop,0,radius);
   float alpha = 1.0;
   
   if(alpha_entry_line2D != 1.0 || alpha_exit_line2D != 1.0) {
@@ -273,24 +227,44 @@ float alpha_ratio_wu_line_pixel(boolean steep, double intery, double start, doub
   	if(alpha_entry_line2D > 1) alpha_entry_line2D = 1;
   	if(alpha_exit_line2D < 0) alpha_exit_line2D = 0;
   	if(alpha_exit_line2D > 1) alpha_exit_line2D = 1;
-  	// printTempo(60,frameCount);
-  	// printTempo(60,"start",start);
-  	// printTempo(60,"stop",stop);
-   //  printTempo(60,index,0,(float)(stop-start),alpha_entry_line2D,alpha_exit_line2D);
-   //printTempo(60,"data",index,0,radius,alpha_entry_line2D,alpha_exit_line2D);
-    alpha = map(index,0,radius,alpha_entry_line2D,alpha_exit_line2D);
-  	//alpha = map(index,0,(float)(stop-start),alpha_entry_line2D,alpha_exit_line2D);
-  	// alpha = map(index,0,(float)(start-stop),alpha_entry_line2D,alpha_exit_line2D);
+  	alpha = map(index,0,radius,alpha_entry_line2D,alpha_exit_line2D);
   }
   return alpha;
 }
 
-int colour_wu_line_pixel(boolean steep, double intery, double start, double stop, float radius, float step, int [] colour_list) {
+
+
+int colour_wu_line_pixel(double intery, double start, double stop, float radius, float step, int [] colour_list, float angle) {
+	/*
 	if(start == stop) {
 		start -= 1;
 	}
   float index = map((float)intery,(float)start,(float)stop,0,radius);
+  */
+  float index = index_wu(intery, start, stop, radius, angle);
   return colour_line2D((int)index,step,colour_list);
+}
+
+
+float index_wu(double intery, double start, double stop, float radius, float angle) {
+	if(start == stop) {
+		start -= 1;
+	}
+	float index = 1;
+	boolean inverse_is = false;
+	if(angle > QUARTER_PI && angle < PI + QUARTER_PI ) {
+		inverse_is = true;
+	}
+
+	if(inverse_is) {
+		index = map((float)intery,(float)stop,(float)start,0,radius);
+	} else {
+	  index = map((float)intery,(float)start,(float)stop,0,radius);
+	}
+	
+	if(index < 0) index = 0;
+	if(index > radius) index = radius;
+	return index;
 }
 
 
@@ -311,8 +285,8 @@ void draw_line_no_aa(float x0, float y0, float x1, float y1, boolean update_pixe
   // int target_colour = 0;
   float step_palette = radius;
   int [] col = {pg.strokeColor};
-  if(get_colour() != null) {
-    col = get_colour();
+  if(get_palette() != null) {
+    col = get_palette();
     step_palette = radius / col.length;  
   }
 
@@ -374,13 +348,11 @@ int colour_line2D(int index, float step, int [] colour_list) {
 }
 
 
-// boolean alpha_line2D_is = false;
 float alpha_entry_line2D = 1.0;
 float alpha_exit_line2D =1.0;
 void alpha_line2D(float entry, float exit) {
 	alpha_entry_line2D = entry;
 	alpha_exit_line2D = exit;
-	// alpha_line2D_is = true;
 }
 
 

@@ -26,8 +26,8 @@ void setup() {
 
   tempo(10,20,5);
   alpha_line2D(1,0);
-  colour(r.RED,r.GREEN,r.BLUE); // this method take the lead on stroke
-  stroke(r.VIOLET);
+  palette(r.VERT,r.JAUNE,r.ROUGE); // this method take the lead on stroke
+  //stroke(r.VIOLET);
   beginDraw(other);
   other.background(r.BLACK);
   endDraw(other);
@@ -51,13 +51,13 @@ void draw() {
   boolean aa_is = true; // antialising 
 
   float radius = map(mouseX,0,width,width/10,width/3);
-  int num = 100;
+  int num = 1000;
   float step = TAU / num;
   
   //g.loadPixels();
   //other.loadPixels();
   background(r.BLACK,other);
-  /*
+  
   for(int i = 0 ; i < num ; i++) {
     float dir =  i *step ;
     float ndx = sin(dir);
@@ -66,17 +66,20 @@ void draw() {
     // line2D(origin.x(),origin.y(),destination.x(),destination.y(),aa_is,update_pixel_is,g);
     line2D(origin.x(),origin.y(),destination.x(),destination.y(),aa_is,update_pixel_is,other);
   }
-  */
+  
+  
   
   // directional
   
   destination.x(mouseX);
   destination.y(mouseY);
-  
+  /*
   if(origin != null && destination != null) {
     line2D(origin.xy(),destination.xy(),true,update_pixel_is,other);
-    //line2D(origin.xy(),vec2(width,height).sub(destination.xy()),false,update_pixel_is,g);
+    //line2D(origin.xy(),vec2(width,height).sub(destination.xy()),false,update_pixel_is,other);
   }
+  */
+  
   
  // other.updatePixels();
   // g.updatePixels();
