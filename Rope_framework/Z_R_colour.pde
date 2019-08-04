@@ -1040,15 +1040,3 @@ int color_context(int color_ref, int threshold, int clear, int dark) {
   }
   return new_color ;
 }
-
-
-
-
-
-
-
-
-
-
-
-

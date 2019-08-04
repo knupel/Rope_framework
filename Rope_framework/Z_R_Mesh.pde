@@ -416,10 +416,3 @@ public class R_Segment {
   	}
   }
 }
-
-
-
-
-
-
-

@@ -1,7 +1,7 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.9.5
+* v 1.9.7
 * processing 3.5.3.269
 * Rope Library 0.8.3.28
 * @author @stanlepunk
@@ -16,7 +16,7 @@ import rope.costume.R_Virus;
 
 /**
 * line2D
-* v 0.1.0
+* v 0.2.0
 * 2019-2019
 */
 void line2D(vec2 p1, vec2 p2, boolean aa_is, boolean update_pix_is, PGraphics pg) {
@@ -38,32 +38,49 @@ void line2D(float x1, float y1, float x2, float y2, boolean aa_is, boolean updat
   	boolean exception_is = false;
   	vec2 src = vec2(x1,y1);
   	vec2 dst = vec2(x2,y2);
-  	float angle = src.angle(dst) +HALF_PI;
+    float angle = src.angle(dst);
+    println(angle);
   	float range = 0.005;
-  	float north = PI + HALF_PI;
-  	float north_west = TAU - QUARTER_PI;
-  	float north_east = PI + QUARTER_PI;
-  	float east = PI;
-  	float south = HALF_PI;
+    
+    // classic angle notation
+    // float north = HALF_PI;
+    // float north_east = QUARTER_PI;
+    // float east = PI;
+    // float south_east = (7*PI)*0.25;
+    // float south = (3*PI)*0.5;
+    // float south_west = (5*PI)*0.25;
+    // float west = 0;
+    // float north_west = (3*PI)*0.25;
+
+    // for the unicity value we note the angle between -PI to PI from atan2
+    float north = -HALF_PI;
+    float north_east = -QUARTER_PI;
+    float east = 0;
+    float south_east = QUARTER_PI;
+    float south = HALF_PI;
+    float south_west = (3*PI)*0.25;
+    float west = PI;
+    float north_west = -(3*PI)*0.25;
+
 
   	if(	(x1 != x2 && y1 != y2) || 
   			(angle > north - range && angle < north + range) || 
-  			(angle > north_west - range && angle < north_west + range) ||
-  			(angle > north_east - range && angle < north_east + range) ||
-  			(angle > east - range && angle < east + range) ||
-  			(angle > south - range && angle < south + range)
+        (angle > north_east - range && angle < north_east + range) ||
+        (angle > east - range && angle < east + range) ||
+  			(angle > south_east - range && angle < south_east + range) ||
+        (angle > south - range && angle < south + range) ||
+        (angle > south_west - range && angle < south_west + range) ||
+        (angle > west - range && angle < west + range) ||
+        (angle > north_west - range && angle < north_west + range)		
   		) {
   		exception_is = true;
   	}
     
-
-  	
   	if(exception_is) {
   		draw_line_no_aa(x1, y1, x2, y2, update_pix_is, pg);
   	} else {
   		draw_line_aa_wu(x1, y1, x2, y2, update_pix_is, pg);
   	}	
-    
   } 
 }
 
@@ -92,7 +109,7 @@ void line2D(float x1, float y1, float x2, float y2, boolean aa_is, boolean updat
 
 /**
 * line AA Xiaolin Wu based on alogrithm of Bresenham
-* v 0.2.0
+* v 0.2.1
 * 2019-2019
 * @see https://github.com/jdarc/wulines/blob/master/src/Painter.java
 * @see https://rosettacode.org/wiki/Xiaolin_Wu%27s_line_algorithm#Java
@@ -120,7 +137,7 @@ void draw_line_aa_wu(double x_0, double y_0, double x_1, double y_1, boolean upd
   // check angle before the steeping
   vec2 src = vec2((float)x_0,(float)y_0);
   vec2 dst = vec2((float)x_1,(float)y_1);
-  float angle = src.angle(dst) +HALF_PI;
+  float angle = src.angle(dst);
 
   boolean steep = Math.abs(y_1 - y_0) > Math.abs(x_1 - x_0);
   double buffer;
@@ -185,8 +202,8 @@ void draw_line_aa_wu(double x_0, double y_0, double x_1, double y_1, boolean upd
 
   // main loop
   // first y-intersection for the main loop
-  yes_steep= 0;
-  no_steep=0;
+  yes_steep = 0;
+  no_steep = 0;
   double intery = y_end_0 + gradient;
   for (int x = x_end_0 ; x <= x_end_1 ; x++) {
     double gap = 1.0;
@@ -198,8 +215,8 @@ void draw_line_aa_wu(double x_0, double y_0, double x_1, double y_1, boolean upd
   if(update_pixel) pg.updatePixels();
 }
 
-int yes_steep= 0;
-int no_steep=0;
+int yes_steep = 0;
+int no_steep = 0;
 void pixel_wu(boolean steep, int x, double intery, double gap, int colour, float alpha_ratio, PGraphics pg) {
   double alpha = 0;
 
@@ -219,7 +236,6 @@ void pixel_wu(boolean steep, int x, double intery, double gap, int colour, float
 
 float alpha_ratio_wu_line_pixel(double intery, double start, double stop, float radius, float step, float angle) {
 	float index = index_wu(intery, start, stop, radius, angle);
-
   float alpha = 1.0;
   
   if(alpha_entry_line2D != 1.0 || alpha_exit_line2D != 1.0) {
@@ -235,12 +251,6 @@ float alpha_ratio_wu_line_pixel(double intery, double start, double stop, float 
 
 
 int colour_wu_line_pixel(double intery, double start, double stop, float radius, float step, int [] colour_list, float angle) {
-	/*
-	if(start == stop) {
-		start -= 1;
-	}
-  float index = map((float)intery,(float)start,(float)stop,0,radius);
-  */
   float index = index_wu(intery, start, stop, radius, angle);
   return colour_line2D((int)index,step,colour_list);
 }
@@ -281,8 +291,7 @@ void draw_line_no_aa(float x0, float y0, float x1, float y1, boolean update_pixe
   float dir = src.angle(dst);
   float radius = dist(src,dst);
   
-    // manage colour list
-  // int target_colour = 0;
+  // manage colour list
   float step_palette = radius;
   int [] col = {pg.strokeColor};
   if(get_palette() != null) {
@@ -307,11 +316,10 @@ void draw_line_no_aa(float x0, float y0, float x1, float y1, boolean update_pixe
   }
 
 
-
   if(update_pixel) pg.loadPixels();
   for(int i = 0 ; i < radius ; i++) {
-    float x = sin(dir);
-    float y = cos(dir);
+    float x = cos(dir);
+    float y = sin(dir);
     float from_center = i;
     vec2 path = vec2(x,y).mult(from_center).add(src);
     path.constrain(vec2(0),vec2(width,height));
@@ -1452,27 +1460,3 @@ void print_list_costume() {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
