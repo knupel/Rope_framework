@@ -8,7 +8,7 @@
 * work with
 * Rope frame Work 1.1.3
 * Processing 3.5.3
-* Rope library 0.8.3.28
+* Rope library 0.8.4.29
 */
 
 Line2D main_line;
@@ -36,6 +36,7 @@ void draw() {
   
   ArrayList<Line2D> list = new ArrayList<Line2D>();
   line2D_echo(main_line, borders, list);
+  // println("list size",list.size());
 
   // border
   strokeWeight(1);
@@ -48,7 +49,7 @@ void draw() {
   // main line
   stroke(r.RED);
   strokeWeight(2);
-  main_line.draw();
+  //main_line.draw();
   
 }
 
@@ -57,23 +58,30 @@ void line2D_echo(Line2D line, Line2D [] limits, ArrayList<Line2D> list) {
   
   vec2 ref = line.a;
   Line2D rest_line = line.copy();
-
+  float offset = 2;
+  boolean go_and_return_is = keyPressed;
   while(rest_line.dist() > 0) {
-    rest_line = line2D_echo_loop(rest_line,limits,list,ref).copy();
+    rest_line = line2D_echo_loop(rest_line,limits,list,ref,offset,go_and_return_is).copy();
   }
 
 
-  strokeWeight(10);
+  strokeWeight(1);
   stroke(r.PINK);
   // show the last segment
   if(list != null && list.size() > 0) {
-    list.get(list.size()-1).draw();
+    for(Line2D l : list) {
+      l.draw();
+    }
+    
   }
 }
 
-Line2D line2D_echo_loop(Line2D line, Line2D [] limits, ArrayList<Line2D> list, vec2 ref) {
+Line2D line2D_echo_loop(Line2D line, Line2D [] limits, ArrayList<Line2D> list, vec2 ref, float offset, boolean go_return_is) {
   Line2D rest = new Line2D();
   int count_limit = 0;
+  if(go_return_is) offset = -1 *offset;
+
+
   for(Line2D limit : limits) {
     count_limit ++;
     // add line.a() like exception because this one touch previous border
@@ -81,20 +89,39 @@ Line2D line2D_echo_loop(Line2D line, Line2D [] limits, ArrayList<Line2D> list, v
     if(node != null) {
       Line2D line2D = new Line2D(line.a(),node);
       rest = new Line2D(node,line.b());
-      rest.angle(rest.angle() +PI);
-      list.add(line2D);
 
-      // opposite point
-      float angle = line.angle();
-      angle += PI;
-      vec2 temp = projection(angle, width+height).add(ref);
-      Line2D max_line = new Line2D(ref,temp);
-      for(Line2D limit_opp : limits) {
-        vec2 opp_node = limit_opp.intersection(max_line);
-        if(opp_node != null) {
-          break;
+      //offset
+      float angle_offset = limit.angle();
+      if(offset < 0 ) {
+        if(list.size()%2 == 0 && go_return_is) angle_offset += PI;
+      } else {
+        if(list.size()%2 == 0 && go_return_is) angle_offset -= PI;
+      }
+
+      vec2 displacement = projection(angle_offset,offset);
+      rest.offset(displacement);
+      
+      // classic go and return
+      if(go_return_is) {
+        rest.angle(rest.angle() +PI);
+      // go on a same way
+      } else {
+        float angle = rest.angle() -PI;
+
+        vec2 temp = projection(angle, width+height).add(rest.a());
+        Line2D max_line = new Line2D(rest.b(),temp);
+        for(Line2D limit_opp : limits) {
+          vec2 opp_node = limit_opp.intersection(max_line,vec2(node).add(displacement));
+          if(opp_node != null) {
+            rest.angle(rest.angle());
+            vec2 swap = opp_node.sub(node).sub(displacement);
+            rest.offset(swap);
+            break;
+          }
         }
       }
+      // add result
+      list.add(line2D);
       break;
     } else {
       // to add the last segment of the main line, 
@@ -121,6 +148,10 @@ void border(int marge) {
   borders[2] = new Line2D(c,d);
   borders[3] = new Line2D(d,a);
 }
+
+
+
+
 
 
 
@@ -166,6 +197,12 @@ class Line2D {
     return b;
   }
 
+  Line2D offset(vec2 offset) {
+    this.a.add(offset);
+    this.b.add(offset);
+    return this;
+  }
+
 
 
 
@@ -175,23 +212,26 @@ class Line2D {
   }
 
 
-  float angle() {
-    return a.angle(b);
-  }
-
-  void angle(float angle) {
-    float ax = cos(angle);
-    float ay = sin(angle);
-    this.b = new vec2(ax,ay).mult(dist()).add(a);
-  }
-
-
   float dist() {
     return abs(a.dist(b));
   }
 
   Line2D copy() {
     return new Line2D(this.a,this.b);
+  }
+
+
+
+  // Line2D
+  float angle() {
+    return a.angle(b);
+  }
+
+  Line2D angle(float angle) {
+    float ax = cos(angle);
+    float ay = sin(angle);
+    this.b = new vec2(ax,ay).mult(dist()).add(a);
+    return this;
   }
 
   vec2 intersection(Line2D other) {
@@ -215,30 +255,32 @@ class Line2D {
     float dx = x4 - x3;
     float dy = y4 - y3;
    
-    float b_dot_d_perp = bx * dy - by * dx;
+    float b_dot_d_perp = bx*dy - by*dx;
    
     if(b_dot_d_perp == 0) {
       return null;
     }
    
-    float cx = x3 - x1;
-    float cy = y3 - y1;
-   
-    float t = (cx * dy - cy * dx) / b_dot_d_perp;
+    float cx = x3 -x1;
+    float cy = y3 -y1;
+    
+    // with dx and dy
+    float t = (cx*dy - cy*dx) /b_dot_d_perp;
     if(t < 0 || t > 1) {
       return null;
     }
    
-    float u = (cx * by - cy * bx) / b_dot_d_perp;
+   // with bx and by
+    float u = (cx*by - cy*bx) /b_dot_d_perp;
     if(u < 0 || u > 1) {
       return null;
     }
 
-    vec2 result = new vec2(x1+t*bx, y1+t*by);
+    vec2 result = new vec2(x1 +t *bx, y1 +t *by);
 
     if(exception != null) {
       for(int i = 0 ; i < exception.length ; i++) {
-        if(exception[i].equals(result)) {
+        if(exception[i].compare(result,vec2(1))) {
           result = null;
         }
       }
