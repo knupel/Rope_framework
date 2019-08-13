@@ -6,6 +6,19 @@ Rope – Romanesco Processing Environment
 All the methods similare or closer of Processing is writing in 'camelCase' the really Rope methods are write with '_underscore_' !
 
 
+*ENTRY for PIXEL ARRAY
+
+int entry(ivec2 pos);
+
+int entry(vec2 pos);
+
+int entry(float x, float y);
+
+int entry(PGraphics pg, ivec2 pos);
+
+int entry(PGraphics pg, vec2 pos);
+
+int entry(PGraphics pg, float x, float y);
 
 
 

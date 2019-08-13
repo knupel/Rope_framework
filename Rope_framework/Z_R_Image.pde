@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.5.4
+* v 0.5.5
 * Copyleft (c) 2014-2019
 * Processing 3.5.3.269
 * Rope library 0.8.3.28
@@ -8,6 +8,37 @@
 * @see https://github.com/StanLepunK/Rope_framework
 */
 
+/**
+* entry return the pixel position from x,y coordinate
+*/
+int entry(ivec2 pos) {
+  return entry(g,pos.x(),pos.y());
+}
+
+int entry(vec2 pos) {
+  return entry(g,pos.x(),pos.y());
+}
+
+
+int entry(float x, float y) {
+  return entry(g,x,y);
+}
+
+
+int entry(PGraphics pg, ivec2 pos) {
+  return entry(pg,pos.x(),pos.y());
+}
+
+int entry(PGraphics pg, vec2 pos) {
+  return entry(pg,pos.x(),pos.y());
+}
+
+int entry(PGraphics pg, float x, float y) {
+  int entry = (int)y * pg.width + (int)x;
+  if(entry < 0) entry = 0;
+  if(entry >= pg.width * pg.height) entry = pg.width *pg.height -1;
+  return entry;
+}
 
 
 

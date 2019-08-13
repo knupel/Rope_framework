@@ -5,10 +5,11 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * 
-* work with
-* Rope frame Work 1.1.3
+* dependancies
 * Processing 3.5.3
-* Rope library 0.8.4.29
+* Rope library 0.8.5.30
+*
+* Rope framework 1.1.3
 */
 
 import rope.costume.R_Line2D;
@@ -35,6 +36,7 @@ void draw() {
 
   ArrayList<R_Line2D> list = new ArrayList<R_Line2D>();
   line2D_echo(main_line, borders, list);
+  println("direction",main_line.angle());
 
   // border
   strokeWeight(1);
