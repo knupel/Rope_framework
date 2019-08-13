@@ -1,9 +1,9 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.9.7
+* v 1.9.8
 * processing 3.5.3.269
-* Rope Library 0.8.3.28
+* Rope Library 0.8.4.29
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -12,6 +12,7 @@ import rope.costume.R_Circle;
 import rope.costume.R_Bezier;
 import rope.costume.R_Star;
 import rope.costume.R_Virus;
+import rope.costume.R_Line2D;
 
 
 /**
@@ -83,6 +84,95 @@ void line2D(float x1, float y1, float x2, float y2, boolean aa_is, boolean updat
   	}	
   } 
 }
+
+
+
+
+
+
+
+/**
+* line2D echo loop
+* 2019-2019
+* v 0.0.2
+* This method return the rest of line after this one meet an other line from a list of walls
+*/
+R_Line2D line2D_echo_loop(R_Line2D line, R_Line2D [] walls, ArrayList<R_Line2D> list, float offset, float angle_echo, boolean go_return_is) {
+  R_Line2D rest = new R_Line2D(this);
+  int count_limit = 0;
+  if(go_return_is) offset = -1 *offset;
+
+  for(R_Line2D wall : walls) {
+    count_limit ++;
+    // add line.a() like exception because this one touch previous border
+    vec2 node = wall.intersection(line, line.a());
+    if(node != null) {
+      R_Line2D line2D = new R_Line2D(this,line.a(),node);
+      rest = new R_Line2D(this,node,line.b());
+
+      //offset
+      float angle_offset = wall.angle();
+      if(offset < 0 ) {
+        if(list.size()%2 == 0 && go_return_is) {
+          angle_offset += PI;
+        } else {
+
+        }
+      } else {
+        if(list.size()%2 == 0 && go_return_is) {
+          angle_offset -= PI;
+        } else {
+
+        }
+      }
+
+      vec2 displacement = projection(angle_offset,offset);
+      rest.offset(displacement);
+      
+      // classic go and return
+      if(go_return_is) {
+        rest.angle(rest.angle() +PI);
+      // go on a same way
+      } else {
+        float angle = rest.angle() -PI;
+
+        vec2 temp = projection(angle, width+height).add(rest.a());
+        R_Line2D max_line = new R_Line2D(this,rest.b(),temp);
+        for(R_Line2D limit_opp : walls) {
+          vec2 opp_node = limit_opp.intersection(max_line,vec2(node).add(displacement));
+          if(opp_node != null) {
+            rest.angle(rest.angle());
+            vec2 swap = opp_node.sub(node).sub(displacement);
+            rest.offset(swap);
+            break;
+          }
+        }
+      }
+      // add result
+      list.add(line2D);
+      break;
+    } else {
+      // to add the last segment of the main line, 
+      // because this one cannot match with any borders or limits
+      // before add the last element, it's necessary to check all segments borders
+      if(count_limit == walls.length) {
+        list.add(line);
+      } 
+    }
+  }
+  //angle echo effect
+  if(angle_echo != 0) {
+    rest.angle(rest.angle()+angle_echo);
+  }
+  return rest;
+}
+
+
+
+
+
+
+
 
 
 

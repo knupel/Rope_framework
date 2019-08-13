@@ -63,6 +63,30 @@ void tempo(float... argument);
 
 
 
+*echoes with R_Line2D
+
+
+
+R_Line2D line2D_echo_loop(R_Line2D line, R_Line2D [] walls, ArrayList<R_Line2D> list, float offset, float angle_echo, boolean go_return_is);
+>return the rest of line after this one meet any wall
+
+R_Line2D line is the main line live in the wall envirronment
+
+R_Line2D [] walls define the list of walls of the environment
+
+ArrayList<R_Line2D> list when the line is cut after a wall meeting the line before the meeting is add to this list, becareful is not the rest line.
+
+float offset is use to make an offset withe rest of line
+
+float angle_echo by default the the rest go in the revese way. It's possible the modify with this arg
+
+boolean go_return_is useful to decide than all the restes start from the opposite wall.
+
+
+
+
+
+
 
 
 
