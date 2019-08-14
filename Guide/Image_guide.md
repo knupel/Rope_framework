@@ -8,17 +8,26 @@ All the methods similare or closer of Processing is writing in 'camelCase' the r
 
 *ENTRY for PIXEL ARRAY
 
-int entry(ivec2 pos);
+return an entry pixel in the range of the array pixel of the current PGraphics by default is 'g'.
 
-int entry(vec2 pos);
+boolean constrain_is an be use to constrain the rank between '0' and the pixel array length, or to return on the begin or end of length array pixel.
 
-int entry(float x, float y);
 
-int entry(PGraphics pg, ivec2 pos);
+int entry(ivec2 pos, boolean constrain_is);
 
-int entry(PGraphics pg, vec2 pos);
+int entry(vec2 pos, boolean constrain_is);
 
-int entry(PGraphics pg, float x, float y);
+int entry(float x, float y, boolean constrain_is);
+
+int entry(int rank, boolean constrain_is);
+
+int entry(PGraphics pg, ivec2 pos, boolean constrain_is);
+
+int entry(PGraphics pg, vec2 pos, boolean constrain_is);
+
+int entry(PGraphics pg, float x, float y, boolean constrain_is);
+
+int entry(PGraphics pg, int rank, boolean constrain_is);
 
 
 

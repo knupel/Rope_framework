@@ -1,43 +1,62 @@
 /**
 * Rope framework image
-* v 0.5.5
+* v 0.5.6
 * Copyleft (c) 2014-2019
-* Processing 3.5.3.269
-* Rope library 0.8.3.28
+*
+* dependencies
+* Processing 3.5.3
+* Rope library 0.8.5.30
+*
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
 
 /**
 * entry return the pixel position from x,y coordinate
+* v 0.0.2
 */
-int entry(ivec2 pos) {
-  return entry(g,pos.x(),pos.y());
+// with coordinate
+int entry(ivec2 pos, boolean constrain_is) {
+  return entry(g,pos.x(),pos.y(), constrain_is);
 }
 
-int entry(vec2 pos) {
-  return entry(g,pos.x(),pos.y());
+int entry(vec2 pos, boolean constrain_is) {
+  return entry(g,pos.x(),pos.y(), constrain_is);
 }
 
-
-int entry(float x, float y) {
-  return entry(g,x,y);
+int entry(float x, float y, boolean constrain_is) {
+  return entry(g,x,y,constrain_is);
 }
 
-
-int entry(PGraphics pg, ivec2 pos) {
-  return entry(pg,pos.x(),pos.y());
+int entry(PGraphics pg, ivec2 pos, boolean constrain_is) {
+  return entry(pg,pos.x(),pos.y(),constrain_is);
 }
 
-int entry(PGraphics pg, vec2 pos) {
-  return entry(pg,pos.x(),pos.y());
+int entry(PGraphics pg, vec2 pos, boolean constrain_is) {
+  return entry(pg,pos.x(),pos.y(),constrain_is);
 }
 
-int entry(PGraphics pg, float x, float y) {
-  int entry = (int)y * pg.width + (int)x;
-  if(entry < 0) entry = 0;
-  if(entry >= pg.width * pg.height) entry = pg.width *pg.height -1;
-  return entry;
+int entry(PGraphics pg, float x, float y, boolean constrain_is) {
+  //int max = pg.pixels.length;
+  int rank = (int)y * pg.width + (int)x;
+  return entry(pg, rank, constrain_is);
+}
+
+// with rank
+int entry(int rank, boolean constrain_is) {
+  return entry(g,rank,constrain_is);
+}
+
+int entry(PGraphics pg, int rank, boolean constrain_is) {
+  int max = pg.pixels.length;
+  if(constrain_is) {
+    if(rank < 0) rank = 0;
+    if(rank >= max) rank = max -1;
+  } else {
+    if(rank < 0) rank = max-rank;
+    if(rank >= max) rank = rank-max;
+  }
+  return rank;
 }
 
 
