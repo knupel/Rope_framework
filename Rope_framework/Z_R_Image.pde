@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.5.6
+* v 0.5.7
 * Copyleft (c) 2014-2019
 *
 * dependencies
@@ -251,7 +251,6 @@ PGraphics get_layer() {
 
 PGraphics get_layer(int target) {
   if(rope_layer == null) {
-//    printErrTempo(180,"void get_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
     return g;
   } else if(target > -1 && target < rope_layer.length) {
     return rope_layer[target];
@@ -299,7 +298,7 @@ void select_layer(int target) {
 
 /**
 PImage manager library
-v 0.7.0
+v 0.7.1
 */
 public class R_Image_Manager {
   ArrayList<R_Image> library ;
@@ -316,9 +315,7 @@ public class R_Image_Manager {
   public void load(String... path_img) {
     build();
     for(int i = 0 ; i <path_img.length ; i++) {
-      //Image img = loadImage(img_src[i]);
       R_Image rop_img = new R_Image(path_img[i]);
-      //println(img.width, img_src[i]);
       library.add(rop_img);
     }  
   }
@@ -741,6 +738,7 @@ void image(PImage img, vec pos, vec2 size) {
 /**
 * For the future need to use shader to do that...but in the future !
 */
+@Deprecated
 PImage reverse(PImage img) {
   PImage final_img;
   final_img = createImage(img.width, img.height, RGB) ;
@@ -753,6 +751,7 @@ PImage reverse(PImage img) {
 /**
 * For the future need to use shader to do that...but in the future !
 */
+@Deprecated
 PImage mirror(PImage img) {
   PImage final_img ;
   final_img = createImage(img.width, img.height, RGB) ;
@@ -765,7 +764,6 @@ PImage mirror(PImage img) {
     int reverse_line = img.width -(read_head*2) -1 ;
     int target = i +reverse_line  ;
 
-    if(target < 0 || target >img.pixels.length) println(i, read_head, target) ;
     final_img.pixels[i] = img.pixels[target] ;
 
     read_head++ ;
@@ -773,6 +771,7 @@ PImage mirror(PImage img) {
   return final_img ;
 }
 
+@Deprecated
 PImage paste(PImage img, int entry, int [] array_pix, boolean vertical_is) {
   if(!vertical_is) {
     return paste_vertical(img, entry, array_pix);
@@ -781,8 +780,8 @@ PImage paste(PImage img, int entry, int [] array_pix, boolean vertical_is) {
   }
 }
 
+@Deprecated
 PImage paste_horizontal(PImage img, int entry, int [] array_pix) { 
-  // println("horinzontal", frameCount, entry);
   PImage final_img ;
   final_img = img.copy() ;
   // reduce the array_pix in this one is bigger than img.pixels.length
@@ -802,9 +801,7 @@ PImage paste_horizontal(PImage img, int entry, int [] array_pix) {
       if(target >= final_img.pixels.length) {
         target = final_img.pixels.length -1;
       }
-      if(count >= array_pix.length) {
-        println("count", count, "array pix length", array_pix.length);
-      }
+
       final_img.pixels[target] = array_pix[count];
     }
     count++ ;
@@ -812,7 +809,7 @@ PImage paste_horizontal(PImage img, int entry, int [] array_pix) {
   return final_img ;
 }
 
-
+@Deprecated
 PImage paste_vertical(PImage img, int entry, int [] array_pix) { 
   PImage final_img;
   final_img = img.copy();
@@ -841,9 +838,6 @@ PImage paste_vertical(PImage img, int entry, int [] array_pix) {
       // change the size can happen ArrayIndexOutBound,
       if(target >= final_img.pixels.length) {
         target = final_img.pixels.length -1;
-      }
-      if(count >= array_pix.length) {
-        println("count", count, "array pix length", array_pix.length);
       }
       final_img.pixels[target] = array_pix[count];
     }
@@ -953,7 +947,7 @@ void update_canvas(PImage img, int which_one) {
   if(which_one < rope_canvas.length && which_one >= 0) {
     rope_canvas[which_one] = img;
   } else {
-    println("void update_canvas() : Your selection" ,which_one, "is not available, canvas '0' be use");
+    printErr("void update_canvas() : Your selection" ,which_one, "is not available, canvas '0' be use");
     rope_canvas[0] = img;
   }  
 }
@@ -971,9 +965,6 @@ void alpha_canvas(int target, float change) {
     float bb = blue(c);
     float aa = alpha(c);
     aa += change ;
-    if(i== 0 && target == 1 && aa < 5) {
-      // println(aa, change);
-    } 
     if(aa < 0 ) {
       aa = 0 ;
     }

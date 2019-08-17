@@ -40,7 +40,6 @@ void line2D(float x1, float y1, float x2, float y2, boolean aa_is, boolean updat
   	vec2 src = vec2(x1,y1);
   	vec2 dst = vec2(x2,y2);
     float angle = src.angle(dst);
-    println(angle);
   	float range = 0.005;
     
     // classic angle notation
