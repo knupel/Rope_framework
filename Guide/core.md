@@ -1,9 +1,10 @@
 Rope Core
-v 0.1.0
-2017-2018
---
-void init_rope();
->need to init the Rope constants
+
+*version
+
+void rope_version();
+>print the current dependencies processing version, rope library and rope framework
+
 
 *WHEEL EVENT
 
