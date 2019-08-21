@@ -4,79 +4,34 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * 25K lines
-* work with
-
-* Processing 3.5.3.269
-* Rope library 0.8.5.30
-* Rope frame Work 1.1.5.51
 *
-* Line2D on pgraphics
+* image collection
+* v 0.2.0
+* 2017-2019
 */
 
 
-vec2 origin;
-vec2 destination;
-PGraphics other;
+R_Image_Manager collection;
+PGraphics buffer;
 
 void setup() {
-  size(300,300,P2D);
+  size(100,100,P2D);
   rope_version();
-  other = createGraphics(width,height,P2D);
-  origin = vec2();
-  destination = vec2();
+  collection = new R_Image_Manager();  
+  // 
+  collection.load("jpg file/petite_puros_girl.jpg", "jpg file/pirate_small.jpg","jpg file/pirate_small.jpg");
+  PImage img = loadImage("jpg file/banc_public_small.jpg");
+  collection.add(img,"new image");
+  surface.setSize(collection.get(0).width,collection.get(0).height);
 
-  
-  alpha_line2D(1,0);
-  tempo(10,20,5); // give color rythme
-  palette(r.VERT,r.JAUNE,r.ROUGE); // this method take the lead on stroke
-  // palette(r.ROUGE); // this method take the lead on stroke
-  
-  beginDraw(other);
-  background(r.BLACK,other);
-  endDraw(other);
-  image(other);
 }
 
 void draw() {
-  
-  println(frameRate);
-
-  origin.x(width/2);
-  origin.y(height/2);
-
-  //boolean update_pixel_is = false;
-  boolean update_pixel_is = true;
-  // it's faster to load and update pixels outside when there is a lot line, 
-  // but it's can be good to update inside  for some moirring effect.
-  
-  boolean aa_is = false; // no antialiasing
-  if(keyPressed) aa_is = true; // antialising 
-
-  beginDraw(other);
-  background(r.BLACK,other);
-  
-  float radius = map(mouseX,0,width,width/10,width/3);
-  int num = 1000;
-  float step = TAU / num;
-  
-  for(int i = 0 ; i < num ; i++) {
-    float dir =  i *step ;
-    float ndx = cos(dir);
-    float ndy = sin(dir);
-    destination = vec2(ndx,ndy).mult(radius).add(origin);
-    line2D(origin.x(),origin.y(),destination.x(),destination.y(),aa_is,update_pixel_is,other);
+  if(mousePressed) {
+    R_Image img = collection.rand();
+    println(img.get_id(),img.get_name());
+    background(img.get_image());
+  } else {
+    background(collection.get(0));
   }
-  
-  
-  // directional
-  /*
-  destination.x(mouseX);
-  destination.y(mouseY);
-  if(origin != null && destination != null) {
-    line2D(origin.xy(),destination.xy(),aa_is,update_pixel_is,other);
-  }
-  */
-  
-  endDraw(other);
-  image(other);
 }
