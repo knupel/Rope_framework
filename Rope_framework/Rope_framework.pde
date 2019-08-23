@@ -5,33 +5,31 @@
 * @see https://github.com/StanLepunK/Rope_framework
 * 25K lines
 *
-* image collection
-* v 0.2.0
-* 2017-2019
+* hue palette
+* v 0.0.1
+* 2019-2019
 */
-
-
-R_Image_Manager collection;
-PGraphics buffer;
-
 void setup() {
-  size(100,100,P2D);
+  size(400,400,P2D);
+  // colorMode(HSB,360,100,100,100);
+  // colorMode(HSB,150,50,50,50);
+  colorMode(HSB,1,1,1,1);
   rope_version();
-  collection = new R_Image_Manager();  
-  // 
-  collection.load("jpg file/petite_puros_girl.jpg", "jpg file/pirate_small.jpg","jpg file/pirate_small.jpg");
-  PImage img = loadImage("jpg file/banc_public_small.jpg");
-  collection.add(img,"new image");
-  surface.setSize(collection.get(0).width,collection.get(0).height);
-
-}
-
-void draw() {
-  if(mousePressed) {
-    R_Image img = collection.rand();
-    println(img.get_id(),img.get_name());
-    background(img.get_image());
-  } else {
-    background(collection.get(0));
+  
+  background(r.NOIR);
+  int num_group = 1;
+  int num_colour = 300;
+  float spectrum = 0.1;
+  //float spectrum = g.colorModeA / 4.0;
+  int [] palettes = hue_palette(r.VERMILLON, num_group, num_colour, spectrum);
+  noStroke();
+  for(int i = 0 ; i < num_colour ; i++) {
+    println("hsb",hue(palettes[i]),saturation(palettes[i]),brightness(palettes[i]),alpha(palettes[i]));
+    // fill(hue(r.VERMILLON),saturation(palettes[i]),brightness(palettes[i]),alpha(palettes[i]));
+    // fill(r.VERMILLON);
+    fill(palettes[i]);
+    ellipse(random(width),random(height),20,20);
   }
 }
+
+

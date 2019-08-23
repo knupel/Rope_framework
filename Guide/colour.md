@@ -205,6 +205,7 @@ void plot(int x, int y, int colour, float alpha, PGraphics pg);
 *simple hue colour generator
 
 int [] hue_palette(int master_colour, int num_group, int num_colour, float spectrum);
+>note the spectrum is linked with the colorMode environment, usualy with the g.colorModeX
 
 
 *color pool
