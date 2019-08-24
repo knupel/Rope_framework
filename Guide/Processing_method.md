@@ -8,7 +8,7 @@ You can also allowed a PGraphics with method the layering method see Image chapt
 
 
 /**
-* beginDraw and enDraw() is write here juste to keep a syntew cohesion withe PGraphics other system
+* beginDraw and enDraw() is write here just to keep a syntax cohesion withe PGraphics other system
 */
 
 *set
@@ -23,6 +23,20 @@ void set(ivec2 pos, int c, PGraphics other);
 
 void set(ivec2 pos, int c);
 
+*colorMode
+
+public void colorMode(int mode,PGraphics other);
+
+public void colorMode(int mode, float max, PGraphics other);
+
+public void colorMode(int mode, float max1, float max2, float max3, PGraphics other);
+
+public void colorMode(int mode, float max1, float max2, float max3, float maxA, PGraphics other);
+
+
+
+
+
 
 *draw
 
@@ -35,9 +49,7 @@ void clear(PGraphics other);
 
 
 
-/**
-* background
-*/
+*background
 
 void background(int rgb, PGraphics other);
 
@@ -55,14 +67,11 @@ void background(PImage img, PGraphics other);
 
 
 
-/**
-Ellipse
-v 0.2.0
-*/
+
+*Ellipse
+
 void ellipse(float px, float py, float sx, float sy, PGraphics other);
 
-
-// with vec3
 void ellipse(vec p, float x, float y);
 
 void ellipse(vec p, float x, float y, PGraphics other);
@@ -174,7 +183,6 @@ void line(vec a, vec b, PGraphics other);
 void beginShape(PGraphics other);
 
 void beginShape(int kind, PGraphics other);
-
 
 void endShape(PGraphics other);
 
