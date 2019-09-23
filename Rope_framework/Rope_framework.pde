@@ -5,13 +5,14 @@
 * @see https://github.com/StanLepunK/Rope_framework
 * 25K lines
 *
-* hue palette
+* typewriter
 * v 0.0.1
 * 2019-2019
 */
 R_Typewriter typewriter;
 void setup() {
   size(400,400,P2D);
+  rope_version();
   // typewriter = new R_Typewriter(this, "AmericanTypewriter-MediumA.otf",40);
   typewriter = new R_Typewriter(this, "AmericanTypItcDEEMed.ttf",40);
   
@@ -21,9 +22,7 @@ void setup() {
 void draw(){
   background(255,0,0);
   mode_classic();
-
-  
-
+  // mode_vertex();
 }
 
 float angle = 0;

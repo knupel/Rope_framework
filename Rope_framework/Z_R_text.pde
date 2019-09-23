@@ -1,8 +1,14 @@
 /**
 * R_Text
 * It's classes collection to manage text and sentences
-* v 0.0.2
+* v 0.0.3
 * 2019-2019
+*/
+
+
+/**
+* class R_Typewriter
+* v 0.0.1
 */
 import geomerative.*;
 
@@ -203,7 +209,10 @@ public class R_Typewriter {
 
 
 
-
+/**
+* Poem
+* v 0.0.2
+*/
 public class Poem {
   String name;
   ArrayList<Vers[]> couplet = new ArrayList<Vers[]>();
@@ -211,7 +220,13 @@ public class Poem {
   int vers;
 
   public Poem(String [] input) {
-    build(input);
+    // build(input);
+    println("Poem input",input[0]);
+    if(input[0] != null){
+      build(input);
+    } else {
+      System.err.print("class Poem: Abort the input String arg[0] passing to constructor is null\n");
+    }
   }
 
   private void build(String [] input) {
