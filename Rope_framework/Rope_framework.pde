@@ -9,27 +9,47 @@
 * v 0.0.1
 * 2019-2019
 */
+R_Typewriter typewriter;
 void setup() {
   size(400,400,P2D);
-  // colorMode(HSB,360,100,100,100);
-  // colorMode(HSB,150,50,50,50);
-  colorMode(HSB,1,1,1,1);
-  rope_version();
+  // typewriter = new R_Typewriter(this, "AmericanTypewriter-MediumA.otf",40);
+  typewriter = new R_Typewriter(this, "AmericanTypItcDEEMed.ttf",40);
   
-  background(r.NOIR);
-  int num_group = 1;
-  int num_colour = 300;
-  float spectrum = 0.1;
-  //float spectrum = g.colorModeA / 4.0;
-  int [] palettes = hue_palette(r.VERMILLON, num_group, num_colour, spectrum);
-  noStroke();
-  for(int i = 0 ; i < num_colour ; i++) {
-    println("hsb",hue(palettes[i]),saturation(palettes[i]),brightness(palettes[i]),alpha(palettes[i]));
-    // fill(hue(r.VERMILLON),saturation(palettes[i]),brightness(palettes[i]),alpha(palettes[i]));
-    // fill(r.VERMILLON);
-    fill(palettes[i]);
-    ellipse(random(width),random(height),20,20);
+
+}
+
+void draw(){
+  background(255,0,0);
+  mode_classic();
+
+  
+
+}
+
+float angle = 0;
+void mode_classic(){
+
+  if(mousePressed) {
+    typewriter.align(RIGHT);
+  } else {
+    typewriter.align(LEFT);
   }
+  
+  typewriter.angle(angle += .01);
+  typewriter.pos(mouseX,mouseY);
+  typewriter.show("écoutons nos pochettes");
+}
+
+void mode_vertex(){
+  noStroke();
+  typewriter.pos(mouseX,mouseY);
+  typewriter.reset();
+  fill(r.NOIR);
+  beginShape();
+  for(vec3 p : typewriter.get_points("ROCK")) {
+    vertex(p);
+  }
+  endShape(CLOSE);
 }
 
 
