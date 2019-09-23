@@ -9,48 +9,36 @@
 * v 0.0.1
 * 2019-2019
 */
-R_Typewriter typewriter;
+Poem poem;
 void setup() {
   size(400,400,P2D);
   rope_version();
-  // typewriter = new R_Typewriter(this, "AmericanTypewriter-MediumA.otf",40);
-  typewriter = new R_Typewriter(this, "AmericanTypItcDEEMed.ttf",40);
-  
+  String path = "voyage.txt";
+  String [] content = loadStrings(path);
+  println("lenght", content.length);
+  // poem  = new Poem(content);
+
+  poem  = new Poem(path);
+
+  println("couplet",poem.num_couplets());
+  for(int i = 0 ; i < poem.get_vers().size() ; i++){
+    println(poem.get_vers().get(i).read());
+    println("id: ",poem.get_vers().get(i).id());
+    println("id local: ",poem.get_vers().get(i).id_local());
+    println("couplet: ",poem.get_vers().get(i).id_couplet());
+    // println(poem.get_vers().get(i).toString());
+  }
+  println("\n");
+  println("size poem",poem.size());
+  println("num couplet",poem.num_couplets());
+  println("\n");
+  printArray(poem.get_couplets().get(1));
+  println("\n");
+  printArray(poem.couplet(1));
 
 }
 
 void draw(){
-  background(255,0,0);
-  mode_classic();
-  // mode_vertex();
+
 }
-
-float angle = 0;
-void mode_classic(){
-
-  if(mousePressed) {
-    typewriter.align(RIGHT);
-  } else {
-    typewriter.align(LEFT);
-  }
-  
-  typewriter.angle(angle += .01);
-  typewriter.pos(mouseX,mouseY);
-  typewriter.sentence("écoutons nos pochettes");
-  typewriter.show();
-}
-
-void mode_vertex(){
-  noStroke();
-  typewriter.pos(mouseX,mouseY);
-  typewriter.reset();
-  typewriter.sentence("ROCK");
-  fill(r.NOIR);
-  beginShape();
-  for(vec3 p : typewriter.get_points()) {
-    vertex(p);
-  }
-  endShape(CLOSE);
-}
-
 

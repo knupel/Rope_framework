@@ -211,7 +211,7 @@ public class R_Typewriter {
 
 /**
 * Poem
-* v 0.0.2
+* v 0.0.3
 */
 public class Poem {
   String name;
@@ -219,9 +219,16 @@ public class Poem {
   ArrayList<Vers> all;
   int vers;
 
+  public Poem(String path) {
+    String [] input = loadStrings(path);
+    if(input[0] != null){
+      build(input);
+    } else {
+      System.err.print("class Poem: Abort the input String arg[0] passing to constructor is null\n");
+    }
+  }
+
   public Poem(String [] input) {
-    // build(input);
-    println("Poem input",input[0]);
     if(input[0] != null){
       build(input);
     } else {
@@ -230,24 +237,28 @@ public class Poem {
   }
 
   private void build(String [] input) {
-    int line = 0;
+    int index_vers = 0;
+    int index_local = 0;
+    int index_couplet = 0;
     ArrayList<Vers> temp = new ArrayList<Vers>();
     for(int i = 0 ; i < input.length ; i++) {   
       if(input[i].equals("")) {
         if(temp.size() > 0) {
           Vers [] array = temp.toArray(new Vers[temp.size()]);
+          index_couplet++;
+          index_local = 0;
           couplet.add(array);
         }
         temp.clear();
       } else {
-        Vers vers = new Vers(line,input[i]);
+        Vers vers = new Vers(index_vers,index_local, index_couplet,input[i]);
         temp.add(vers);
-        // to add the last couplet
         if(i == input.length -1) {
           Vers [] array = temp.toArray(new Vers[temp.size()]);
           couplet.add(array);
         }
-        line++;
+        index_local++;
+        index_vers++;
       }
     }
   }
@@ -257,22 +268,21 @@ public class Poem {
     return all.size();
   }
 
-  public int size_couplet() {
+  public int num_couplets() {
     return couplet.size();
   }
 
-
   // get couplet
-  public ArrayList<Vers[]> get_couplet() {
+  public ArrayList<Vers[]> get_couplets() {
     return couplet;
   }
 
-  public Vers [] couplet (int target) {
+  public Vers [] couplet(int target) {
     if(target < couplet.size()) {
       return couplet.get(target);
     } else {
       Vers [] empty = new Vers[1];
-      empty[0] = new Vers(0,"");
+      empty[0] = new Vers(0,0,0,"");
       return empty;
     }
   }
@@ -292,12 +302,10 @@ public class Poem {
     }
   }
 
-
-
   private void write_all() {
     if(all == null) {
       all = new ArrayList<Vers>();
-      for(Vers[] couplet : get_couplet()) {
+      for(Vers[] couplet : get_couplets()) {
         for(Vers v : couplet) {
           all.add(v);
         }   
@@ -319,22 +327,33 @@ public class Poem {
 
 public class Vers {
   int id;
+  int id_local;
+  int couplet;
   String sentence;
-  Vers(int id, String sentence) {
+  Vers(int id, int id_local, int couplet, String sentence) {
     this.id = id;
+    this.id_local = id_local;
+    this.couplet = couplet;
     this.sentence = sentence;
   }
 
-  int get_id() {
+  int id() {
     return id;
+  }
+
+  int id_local() {
+    return id_local;
+  }
+
+  int id_couplet() {
+    return couplet;
   }
 
   String toString() {
     return sentence;
   }
 
-
-  Vers get() {
+  Vers read() {
     return this;
   }
 }
