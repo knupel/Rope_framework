@@ -37,16 +37,18 @@ void mode_classic(){
   
   typewriter.angle(angle += .01);
   typewriter.pos(mouseX,mouseY);
-  typewriter.show("écoutons nos pochettes");
+  typewriter.sentence("écoutons nos pochettes");
+  typewriter.show();
 }
 
 void mode_vertex(){
   noStroke();
   typewriter.pos(mouseX,mouseY);
   typewriter.reset();
+  typewriter.sentence("ROCK");
   fill(r.NOIR);
   beginShape();
-  for(vec3 p : typewriter.get_points("ROCK")) {
+  for(vec3 p : typewriter.get_points()) {
     vertex(p);
   }
   endShape(CLOSE);

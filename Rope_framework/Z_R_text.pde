@@ -1,5 +1,6 @@
 /**
 * R_Text
+* It's classes collection to manage text and sentences
 * v 0.0.2
 * 2019-2019
 */
@@ -45,7 +46,7 @@ public class R_Typewriter {
   }
 
   // SET
-  void path(String path) {
+  public void path(String path) {
     if(extension_is(path,type_wanted) && !this.path.equals(path)) {
       this.path = path;
       this.font = createFont(this.path,this.size);
@@ -54,41 +55,37 @@ public class R_Typewriter {
     }
   }
 
-  void size(int size) {
-    if(this.size != size) {
+  public void size(int size){
+    if(this.size != size){
       this.size = size;
       this.font = createFont(this.path,this.size);
       reset_cloud = true;
     }
   }
 
-  void align(int align) {
+  public void align(int align) {
     this.align = align;
   }
 
-  void angle(float angle){
+  public void angle(float angle){
     this.angle = angle;
   }
 
-  void sentence(String sentence) {
+  public void sentence(String sentence) {
     if(this.sentence == null || !this.sentence.equals(sentence)) {
       this.sentence = sentence;
     }
   }
 
-  void pos(vec pos) {
+  public void pos(vec pos) {
     pos(pos.x(),pos.y(),pos.z());
   }
 
-  void pos(ivec pos) {
-    pos(pos.x(),pos.y(),pos.z());
-  }
-
-  void pos(float x, float y) {
+  public void pos(float x, float y) {
     pos(x,y,0);
   }
 
-  void pos(float x, float y, float z){
+  public void pos(float x, float y, float z){
     if(pos == null) {
       pos = vec3(x,y,z);
     } else {
@@ -97,35 +94,44 @@ public class R_Typewriter {
   }
 
   // GET
-  vec3 pos() {
+  public vec3 pos() {
     if(pos == null) {
       pos = vec3();
     }
     return pos;
   }
 
-  int size() {
+  public int size() {
     return size;
   }
 
-  float get_angle(){
+  public float get_angle(){
     return this.angle;
   }
 
-  String get_path() {
+  public String get_path() {
     return this.path;
   }
 
-  void reset(){
+  public void reset(){
     reset_cloud = true;
   }
 
+  // GET POINTS
   ArrayList<vec3>points;
-  vec3 [] get_points(String sentence){
+  public vec3 [] get_points(){
+    if (this.sentence == null) {
+      sentence("NULL");
+      return calc_get_points();
+    } else {
+      return calc_get_points();
+    }
+  }
+
+  private vec3 [] calc_get_points(){
     if(points == null) {
       points = new ArrayList<vec3>();
     }
-    sentence(sentence);
     if(extension_is(path,"ttf")){
       path_vector = path;
     }
@@ -146,16 +152,24 @@ public class R_Typewriter {
         println("path vector",path_vector);
       } 
     }
-
     return points.toArray(new vec3[points.size()]); 
   }
 
-  vec3 geom_to_vec(RPoint p){
+  private vec3 geom_to_vec(RPoint p){
     return vec3(p.x,p.y,0);
   }
 
   // SHOW
-  void show(String sentence){
+  public void show(){
+    if (this.sentence == null) {
+      sentence("NULL");
+      calc_show();
+    } else {
+      calc_show();
+    }
+  }
+
+  private void calc_show() {
     if(pos == null) {
       pos = vec3();
     }
@@ -167,12 +181,146 @@ public class R_Typewriter {
     textFont(font);
     textAlign(align);
     if(this.angle != 0){
-      text(sentence,vec3());
+      text(this.sentence,vec3());
       pop();
     } else {
-      text(sentence,pos);
+      text(this.sentence,pos);
     }
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class Poem {
+  String name;
+  ArrayList<Vers[]> couplet = new ArrayList<Vers[]>();
+  ArrayList<Vers> all;
+  int vers;
+
+  public Poem(String [] input) {
+    build(input);
+  }
+
+  private void build(String [] input) {
+    int line = 0;
+    ArrayList<Vers> temp = new ArrayList<Vers>();
+    for(int i = 0 ; i < input.length ; i++) {   
+      if(input[i].equals("")) {
+        if(temp.size() > 0) {
+          Vers [] array = temp.toArray(new Vers[temp.size()]);
+          couplet.add(array);
+        }
+        temp.clear();
+      } else {
+        Vers vers = new Vers(line,input[i]);
+        temp.add(vers);
+        // to add the last couplet
+        if(i == input.length -1) {
+          Vers [] array = temp.toArray(new Vers[temp.size()]);
+          couplet.add(array);
+        }
+        line++;
+      }
+    }
+  }
+
+  public int size() {
+    write_all();
+    return all.size();
+  }
+
+  public int size_couplet() {
+    return couplet.size();
+  }
+
+
+  // get couplet
+  public ArrayList<Vers[]> get_couplet() {
+    return couplet;
+  }
+
+  public Vers [] couplet (int target) {
+    if(target < couplet.size()) {
+      return couplet.get(target);
+    } else {
+      Vers [] empty = new Vers[1];
+      empty[0] = new Vers(0,"");
+      return empty;
+    }
+  }
+
+  // get vers
+  public ArrayList<Vers> get_vers() {
+    write_all();
+    return all;
+  }
+
+  public Vers get_vers(int target) {
+    write_all();
+    if(target >= 0 && target < all.size()) {
+      return all.get(target);
+    } else {
+      return null;
+    }
+  }
+
+
+
+  private void write_all() {
+    if(all == null) {
+      all = new ArrayList<Vers>();
+      for(Vers[] couplet : get_couplet()) {
+        for(Vers v : couplet) {
+          all.add(v);
+        }   
+      }
+    }   
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+public class Vers {
+  int id;
+  String sentence;
+  Vers(int id, String sentence) {
+    this.id = id;
+    this.sentence = sentence;
+  }
+
+  int get_id() {
+    return id;
+  }
+
+  String toString() {
+    return sentence;
+  }
+
+
+  Vers get() {
+    return this;
+  }
+}
 
