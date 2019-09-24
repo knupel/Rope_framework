@@ -16,7 +16,7 @@ void align(int align);
 
 void angle(float angle);
 
-void sentence(String sentence);
+void content(String arg);
 
 void pos(vec pos);
 
@@ -41,6 +41,11 @@ vec3 [] get_points()
 *show
 
 public void show();
+
+public void show(int width, int height);
+
+public void show(int width, int height, int window position);
+>int CENTER or int CORNER, by default it's CORNER
 
 
 
