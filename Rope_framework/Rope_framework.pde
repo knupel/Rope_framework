@@ -5,7 +5,7 @@
 * @see https://github.com/StanLepunK/Rope_framework
 * 25K lines
 *
-* 
+* example R_Writer with window
 * v 0.0.1
 * 2019-2019
 */
@@ -13,15 +13,8 @@
 R_Typewriter writer;
 float rot = 0;
 void setup() {
+	rope_version();
   size(300,300);
-
-
-
-
-  //text(str,vec2(width/2,height/2),vec2(100));
-  // text(str,0,0,100,100);
-
-
 }
 
 
