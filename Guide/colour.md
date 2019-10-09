@@ -37,6 +37,12 @@ void add(int group, int [] colour);
 
 void add(int group, int colour);
 
+void add_group();
+> add single colour group
+
+void add_group(int n);
+> add `n' colour group
+
 
 
 

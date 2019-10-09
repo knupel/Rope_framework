@@ -5,19 +5,28 @@
 * @see https://github.com/StanLepunK/Rope_framework
 * 25K lines
 *
-* example R_Writer with window
+* example R_Colour
 * v 0.0.1
 * 2019-2019
 */
-
-boolean DEV_MODE = false;
-float rot = 0;
+R_Colour c;
 void setup() {
 	rope_version();
-  String [] text = new String[1];
-  text[0] = "zero";
-  saveStrings("window/location.loc",text);
-  // if(DEV_MODE) saveStrings("data/location.loc",text);
-  // else saveStrings(sketchPath(-1)+"/data/location.loc",text);
-  
+	c = new R_Colour(this, r.NOIR);
+	println("groupe 0  couleur 0", c.get(0)[0]);
+	c.add_group(2);
+	c.add(1,r.ROUGE);
+	// c.add(2,r.VIOLET);
+	println("groupe 1 couleur 0", c.get(1)[0]);
+	println("groupe 2 length", c.get(2).length);
+	println("groupe 2 couleur 0", c.get(2)[0]);
+
 }
+
+/*
+void draw() {
+	c.add_group();
+	println("num group",c.size_group());
+
+}
+*/
