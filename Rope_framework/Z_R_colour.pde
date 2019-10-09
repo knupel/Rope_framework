@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.10.10
+*v 0.10.11
 * Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * Processing 3.5.3
@@ -712,33 +712,33 @@ int [] hue_palette(int master_colour, int num_group, int num_colour, float spect
 
 /**
 color pool 
-v 0.5.1
+v 0.5.2
 */
 int [] color_pool(int num) {
   float hue_range = -1;
   int num_group = 1;
   float key_hue = -1;
-  return color_pool(num_group, num, key_hue, hue_range, null, null, null) ;
+  return color_pool(num,num_group, key_hue, hue_range,null,null,null) ;
 }
 
 int [] color_pool(int num, float key_hue, float hue_range) {
   int num_group = 1;
-  return color_pool(num_group, num,  key_hue, hue_range, null, null, null) ;
+  return color_pool(num,num_group, key_hue, hue_range,null,null,null) ;
 }
 
-int [] color_pool(int num_group, int num, float key_hue, float hue_range) {
-  return color_pool(num_group, num,  key_hue, hue_range, null, null, null);
+int [] color_pool(int num, int num_group, float key_hue, float hue_range) {
+  return color_pool(num,num_group,  key_hue, hue_range,null,null,null);
 }
 
-int [] color_pool(int num_group, int num, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range) {
-  return color_pool(num_group, num,  key_hue, hue_range, sat_range, bright_range, null);
+int [] color_pool(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range) {
+  return color_pool(num,num_group,  key_hue, hue_range,sat_range,bright_range,null);
 }
 
 int [] color_pool(int num, int colour, float hue_range, float sat_range, float bri_range) {
-  return color_pool(1,num,colour,hue_range,sat_range,bri_range);
+  return color_pool(1, num, colour, hue_range,sat_range,bri_range);
 }
 
-int [] color_pool(int num_group, int num, int colour, float hue_range, float sat_range, float bri_range) {
+int [] color_pool(int num, int num_group, int colour, float hue_range, float sat_range, float bri_range) {
   int ref = g.colorMode;
   float x = g.colorModeX;
   float y = g.colorModeY;
@@ -748,29 +748,27 @@ int [] color_pool(int num_group, int num, int colour, float hue_range, float sat
 
   float h = hue(colour);
   float s = saturation(colour);
-  float s_min = s -sat_range;
+  float s_min = s - sat_range;
   if(s_min < 0) s_min = 0;
   if(s_min > g.colorModeY) s_min = g.colorModeY;
-  float s_max = s +sat_range;
+  float s_max = s + sat_range;
   if(s_max < 0) s_max = 0;
   if(s_max > g.colorModeY) s_max = g.colorModeY;
 
-
   float b = brightness(colour);
-  float b_min = b -bri_range;
+  float b_min = b - bri_range;
   if(b_min < 0) b_min = 0;
   if(b_min > g.colorModeZ) b_min = g.colorModeZ;
-  float b_max = b +bri_range;
+  float b_max = b + bri_range;
   if(b_max < 0) b_max = 0;
   if(b_max > g.colorModeZ) b_max = g.colorModeZ;
 
   colorMode(ref,x,y,z,a);
-  return color_pool(num_group,num,h,hue_range,vec2(s_min,s_max),vec2(b_min,b_max),null);
+  return color_pool(num,num_group, h, hue_range,vec2(s_min,s_max),vec2(b_min,b_max),null);
 }
 
-
 // color pool by group
-int [] color_pool(int num_group, int num, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range) {
+int [] color_pool(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range) {
   int ref = g.colorMode;
   float x = g.colorModeX;
   float y = g.colorModeY;
@@ -780,27 +778,28 @@ int [] color_pool(int num_group, int num, float key_hue, float hue_range, vec2 s
   float ratio_s = 100.0 / g.colorModeY;
   float ratio_b = 100.0 / g.colorModeZ;
   float ratio_a = 100.0 / g.colorModeA;
-  hue_range *= ratio_h;
-  sat_range.mult(ratio_s);
-  bright_range.mult(ratio_b);
-  alpha_range.mult(ratio_a);
-  colorMode(HSB,360,100,100,100);
-  
+
   // create range if necessary
   if(hue_range < 0) {
     hue_range = g.colorModeX *.5;
   }
-
   if(sat_range == null) {
     sat_range = vec2(g.colorModeY);
   }
   if(bright_range == null) {
     bright_range = vec2(g.colorModeZ);
   }
-
   if(alpha_range == null) {
     alpha_range = vec2(g.colorModeA);
   }
+
+  hue_range *= ratio_h;
+  sat_range.mult(ratio_s);
+  bright_range.mult(ratio_b);
+  alpha_range.mult(ratio_a);
+  colorMode(HSB,360,100,100,100);
+  
+
   
 
   // create ref

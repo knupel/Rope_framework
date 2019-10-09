@@ -227,16 +227,16 @@ int [] color_pool(int num);
 
 int [] color_pool(int num, float key_hue, float hue_range);
 
-int [] color_pool(int num_group, int num, float key_hue, float hue_range);
+int [] color_pool(int num, int num_group, float key_hue, float hue_range);
 
-int [] color_pool(int num_group, int num, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range);
+int [] color_pool(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range);
 
 
 int [] color_pool(int num, int colour, float hue_range, float sat_range, float bri_range);
 
-int [] color_pool(int num_group, int num, int colour, float hue_range, float sat_range, float bri_range);
+int [] color_pool(int num, int num_group, int colour, float hue_range, float sat_range, float bri_range);
 
-int [] color_pool(int num_group, int num, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range);
+int [] color_pool(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range);
 
 
 *check component color

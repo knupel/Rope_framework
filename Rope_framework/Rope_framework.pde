@@ -10,24 +10,14 @@
 * 2019-2019
 */
 
-R_Typewriter writer;
+boolean DEV_MODE = false;
 float rot = 0;
 void setup() {
 	rope_version();
-  size(300,300);
+  String [] text = new String[1];
+  text[0] = "zero";
+  saveStrings("window/location.loc",text);
+  // if(DEV_MODE) saveStrings("data/location.loc",text);
+  // else saveStrings(sketchPath(-1)+"/data/location.loc",text);
+  
 }
-
-
-void draw() {
-	background(0);
-  String str = "jdjnljnfdnvdlfknvlfnbmfkgb,pfgjbmfgjbfgmbfmjbprdfjbvm,dfmbv,mfgbjmgf,bm,fgmb,mf,fmjbprdfjbvm,dfmbv,mfgbjmgf,bm,fgmb,mf";
-
-  writer = new R_Typewriter(this, "AmericanTypewriter-MediumA.otf",12);
-  writer.align(CENTER);
-  writer.pos(mouseX,mouseY);
-  writer.content(str);
-  writer.angle(rot += 0.01);
-  // writer.show();
-  writer.show(100,100,CENTER);
-}
-
