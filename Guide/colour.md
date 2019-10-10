@@ -41,8 +41,15 @@ void add_group();
 > add single colour group
 
 void add_group(int n);
-> add `n' colour group
+> add 'n' colour group
 
+
+
+void set(int index, int colour);
+>set colour to specific index in the first group
+
+void set(int group, int index, int colour);
+>set colour to specific index in specific group
 
 
 
@@ -70,36 +77,36 @@ int rand();
 int rand(in group);
 >return random colour from available colour of a specific group
 
-int get_colour(int target);
+int get_colour(int index);
 
-int get_colour(int group, int target);
+int get_colour(int group, int index);
 
 
 *SIMPLE COMPONENT COLOUR
 
 // single component
-float get_hue(int target);
+float get_hue(int index);
 
-float get_hue(int group, int target);
+float get_hue(int group, int index);
 
-float get_saturation(int group, int target);
+float get_saturation(int group, int index);
   
-float get_brightness(int group, int target);
+float get_brightness(int group, int index);
 
-float get_red(int group, int target);
+float get_red(int group, int index);
 
-float get_green(int group, int target);
+float get_green(int group, int index);
 
-float get_alpha(int group, int target);
+float get_alpha(int group, int index);
 
 // multi component
-vec3 get_hsb(int group, int target);
+vec3 get_hsb(int group, int index);
 
-vec4 get_hsba(int group, int target);
+vec4 get_hsba(int group, int index);
 
-vec3 get_rgb(int group, int target);
+vec3 get_rgb(int group, int index);
 
-vec4 get_rgba(int group, int target);
+vec4 get_rgba(int group, int index);
   
 
 *ARRAY COMPONENT COLOUR
@@ -217,7 +224,8 @@ int [] hue_palette(int master_colour, int num_group, int num_colour, float spect
 *color pool
 
 The color give the possiblity to built a color palette.
-the method work in colorMode(HSB,360,100,100,100) ;
+the method work in colorMode(HSB);
+but the max value to set is from the curent g.colorModeX, ...Y, ...Z , ...A
 remember that when attribute value to your `range` or `hue key`.
 
 parameter :
@@ -229,20 +237,20 @@ vec2 range the first compoent is used for min and the last for the max
 
 float range it's use to calculate the min and the max around the target color.
 
-int [] color_pool(int num);
+int [] color_pool(int num_colour);
 
-int [] color_pool(int num, float key_hue, float hue_range);
+int [] color_pool(int num_colour, float key_hue, float hue_range);
 
-int [] color_pool(int num, int num_group, float key_hue, float hue_range);
+int [] color_pool(int num_group, int num_colour, float key_hue, float hue_range);
 
-int [] color_pool(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range);
+int [] color_pool(int num_group, int num_colour, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range);
 
 
-int [] color_pool(int num, int colour, float hue_range, float sat_range, float bri_range);
+int [] color_pool(int num_colour, int colour, float hue_range, float sat_range, float bri_range);
 
-int [] color_pool(int num, int num_group, int colour, float hue_range, float sat_range, float bri_range);
+int [] color_pool(int num_group, int num_colour, int colour, float hue_range, float sat_range, float bri_range);
 
-int [] color_pool(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range);
+int [] color_pool(int num_group, int num_colour, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range);
 
 
 *check component color

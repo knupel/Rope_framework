@@ -23,10 +23,4 @@ void setup() {
 
 }
 
-/*
-void draw() {
-	c.add_group();
-	println("num group",c.size_group());
 
-}
-*/
