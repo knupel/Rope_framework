@@ -93,6 +93,16 @@ void ellipse(vec p, vec s, PGraphics other);
 
 
 
+/**
+square
+*/
+
+void square(float px, float py, float extent, PGraphics other);
+
+void square(vec p, float extent);
+
+void square(vec p, float extent, PGraphics other);
+
 
 
 /**
