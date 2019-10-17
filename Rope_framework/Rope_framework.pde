@@ -9,18 +9,19 @@
 * v 0.0.1
 * 2019-2019
 */
-R_Colour c;
-void setup() {
-	rope_version();
-	c = new R_Colour(this, r.NOIR);
-	println("groupe 0  couleur 0", c.get(0)[0]);
-	c.add_group(2);
-	c.add(1,r.ROUGE);
-	// c.add(2,r.VIOLET);
-	println("groupe 1 couleur 0", c.get(1)[0]);
-	println("groupe 2 length", c.get(2).length);
-	println("groupe 2 couleur 0", c.get(2)[0]);
 
+void setup() {
+	size(300,300,P2D);
+	rope_version();
+}
+
+void draw() {
+	background(r.BLANC);
+	strokeWeight(3);
+	stroke(r.BLACK);
+	line(width/2,height/2,width-mouseX,height-mouseY);
+	stroke(r.BLOOD);
+	line2D(width/2,height/2,mouseX,mouseY,true,true);
 }
 
 
