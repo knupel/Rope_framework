@@ -37,6 +37,8 @@ float random_next_gaussian(float range, power n);
 
 
 
+
+
 *Physic
 
 public double G(double dist, double m_1, double m_2);
@@ -79,6 +81,15 @@ boolean inside(vec2 pos, vec2 size, vec2 target, int type);
 >vec2 size, size of the zone
 >position of what must be detect
 >int type of shape, ELLIPSE or RECT
+
+
+
+
+
+*intersection
+
+boolean is_on_line(vec2 start, vec2 end, vec2 point, float range);
+>return true if the point is on the line between start and end point, you can set the range to change the moment where the point meet the line.
 
 
 
