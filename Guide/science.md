@@ -86,10 +86,13 @@ boolean inside(vec2 pos, vec2 size, vec2 target, int type);
 
 
 
-*intersection
+*detection
 
 boolean is_on_line(vec2 start, vec2 end, vec2 point, float range);
 >return true if the point is on the line between start and end point, you can set the range to change the moment where the point meet the line.
+
+boolean in_polygon(vec [] points, vec2 pos)
+>return true if the vec2 pos is on the polygon
 
 
 

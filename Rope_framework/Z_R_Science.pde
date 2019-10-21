@@ -1,6 +1,6 @@
 /**
 * ROPE SCIENCE
-* v 0.7.7
+* v 0.7.8
 * Copyleft (c) 2014-2019 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
@@ -166,7 +166,7 @@ float decimale(float var, int n) {
 
 /**
 * geometry util
-* v. 0.1.0
+* v. 0.0.7
 */
 float perimeter_disc(int r) {
   return 2 *r *PI ;
@@ -205,10 +205,6 @@ boolean inside(vec pos, vec size, vec2 target_pos, int type) {
 
 
 
-
-/**
-* intersection
-*/
 /**
 * https://forum.processing.org/two/discussion/90/point-and-line-intersection-detection
 * refactoring from Quark Algorithm
@@ -234,6 +230,27 @@ boolean is_on_line(vec2 start, vec2 end, vec2 point, float range) {
     return false;
   }
 }
+
+/**
+* https://forum.processing.org/one/topic/how-do-i-find-if-a-point-is-inside-a-complex-polygon.html
+* http://paulbourke.net/geometry/
+* thks to Moggach and Paul Brook
+*/
+boolean in_polygon(vec [] points, vec2 pos) {
+  int i, j;
+  boolean is = false;
+  int sides = points.length;
+  for(i = 0, j = sides - 1 ; i < sides ; j = i++) {
+    if (( ((points[i].y() <= pos.y()) && (pos.y() < points[j].y())) || ((points[j].y() <= pos.y()) && (pos.y() < points[i].y()))) &&
+          (pos.x() < (points[j].x() - points[i].x()) * (pos.y() - points[i].y()) / (points[j].y() - points[i].y()) + points[i].x())) {
+      is = !is;
+    }
+  }
+  return is;
+}
+
+
+
 
 
 
