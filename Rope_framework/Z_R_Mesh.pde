@@ -1,7 +1,7 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.1.2
+* v 0.2.0
 * 2019-2019
 */
 /**
@@ -23,6 +23,365 @@ boolean in_plane(vec3 a, vec3 b, vec3 c, vec3 any, float range) {
 vec3 get_plane_normal(vec3 a, vec3 b, vec3 c) {
 	return new R_Plane().get_plane_normal(a,b,c);
 }
+
+
+
+
+
+
+
+/**
+* R_Bloc
+* 2019-2019
+* 0.1.0
+*/
+public class R_Bloc implements rope.core.R_Constants_Colour {
+	private ArrayList<vec3> list;
+	private boolean end;
+	private boolean select_is;
+	private boolean select_point_is;
+	private boolean action_available_is;
+	private int index;
+	private int magnetism = 1;
+	private int colour;
+	private int fill;
+	private int stroke;
+	private float thickness = 2.0;
+	private vec2 ref_coord;
+	private vec2 coord;
+
+	public R_Bloc() {
+		list = new ArrayList<vec3>();
+		coord = new vec2();
+		ref_coord = new vec2();
+		colour = CYAN;
+		fill = BLANC;
+		stroke = NOIR;
+	}
+
+
+	// set
+	public void set_magnetism(int magnetism) {
+		this.magnetism = magnetism;
+	}
+
+	public void set_fill(int fill) {
+		this.fill = fill;
+	}
+
+	public void set_colour_build(int colour) {
+		this.colour = colour;
+	}
+
+	public void set_stroke(int stroke) {
+		this.stroke = stroke;
+	}
+
+	public void set_thickness(float thickness) {
+		this.thickness = thickness;
+	}
+
+
+
+
+	// get
+	public vec3 [] get() {
+		return list.toArray(new vec3[list.size()]);
+	}
+
+	public boolean in_bloc(int x, int y) {
+		return in_polygon(get(),vec2(x,y));
+	}
+
+	public boolean end_is() {
+		return end;
+	}
+
+	private boolean intersection(vec2 point) {
+		for(int i = 1 ; i < list.size() ; i++) {
+			vec2 a = vec2(list.get(i-1));
+			vec2 b = vec2(list.get(i));
+			if(is_on_line(a,b,point,magnetism)) {
+				index = i; 
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean end(vec2 point) {
+		int max = list.size() - 1;
+		if(dist(vec2(list.get(0)), point) < magnetism) {
+			index = 0;
+			end = true;
+			return true;
+		}
+		return false;
+	}
+
+	private boolean near_of(vec2 point) {
+		for(int i = 1 ; i < list.size() ; i++) {
+			if(dist(vec2(list.get(i)), point) < magnetism) {
+				index = i;
+				return true;
+			}
+
+		}
+		return false;
+	}
+
+
+	public boolean select_point_is() {
+		return select_point_is;
+	}
+
+	public boolean select_is() {
+		return select_is;
+	}
+
+
+
+
+
+	// update
+	public void update(int x, int y) {
+		coord.set(x,y);
+	}
+
+	public boolean build(int x, int y, boolean event_is) {
+		update(x,y);	
+		if(!end) {
+			if(event_is) {
+				vec2 point = vec2(x,y);
+				if(list.size() > 1) {
+					if(list.size() > 2 && end(point)) {
+						add(vec2(list.get(index)));
+						return false;
+					} else if(near_of(point)) {
+						list.remove(index);
+						return false;
+					} else if(intersection(point)) {
+						add(index, point);
+						return false;
+					} else {
+						add(point);
+						return true;
+					}
+				} else {
+					if(list.size() == 1 && near_of(point)) {
+						return false;
+					} else {
+						add(point);
+						return true;
+					}
+				}		
+			}
+		}
+		return end;
+	}
+
+	private void add(vec2 point) {
+		list.add(vec3(point));
+	}
+
+	private void add(int index, vec2 point) {
+		list.add(index, vec3(point));
+	}
+
+
+	public void add_point(int x, int y, boolean event_is) {
+		if(event_is) {
+			update(x,y);
+			vec2 point = vec2(x,y);
+			if(intersection(point)) {
+				add(index, point);
+			}
+		}
+	}
+
+	
+	public void move(int x, int y, boolean event_is) {
+		if(event_is) {
+			if(!select_is()) {
+				select(x,y);
+			} else {
+				if(!select_point_is() && (in_bloc(x,y) || select_is())) {
+					update(x,y);
+					vec3 offset = vec3(sub(ref_coord,coord));
+					for(vec3 p : list) {
+						p.sub(offset);
+					}
+					ref_coord.set(coord);
+				}
+			}
+		} else {
+			select_is = false;
+			ref_coord.set(coord);
+		}
+	}
+
+	public void move_point(int x, int y, boolean event_is) {
+		if(event_is) {
+			// select point to move
+			if(!select_point_is()) {
+				select_point(x,y);
+			} else {
+				// case where the bloc is close / ended to move the first and the last point
+				if(end && (list.get(0).z() == 1 || list.get(list.size() -1).z() == 1)) {
+					list.get(0).x(x);
+					list.get(0).y(y);
+					list.get(list.size() -1).x(x);
+					list.get(list.size() -1).y(y);
+				} else {
+					for(vec3 v : list) {
+						if(v.z() == 1) {
+							v.x(x);
+							v.y(y);
+						}
+					}
+				}
+			}
+		} else {
+			select_point_is = false;
+			for(vec3 v : list) {
+				v.z(0);
+			}
+		}
+	}
+
+	private void select_point(int x, int y) {
+		for(vec3 v : list) {
+			if(dist(vec2(v), vec2(x,y)) < magnetism) {
+				select_point_is = true;
+				v.z(1);
+				break;
+			}
+		}
+	}
+
+	private void select(int x, int y) {
+		if(in_bloc(x,y)) {
+			select_is = true;
+		}
+	}
+
+	public void clear() {
+		list.clear();
+	}
+
+	private void next() {
+		if(list.size() > 0) {
+			line(list.get(list.size()-1),coord);
+		}
+	}
+	
+	// show
+	public boolean show_available_point(int x, int y) {
+		update(x,y);
+		fill(BLANC);
+		float size = 5;
+		if(list.size() > 0) {
+			for(int index = 0 ; index < list.size() ; index++) {
+				if(dist(coord,vec2(list.get(index))) < magnetism) {
+					vec2 pos = sub(vec2(list.get(index)),vec2(size).mult(.5));
+					// ellipse(pos.add(size *0.5),size *1.5);
+					square(pos,size);
+					line(pos.copy().add(0,size/2),pos.copy().add(size,size/2));
+					action_available_is = true;
+					return true;
+				}
+				if(list.size() > 1 && index > 0) {
+					vec2 a = vec2(list.get(index-1));
+					vec2 b = vec2(list.get(index));
+					if(is_on_line(a,b,coord,magnetism)) {
+						vec2 pos = sub(coord,vec2(size).mult(.5));
+						square(pos,size);
+						line(pos.copy().add(0,size/2),pos.copy().add(size,size/2));
+						line(pos.copy().add(size/2,0),pos.copy().add(size/2,size));
+						action_available_is = true;
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	private void show_anchor_point() {
+		float size = 5;
+		// past selection
+		fill(BLANC);
+		strokeWeight(1);
+		int max = list.size() - 1;
+		for(int index = 0 ; index < max; index++) {
+			if(index == 0 && !end) {
+				square(sub(vec2(list.get(index)),vec2(size).mult(.5)),size * 1.5);
+			} else {
+				square(sub(vec2(list.get(index)),vec2(size).mult(.5)),size);
+			}
+		}
+
+		// current selection
+		fill(colour);
+		if(max >= 0) {
+			square(sub(vec2(list.get(max)),vec2(size).mult(.5)),size);
+		}
+	}
+
+	private void show_struct() {
+		strokeWeight(1);
+		noFill();
+		stroke(colour);
+		beginShape();
+		for(int index = 0 ; index < list.size() ; index++) {
+			vertex(vec2(list.get(index)));
+		}
+		endShape();
+		if(!end) {
+			next();
+		}
+	}
+
+	public void show() {
+		aspect(fill, stroke, thickness);
+		if(list.size() == 2) {
+			line(vec2(list.get(0)),vec2(list.get(1)));
+		} else if(list.size() > 2) {
+			beginShape();
+			for(int index = 0 ; index < list.size() ; index++) {
+				vertex(vec2(list.get(index)));
+			}
+			endShape();
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
 * R_Plane
