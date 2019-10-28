@@ -4,39 +4,27 @@
 * v 0.2.0
 * 2019-2019
 */
+
+
 /**
-method
+method R_Bloc
 */
-boolean in_plane(vec3 a, vec3 b, vec3 c, vec3 any, float range) {
-  vec3 n = get_plane_normal(a, b, c);
-  // Calculate nearest distance between the plane represented by the vectors
-  // a,b and c, and the point any
-  float d = n.x()*any.x() + n.y()*any.y() + n.z()*any.z() - n.x()*a.x() - n.y()*a.y() - n.z()*a.z();
-  // A perfect result would be d == 0 but this will not hapen with realistic
-  // float data so the smaller d the closer the point. 
-  // Here I have decided the point is on the plane if the distance is less than 
-  // range unit.
-  return abs(d) < range; 
+R_Bloc create_bloc(vec2 [] points) {
+	R_Bloc bloc = new R_Bloc();
+	for(vec2 v : points) {
+		bloc.build(v.x(),v.y(),true);
+	}
+	return bloc;
 }
-
-
-vec3 get_plane_normal(vec3 a, vec3 b, vec3 c) {
-	return new R_Plane().get_plane_normal(a,b,c);
-}
-
-
-
-
-
-
 
 /**
 * R_Bloc
 * 2019-2019
-* 0.1.0
+* 0.1.2
 */
 public class R_Bloc implements rope.core.R_Constants_Colour {
 	private ArrayList<vec3> list;
+	private String name;
 	private boolean end;
 	private boolean select_is;
 	private boolean select_point_is;
@@ -81,6 +69,10 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		this.thickness = thickness;
 	}
 
+	public void set_name(String name) {
+		this.name = name;
+	}
+
 
 
 
@@ -89,7 +81,27 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		return list.toArray(new vec3[list.size()]);
 	}
 
-	public boolean in_bloc(int x, int y) {
+	public String get_name() {
+		return this.name;
+	}
+
+	public String get_data() {
+		String num = "" + list.size();
+		String fill_str = "" + fill;
+		String stroke_str = "" + stroke;
+		String thickness_str = Float.toString(thickness);
+		String setting = name + "," + num + "," + fill_str + "," + stroke_str + "," + thickness_str;
+		for(vec3 v : list) {
+			String type = "type 0"; 
+			// type 0 is a simple vertex
+			// type 1 is for bezier vertex for the future version
+			setting += "," + type + "," + Float.toString(v.x()) + "," + Float.toString(v.y());
+		}
+		setting += "," + end;
+		return setting;
+	}
+
+	public boolean in_bloc(float x, float y) {
 		return in_polygon(get(),vec2(x,y));
 	}
 
@@ -144,11 +156,11 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 
 
 	// update
-	public void update(int x, int y) {
+	public void update(float x, float y) {
 		coord.set(x,y);
 	}
 
-	public boolean build(int x, int y, boolean event_is) {
+	public boolean build(float x, float y, boolean event_is) {
 		update(x,y);	
 		if(!end) {
 			if(event_is) {
@@ -189,7 +201,7 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	}
 
 
-	public void add_point(int x, int y, boolean event_is) {
+	public void add_point(float x, float y, boolean event_is) {
 		if(event_is) {
 			update(x,y);
 			vec2 point = vec2(x,y);
@@ -200,7 +212,7 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	}
 
 	
-	public void move(int x, int y, boolean event_is) {
+	public void move(float x, float y, boolean event_is) {
 		if(event_is) {
 			if(!select_is()) {
 				select(x,y);
@@ -220,7 +232,7 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		}
 	}
 
-	public void move_point(int x, int y, boolean event_is) {
+	public void move_point(float x, float y, boolean event_is) {
 		if(event_is) {
 			// select point to move
 			if(!select_point_is()) {
@@ -249,7 +261,7 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		}
 	}
 
-	private void select_point(int x, int y) {
+	private void select_point(float x, float y) {
 		for(vec3 v : list) {
 			if(dist(vec2(v), vec2(x,y)) < magnetism) {
 				select_point_is = true;
@@ -259,7 +271,7 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		}
 	}
 
-	private void select(int x, int y) {
+	private void select(float x, float y) {
 		if(in_bloc(x,y)) {
 			select_is = true;
 		}
@@ -276,7 +288,7 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	}
 	
 	// show
-	public boolean show_available_point(int x, int y) {
+	public boolean show_available_point(float x, float y) {
 		update(x,y);
 		fill(BLANC);
 		float size = 5;
@@ -382,6 +394,25 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 
 
 
+/**
+method R_Plane
+*/
+boolean in_plane(vec3 a, vec3 b, vec3 c, vec3 any, float range) {
+  vec3 n = get_plane_normal(a, b, c);
+  // Calculate nearest distance between the plane represented by the vectors
+  // a,b and c, and the point any
+  float d = n.x()*any.x() + n.y()*any.y() + n.z()*any.z() - n.x()*a.x() - n.y()*a.y() - n.z()*a.z();
+  // A perfect result would be d == 0 but this will not hapen with realistic
+  // float data so the smaller d the closer the point. 
+  // Here I have decided the point is on the plane if the distance is less than 
+  // range unit.
+  return abs(d) < range; 
+}
+
+
+vec3 get_plane_normal(vec3 a, vec3 b, vec3 c) {
+	return new R_Plane().get_plane_normal(a,b,c);
+}
 
 /**
 * R_Plane

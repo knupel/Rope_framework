@@ -4,37 +4,41 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 *
-* When a point meet a line
+* R_Bloc example
+* example : create bloc, set bloc and catch bloc setting
 * v 0.0.1
 * 2019-2019
 */
-vec2 a, b;
+
+R_Bloc bloc;
 void setup() {
-	size(500,500,P2D);
+	size(400,400,P2D);
 	rope_version();
-	a = vec2().rand(vec2(0,width),vec2(0,height));
-	b = vec2().rand(vec2(0,width),vec2(0,height));
+	vec2 [] list = {vec2(10,10), vec2(width/2,height/2), vec2(250,50), vec2(10,10)};
+	bloc = create_bloc(list);
+	bloc.set_name("my name is Joe");
+	println("what your name?",bloc.get_name());
 }
+
+
 
 void draw() {
-	background(r.BLANC);
-	stroke(r.ORANGE);
-	vec2 point = vec2(mouseX, mouseY);
-	ellipse(point,20);
-	strokeWeight(1);
-	float range = 1.0;
-	if(is_on_line(a, b, point, range)) {
-		strokeWeight(5);
-		stroke(r.ROUGE);
+	background(r.SANG);
+	if(mousePressed) {
+		bloc.set_fill(r.ORANGE);
 	} else {
-		stroke(r.NOIR);
+		bloc.set_fill(r.YELLOW);
 	}
-	line(a,b);
+	bloc.show();
 }
 
+
 void keyPressed() {
-	a = vec2().rand(vec2(0,width),vec2(0,height));
-	b = vec2().rand(vec2(0,width),vec2(0,height));
+	if(key == 's') {
+		println("name | num of step | int fill | int stroke | float thickness | type = 0 | main x | main y"); 
+		println("name | num of step | int fill | int stroke | float thickness | type = 1 | control x1 | control y1 | control x2 | control y2 | main x | main y");
+		println(bloc.get_data());
+	}
 }
 
 
