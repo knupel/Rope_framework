@@ -1,7 +1,7 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.2.0
+* v 0.2.1
 * 2019-2019
 */
 
@@ -20,7 +20,7 @@ R_Bloc create_bloc(vec2 [] points) {
 /**
 * R_Bloc
 * 2019-2019
-* 0.1.2
+* 0.1.3
 */
 public class R_Bloc implements rope.core.R_Constants_Colour {
 	private ArrayList<vec3> list;
@@ -211,23 +211,16 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		}
 	}
 
-	
 	public void move(float x, float y, boolean event_is) {
 		if(event_is) {
-			if(!select_is()) {
-				select(x,y);
-			} else {
-				if(!select_point_is() && (in_bloc(x,y) || select_is())) {
-					update(x,y);
-					vec3 offset = vec3(sub(ref_coord,coord));
-					for(vec3 p : list) {
-						p.sub(offset);
-					}
-					ref_coord.set(coord);
+			if(!select_point_is() && select_is()) {
+				vec3 offset = vec3(sub(ref_coord,coord));
+				for(vec3 p : list) {
+					p.sub(offset);
 				}
+				ref_coord.set(coord);
 			}
 		} else {
-			select_is = false;
 			ref_coord.set(coord);
 		}
 	}
@@ -235,7 +228,7 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	public void move_point(float x, float y, boolean event_is) {
 		if(event_is) {
 			// select point to move
-			if(!select_point_is()) {
+			if(!select_point_is() && !select_is()) {
 				select_point(x,y);
 			} else {
 				// case where the bloc is close / ended to move the first and the last point
@@ -273,8 +266,12 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 
 	private void select(float x, float y) {
 		if(in_bloc(x,y)) {
-			select_is = true;
+			select_is(true);
 		}
+	}
+
+	public void select_is(boolean is) {
+		this.select_is = is;
 	}
 
 	public void clear() {
