@@ -11,26 +11,24 @@
 */
 
 ArrayList<R_Bloc> list_bloc;
-R_Bloc bloc;
-boolean build_new_bloc_is = true;
-boolean manage_bloc_is = false;
+boolean add_new_bloc_is = true;
+boolean bloc_build_is = true;
+boolean bloc_manage_is = false;
 boolean bloc_selected_is = false;
 
 void setup() {
 	// fullScreen();
 	size(400,400,P2D);
 	rope_version();
-	reset_bloc();
 	list_bloc = new ArrayList<R_Bloc>();
 }
 
 void draw() {
 	background(r.SANG);
+	println("list bloc size",list_bloc.size());
 
-	if(bloc.end_is()) {
-		list_bloc.add(bloc);
-		reset_bloc();
-	}
+
+	
 	
 	// show
 	for(R_Bloc b : list_bloc) {
@@ -38,13 +36,141 @@ void draw() {
 	}
 
 	// simple build
-	if(build_new_bloc_is) {
-		build_bloc();
+	if(bloc_build_is) {
+		bloc_draw();
 	}
 
-	// manage existing bloc
+	bloc_select();
+	bloc_show_structure();
+	if(bloc_manage_is) {
+		bloc_move();
+	}
 
-	// select
+	check_for_new_bloc();
+	
+
+	info();
+}
+
+
+void mousePressed() {
+	if(!bloc_selected_is) {
+		for(R_Bloc b : list_bloc) {
+			b.select_is(false);
+		}
+	}
+
+	new_bloc();
+}
+
+void mouseReleased() {
+	if(bloc_build_is) {
+		add_point_to_bloc_is(true);
+	}
+	bloc_selected_is = false;
+	// new_bloc();
+}
+
+void keyPressed() {
+	if(keyCode == BACKSPACE) {
+		list_bloc.clear();
+	}
+
+	if(key == 'n') {
+		bloc_build_is = !bloc_build_is;
+		if(bloc_build_is) bloc_manage_is = false;
+		add_new_bloc_is = true;
+	}
+
+	if(key == 'm') {
+		bloc_manage_is = !bloc_manage_is;
+		// add_new_bloc_is = true;
+		if(bloc_manage_is) bloc_build_is = false;
+	}
+}
+
+
+// info
+void info() {
+	if(bloc_build_is) {
+		text("build bloc mode", 20,20);
+	}
+
+	if(bloc_manage_is) {
+		text("manage bloc mode", 20,20);
+	}
+
+	for(R_Bloc b : list_bloc) {
+		if(b.select_is()) {
+			text("there is bloc selected", 20,40);
+			break;
+		} 
+	}
+}
+
+/**
+* DRAW MULTI BLOC METHOD
+* v 0.0.1
+* 2019-2019
+*/
+boolean add_point_to_bloc_is;
+boolean add_point_to_bloc_is() {
+	return add_point_to_bloc_is;
+}
+
+void add_point_to_bloc_is(boolean is) {
+	add_point_to_bloc_is = is;
+}
+
+void check_for_new_bloc() {
+	boolean check_for_new_bloc_is = false;
+	// check the last current building bloc
+	if(list_bloc.size() > 0) {
+		int last_index = list_bloc.size() - 1;
+		R_Bloc b = list_bloc.get(last_index);
+		if(b.end_is()) {
+			check_for_new_bloc_is = true;
+		}
+	} else {
+		check_for_new_bloc_is = true;
+	}
+
+	// use the result
+	if(check_for_new_bloc_is) {
+		add_new_bloc_is = true;
+	}
+}
+
+void new_bloc() {
+	if(add_new_bloc_is) {
+		R_Bloc bloc = new R_Bloc();
+		int id = list_bloc.size();
+		bloc.set_id(id);
+		bloc.set_magnetism(4);
+		bloc.set_colour_build(r.CYAN);
+		bloc.select_is(true);
+		list_bloc.add(bloc);
+		add_new_bloc_is = false;
+	}
+}
+
+void bloc_draw() {
+	for(R_Bloc b : list_bloc) {
+		// if(b.select_is()) {
+		// if(b.select_is() && !b.end_is()) {
+		if(b.select_is() || !b.end_is()) {
+			if(mousePressed) {
+				b.build(mouseX,mouseY,add_point_to_bloc_is());
+				add_point_to_bloc_is(false);
+			}
+			b.show();
+			b.show_struct();
+			b.show_anchor_point();
+		}	
+	}
+}
+
+void bloc_select() {
 	for(int index = list_bloc.size() - 1 ; index >= 0 ; index--) {
 		R_Bloc b = list_bloc.get(index);
 		b.update(mouseX,mouseY);
@@ -59,91 +185,25 @@ void draw() {
 			break;
 		}
 	}
-	// show
+}
+
+void bloc_move() {
+	for(R_Bloc b : list_bloc) {
+		boolean bloc_move_is = false;
+		if(mousePressed && b.select_is() && !b.select_point_is()) {
+			bloc_move_is = true;
+		}
+		b.move(mouseX, mouseY, bloc_move_is);
+	}
+}
+
+void bloc_show_structure() {
 	for(R_Bloc b : list_bloc) {
 		if(b.select_is()) {
+			b.show_struct();
 			b.show_anchor_point();
 			b.show_available_point(mouseX,mouseY);
 		}
 	}
-
-	// move gobal
-	for(R_Bloc b : list_bloc) {
-		b.move(mouseX, mouseY, mousePressed);
-	}
 }
-
-
-void mousePressed() {
-	if(!bloc_selected_is) {
-		for(R_Bloc b : list_bloc) {
-			b.select_is(false);
-		}
-	}
-}
-
-void mouseReleased() {
-	if(build_new_bloc_is) {
-		add_point_to_bloc_is(true);
-	}
-
-	bloc_selected_is = false;
-}
-
-void keyPressed() {
-	if(keyCode == BACKSPACE) {
-		for(R_Bloc b : list_bloc) {
-			b.clear();
-		}
-	}
-
-	if(key == 'n') {
-		build_new_bloc_is = !build_new_bloc_is;
-		if(build_new_bloc_is) manage_bloc_is = false;
-	}
-
-	if(key == 'm') {
-		manage_bloc_is = !manage_bloc_is;
-		if(manage_bloc_is) build_new_bloc_is = false;
-	}
-
-
-	println("\nWHAT HAPPEN");
-	println("build new bloc", build_new_bloc_is);
-	println("manage blocs", manage_bloc_is);
-}
-
-
-
-
-boolean add_point_to_bloc_is;
-boolean add_point_to_bloc_is() {
-	return add_point_to_bloc_is;
-}
-
-void add_point_to_bloc_is(boolean is) {
-	add_point_to_bloc_is = is;
-}
-
-void reset_bloc() {
-	bloc = new R_Bloc();
-	bloc.set_magnetism(4);
-	bloc.set_colour_build(r.CYAN);
-}
-
-void build_bloc() {
-	bloc.build(mouseX,mouseY,add_point_to_bloc_is());
-	add_point_to_bloc_is(false);
-	bloc.show();
-	bloc.show_struct();
-	bloc.show_anchor_point();
-}
-
-
-void load_bloc(vec2 [] points) {
-	for(vec2 v : points) {
-		bloc.build(v.x(),v.y(),true);
-	}
-}
-
 

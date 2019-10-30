@@ -1,7 +1,7 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.2.1
+* v 0.2.2
 * 2019-2019
 */
 
@@ -20,10 +20,11 @@ R_Bloc create_bloc(vec2 [] points) {
 /**
 * R_Bloc
 * 2019-2019
-* 0.1.3
+* 0.1.4
 */
 public class R_Bloc implements rope.core.R_Constants_Colour {
 	private ArrayList<vec3> list;
+	private int id;
 	private String name;
 	private boolean end;
 	private boolean select_is;
@@ -40,6 +41,7 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 
 	public R_Bloc() {
 		list = new ArrayList<vec3>();
+		id = (int)random(Integer.MAX_VALUE);
 		coord = new vec2();
 		ref_coord = new vec2();
 		colour = CYAN;
@@ -49,6 +51,11 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 
 
 	// set
+
+	public void set_id(int id) {
+		this.id = id;
+	}
+
 	public void set_magnetism(int magnetism) {
 		this.magnetism = magnetism;
 	}
@@ -83,6 +90,10 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 
 	public String get_name() {
 		return this.name;
+	}
+
+	public int get_id() {
+		return this.id;
 	}
 
 	public String get_data() {
@@ -213,13 +224,11 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 
 	public void move(float x, float y, boolean event_is) {
 		if(event_is) {
-			if(!select_point_is() && select_is()) {
-				vec3 offset = vec3(sub(ref_coord,coord));
-				for(vec3 p : list) {
-					p.sub(offset);
-				}
-				ref_coord.set(coord);
+			vec3 offset = vec3(sub(ref_coord,coord));
+			for(vec3 p : list) {
+				p.sub(offset);
 			}
+			ref_coord.set(coord);
 		} else {
 			ref_coord.set(coord);
 		}
