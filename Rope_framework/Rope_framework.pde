@@ -25,7 +25,7 @@ void setup() {
 
 void draw() {
 	background(r.SANG);
-	println("list bloc size",list_bloc.size());
+	//println("list bloc size",list_bloc.size());
 
 
 	
@@ -36,31 +36,38 @@ void draw() {
 	}
 
 	// simple build
-	if(bloc_build_is) {
-		bloc_draw();
+
+	check_for_new_bloc();
+	if(bloc_show_structure()) {
+		add_new_bloc_is = false;
+	} else {
+		if(bloc_build_is) {
+			bloc_draw();
+		}
 	}
 
 	bloc_select();
-	bloc_show_structure();
+	
 	if(bloc_manage_is) {
 		bloc_move();
 	}
 
-	check_for_new_bloc();
 	
-
+	
 	info();
 }
 
 
 void mousePressed() {
+	if(bloc_build_is && add_new_bloc_is) {
+		new_bloc();
+		add_new_bloc_is = false;
+	}
 	if(!bloc_selected_is) {
 		for(R_Bloc b : list_bloc) {
 			b.select_is(false);
 		}
 	}
-
-	new_bloc();
 }
 
 void mouseReleased() {
@@ -68,7 +75,6 @@ void mouseReleased() {
 		add_point_to_bloc_is(true);
 	}
 	bloc_selected_is = false;
-	// new_bloc();
 }
 
 void keyPressed() {
@@ -84,7 +90,6 @@ void keyPressed() {
 
 	if(key == 'm') {
 		bloc_manage_is = !bloc_manage_is;
-		// add_new_bloc_is = true;
 		if(bloc_manage_is) bloc_build_is = false;
 	}
 }
@@ -142,28 +147,22 @@ void check_for_new_bloc() {
 }
 
 void new_bloc() {
-	if(add_new_bloc_is) {
-		R_Bloc bloc = new R_Bloc();
-		int id = list_bloc.size();
-		bloc.set_id(id);
-		bloc.set_magnetism(4);
-		bloc.set_colour_build(r.CYAN);
-		bloc.select_is(true);
-		list_bloc.add(bloc);
-		add_new_bloc_is = false;
-	}
+	R_Bloc bloc = new R_Bloc();
+	int id = list_bloc.size();
+	bloc.set_id(id);
+	bloc.set_magnetism(4);
+	bloc.set_colour_build(r.CYAN);
+	bloc.select_is(true);
+	list_bloc.add(bloc);
 }
 
 void bloc_draw() {
 	for(R_Bloc b : list_bloc) {
-		// if(b.select_is()) {
-		// if(b.select_is() && !b.end_is()) {
 		if(b.select_is() || !b.end_is()) {
 			if(mousePressed) {
 				b.build(mouseX,mouseY,add_point_to_bloc_is());
 				add_point_to_bloc_is(false);
 			}
-			b.show();
 			b.show_struct();
 			b.show_anchor_point();
 		}	
@@ -197,13 +196,17 @@ void bloc_move() {
 	}
 }
 
-void bloc_show_structure() {
+boolean bloc_show_structure() {
+	boolean event_is = false;
 	for(R_Bloc b : list_bloc) {
 		if(b.select_is()) {
 			b.show_struct();
 			b.show_anchor_point();
-			b.show_available_point(mouseX,mouseY);
+			if(b.show_available_point(mouseX,mouseY)) {
+				event_is = true;
+			}
 		}
 	}
+	return event_is;
 }
 
