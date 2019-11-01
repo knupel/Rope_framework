@@ -20,7 +20,7 @@ R_Bloc create_bloc(vec2 [] points) {
 /**
 * R_Bloc
 * 2019-2019
-* 0.1.4
+* 0.1.5
 */
 public class R_Bloc implements rope.core.R_Constants_Colour {
 	private ArrayList<vec3> list;
@@ -171,36 +171,28 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		coord.set(x,y);
 	}
 
-	public boolean build(float x, float y, boolean event_is) {
-		update(x,y);	
-		if(!end) {
-			if(event_is) {
-				vec2 point = vec2(x,y);
-				if(list.size() > 1) {
-					if(list.size() > 2 && end(point)) {
-						add(vec2(list.get(index)));
-						return false;
-					} else if(near_of(point)) {
-						list.remove(index);
-						return false;
-					} else if(intersection(point)) {
-						add(index, point);
-						return false;
-					} else {
-						add(point);
-						return true;
-					}
+	public void build(float x, float y, boolean event_is) {
+		update(x,y);
+		if(event_is) {
+			vec2 point = vec2(x,y);
+			if(list.size() > 1) {
+				if(list.size() > 2 && end(point)) {
+					add(vec2(list.get(index)));
+				} else if(near_of(point)) {
+					list.remove(index);
+				} else if(intersection(point)) {
+					add(index, point);
 				} else {
-					if(list.size() == 1 && near_of(point)) {
-						return false;
-					} else {
-						add(point);
-						return true;
-					}
-				}		
+					add(point);
+				}
+			} else {
+				if(list.size() == 1 && near_of(point)) {
+					//
+				} else {
+					add(point);
+				}
 			}
 		}
-		return end;
 	}
 
 	private void add(vec2 point) {
@@ -302,7 +294,6 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 			for(int index = 0 ; index < list.size() ; index++) {
 				if(dist(coord,vec2(list.get(index))) < magnetism) {
 					vec2 pos = sub(vec2(list.get(index)),vec2(size).mult(.5));
-					// ellipse(pos.add(size *0.5),size *1.5);
 					square(pos,size);
 					line(pos.copy().add(0,size/2),pos.copy().add(size,size/2));
 					action_available_is = true;
@@ -404,15 +395,15 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 method R_Plane
 */
 boolean in_plane(vec3 a, vec3 b, vec3 c, vec3 any, float range) {
-  vec3 n = get_plane_normal(a, b, c);
-  // Calculate nearest distance between the plane represented by the vectors
-  // a,b and c, and the point any
-  float d = n.x()*any.x() + n.y()*any.y() + n.z()*any.z() - n.x()*a.x() - n.y()*a.y() - n.z()*a.z();
-  // A perfect result would be d == 0 but this will not hapen with realistic
-  // float data so the smaller d the closer the point. 
-  // Here I have decided the point is on the plane if the distance is less than 
-  // range unit.
-  return abs(d) < range; 
+	vec3 n = get_plane_normal(a, b, c);
+	// Calculate nearest distance between the plane represented by the vectors
+	// a,b and c, and the point any
+	float d = n.x()*any.x() + n.y()*any.y() + n.z()*any.z() - n.x()*a.x() - n.y()*a.y() - n.z()*a.z();
+	// A perfect result would be d == 0 but this will not hapen with realistic
+	// float data so the smaller d the closer the point. 
+	// Here I have decided the point is on the plane if the distance is less than 
+	// range unit.
+	return abs(d) < range; 
 }
 
 
@@ -449,7 +440,7 @@ class R_Plane {
 	}
 
 	public vec3 get_plane_normal(vec3 a, vec3 b, vec3 c) {
-  	return (sub(a,c).cross(sub(b,c))).normalize();
+		return (sub(a,c).cross(sub(b,c))).normalize();
 	}
 
 	public float get_range() {
@@ -466,14 +457,14 @@ class R_Plane {
 	}
 
 	private boolean in_plane(vec3 any, float range) {
-	  // Calculate nearest distance between the plane represented by the vectors
-	  // a,b and c, and the point any
-	  float d = plane.x()*any.x() + plane.y()*any.y() + plane.z()*any.z() - plane.x()*a.x() - plane.y()*a.y() - plane.z()*a.z();
-	  // A perfect result would be d == 0 but this will not hapen with realistic
-	  // float data so the smaller d the closer the point. 
-	  // Here I have decided the point is on the plane if the distance is less than 
-	  // range unit.
-	  return abs(d) < range; 
+		// Calculate nearest distance between the plane represented by the vectors
+		// a,b and c, and the point any
+		float d = plane.x()*any.x() + plane.y()*any.y() + plane.z()*any.z() - plane.x()*a.x() - plane.y()*a.y() - plane.z()*a.z();
+		// A perfect result would be d == 0 but this will not hapen with realistic
+		// float data so the smaller d the closer the point. 
+		// Here I have decided the point is on the plane if the distance is less than 
+		// range unit.
+		return abs(d) < range; 
 	}
 
 
@@ -627,9 +618,9 @@ public class R_Node {
 			return false;
 		}
 	}
-  
-  // set
-  public void set_destination(vec3 pos) {
+	
+	// set
+	public void set_destination(vec3 pos) {
 		if(dest_list.size() < branch) {
 			dest_list.add(pos);
 		} 
@@ -638,17 +629,17 @@ public class R_Node {
 	public void set_id(int id) {
 		this.id = id;
 	}
-  
-  public void set_branch(int branch) {
-  	this.branch = branch;
-  }
+	
+	public void set_branch(int branch) {
+		this.branch = branch;
+	}
 
-  public void pos(vec3 pos) {
-  	if(pos == null) {
-  		this.pos = new vec3();
-  	}	else {
-  		this.pos = pos;
-  	}
+	public void pos(vec3 pos) {
+		if(pos == null) {
+			this.pos = new vec3();
+		}	else {
+			this.pos = pos;
+		}
 	}
 
 	public void x(float x) {
@@ -675,9 +666,9 @@ public class R_Node {
 		}
 	}
 
-  
+	
 
-  // get
+	// get
 	public int get_id() {
 		return id;
 	}
@@ -766,48 +757,48 @@ public class R_Segment {
 
 
 	private vec2 line_intersection(R_Segment one, R_Segment two) {
-    float x1 = one.get_start().x;
-    float y1 = one.get_start().y;
-    float x2 = one.get_end().x;
-    float y2 = one.get_end().y;
-    
-    float x3 = two.get_start().x;
-    float y3 = two.get_start().y;
-    float x4 = two.get_end().x;
-    float y4 = two.get_end().y;
-    
-    float bx = x2 - x1;
-    float by = y2 - y1;
-    float dx = x4 - x3;
-    float dy = y4 - y3;
-   
-    float b_dot_d_perp = bx * dy - by * dx;
-   
-    if(b_dot_d_perp == 0) {
-    	return null;
-    }
-   
-    float cx = x3 - x1;
-    float cy = y3 - y1;
-   
-    float t = (cx * dy - cy * dx) / b_dot_d_perp;
-    if(t < 0 || t > 1) return null;
-   
-    float u = (cx * by - cy * bx) / b_dot_d_perp;
-    if(u < 0 || u > 1) return null;
-   
-    return vec2(x1+t*bx, y1+t*by);
-  }
-  
-  public vec2 meet_at(R_Segment target) {
-    return line_intersection(this,target);
-  }
+		float x1 = one.get_start().x;
+		float y1 = one.get_start().y;
+		float x2 = one.get_end().x;
+		float y2 = one.get_end().y;
+		
+		float x3 = two.get_start().x;
+		float y3 = two.get_start().y;
+		float x4 = two.get_end().x;
+		float y4 = two.get_end().y;
+		
+		float bx = x2 - x1;
+		float by = y2 - y1;
+		float dx = x4 - x3;
+		float dy = y4 - y3;
+	 
+		float b_dot_d_perp = bx * dy - by * dx;
+	 
+		if(b_dot_d_perp == 0) {
+			return null;
+		}
+	 
+		float cx = x3 - x1;
+		float cy = y3 - y1;
+	 
+		float t = (cx * dy - cy * dx) / b_dot_d_perp;
+		if(t < 0 || t > 1) return null;
+	 
+		float u = (cx * by - cy * bx) / b_dot_d_perp;
+		if(u < 0 || u > 1) return null;
+	 
+		return vec2(x1+t*bx, y1+t*by);
+	}
+	
+	public vec2 meet_at(R_Segment target) {
+		return line_intersection(this,target);
+	}
 
-  public boolean meet_is(R_Segment target) {
-  	if(meet_at(target) == null) {
-  		return false;
-  	} else {
-  		return true;
-  	}
-  }
+	public boolean meet_is(R_Segment target) {
+		if(meet_at(target) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

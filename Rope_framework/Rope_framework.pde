@@ -4,8 +4,8 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 *
-* R_Bloc example
-* example : create bloc, set bloc and catch bloc setting
+* R_Bloc building example
+* example : create blocs, set blocs and catch blocs setting
 * v 0.0.1
 * 2019-2019
 */
@@ -27,33 +27,28 @@ void draw() {
 	background(r.SANG);
 	//println("list bloc size",list_bloc.size());
 
-
-	
-	
 	// show
 	for(R_Bloc b : list_bloc) {
 		b.show();
 	}
 
 	// simple build
-
 	check_for_new_bloc();
-	if(bloc_show_structure()) {
-		add_new_bloc_is = false;
-	} else {
-		if(bloc_build_is) {
-			bloc_draw();
-		}
+	bloc_show_structure();
+	if(bloc_build_is) {
+		if(bloc_show_available_point()) {
+			bloc_draw(true);
+			add_new_bloc_is = false;
+		} else {
+			bloc_draw(true);
+		}		
 	}
 
 	bloc_select();
 	
 	if(bloc_manage_is) {
-		bloc_move();
+		bloc_manage();
 	}
-
-	
-	
 	info();
 }
 
@@ -150,22 +145,24 @@ void new_bloc() {
 	R_Bloc bloc = new R_Bloc();
 	int id = list_bloc.size();
 	bloc.set_id(id);
-	bloc.set_magnetism(4);
+	bloc.set_magnetism(10);
 	bloc.set_colour_build(r.CYAN);
 	bloc.select_is(true);
 	list_bloc.add(bloc);
 }
 
-void bloc_draw() {
-	for(R_Bloc b : list_bloc) {
-		if(b.select_is() || !b.end_is()) {
-			if(mousePressed) {
-				b.build(mouseX,mouseY,add_point_to_bloc_is());
-				add_point_to_bloc_is(false);
-			}
-			b.show_struct();
-			b.show_anchor_point();
-		}	
+void bloc_draw(boolean event_is) {
+	if(event_is) {
+		for(R_Bloc b : list_bloc) {
+			if(b.select_is() || !b.end_is()) {
+				if(mousePressed) {
+					b.build(mouseX,mouseY,add_point_to_bloc_is());
+					add_point_to_bloc_is(false);
+				}
+				b.show_struct();
+				b.show_anchor_point();
+			}	
+		}
 	}
 }
 
@@ -186,22 +183,45 @@ void bloc_select() {
 	}
 }
 
-void bloc_move() {
-	for(R_Bloc b : list_bloc) {
-		boolean bloc_move_is = false;
-		if(mousePressed && b.select_is() && !b.select_point_is()) {
-			bloc_move_is = true;
-		}
-		b.move(mouseX, mouseY, bloc_move_is);
+void bloc_manage() {
+	if(!bloc_move()) {
+		bloc_move_point();
 	}
 }
 
-boolean bloc_show_structure() {
+boolean bloc_move() {
 	boolean event_is = false;
+	for(R_Bloc b : list_bloc) {
+		boolean is = false;
+		if(mousePressed && b.select_is() && !b.select_point_is()) {
+			is = true;
+			event_is = true;
+		}
+		b.move(mouseX,mouseY,is);
+	}
+	return event_is;
+}
+
+void bloc_move_point() {
+	for(R_Bloc b : list_bloc) {
+		b.move_point(mouseX,mouseY,mousePressed);
+	}
+}
+
+
+void bloc_show_structure() {
 	for(R_Bloc b : list_bloc) {
 		if(b.select_is()) {
 			b.show_struct();
 			b.show_anchor_point();
+		}
+	}
+}
+
+boolean bloc_show_available_point() {
+	boolean event_is = false;
+	for(R_Bloc b : list_bloc) {
+		if(b.select_is()) {
 			if(b.show_available_point(mouseX,mouseY)) {
 				event_is = true;
 			}
