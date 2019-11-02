@@ -185,6 +185,7 @@ void bloc_select() {
 
 
 int bloc_index = -1;
+int bloc_point_index = -1;
 void bloc_manage() {
 	if(!bloc_move()) {
 		bloc_move_point();
@@ -193,66 +194,57 @@ void bloc_manage() {
 
 boolean bloc_move() {
 	boolean event_is = false;
-	if(bloc_index < 0) {
+	if(bloc_index < 0 && bloc_point_index < 0) {
 		for(int index = 0 ; index < list_bloc.size() ; index++) {
 			R_Bloc b = list_bloc.get(index);
 			boolean is = false;
 			bloc_index = - 1;
+			bloc_point_index = -1;
 			if(mousePressed && b.select_is() && !b.select_point_is()) {
 				bloc_index = index;
+				bloc_point_index = -1;
 				is = true;
 			  event_is = true;
 				break;
 			}
 			b.move(mouseX,mouseY,is);
 		}
-	} else {
+	} else if(bloc_index >= 0) {
 		R_Bloc b = list_bloc.get(bloc_index);
 		if(mousePressed && b.select_is() && !b.select_point_is()) {
 			event_is = true;
 			b.update(mouseX,mouseY);
 			b.move(mouseX,mouseY,true);
 		} else {
+			bloc_point_index = -1;
 			bloc_index = -1;
 		}
 	}
 	return event_is;
 }
-/*
+
 void bloc_move_point() {
-	boolean locked_is = false;
-	if(bloc_index < 0) {
+	if(bloc_point_index < 0 && bloc_index < 0) {
 		for(int index = 0 ; index < list_bloc.size() ; index++) {
 			R_Bloc b = list_bloc.get(index);
+			bloc_point_index = -1;
 			bloc_index = -1;
-			if(!locked_is) {
-				bloc_index = index;
-				b.move_point(mouseX,mouseY,mousePressed);
-				locked_is = b.select_point_is();
-			}	
-		}
-	} else {
-		R_Bloc b = list_bloc.get(bloc_index);
-		if(!locked_is) {
 			b.move_point(mouseX,mouseY,mousePressed);
-			locked_is = b.select_point_is();
+			if(b.select_point_is()) {
+				bloc_point_index = index;
+				bloc_index = -1;
+				break;
+			}		
 		}
-
+	} else if(bloc_point_index >= 0) {
+		R_Bloc b = list_bloc.get(bloc_point_index);
+		b.move_point(mouseX,mouseY,mousePressed);
+		if(!b.select_point_is()) {
+			bloc_point_index = -1;
+			bloc_index = -1;
+		}
 	}
 }
-*/
-
-void bloc_move_point() {
-	boolean locked_is = false;
-	for(R_Bloc b : list_bloc) {
-		if(!locked_is) {
-			b.move_point(mouseX,mouseY,mousePressed);
-			locked_is = b.select_point_is();
-		}	
-	}
-}
-
-
 
 void bloc_show_structure() {
 	for(R_Bloc b : list_bloc) {
