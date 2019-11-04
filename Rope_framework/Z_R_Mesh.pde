@@ -1,7 +1,7 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.2.2
+* v 0.2.4
 * 2019-2019
 */
 
@@ -20,7 +20,7 @@ R_Bloc create_bloc(vec2 [] points) {
 /**
 * R_Bloc
 * 2019-2019
-* 0.1.5
+* 0.1.7
 */
 public class R_Bloc implements rope.core.R_Constants_Colour {
 	private ArrayList<vec3> list;
@@ -98,17 +98,19 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 
 	public String get_data() {
 		String num = "" + list.size();
-		String fill_str = "" + fill;
-		String stroke_str = "" + stroke;
-		String thickness_str = Float.toString(thickness);
-		String setting = name + "," + num + "," + fill_str + "," + stroke_str + "," + thickness_str;
+		String field_name = "name:"+name;
+		String field_complexity = "complexity:"+num;
+		String field_fill = "fill:"+fill;
+		String field_stroke = "stroke:"+stroke;
+		String field_thickness = "thickness:"+Float.toString(thickness);
+		String setting = field_name + "," + field_complexity + "," + field_fill + "," + field_stroke + "," + field_thickness;
 		for(vec3 v : list) {
-			String type = "type 0"; 
+			String type = "type:0"; 
 			// type 0 is a simple vertex
 			// type 1 is for bezier vertex for the future version
 			setting += "," + type + "," + Float.toString(v.x()) + "," + Float.toString(v.y());
 		}
-		setting += "," + end;
+		setting += ",close:" + end;
 		return setting;
 	}
 
@@ -203,16 +205,6 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		list.add(index, vec3(point));
 	}
 
-
-	public void add_point(float x, float y, boolean event_is) {
-		if(event_is) {
-			update(x,y);
-			vec2 point = vec2(x,y);
-			if(intersection(point)) {
-				add(index, point);
-			}
-		}
-	}
 
 	public void move(float x, float y, boolean event_is) {
 		if(event_is) {
