@@ -10,65 +10,158 @@
 * 2019-2019
 */
 
-R_Bloc [] bloc;
+// R_Bloc [] bloc;
+R_Megabloc megabloc;
 
 void setup() {
 	size(400,400,P2D);
 	rope_version();
-	create_bloc();
+	megabloc = new R_Megabloc();
+	create_bloc(megabloc);
 }
 
 
 void draw() {
 	background(r.SANG);
-	show_bloc();
+	show_bloc(megabloc);
 }
 
 void keyPressed() {
 	if(key == 'n') {
-		create_bloc();
+		create_bloc(megabloc);
 	}
 	if(key == 's') {
-		save_bloc();
+		save_bloc(megabloc,"bloc","");
 
 	}
 
 
 	if(key == 'l') {
-
-	}
-
-
-}
-
-void show_bloc() {
-	for(int i = 0 ; i < bloc.length ; i++) {
-		bloc[i].show();
+		build_bloc_from_file(null, load_bloc("bloc.blc"));
+		//build_bloc_from_file
 	}
 }
 
-void create_bloc() {
+void show_bloc(R_Megabloc megabloc) {
+	megabloc.show();
+}
+
+void create_bloc(R_Megabloc megabloc) {
+	megabloc.clear();
+	megabloc.set(width,height);
 	int num = 3;
-	bloc = new R_Bloc[num];
-	for(int i = 0 ; i < bloc.length ; i++) {
-		bloc[i] = new R_Bloc();
+	for(int i = 0 ; i < num ; i++) {
+		R_Bloc bloc = new R_Bloc();
 		int complexity = (int)random(3,5);
 		for(int k = 0 ; k < complexity ; k++) {
 			float x = random(width);
 			float y = random(height);
-			bloc[i].build(x,y,true);
+			bloc.build(x,y,true);
+		}
+		megabloc.add(bloc);
+	}
+}
+
+
+void save_bloc(R_Megabloc megabloc, String file_name, String path) {
+	String [] save = new String[1];
+	// header
+	String name = "bloc file name:"+file_name;
+	String elem = "elements:"+ megabloc.size();
+	String w = "width:" + width;
+	String h = "height:"+ height;
+	save[0] =  name + "," + elem + "," + w + ","+ h +"\n";
+	// details
+	for(R_Bloc r : megabloc.get()) {
+		save[0] += (r.get_data() + "\n");
+	}
+	saveStrings(path+file_name+".blc",save);
+}
+
+
+String [] load_bloc(String path_name) {
+	String [] file = loadStrings(path_name);
+	for(int i = 0 ; i < file.length ; i++) {
+		println(file[i]);
+	}
+	if(file[0].split(",")[0].contains("bloc file name")) {
+		return file;
+	} else {
+		return null;
+	}
+}
+
+
+void build_bloc_from_file(R_Megabloc megabloc, String [] data) {
+	if(megabloc == null) {
+		megabloc = new R_Megabloc();
+	} else {
+		megabloc.clear();
+	}
+
+	String [] header = data[0].split(",");
+	if(header[0].contains("bloc file name")) {
+		int num = Integer.parseInt(header[1].split(":")[1]);
+		println("elements", num);
+	}
+}
+
+
+public class R_Megabloc {
+	private ArrayList<R_Bloc> list;
+	private int width;
+	private int height;
+
+	public R_Megabloc() {
+		list = new ArrayList<R_Bloc>();
+	}
+
+	public void set(int width, int height) {
+		this.width = width;
+		this.height = height;
+	}
+
+	public void clear() {
+		list.clear();
+	}
+
+	public int size() {
+		return list.size();
+	}
+
+	public void add(R_Bloc bloc) {
+		list.add(bloc);
+	}
+
+	public void add(R_Bloc [] blocs) {
+		for(int i = 0 ; i < blocs.length ; i++) {
+			list.add(blocs[i]);
+		}
+	}
+
+	public ArrayList<R_Bloc> get()  {
+		return list;
+	}
+
+	public R_Bloc get(int index) {
+		if(index >= 0 && index < list.size()) {
+			return list.get(index);
+		} else {
+			return null;
+		}
+	}
+
+	public void show() {
+		for(R_Bloc b : list) {
+			b.show();
 		}
 	}
 }
 
 
-void save_bloc() {
-	String [] save = new String[1];
-	save[0] = "";
-	for(int i = 0 ; i < bloc.length ; i++) {
-		save[0] += (bloc[i].get_data() + "\n");
-	}
-	println(save);
-	saveStrings("save.blc",save);
-}
+
+
+
+
+
 
