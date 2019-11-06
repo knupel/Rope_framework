@@ -139,6 +139,14 @@ public class R_Megabloc {
 		}
 	}
 
+	public get_width() {
+		return width;
+	}
+
+	public get_height() {
+		return height;
+	}
+
 	public ArrayList<R_Bloc> get()  {
 		return list;
 	}

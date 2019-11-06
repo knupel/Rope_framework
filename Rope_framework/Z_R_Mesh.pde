@@ -1,7 +1,7 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.2.5
+* v 0.3.0
 * 2019-2019
 */
 
@@ -16,6 +16,72 @@ R_Bloc create_bloc(vec2 [] points) {
 	}
 	return bloc;
 }
+
+
+/**
+* R_Megabloc
+* v 0.0.1
+* 2019-2019
+*/
+public class R_Megabloc {
+	private ArrayList<R_Bloc> list;
+	private int width;
+	private int height;
+
+	public R_Megabloc() {
+		list = new ArrayList<R_Bloc>();
+	}
+
+	public void set(int width, int height) {
+		this.width = width;
+		this.height = height;
+	}
+
+	public void clear() {
+		list.clear();
+	}
+
+	public int size() {
+		return list.size();
+	}
+
+	public void add(R_Bloc bloc) {
+		list.add(bloc);
+	}
+
+	public void add(R_Bloc [] blocs) {
+		for(int i = 0 ; i < blocs.length ; i++) {
+			list.add(blocs[i]);
+		}
+	}
+
+	public get_width() {
+		return width;
+	}
+
+	public get_height() {
+		return height;
+	}
+
+	public ArrayList<R_Bloc> get()  {
+		return list;
+	}
+
+	public R_Bloc get(int index) {
+		if(index >= 0 && index < list.size()) {
+			return list.get(index);
+		} else {
+			return null;
+		}
+	}
+
+	public void show() {
+		for(R_Bloc b : list) {
+			b.show();
+		}
+	}
+}
+
 
 /**
 * R_Bloc
