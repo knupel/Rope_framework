@@ -1,10 +1,8 @@
 /**
 Rope UTILS 
-v 1.62.0
+v 1.63.0
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
-* Processing 3.5.3
-* Rope library 0.8.3.29
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -1356,16 +1354,38 @@ void event_PDF() {
 
 /**
 TRANSLATOR 
-v 0.3.0
+v 0.4.0
 */
+ivec2 calc_atoi(int index, String str) {
+  int result = 0;
+    int check_is = 1;
+  while (index < str.length()) {
+    if (str.charAt(index) >= '0' && str.charAt(index) <= '9') {
+      int next = index +1;
+      if (next < str.length() && str.charAt(next) >= '0' && str.charAt(next) <= '9') {
+          result *= 10;
+          result += (str.charAt(index) - '0');
+      }
+      else {
+        result *= 10;
+        result += (str.charAt(index) - '0');
+        check_is = 0;
+      }
+    }
+    else if (!(str.charAt(index) >= '0' && str.charAt(index) <= '9') && check_is == 0) {
+      break ;
+    }
+    index++;
+  }
+  return new ivec2(result,index);
+}
 /**
 * atoi
-* v 0.0.1
+* v 0.0.3
 * 2019-2019
 */
 int atoi(String str) {
 	int index = 0;
-	int result = 0;
 	// sign
 	int sign = 1;
 	while (index < str.length()) {
@@ -1376,29 +1396,49 @@ int atoi(String str) {
 		index++;
 	}
 	// clean
-	index = 0;
-	int check_is = 1;
-
-	while (index < str.length()) {
-		if (str.charAt(index) >= '0' && str.charAt(index) <= '9') {
-			int next = index +1;
-			if (next < str.length() && str.charAt(next) >= '0' && str.charAt(next) <= '9') {
-					result *= 10;
-					result += (str.charAt(index) - '0');
-			}
-			else {
-				result *= 10;
-				result += (str.charAt(index) - '0');
-				check_is = 0;
-			}
-		}
-		else if (!(str.charAt(index) >= '0' && str.charAt(index) <= '9') && check_is == 0)
-			break ;
-		index++;
-	}
+	int result = 0;
+	ivec2 step = calc_atoi(index, str);
+  result = step.x();
 	// result
 	return (sign * result);
 }
+
+
+/**
+* atof
+* v 0.0.1
+* 2019-2019
+*/
+float atof(String str) {
+	int index = 0;
+	float result = 0;
+	// sign
+	int sign = 1;
+	while (index < str.length()) {
+		if (str.charAt(index) == '-')
+			sign *= -1;
+		else if (str.charAt(index) >= '0' && str.charAt(index) <= '9')
+			break ;
+		index++;
+	}
+	// clean for int part
+  ivec2 step = calc_atoi(index, str);
+  result = step.x();
+  index = step.y();
+  // clean for floating part
+  if(str.charAt(index) == '.') {
+    step = calc_atoi(index, str);
+    float floating = step.x();
+    while(floating > 1) {
+      floating *= 0.1;
+    }
+    result += floating;
+  }
+	return (sign * result);
+}
+
+
+
 
 
 /**

@@ -624,6 +624,12 @@ int atoi(String str);
 > return int from String to classic method atoi from C language, by example
 if you have "gfg-+--33.12fr" the value -33 is return
 
+atof
+--
+float atof(String str);
+> return float from String to classic method atoi from C language, by example
+if you have "gfg-+--33.12fr" the value -33.12 is return
+
 
 
 
