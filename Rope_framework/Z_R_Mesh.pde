@@ -1,7 +1,7 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.3.0
+* v 0.3.1
 * 2019-2019
 */
 
@@ -86,7 +86,7 @@ public class R_Megabloc {
 /**
 * R_Bloc
 * 2019-2019
-* 0.1.8
+* 0.1.9
 */
 public class R_Bloc implements rope.core.R_Constants_Colour {
 	private ArrayList<vec3> list;
@@ -177,7 +177,7 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 			String ay = "ay:" + Float.toString(v.y());
 			// type 0 is a simple vertex
 			// type 1 is for bezier vertex for the future version
-			setting += "," + type + "," + ax + "," + ay;
+			setting += "," + type + "<>" + ax + "<>" + ay;
 		}
 		setting += ",close:" + end;
 		return setting;

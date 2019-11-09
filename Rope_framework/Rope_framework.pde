@@ -25,6 +25,9 @@ void setup() {
 void draw() {
 	background(r.SANG);
 	show_bloc(megabloc);
+	if(megabloc_from_save != null) {
+		show_bloc(megabloc_from_save);
+	}
 }
 
 void keyPressed() {
@@ -36,7 +39,7 @@ void keyPressed() {
 	}
 
 	if(key == 'l') {
-		build_bloc_from_file(null, load_megabloc("bloc.blc"));
+		megabloc_from_save = read_megabloc(load_megabloc("bloc.blc"));
 		//build_bloc_from_file
 	}
 }
@@ -51,9 +54,11 @@ void show_bloc(R_Megabloc megabloc) {
 void create_bloc(R_Megabloc megabloc) {
 	megabloc.clear();
 	megabloc.set(width,height);
+	int fill = color(random(g.colorModeX),random(g.colorModeX),random(g.colorModeX));
 	int num = 3;
 	for(int i = 0 ; i < num ; i++) {
 		R_Bloc bloc = new R_Bloc();
+		bloc.set_fill(fill);
 		int complexity = (int)random(3,5);
 		for(int k = 0 ; k < complexity ; k++) {
 			float x = random(width);
@@ -94,57 +99,50 @@ String [] load_megabloc(String path_name) {
 }
 
 
-R_Megabloc read_megabloc(String [] data) {
+R_Megabloc read_megabloc(String [] file_type_blc) {
 	R_Megabloc mb = new R_Megabloc();
 	boolean is = true;
 	// elem
 	int elem = 0;
-	if(data[0].split(",")[1].contains("elements")) {
-		elem = atoi(data[0].split(",")[1].split(":")[1]);
+	if(file_type_blc[0].split(",")[1].contains("elements")) {
+		elem = atoi(file_type_blc[0].split(",")[1].split(":")[1]);
 	} else {
 		is = false;
 	}
 	// bloc
 	for(int i = 1 ; i <= elem ; i++) {
-		String bloc [] = data[i].split(",");
-		if(bloc[0].contains("bloc") && bloc[2].contains("complexity")
-				&& bloc[3].contains("fill") && bloc[4].contains("stroke") && bloc[5].contains("thickness")) {
+		String bloc_info [] = file_type_blc[i].split(",");
+		if(bloc_info[0].contains("bloc") && bloc_info[2].contains("complexity")
+				&& bloc_info[3].contains("fill") && bloc_info[4].contains("stroke") && bloc_info[5].contains("thickness")) {
 			R_Bloc b = new R_Bloc();
-			b.set_fill(atoi(bloc[3].split(":")[1]));
-			b.set_stroke(atoi(bloc[4].split(":")[1]));
-			b.set_thickness(atof(bloc[5].split(":")[1]));
-
+			b.set_fill(atoi(bloc_info[3].split(":")[1]));
+			b.set_stroke(atoi(bloc_info[4].split(":")[1]));
+			b.set_thickness(atof(bloc_info[5].split(":")[1]));
+			int start = 5;
+			for(int n = start ; n < bloc_info.length ; n++) {
+				if(bloc_info[n].contains("type")) {
+					String [] coord = bloc_info[n].split("<>");
+					float ax = atof(coord[1].split(":")[1]);
+					float ay = atof(coord[2].split(":")[1]);
+					b.build(ax,ay,true);
+				}
+			}
+			mb.add(b);
 		}
 	}
 
 
 
-	if(is)
+	if(is) {
+		println("megabloc", mb);
 		return mb;
+	}
 	else
 		return null;
 }
 
 
-void build_bloc_from_file(R_Megabloc megabloc, String [] data) {
-	if(megabloc == null) {
-		megabloc = new R_Megabloc();
-	} else {
-		megabloc.clear();
-	}
 
-	String [] header = data[0].split(",");
-	if(header[0].contains("bloc file name")) {
-		int num ;
-		try {
-			num = Integer.parseInt(header[1].split(":")[1]);
-		}
-		catch (NumberFormatException e) {
-			num = 0;
-		}
-		println("elements", num);
-	}
-}
 
 
 
