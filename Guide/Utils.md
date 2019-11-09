@@ -415,26 +415,6 @@ String get_OS_family()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 *PRINT 
 
 void printErr(Object... arg);
@@ -447,17 +427,6 @@ void printArrayTempo(int tempo, Object[] array);
 >Parameters
 >tempo: it's frequence of printl in frame
 >var: it's your variables must be write in the println
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -648,6 +617,15 @@ boolean extension_is(String path, String... extension);
 
 
 *CONVERT
+
+atoi
+--
+int atoi(String str);
+> return int from String to classic method atoi from C language, by example
+if you have "gfg-+--33.12fr" the value -33 is return
+
+
+
 
 float truncate(float x) ;
 > return float with two decimals

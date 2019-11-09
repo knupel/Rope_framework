@@ -32,9 +32,7 @@ void keyPressed() {
 	}
 	if(key == 's') {
 		save_bloc(megabloc,"bloc","");
-
 	}
-
 
 	if(key == 'l') {
 		build_bloc_from_file(null, load_bloc("bloc.blc"));
@@ -101,70 +99,19 @@ void build_bloc_from_file(R_Megabloc megabloc, String [] data) {
 
 	String [] header = data[0].split(",");
 	if(header[0].contains("bloc file name")) {
-		int num = Integer.parseInt(header[1].split(":")[1]);
+		int num ;
+		try {
+			num = Integer.parseInt(header[1].split(":")[1]);
+		}
+		catch (NumberFormatException e) {
+			num = 0;
+		}
 		println("elements", num);
 	}
 }
 
 
-public class R_Megabloc {
-	private ArrayList<R_Bloc> list;
-	private int width;
-	private int height;
 
-	public R_Megabloc() {
-		list = new ArrayList<R_Bloc>();
-	}
-
-	public void set(int width, int height) {
-		this.width = width;
-		this.height = height;
-	}
-
-	public void clear() {
-		list.clear();
-	}
-
-	public int size() {
-		return list.size();
-	}
-
-	public void add(R_Bloc bloc) {
-		list.add(bloc);
-	}
-
-	public void add(R_Bloc [] blocs) {
-		for(int i = 0 ; i < blocs.length ; i++) {
-			list.add(blocs[i]);
-		}
-	}
-
-	public get_width() {
-		return width;
-	}
-
-	public get_height() {
-		return height;
-	}
-
-	public ArrayList<R_Bloc> get()  {
-		return list;
-	}
-
-	public R_Bloc get(int index) {
-		if(index >= 0 && index < list.size()) {
-			return list.get(index);
-		} else {
-			return null;
-		}
-	}
-
-	public void show() {
-		for(R_Bloc b : list) {
-			b.show();
-		}
-	}
-}
 
 
 

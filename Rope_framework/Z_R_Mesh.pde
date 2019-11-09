@@ -55,11 +55,11 @@ public class R_Megabloc {
 		}
 	}
 
-	public get_width() {
+	public int get_width() {
 		return width;
 	}
 
-	public get_height() {
+	public int get_height() {
 		return height;
 	}
 
