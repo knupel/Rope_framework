@@ -1,26 +1,13 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.3.1
+* v 0.3.2
 * 2019-2019
 */
 
-
-/**
-method R_Bloc
-*/
-R_Bloc create_bloc(vec2 [] points) {
-	R_Bloc bloc = new R_Bloc();
-	for(vec2 v : points) {
-		bloc.build(v.x(),v.y(),true);
-	}
-	return bloc;
-}
-
-
 /**
 * R_Megabloc
-* v 0.0.1
+* v 0.0.2
 * 2019-2019
 */
 public class R_Megabloc {
@@ -74,6 +61,16 @@ public class R_Megabloc {
 			return null;
 		}
 	}
+
+  public boolean remove(int index) {
+		if(index >= 0 && index < list.size()) {
+			list.remove(index);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 
 	public void show() {
 		for(R_Bloc b : list) {
@@ -452,25 +449,7 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 
 
 
-/**
-method R_Plane
-*/
-boolean in_plane(vec3 a, vec3 b, vec3 c, vec3 any, float range) {
-	vec3 n = get_plane_normal(a, b, c);
-	// Calculate nearest distance between the plane represented by the vectors
-	// a,b and c, and the point any
-	float d = n.x()*any.x() + n.y()*any.y() + n.z()*any.z() - n.x()*a.x() - n.y()*a.y() - n.z()*a.z();
-	// A perfect result would be d == 0 but this will not hapen with realistic
-	// float data so the smaller d the closer the point. 
-	// Here I have decided the point is on the plane if the distance is less than 
-	// range unit.
-	return abs(d) < range; 
-}
 
-
-vec3 get_plane_normal(vec3 a, vec3 b, vec3 c) {
-	return new R_Plane().get_plane_normal(a,b,c);
-}
 
 /**
 * R_Plane
