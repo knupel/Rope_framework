@@ -14,6 +14,7 @@ public class R_Megabloc {
 	private ArrayList<R_Bloc> list;
 	private int width;
 	private int height;
+	private int magnetism = 2;
 
 	public R_Megabloc() {
 		list = new ArrayList<R_Bloc>();
@@ -22,6 +23,55 @@ public class R_Megabloc {
 	public void set(int width, int height) {
 		this.width = width;
 		this.height = height;
+	}
+
+	public void set_magnetism(int magnetism) {
+		this.magnetism = magnetism;
+	}
+
+	public void set_fill(int fill) {
+		for(R_Bloc b : list) {
+			b.set_fill(fill);
+		}
+	}
+
+	public boolean set_fill(int index, int fill) {
+		if(index >= 0 && index < list.size()) {
+			list.get(index).set_fill(fill);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void set_stroke(int stroke) {
+		for(R_Bloc b : list) {
+			b.set_stroke(stroke);
+		}
+	}
+
+	public boolean set_stroke(int index, int stroke) {
+		if(index >= 0 && index < list.size()) {
+			list.get(index).set_stroke(stroke);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+		public void set_thickness(float thickness) {
+		for(R_Bloc b : list) {
+			b.set_thickness(thickness);
+		}
+	}
+
+	public boolean set_thickness(int index, float thickness) {
+		if(index >= 0 && index < list.size()) {
+			list.get(index).set_thickness(thickness);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void clear() {
@@ -40,6 +90,10 @@ public class R_Megabloc {
 		for(int i = 0 ; i < blocs.length ; i++) {
 			list.add(blocs[i]);
 		}
+	}
+
+	public int get_magnetism() {
+		return this.magnetism;
 	}
 
 	public int get_width() {
@@ -83,7 +137,7 @@ public class R_Megabloc {
 /**
 * R_Bloc
 * 2019-2019
-* 0.1.9
+* 0.2.0
 */
 public class R_Bloc implements rope.core.R_Constants_Colour {
 	private ArrayList<vec3> list;
@@ -111,9 +165,6 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		fill = BLANC;
 		stroke = NOIR;
 	}
-
-
-	// set
 
 	public void set_id(int id) {
 		this.id = id;
@@ -157,6 +208,10 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 
 	public int get_id() {
 		return this.id;
+	}
+
+	public int get_magnetism() {
+		return this.magnetism;
 	}
 
 	public String get_data() {
@@ -239,6 +294,9 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		coord.set(x,y);
 	}
 
+	/**
+	* build
+	*/
 	public void build(float x, float y, boolean event_is) {
 		update(x,y);
 		if(event_is) {
@@ -271,7 +329,9 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		list.add(index, vec3(point));
 	}
 
-
+	/**
+	* move
+	*/
 	public void move(float x, float y, boolean event_is) {
 		if(event_is) {
 			vec3 offset = vec3(sub(ref_coord,coord));
@@ -283,11 +343,27 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 			ref_coord.set(coord);
 		}
 	}
-
+		public void move_point(float x, float y, boolean event_is) {
+		if(event_is) {
+			vec3 offset = vec3(sub(ref_coord,coord));
+			for(vec3 p : list) {
+				if(p.z() == 1) {
+					p.sub(offset);
+					p.z(1);
+				}
+			}
+			ref_coord.set(coord);
+		} else {
+			ref_coord.set(coord);
+		}
+	}
+  /*
 	public void move_point(float x, float y, boolean event_is) {
 		if(event_is) {
 			// select point to move
-			if(!select_point_is() && !select_is()) {
+			if(!select_point_is()) {
+			// if(!select_point_is() && !select_is()) {
+				// reset_select_point();
 				select_point(x,y);
 			} else {
 				// case where the bloc is close / ended to move the first and the last point
@@ -299,6 +375,8 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 				} else {
 					for(vec3 v : list) {
 						if(v.z() == 1) {
+							println("je suis là",frameCount);
+						//if(v.z() == 1 && dist_is(v, x, y)) {
 							v.x(x);
 							v.y(y);
 						}
@@ -306,21 +384,53 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 				}
 			}
 		} else {
-			select_point_is = false;
-			for(vec3 v : list) {
-				v.z(0);
-			}
+			// try to change by external method bloc point selection.
+			// select_point_is = false;
+			// reset_select_point();
 		}
+	}
+	*/
+
+	/**
+	* select
+	*/
+	public void reset_all_points() {
+		for(vec3 v : list) {
+			select_point_is(false);
+			v.z(0);
+		}	
+	}
+
+	public void select_all_points() {
+		for(vec3 v : list) {
+			select_point_is(true);
+			v.z(1);
+		}	
 	}
 
 	private void select_point(float x, float y) {
+		for(int i = 0 ; i < list.size() ; i++) {
+			vec3 v = list.get(i);
+			if(dist_is(v, x, y)) {
+				select_point_is(true);	
+				if(end && (i == 0 || i == list.size() -1)) {
+					list.get(0).z(1);
+					list.get(list.size() -1).z(1);
+				} else {
+					v.z(1);
+				}
+				break;
+			}
+		}
+		/*
 		for(vec3 v : list) {
-			if(dist(vec2(v), vec2(x,y)) < magnetism) {
-				select_point_is = true;
+			if(dist_is(v, x, y)) {
+				select_point_is(true);
 				v.z(1);
 				break;
 			}
 		}
+		*/
 	}
 
 	private void select(float x, float y) {
@@ -333,6 +443,17 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		this.select_is = is;
 	}
 
+	public void select_point_is(boolean is) {
+		this.select_point_is = is;
+	}
+
+	/**
+	* misc
+	*/
+	private boolean dist_is(vec3 v, float x, float y) {
+		return (dist(vec2(v), vec2(x,y)) < magnetism);
+	}
+
 	public void clear() {
 		list.clear();
 	}
@@ -343,7 +464,9 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		}
 	}
 	
-	// show
+	/**
+	* show
+	*/
 	public boolean show_available_point(float x, float y) {
 		update(x,y);
 		fill(BLANC);

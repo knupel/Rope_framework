@@ -13,7 +13,7 @@ R_Bloc create_bloc(vec2 [] points) {
 
 /**
 * R_Megabloc method
-* v 0.0.1
+* v 0.1.0
 * 2019-2019
 */
 boolean add_point_to_bloc_is;
@@ -34,24 +34,16 @@ void bloc_show_structure(R_Megabloc megabloc) {
 	}
 }
 
-boolean bloc_show_available_point(R_Megabloc megabloc) {
+boolean bloc_show_available_point(R_Megabloc megabloc, int x , int y) {
 	boolean event_is = false;
 	for(R_Bloc b : megabloc.get()) {
 		if(b.select_is()) {
-			if(b.show_available_point(mouseX,mouseY)) {
+			if(b.show_available_point(x,y)) {
 				event_is = true;
 			}
 		}
 	}
 	return event_is;
-}
-
-int bloc_index = -1;
-int bloc_point_index = -1;
-void bloc_manage(R_Megabloc megabloc) {
-	if(!bloc_move(megabloc)) {
-		bloc_move_point(megabloc);
-	}
 }
 
 boolean add_new_bloc_is = true;
@@ -80,16 +72,15 @@ void new_bloc(R_Megabloc megabloc) {
 	bloc.set_id(id);
 	bloc.set_magnetism(10);
 	bloc.set_colour_build(r.CYAN);
-	bloc.select_is(true);
 	megabloc.add(bloc);
 }
 
-void bloc_draw(R_Megabloc megabloc, boolean event_is) {
-	if(event_is) {
+void bloc_draw(R_Megabloc megabloc, int x, int y, boolean event_is, boolean show_struc_is) {
+	if(show_struc_is) {
 		for(R_Bloc b : megabloc.get()) {
 			if(b.select_is() || !b.end_is()) {
-				if(mousePressed) {
-					b.build(mouseX,mouseY,add_point_to_bloc_is());
+				if(event_is) {
+					b.build(x,y,add_point_to_bloc_is());
 					add_point_to_bloc_is(false);
 				}
 				b.show_struct();
@@ -112,17 +103,54 @@ void bloc_remove_single_select(R_Megabloc megabloc) {
 	}
 }
 
-boolean bloc_selected_is = false;
-void bloc_select(R_Megabloc megabloc) {
+
+/**
+* bloc management
+*/
+boolean bloc_move_event_is = false;
+void bloc_move_event_is(boolean is) {
+	bloc_move_event_is = is;
+}
+
+boolean bloc_move_event_is() {
+	return bloc_move_event_is;
+}
+
+
+void bloc_show_point(float x, float y) {
+	for(R_Bloc b : megabloc.get()) {
+		if(b.select_is() || b.in_bloc(x,y)) {
+			b.show_struct();
+		}
+		if(b.select_point_is()) { 
+			b.show_anchor_point();
+		}
+	}
+}
+
+/**
+* bloc move point
+*/
+void bloc_select_all_point(R_Megabloc megabloc, float x, float y, boolean event_is) {
+	// reset
+	if(event_is && !bloc_move_event_is()) {
+		for(R_Bloc b : megabloc.get()) {
+			if(!b.in_bloc(x,y)) {
+				b.reset_all_points();
+			}
+		}
+	}
+	// select
 	for(int index = megabloc.size() - 1 ; index >= 0 ; index--) {
 		R_Bloc b = megabloc.get(index);
-		b.update(mouseX,mouseY);
-		if(b.in_bloc(mouseX,mouseY)) {
+		b.update(x,y);
+		if(b.in_bloc(x,y)) {
 			b.show_struct();
-			if(!b.select_is() && !bloc_selected_is) {
-				b.select_is(mousePressed);
-				if(b.select_is()) {
-					bloc_selected_is = true;
+			if(!b.select_point_is() && !bloc_move_event_is()) {
+				b.select_point_is(event_is);
+				if(b.select_point_is()) {
+					b.select_all_points();
+					bloc_move_event_is(true);
 				}
 			}
 			break;
@@ -130,68 +158,120 @@ void bloc_select(R_Megabloc megabloc) {
 	}
 }
 
-boolean bloc_move(R_Megabloc megabloc) {
-	boolean event_is = false;
-	if(bloc_index < 0 && bloc_point_index < 0) {
+
+void bloc_select_single_point(R_Megabloc megabloc, float x, float y, boolean event_is) {
+	// select
+	for(int index = megabloc.size() - 1 ; index >= 0 ; index--) {
+		R_Bloc b = megabloc.get(index);
+		b.update(x,y);
+		if(!bloc_move_event_is()) {
+			b.select_point_is(false);
+		}
+
+		b.show_anchor_point();
+		if(!b.select_point_is()) {
+			if(event_is) {
+				b.select_point(x,y);
+				bloc_move_event_is(true);
+			} else {
+				b.reset_all_points();
+			}
+		}
+	}
+}
+
+int bloc_point_index = -1;
+boolean bloc_move_point(R_Megabloc megabloc, float x, float y, boolean event_is) {
+	boolean move_is = false;
+	if(bloc_point_index < 0) {
+		for(int index = 0 ; index < megabloc.size() ; index++) {
+			R_Bloc b = megabloc.get(index);
+			boolean is = false;
+			bloc_point_index = - 1;
+			if(event_is && b.select_point_is()) {
+				bloc_point_index = index;
+				is = true;
+			  move_is = true;
+				break;
+			}
+			b.move_point(x,y,is);
+		}
+	} else if(bloc_point_index >= 0) {
+		R_Bloc b = megabloc.get(bloc_point_index);
+		b.update(x,y);
+		if(event_is && b.select_point_is()) {
+			move_is = true;
+			b.move_point(x,y,true);
+		} else {
+			bloc_point_index = -1;
+		}
+	}
+	return move_is;
+}
+
+
+/**
+* bloc move
+*/
+int bloc_index = -1;
+void bloc_select(R_Megabloc megabloc, float x, float y, boolean event_is) {
+	for(int index = megabloc.size() - 1 ; index >= 0 ; index--) {
+		R_Bloc b = megabloc.get(index);
+		b.update(x,y);
+		if(b.in_bloc(x,y)) {
+			b.show_struct();
+			if(!b.select_is() && !bloc_move_event_is()) {
+				b.select_is(event_is);
+			}
+			break;
+		}
+	}
+}
+
+boolean bloc_move(R_Megabloc megabloc, float x, float y, boolean event_is) {
+	boolean move_is = false;
+	if(bloc_index < 0) {
 		for(int index = 0 ; index < megabloc.size() ; index++) {
 			R_Bloc b = megabloc.get(index);
 			boolean is = false;
 			bloc_index = - 1;
-			bloc_point_index = -1;
-			if(mousePressed && b.select_is() && !b.select_point_is()) {
+			if(event_is && b.select_is()) {
 				bloc_index = index;
-				bloc_point_index = -1;
 				is = true;
-			  event_is = true;
+			  move_is = true;
 				break;
 			}
-			b.move(mouseX,mouseY,is);
+			b.move(x,y,is);
 		}
 	} else if(bloc_index >= 0) {
 		R_Bloc b = megabloc.get(bloc_index);
-		if(mousePressed && b.select_is() && !b.select_point_is()) {
-			event_is = true;
-			b.update(mouseX,mouseY);
-			b.move(mouseX,mouseY,true);
+		if(event_is && b.select_is()) {
+			move_is = true;
+			b.update(x,y);
+			b.move(x,y,true);
 		} else {
-			bloc_point_index = -1;
 			bloc_index = -1;
 		}
 	}
-	return event_is;
+	return move_is;
 }
 
-void bloc_move_point(R_Megabloc megabloc) {
-	if(bloc_point_index < 0 && bloc_index < 0) {
-		for(int index = 0 ; index < megabloc.size() ; index++) {
-			R_Bloc b = megabloc.get(index);
-			bloc_point_index = -1;
-			bloc_index = -1;
-			b.move_point(mouseX,mouseY,mousePressed);
-			if(b.select_point_is()) {
-				bloc_point_index = index;
-				bloc_index = -1;
-				break;
-			}		
-		}
-	} else if(bloc_point_index >= 0) {
-		R_Bloc b = megabloc.get(bloc_point_index);
-		b.move_point(mouseX,mouseY,mousePressed);
-		if(!b.select_point_is()) {
-			bloc_point_index = -1;
-			bloc_index = -1;
-		}
-	}
-}
 
+
+
+
+/**
+* load save
+*/
 void save_megabloc(R_Megabloc megabloc, String file_name, String path) {
 	String [] save = new String[1];
 	// header
 	String name = "bloc file name:"+file_name;
 	String elem = "elements:"+ megabloc.size();
 	String w = "width:" + width;
-	String h = "height:"+ height;
-	save[0] =  name + "," + elem + "," + w + ","+ h +"\n";
+	String h = "height:" + height;
+	String mag = "magnetism:" + megabloc.get_magnetism();
+	save[0] =  name + "," + elem + "," + w + ","+ h + "," + mag + "\n";
 	// details
 	for(R_Bloc r : megabloc.get()) {
 		save[0] += (r.get_data() + "\n");
@@ -214,12 +294,18 @@ String [] load_megabloc(String path_name) {
 R_Megabloc read_megabloc(String [] file_type_blc) {
 	R_Megabloc mb = new R_Megabloc();
 	boolean is = true;
+	String [] header = file_type_blc[0].split(",");
 	// elem
 	int elem = 0;
-	if(file_type_blc[0].split(",")[1].contains("elements")) {
-		elem = atoi(file_type_blc[0].split(",")[1].split(":")[1]);
+	if(header[1].contains("elements")) {
+		elem = atoi(header[1].split(":")[1]);
 	} else {
 		is = false;
+	}
+	// magnetism
+	int mag = 2;
+	if(header[4].contains("magnetism")) {
+		mag = atoi(header[4].split(":")[1]);
 	}
 	// bloc
 	for(int i = 1 ; i <= elem ; i++) {
@@ -227,6 +313,7 @@ R_Megabloc read_megabloc(String [] file_type_blc) {
 		if(bloc_info[0].contains("bloc") && bloc_info[2].contains("complexity")
 				&& bloc_info[3].contains("fill") && bloc_info[4].contains("stroke") && bloc_info[5].contains("thickness")) {
 			R_Bloc b = new R_Bloc();
+			b.set_magnetism(mag);
 			b.set_fill(atoi(bloc_info[3].split(":")[1]));
 			b.set_stroke(atoi(bloc_info[4].split(":")[1]));
 			b.set_thickness(atof(bloc_info[5].split(":")[1]));
