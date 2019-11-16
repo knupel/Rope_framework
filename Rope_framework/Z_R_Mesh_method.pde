@@ -4,7 +4,7 @@
 * 2019-2019
 */
 R_Bloc create_bloc(vec2 [] points) {
-	R_Bloc bloc = new R_Bloc();
+	R_Bloc bloc = new R_Bloc(this);
 	for(vec2 v : points) {
 		bloc.build(v.x(),v.y(),true);
 	}
@@ -67,7 +67,7 @@ void check_for_new_bloc(R_Megabloc megabloc) {
 }
 
 void new_bloc(R_Megabloc megabloc) {
-	R_Bloc bloc = new R_Bloc();
+	R_Bloc bloc = new R_Bloc(this);
 	int id = megabloc.size();
 	bloc.set_id(id);
 	bloc.set_magnetism(10);
@@ -292,7 +292,7 @@ String [] load_megabloc(String path_name) {
 }
 
 R_Megabloc read_megabloc(String [] file_type_blc) {
-	R_Megabloc mb = new R_Megabloc();
+	R_Megabloc mb = new R_Megabloc(this);
 	boolean is = true;
 	String [] header = file_type_blc[0].split(",");
 	// elem
@@ -312,7 +312,7 @@ R_Megabloc read_megabloc(String [] file_type_blc) {
 		String bloc_info [] = file_type_blc[i].split(",");
 		if(bloc_info[0].contains("bloc") && bloc_info[2].contains("complexity")
 				&& bloc_info[3].contains("fill") && bloc_info[4].contains("stroke") && bloc_info[5].contains("thickness")) {
-			R_Bloc b = new R_Bloc();
+			R_Bloc b = new R_Bloc(this);
 			b.set_magnetism(mag);
 			b.set_fill(atoi(bloc_info[3].split(":")[1]));
 			b.set_stroke(atoi(bloc_info[4].split(":")[1]));
