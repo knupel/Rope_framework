@@ -132,7 +132,7 @@ public class R_Megabloc {
 	}
 
 	public void show(PGraphics other) {
-		for(R_Bloc b : list) {
+		for(R_Bloc b : list) {;
 			b.show(other);
 		}
 	}
@@ -142,7 +142,7 @@ public class R_Megabloc {
 /**
 * R_Bloc
 * 2019-2019
-* 0.2.0
+* 0.2.2
 */
 public class R_Bloc implements rope.core.R_Constants_Colour {
 	private ArrayList<vec3> list;
@@ -153,23 +153,26 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	private boolean select_point_is;
 	private boolean action_available_is;
 	private int index;
+	// private mag_angle_is = false;
 	private int magnetism = 1;
-	private int colour;
+	private int colour_build;
 	private int fill;
 	private int stroke;
 	private float thickness = 2.0;
 	private vec2 ref_coord;
 	private vec2 coord;
+	private ivec2 canvas;
 	private PApplet p;
 
-	public R_Bloc(PApplet p) {
+	public R_Bloc(PApplet p, int width, int height) {
 		list = new ArrayList<vec3>();
 		id = (int)random(Integer.MAX_VALUE);
 		coord = new vec2();
 		ref_coord = new vec2();
-		colour = CYAN;
+		colour_build = CYAN;
 		fill = BLANC;
 		stroke = NOIR;
+		this.canvas = new ivec2(width,height);
 		this.p = p;
 	}
 
@@ -185,8 +188,8 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		this.fill = fill;
 	}
 
-	public void set_colour_build(int colour) {
-		this.colour = colour;
+	public void set_colour_build(int colour_build) {
+		this.colour_build = colour_build;
 	}
 
 	public void set_stroke(int stroke) {
@@ -201,12 +204,21 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		this.name = name;
 	}
 
-
-
-
 	// get
 	public vec3 [] get() {
 		return list.toArray(new vec3[list.size()]);
+	}
+
+	public int get_fill() {
+		return this.fill;
+	}
+
+	public int get_stroke() {
+		return this.stroke;
+	}
+
+	public float get_thickness() {
+		return this.thickness;
 	}
 
 	public String get_name() {
@@ -283,7 +295,6 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		return false;
 	}
 
-
 	public boolean select_point_is() {
 		return select_point_is;
 	}
@@ -291,9 +302,6 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	public boolean select_is() {
 		return select_is;
 	}
-
-
-
 
 
 	// update
@@ -329,11 +337,15 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	}
 
 	private void add(vec2 point) {
-		list.add(vec3(point));
+		vec3 temp = vec3(point);
+		mag_canvas(temp);
+		list.add(temp);
 	}
 
 	private void add(int index, vec2 point) {
-		list.add(index, vec3(point));
+		vec3 temp = vec3(point);
+		mag_canvas(temp);
+		list.add(index,temp);
 	}
 
 	/**
@@ -350,12 +362,14 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 			ref_coord.set(coord);
 		}
 	}
-		public void move_point(float x, float y, boolean event_is) {
+	
+	public void move_point(float x, float y, boolean event_is) {
 		if(event_is) {
 			vec3 offset = vec3(sub(ref_coord,coord));
 			for(vec3 p : list) {
 				if(p.z() == 1) {
 					p.sub(offset);
+					mag_canvas(p);
 					p.z(1);
 				}
 			}
@@ -364,39 +378,15 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 			ref_coord.set(coord);
 		}
 	}
-  /*
-	public void move_point(float x, float y, boolean event_is) {
-		if(event_is) {
-			// select point to move
-			if(!select_point_is()) {
-			// if(!select_point_is() && !select_is()) {
-				// reset_select_point();
-				select_point(x,y);
-			} else {
-				// case where the bloc is close / ended to move the first and the last point
-				if(end && (list.get(0).z() == 1 || list.get(list.size() -1).z() == 1)) {
-					list.get(0).x(x);
-					list.get(0).y(y);
-					list.get(list.size() -1).x(x);
-					list.get(list.size() -1).y(y);
-				} else {
-					for(vec3 v : list) {
-						if(v.z() == 1) {
-							println("je suis là",frameCount);
-						//if(v.z() == 1 && dist_is(v, x, y)) {
-							v.x(x);
-							v.y(y);
-						}
-					}
-				}
-			}
-		} else {
-			// try to change by external method bloc point selection.
-			// select_point_is = false;
-			// reset_select_point();
-		}
+
+
+	private void mag_canvas(vec3 p) {
+		if(p.x() < 0 + magnetism) p.x(0);
+		if(p.x() > canvas.x() - magnetism) p.x(canvas.x());
+		if(p.y() < 0 + magnetism) p.y(0);
+		if(p.y() > canvas.y() -magnetism) p.y(canvas.y());
 	}
-	*/
+
 
 	/**
 	* select
@@ -429,15 +419,6 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 				break;
 			}
 		}
-		/*
-		for(vec3 v : list) {
-			if(dist_is(v, x, y)) {
-				select_point_is(true);
-				v.z(1);
-				break;
-			}
-		}
-		*/
 	}
 
 	private void select(float x, float y) {
@@ -465,17 +446,17 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		list.clear();
 	}
 
-
-	
 	/**
 	* show
 	*/
 	private void next(PGraphics other) {
-		beginDraw(other);
+		if(other != null)
+			beginDraw(other);
 		if(list.size() > 0) {
 			line(list.get(list.size()-1),coord,other);
 		}
-		endDraw(other);
+		if(other != null)
+			endDraw(other);
 	}
 
 	public boolean show_available_point(float x, float y) {
@@ -484,9 +465,11 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 
 	public boolean show_available_point(float x, float y, PGraphics other) {
 		boolean is = false;
-		beginDraw(other);
+		if(other != null)
+			beginDraw(other);
 		is = calc_show_available_point(x, y, p.g);
-		endDraw(other);
+		if(other != null)
+			endDraw(other);
 		return is;
 	}
 
@@ -525,16 +508,18 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	}
 
 	public void show_anchor_point(PGraphics other) {
-		beginDraw(other);
+		if(other != null)
+			beginDraw(other);
 		calc_show_anchor_point(other);
-		endDraw(other);
+		if(other != null)
+			endDraw(other);
 	}
 
 	private void calc_show_anchor_point(PGraphics other) {
 		float size = 5;
 		// past selection
-		beginDraw(other);
 		fill(BLANC,other);
+		stroke(colour_build,other);
 		strokeWeight(1,other);
 		int max = list.size() - 1;
 		for(int index = 0 ; index < max; index++) {
@@ -546,11 +531,11 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 		}
 
 		// current selection
-		fill(colour,other);
+		fill(colour_build,other);
 		if(max >= 0) {
 			square(sub(vec2(list.get(max)),vec2(size).mult(.5)),size,other);
 		}
-		endDraw(other);
+		// aspect(fill,stroke,thickness,other);
 	}
 
 	public void show_struct() {
@@ -558,15 +543,17 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	}
 
 	public void show_struct(PGraphics other) {
-		beginDraw(other);
+		if(other != null)
+			beginDraw(other);
 		calc_show_struct(true,other);
-		endDraw(other);
+		if(other != null)
+			endDraw(other);
 	}
 
 	private void calc_show_struct(boolean draw_is, PGraphics other) {
 		strokeWeight(1,other);
 		noFill(other);
-		stroke(colour,other);
+		stroke(colour_build,other);
 		beginShape(other);
 		for(int index = 0 ; index < list.size() ; index++) {
 			vertex(vec2(list.get(index)),other);
@@ -588,13 +575,15 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	}
 
 	public void show(PGraphics other) {
-		beginDraw(other);
+		if(other != null)
+			beginDraw(other);
 		calc_show(other);
-		endDraw(other);
+		if(other != null)
+			endDraw(other);
 	}
 
 	private void calc_show(PGraphics other) {
-		beginDraw(other);
+		// println(fill,frameCount);
 		aspect(fill,stroke,thickness,other);
 		if(list.size() == 2) {
 			line(vec2(list.get(0)),vec2(list.get(1)),other);
@@ -605,7 +594,6 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 			}
 			endShape(other);
 		}
-		endDraw(other);
 	}
 }
 
