@@ -17,25 +17,15 @@ void setup() {
 }
 
 void draw() {
-	beginDraw(pg_1);
-	if(mousePressed) {
-		aspect(r.ROUGE,r.NOIR,4,pg_1);
-	} else {
-		aspect(r.CYAN,r.NOIR,4,pg_1);
-	}
-	ellipse(mouseX,mouseY,40,40,pg_1);
-	endDraw(pg_1);
+	background(r.NOIR);
 
-	beginDraw(pg_2);
-	aspect(r.JAUNE,r.NOIR,4,pg_2);
-	ellipse(mouseY,mouseX,40,40,pg_2);
-	endDraw(pg_2);
-
-	image(pg_1);
-	image(pg_2);
-
-	aspect(r.ORANGE,r.BLANC,0);
-	ellipse(mouseX/2,mouseY/2,20,20);
+	float alpha = abs(sin(frameCount * 0.1) *255);
+	int c = color(255,0,0,alpha);
+	aspect(c,r.BLANC,2);
+	// fill(c);
+	// stroke(r.NOIR);
+	// strokeWeight(1);
+	ellipse(mouseX,mouseY,50,50);
 }
 
 
