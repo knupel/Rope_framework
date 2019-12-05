@@ -1322,7 +1322,7 @@ void background_rope(float x, float y, float z) {
 
 /**
 * GRAPHICS METHOD
-* v 0.4.1
+* v 0.4.2
 */
 /**
 SCREEN
@@ -1364,8 +1364,7 @@ ivec2 get_screen_size() {
 
 ivec2 get_screen_size(int target) {
   if(target >= get_display_num()) {
-    target = 0;
-    printErr("method get_screen_size(int target): target screen",target,"don't match with any screen device instead target '0' is used");
+    return null;
   }
   return get_display_size(target);
 }
@@ -1378,8 +1377,7 @@ ivec2 get_display_size() {
 
 ivec2 get_display_size(int target) {
   if(target >= get_display_num()) {
-    target = 0;
-    printErr("method get_screen_size(int target): target screen",target,"don't match with any screen device instead target '0' is used");
+    return null;
   }  
   Rectangle display = get_screen(target);
   return ivec2((int)display.getWidth(), (int)display.getHeight()); 

@@ -11,21 +11,16 @@ PGraphics pg_2;
 
 void setup() {
 	size(400,400,P2D);
-	rope_version();
-	pg_1 = createGraphics(width,height,P2D);
-	pg_2 = createGraphics(width,height,P2D);
 }
 
 void draw() {
-	background(r.NOIR);
-
-	float alpha = abs(sin(frameCount * 0.1) *255);
-	int c = color(255,0,0,alpha);
-	aspect(c,r.BLANC,2);
-	// fill(c);
-	// stroke(r.NOIR);
-	// strokeWeight(1);
-	ellipse(mouseX,mouseY,50,50);
+	println("sketchDisplay():",sketchDisplay());
+	// println(get_sreen_size());
+	println("curent screen", get_screen_size());
+	println("screen 0", get_screen_size(0));
+	println("screen 1", get_screen_size(1));
+	println("screen 2", get_screen_size(2));
+	println("sketch location", get_sketch_location());
 }
 
 
