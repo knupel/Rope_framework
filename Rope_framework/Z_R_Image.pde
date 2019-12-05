@@ -1,11 +1,10 @@
 /**
 * Rope framework image
-* v 0.5.8
+* v 0.5.9
 * Copyleft (c) 2014-2019
 *
 * dependencies
 * Processing 3.5.3
-* Rope library 0.8.5.30
 *
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
@@ -1418,7 +1417,6 @@ Rectangle get_screen(int target_screen) {
     Rectangle display = awtDisplayDevice.getDefaultConfiguration().getBounds();
     return display; 
   } else {
-    printErr("method get_screen(",target_screen,"), No screen match with your request");
     return null;
   }
 }
