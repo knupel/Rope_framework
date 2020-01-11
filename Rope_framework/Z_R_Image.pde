@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.5.9
+* v 0.5.10
 * Copyleft (c) 2014-2019
 *
 * dependencies
@@ -1321,7 +1321,7 @@ void background_rope(float x, float y, float z) {
 
 /**
 * GRAPHICS METHOD
-* v 0.4.2
+* v 0.4.3
 */
 /**
 SCREEN
@@ -1358,7 +1358,11 @@ check screen
 screen size
 */
 ivec2 get_screen_size() {
-  return get_display_size(sketchDisplay() -1);
+  if(get_screen_num() > 1) {
+    return get_display_size(sketchDisplay() -1);
+  } else {
+    return get_display_size(0);
+  }
 }
 
 ivec2 get_screen_size(int target) {
