@@ -1,6 +1,6 @@
 /**
 * Rope framework
-* Copyleft (c) 2014-2019
+* Copyleft (c) 2014-2020
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 *
@@ -19,9 +19,3 @@ void setup() {
 // void draw() {
 
 // }
-
-
-
-
-
-
