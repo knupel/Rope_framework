@@ -18,7 +18,7 @@ application.macosx
 ehthumbs.db
 Thumbs.db
 
-# vs
+# vs code
 out
 
 # build stuff in case there is
@@ -31,12 +31,8 @@ pids
 *.seed
 *.pid.lock
 
-
-
-
-
-
-
 #file
 .jpg
-save/
+.png
+.bmp
+.jpeg

@@ -5,6 +5,9 @@
 * @see https://github.com/StanLepunK/Rope_framework
 *
 */
+
+
+
 void setup() {
 	size(400,400,P2D);
 	rope_version();
@@ -12,10 +15,11 @@ void setup() {
 	println(r.VERSION);
 	// println(a.normalize());
 	// println(a);
-	exit();
+	// exit();
 	
 }
 
-// void draw() {
+void draw() {
+	background(255,0,0);
 
-// }
+}
