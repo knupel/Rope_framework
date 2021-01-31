@@ -33,7 +33,7 @@ void setup() {
 	size(400,400,P2D);
 	rope_version();
 	background(r.GRAY[12]);
-	int num = 5000;
+	int num = 10;
 	loadPixels();
 	for(int i = 0 ; i < num ; i++) {
 		int x = (int)random(0,width /3);
