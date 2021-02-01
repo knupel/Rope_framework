@@ -1,6 +1,6 @@
 /**
 * Rope UTILS 
-* v 1.64.1
+* v 1.64.2
 * Copyleft (c) 2014-2021
 * Rope – Romanesco Processing Environment – 
 * @author @stanlepunk
@@ -931,7 +931,7 @@ class R_Data_Input {
 
 /*
 * FOLDER PART
-* v 1.0.0
+* v 1.0.1
 * 2017-2021
 */
 R_Folder rope_folder;
@@ -972,18 +972,6 @@ boolean folder_input_default_is() {
 	return rope_folder.folder_input_default_is();
 }
 
-boolean folder_is() {
-	if(rope_folder == null)
-		rope_folder = new R_Folder();
-	return rope_folder.folder_is();
-}
-
-void folder_is(boolean is) {
-	if(rope_folder == null)
-		rope_folder = new R_Folder();
-	rope_folder.folder_is(is);
-}
-
 /**
 * this method is called by method select_folder() in class R_Folder
 * and the method name must be the same as named
@@ -1005,7 +993,7 @@ void rope_select_folder(File selection) {
 /**
 * Class R_Folder
 * 2021-2021
-* v 0.0.1
+* v 0.0.2
 */
 public class R_Folder {
 	private String selected_path_folder = null;
@@ -1032,16 +1020,8 @@ public class R_Folder {
 		return explore_subfolder_is;
 	}
 
-	public boolean folder_is() {
-		return folder_selected_is;
-	}
-
 	private void reset_folder() {
 		folder_selected_is = false;
-	}
-
-	public void folder_is(boolean is) {
-		folder_selected_is = is;
 	}
 
 	public String folder() {
