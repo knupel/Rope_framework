@@ -7,53 +7,47 @@
 */
 
 /**
-*
-* plot method
-* 2021-2021
-* v 0.0.1
+* INPUT
+* V 0.2.0
+* 2019-2021
+* void select_input();
+* void select_input(String type);
+* R_Data_Input get_input(String type);
+* R_Data_Input [] get_inputs();
+* R_Data_Input get_input(int target);
+* boolean input_use_is(); it's buggy or what ?
+* boolean input_use_is(String type); it's buggy or what ?
+* void input_use(boolean is);
+* void input_use(String type, boolean is);
+* String input_path();
+* String input_path(String type);
+* void reset_input();
+* void reset_input(String type);
+* File input_file();
+* File input_file(String type);
+* void set_filter_input(String type, String... extension);
 */
-
-/**
-* void use_plot_x2(boolean is);
-* void plot(int x, int y, int colour);
-* void plot(int x, int y, int colour, PGraphics pg);
-* void plot(int x, int y, int colour, float alpha);
-* void plot(int x, int y, int colour, float alpha, PGraphics pg);
-
-* plot is like processing set(int x, int y, int colour);
-* but with plot you need to use loadPixels() and updatePixels()
-* 
-* you can growth the size by 2 if you use use_plot_x2(true);
-* but don't forget to make false ig after that you want back to single pixel.
-*/
-
-
 void setup() {
-
-	size(400,400,P2D);
-	rope_version();
-	background(r.GRAY[12]);
-	int num = 10;
-	loadPixels();
-	for(int i = 0 ; i < num ; i++) {
-		int x = (int)random(0,width /3);
-		int y = (int)random(height);
-		plot(x, y, r.BLACK);
-	}
-
-	use_plot_x2(true);
-	for(int i = 0 ; i < num ; i++) {
-		int x = (int)random(width/3, width -(width/3));
-		int y = (int)random(height);
-		plot(x, y, r.BLACK);
-	}
-
-	use_plot_x2(false);
-	for(int i = 0 ; i < num ; i++) {
-		int x = (int)random( width -(width/3),width);
-		int y = (int)random(height);
-		plot(x, y, r.BLACK);
-	}
-	updatePixels();
-
+	// select_input(); // you can select all file, no sorting
+  select_input("movie"); // give the possibility to select only file with a movie extension store in movie array
+  print_extension_filter();
 }
+
+
+void draw() {
+	println(input_path("media"));
+
+
+	// input_use() to set witch type of file you can select after this setting, after that this is the default setting
+	// but it's buggy or what ?
+	input_use("image", true); 
+	println(input_use_is("image"));
+  // println(input_file("movie"));
+  // println(input("movie"));
+	exit();
+}
+
+
+
+
+
