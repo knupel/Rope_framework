@@ -1,6 +1,6 @@
 /**
 * Rope UTILS 
-* v 1.64.2
+* v 1.64.3
 * Copyleft (c) 2014-2021
 * Rope – Romanesco Processing Environment – 
 * @author @stanlepunk
@@ -481,7 +481,7 @@ void print_extension_filter(String type) {
 
 /*
 * INPUT PART
-* v 1.0.0
+* v 1.0.1
 * 2017-2021
 */
 R_Input rope_input;
@@ -572,6 +572,28 @@ void set_filter_input(String type, String... extension) {
 }
 
 
+/**
+* this method is called by method selectInput() in class R_Input
+* and the method name must be the same as named
+*/
+void select_single_file(File selection) {
+	if (selection == null) {
+		println("Window was closed or the user hit cancel.");
+	} else {
+		String default_input = "default";
+		for(int i = 0 ; i < get_inputs().length ; i++) {
+			if (default_input.toLowerCase().equals(get_input(i).get_type())) { 
+				get_input(i).set_file(selection);
+				if(get_input(i).get_file() != null) {
+					println("method select_single_file(",get_input(i).get_type(),"):",get_input(i).get_file().getPath());
+				}
+				break;
+			}
+		}  
+	}
+}
+
+
 
 
 
@@ -579,7 +601,7 @@ void set_filter_input(String type, String... extension) {
 /**
 * class Input
 * 2021-2021
-* v 0.0.1
+* v 0.0.3
 */
 class R_Input {
 	private R_Data_Input [] input_rope;
@@ -706,24 +728,6 @@ class R_Input {
 		}
 	}
 
-	private void select_single_file(File selection) {
-		if (selection == null) {
-			println("Window was closed or the user hit cancel.");
-		} else {
-			String default_input = "default";
-			for(int i = 0 ; i < input_rope.length ; i++) {
-				if (default_input.toLowerCase().equals(input_rope[i].get_type())) { 
-					// println("method select_single_file_filtering() input default",selection.getAbsolutePath());
-					input_rope[i].set_file(selection);
-					if(input_rope[i].get_file() != null) {
-						println("method select_single_file(",input_rope[i].get_type(),"):",input_rope[i].get_file().getPath());
-					}
-					break;
-				}
-			}  
-		}
-	}
-
 	private int max_filter_input;
 	private String [] temp_filter_list;
 	private void select_single_file_filtering(R_Data_Input input) {
@@ -779,7 +783,6 @@ class R_Input {
 	public boolean input_use_is(String type) {
 		boolean result = false;
 		for (int i = input_type.length; i-- != 0;) {
-			println(input_type[i],type);
 			if(input_type[i].equals(type)) {
 				if(input_rope != null && input_rope[i] != null) {
 					result = input_rope[i].get_is();
