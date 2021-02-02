@@ -6,44 +6,53 @@
 *
 */
 /**
-* INPUT
-* V 0.2.1
-* 2019-2021
-* void select_input();
-* void select_input(String type);
-* R_Data_Input get_input(String type);
-* R_Data_Input [] get_inputs();
-* R_Data_Input get_input(int target);
-* boolean input_use_is(); it's buggy or what ?
-* boolean input_use_is(String type); it's buggy or what ?
-* void input_use(boolean is);
-* void input_use(String type, boolean is);
-* String input_path();
-* String input_path(String type);
-* void reset_input();
-* void reset_input(String type);
-* File input_file();
-* File input_file(String type);
-* void set_filter_input(String type, String... extension);
+*
+* method follow with 100K particle
+*
+* void plot(vec2 pos, int colour);
+* void plot(vec2 pos, int colour, PGraphics pg);
+* void plot(vec2 pos, int colour, float alpha);
+* void plot(vec2 pos, int colour, float alpha, PGraphics pg);
+* void plot(int x, int y, int colour);
+* void plot(int x, int y, int colour, PGraphics pg);
+* void plot(int x, int y, int colour, float alpha);
+* void plot(int x, int y, int colour, float alpha, PGraphics pg);
+*
+* vec2 follow(vec2 target, float speed, vec2 buf):
+* vec2 follow(vec2 target, vec2 speed, vec2 buf);
+* vec2 follow(float tx, float ty, float speed, vec2 buf);
+* vec2 follow(float tx, float ty, float sx, float sy, vec2 buf);
+* vec3 follow(vec3 target, float speed, vec3 buf);
+* vec3 follow(vec3 target, vec3 speed, vec3 buf);
+* vec3 follow(float tx, float ty, float tz, float speed, vec3 buf);
+* vec3 follow(float tx, float ty, float tz, float sx, float sy, float sz, vec3 buf);
 */
+int num = 300000;
+vec2 [] cloud = new vec2[num];
 void setup() {
-	size(200,200,P3D);
-	print_extension_filter();
-	// select_input(); // you can select all file, no sorting
-  select_input("movie"); // give the possibility to select only file with a movie extension store in movie array
-  
+	size(800,800,P2D);
+	rope_version();
+	for(int i = 0; i < cloud.length ; i++) {
+		cloud[i] = vec2().rand(vec2(),vec2(height,width));
+	}
 }
 
-
 void draw() {
-	println(input_path("media"));
+	background(255);
+	vec2 speed = vec2(0.01,0.05);
+	vec2 target = vec2(mouseX,mouseY);
+	vec2 res = vec2();
+	loadPixels();
+	for(vec2 p : cloud) {
+		res = follow(target, speed, p);
+		plot(p,r.BLACK);
+	}
+	updatePixels();
+	println("frameRate",frameRate);
+}
 
-
-	// input_use() to set witch type of file you can select after this setting, after that this is the default setting
-	// but it's buggy or what ?
-	input_use("image", true); 
-	println(input_use_is("image"));
-  // println(input_file("movie"));
-  // println(input("movie"));
-	exit();
+void mousePressed() {
+	for(int i = 0; i < cloud.length ; i++) {
+		cloud[i] = vec2().rand(vec2(),vec2(height,width));
+	}
 }
