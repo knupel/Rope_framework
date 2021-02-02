@@ -5,37 +5,45 @@
 * @see https://github.com/StanLepunK/Rope_framework
 *
 */
-
 /**
-* FOLDER EXPLORATION
-* V 0.2.0
+* INPUT
+* V 0.2.1
 * 2019-2021
-
-* void explore_folder(String path, String... extension);
-* void explore_folder(String path, boolean check_sub_folder, String... extension);
-* String folder();
-* ArrayList<File> get_files();
-* void select_folder();
-* void select_folder(String message);
-* boolean folder_input_default_is() ;
+* void select_input();
+* void select_input(String type);
+* R_Data_Input get_input(String type);
+* R_Data_Input [] get_inputs();
+* R_Data_Input get_input(int target);
+* boolean input_use_is(); it's buggy or what ?
+* boolean input_use_is(String type); it's buggy or what ?
+* void input_use(boolean is);
+* void input_use(String type, boolean is);
+* String input_path();
+* String input_path(String type);
+* void reset_input();
+* void reset_input(String type);
+* File input_file();
+* File input_file(String type);
+* void set_filter_input(String type, String... extension);
 */
 void setup() {
-	rope_version();
+	size(200,200,P3D);
+	print_extension_filter();
+	// select_input(); // you can select all file, no sorting
+  select_input("movie"); // give the possibility to select only file with a movie extension store in movie array
+  
 }
-void keyPressed() {
-	if(key == 'o') select_folder();
-}
+
 
 void draw() {
-	boolean explore_sub_folder = true;
-	String [] ext = {"jpg", "jpeg"};
-	explore_folder(folder(),explore_sub_folder,ext); 
+	println(input_path("media"));
 
-	if(get_files() != null && get_files().size() > 0) {
-		println("size",get_files().size());
-		for(File f : get_files()) {
-			println(f);
-		}
-		exit();
-	}
+
+	// input_use() to set witch type of file you can select after this setting, after that this is the default setting
+	// but it's buggy or what ?
+	input_use("image", true); 
+	println(input_use_is("image"));
+  // println(input_file("movie"));
+  // println(input("movie"));
+	exit();
 }
