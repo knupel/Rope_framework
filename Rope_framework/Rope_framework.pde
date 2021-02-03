@@ -5,54 +5,61 @@
 * @see https://github.com/StanLepunK/Rope_framework
 *
 */
+
 /**
+* pattern marble example
+* 2021-2021
+* v 0.0.1
 *
-* method follow with 100K particle
+* from Lode Vandevenne algorithm
+* https://lodev.org/cgtutor/randomnoise.html
 *
-* void plot(vec2 pos, int colour);
-* void plot(vec2 pos, int colour, PGraphics pg);
-* void plot(vec2 pos, int colour, float alpha);
-* void plot(vec2 pos, int colour, float alpha, PGraphics pg);
-* void plot(int x, int y, int colour);
-* void plot(int x, int y, int colour, PGraphics pg);
-* void plot(int x, int y, int colour, float alpha);
-* void plot(int x, int y, int colour, float alpha, PGraphics pg);
+* methods
 *
-* vec2 follow(vec2 target, float speed, vec2 buf):
-* vec2 follow(vec2 target, vec2 speed, vec2 buf);
-* vec2 follow(float tx, float ty, float speed, vec2 buf);
-* vec2 follow(float tx, float ty, float sx, float sy, vec2 buf);
-* vec3 follow(vec3 target, float speed, vec3 buf);
-* vec3 follow(vec3 target, vec3 speed, vec3 buf);
-* vec3 follow(float tx, float ty, float tz, float speed, vec3 buf);
-* vec3 follow(float tx, float ty, float tz, float sx, float sy, float sz, vec3 buf);
+* void marble_detail(int detail);
+* PGraphics pattern_marble(int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale);
 */
-int num = 300000;
-vec2 [] cloud = new vec2[num];
+
+
+PGraphics pattern_marble;
+// x_period and y_period together define the angle of the lines
+// x_period and y_period both 0 ==> it becomes a normal clouds or turbulence pattern
+float x_period = 5.0; //defines repetition of marble lines in x direction
+float y_period = 10.0; //defines repetition of marble lines in y direction
+
+// turb_power = 0 ==> it becomes a normal sine pattern
+float turb_power = 5.0; //makes twists
+float turb_size = 32.0; //initial size of the turbulence
+
+int turbulence = 2;
+float scale = 3.0;
+
+int detail = 3;
+
+
 void setup() {
-	size(800,800,P2D);
+	size(800,512,P2D);
+	colorMode(HSB,360,100,100,100);
 	rope_version();
-	for(int i = 0; i < cloud.length ; i++) {
-		cloud[i] = vec2().rand(vec2(),vec2(height,width));
-	}
+	background(r.RED);
+	marble_detail(2);
+	pattern_marble = pattern_marble(width,height, x_period, y_period, turb_power, turb_size, turbulence, scale);
+	image(pattern_marble);
 }
 
-void draw() {
-	background(255);
-	vec2 speed = vec2(0.01,0.05);
-	vec2 target = vec2(mouseX,mouseY);
-	vec2 res = vec2();
-	loadPixels();
-	for(vec2 p : cloud) {
-		res = follow(target, speed, p);
-		plot(p,r.BLACK);
-	}
-	updatePixels();
-	println("frameRate",frameRate);
-}
+void draw() {}
 
 void mousePressed() {
-	for(int i = 0; i < cloud.length ; i++) {
-		cloud[i] = vec2().rand(vec2(),vec2(height,width));
-	}
+	background(r.RED);
+	x_period = random(0,10);
+	y_period = random(0,10);
+	turb_power = random(0,10.0);
+	turb_size = random(0,64.0);
+	turbulence = int(random(20));
+	scale = random(10);
+	
+	detail = (int)random(1,15);
+	marble_detail(detail);
+	pattern_marble = pattern_marble(width,height, x_period, y_period, turb_power, turb_size, turbulence, scale);
+	image(pattern_marble);
 }

@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.5.10
+* v 0.5.11
 * Copyleft (c) 2014-2019
 *
 * dependencies
@@ -67,11 +67,123 @@ int entry(PGraphics pg, int rank, boolean constrain_is) {
 
 /**
 PATTERN GENERATOR
-v 0.0.3
-2018-2018
+v 0.1.0
+2018-2021
+*/
+
+/**
+* Marble texture
+*/
+/**
+* from Lode Vandevenne algorithm
+* https://lodev.org/cgtutor/randomnoise.html
+*/
+int base_w_rope_noise = 2048;
+int base_h_rope_noise = 2048;
+int w_rope_noise = 128;
+int h_rope_noise = 128;
+float [][] rope_noise_arr;
+
+void marble_detail(int detail) {
+  w_rope_noise = base_w_rope_noise / detail;
+  h_rope_noise = base_h_rope_noise / detail;
+}
+void generate_noise_array() {
+  rope_noise_arr = new float[h_rope_noise][w_rope_noise];
+  for (int y = 0; y < h_rope_noise; y++) {
+    for (int x = 0; x < w_rope_noise; x++) {
+      rope_noise_arr[y][x] = random(1);
+    }
+  }
+}
+
+float smooth_noise(float x, float y) {
+   //get fractional part of x and y
+  float fract_x = fract(x);
+  float fract_y = fract(y);
+
+  //wrap around
+  int x1 = ((int)x + w_rope_noise) % w_rope_noise;
+  int y1 = ((int)y + h_rope_noise) % h_rope_noise;
+
+  //neighbor values
+  int x2 = (x1 + w_rope_noise - 1) % w_rope_noise;
+  int y2 = (y1 + h_rope_noise - 1) % h_rope_noise;
+
+  //smooth the noise with bilinear interpolation
+  float value = 0.0;
+  value += fract_x     * fract_y     * rope_noise_arr[y1][x1];
+  value += (1 - fract_x) * fract_y     * rope_noise_arr[y1][x2];
+  value += fract_x     * (1 - fract_y) * rope_noise_arr[y2][x1];
+  value += (1 - fract_x) * (1 - fract_y) * rope_noise_arr[y2][x2];
+
+  return value;
+}
+
+
+float turbulence(float x, float y, float size) {
+  float value = 0.0;
+  float buf_size = size;
+  while(size >= 1) {
+    value += smooth_noise(x / size, y / size) * size;
+    size /= 2.0;
+  }
+  return(128.0 * value / buf_size);
+}
+
+/**
+* int turbulence = 2;
+* float scale = 3.0;
+*
+* x_period and yPeriod together define the angle of the lines
+* x_period and yPeriod both 0 ==> it becomes a normal clouds or turbulence pattern
+* float x_period = 5.0; //defines repetition of marble lines in x direction
+* float y_period = 10.0; //defines repetition of marble lines in y direction
+*
+* turb_power = 0 ==> it becomes a normal sine pattern
+* float turb_power = 5.0; //makes twists
+* float turb_size = 32.0; //initial size of the turbulence
+*/
+
+PGraphics pattern_marble(int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale) {
+  PGraphics dst;
+  if(w > 0 && h > 0) {
+    float [] cm = getColorMode(false);
+    colorMode(RGB,255,255,255,255);
+    dst = createGraphics(w,h);
+    generate_noise_array();
+    dst.beginDraw();
+    dst.loadPixels();
+    int count = 0;
+    for (int x = 0; x < w; x++) {
+      for (int y = 0; y < h; y++) {
+        float xyValue = x * x_period / w_rope_noise + y * y_period / h_rope_noise + turb_power * turbulence(x, y, turb_size) / 256.0;
+        float sineValue = 256 * abs(sin(xyValue * PI));
+        int colour = (int)sineValue;
+        int index = index_pixel_array(x, y, w);
+        int c = color(colour);
+        dst.pixels[index] = c;
+      }
+    }
+    dst.updatePixels();
+    dst.endDraw();
+    colorMode((int)cm[0],cm[1],cm[2],cm[3],cm[4]);
+    return dst;
+  }
+  return null;
+}
+
+
+
+
+
+/**
+* Patttern noise
+* inspired by Daniel Shiffman
+* https://www.youtube.com/watch?v=8ZEMLCnn8v0
 */
 PGraphics pattern_noise(int w, int h, float... inc) {
-  PGraphics pg ;
+  PGraphics pg;
   noiseSeed((int)random(MAX_INT));
   if(w > 0 && h > 0 && inc.length > 0 && inc.length < 5) {
     float [] cm = getColorMode(false);
@@ -98,7 +210,6 @@ PGraphics pattern_noise(int w, int h, float... inc) {
     }
     colorMode((int)cm[0],cm[1],cm[2],cm[3],cm[4]);
 
-    
     pg.beginDraw();
     for(int i = 0 ; i < inc.length ; i++) {
       offset_y[i] = 0;
