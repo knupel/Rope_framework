@@ -78,58 +78,125 @@ v 0.1.0
 * from Lode Vandevenne algorithm
 * https://lodev.org/cgtutor/randomnoise.html
 */
-int base_w_rope_noise = 2048;
-int base_h_rope_noise = 2048;
-int w_rope_noise = 128;
-int h_rope_noise = 128;
-float [][] rope_noise_arr;
-
-void marble_detail(int detail) {
-  w_rope_noise = base_w_rope_noise / detail;
-  h_rope_noise = base_h_rope_noise / detail;
+int w_rope_marble_matrice = 128;
+int h_rope_marble_matrice = 128;
+void matrix_marble(int w, int h) {
+  w_rope_marble_matrice = w;
+  h_rope_marble_matrice = h;
 }
-void generate_noise_array() {
-  rope_noise_arr = new float[h_rope_noise][w_rope_noise];
-  for (int y = 0; y < h_rope_noise; y++) {
-    for (int x = 0; x < w_rope_noise; x++) {
-      rope_noise_arr[y][x] = random(1);
+
+float [][] generate_matrix_2D(int w, int h, float min, float max) {
+  float [][] matrix = new float[w][h];
+  for (int x = 0; x < w ; x++) {
+    for (int y = 0; y < h ; y++) {
+      matrix[x][y] = random(min, max);
     }
   }
+  return matrix;
 }
 
-float smooth_noise(float x, float y) {
-   //get fractional part of x and y
+float smooth_noise(float [][] matrix, float x, float y) {
+  //get fractional part of x and y
+  int w = matrix.length;
+  int h = matrix[0].length;
   float fract_x = fract(x);
   float fract_y = fract(y);
-
   //wrap around
-  int x1 = ((int)x + w_rope_noise) % w_rope_noise;
-  int y1 = ((int)y + h_rope_noise) % h_rope_noise;
-
+  int x1 = ((int)x + w) % w;
+  int y1 = ((int)y + h) % h;
   //neighbor values
-  int x2 = (x1 + w_rope_noise - 1) % w_rope_noise;
-  int y2 = (y1 + h_rope_noise - 1) % h_rope_noise;
-
+  int x2 = (x1 + w - 1) % w;
+  int y2 = (y1 + h - 1) % h;
   //smooth the noise with bilinear interpolation
   float value = 0.0;
-  value += fract_x     * fract_y     * rope_noise_arr[y1][x1];
-  value += (1 - fract_x) * fract_y     * rope_noise_arr[y1][x2];
-  value += fract_x     * (1 - fract_y) * rope_noise_arr[y2][x1];
-  value += (1 - fract_x) * (1 - fract_y) * rope_noise_arr[y2][x2];
-
+  value += fract_x * fract_y * matrix[x1][y1];
+  value += (1 - fract_x) * fract_y * matrix[x2][y1];
+  value += fract_x * (1 - fract_y) * matrix[x1][y2];
+  value += (1 - fract_x) * (1 - fract_y) * matrix[x2][y2];
   return value;
 }
 
-
-float turbulence(float x, float y, float size) {
+float turbulence(float [][] matrix, float x, float y, float size) {
   float value = 0.0;
   float buf_size = size;
   while(size >= 1) {
-    value += smooth_noise(x / size, y / size) * size;
+    value += smooth_noise(matrix, x / size, y / size) * size;
     size /= 2.0;
   }
   return(128.0 * value / buf_size);
 }
+
+
+
+
+
+
+
+
+
+
+
+// xyz
+vec3 [][] generate_matrix_2D_xyz(int w, int h, float min, float max) {
+  vec3 [][] matrix = new vec3[w][h];
+  for (int x = 0; x < w ; x++) {
+    for (int y = 0; y < h ; y++) {
+      matrix[x][y] = new vec3().rand(min, max);
+    }
+  }
+  return matrix;
+}
+
+vec3 smooth_noise_xyz(vec3 [][] matrix, float x, float y) {
+  //get fractional part of x and y
+  int w = matrix.length;
+  int h = matrix[0].length;
+  float fract_x = fract(x);
+  float fract_y = fract(y);
+  //wrap around
+  int x1 = ((int)x + w) % w;
+  int y1 = ((int)y + h) % h;
+  //neighbor values
+  int x2 = (x1 + w - 1) % w;
+  int y2 = (y1 + h - 1) % h;
+  //smooth the noise with bilinear interpolation
+  float vx = 0.0;
+  float vy = 0.0;
+  float vz = 0.0;
+  vx += fract_x * fract_y * matrix[x1][y1].x();
+  vx += (1 - fract_x) * fract_y * matrix[x2][y1].x();
+  vx += fract_x * (1 - fract_y) * matrix[x1][y2].x();
+  vx += (1 - fract_x) * (1 - fract_y) * matrix[x2][y2].x();
+
+  vy += fract_x * fract_y * matrix[x1][y1].y();
+  vy += (1 - fract_x) * fract_y * matrix[x2][y1].y();
+  vy += fract_x * (1 - fract_y) * matrix[x1][y2].y();
+  vy += (1 - fract_x) * (1 - fract_y) * matrix[x2][y2].y();
+
+  vz += fract_x * fract_y * matrix[x1][y1].z();
+  vz += (1 - fract_x) * fract_y * matrix[x2][y1].z();
+  vz += fract_x * (1 - fract_y) * matrix[x1][y2].z();
+  vz += (1 - fract_x) * (1 - fract_y) * matrix[x2][y2].z();
+  return vec3(vx,vy,vz);
+}
+
+vec3 turbulence_xyz(vec3 [][] matrix, float x, float y, float size) {
+  vec3 value = vec3();
+  float buf_size = size;
+  while(size >= 1) {
+    value.add(smooth_noise_xyz(matrix, x / size, y / size).mult(size));
+    size /= 2.0;
+  }
+  return value.mult(128.0).div(buf_size);
+}
+
+
+
+
+
+
+
+
 
 /**
 * int turbulence = 2;
@@ -144,22 +211,96 @@ float turbulence(float x, float y, float size) {
 * float turb_power = 5.0; //makes twists
 * float turb_size = 32.0; //initial size of the turbulence
 */
-
 PGraphics pattern_marble(int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale) {
+  float [][] matrix = generate_matrix_2D(w_rope_marble_matrice, h_rope_marble_matrice, 0, 1);
+  return pattern_marble(matrix, w, h, x_period, y_period, turb_power, turb_size, turbulence, scale);
+}
+
+PGraphics pattern_marble_red(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale) {
+  float [][] matrix = new float[src.width][src.height];
+  for (int x = 0 ; x < src.width ; x++) {
+    for (int y = 0 ; y < src.height ; y++) {
+      matrix[x][y] = red(src.get(x,y)) / g.colorModeZ;
+    }
+  }
+  return pattern_marble(matrix, w, h, x_period, y_period, turb_power, turb_size, turbulence, scale);
+}
+
+PGraphics pattern_marble_green(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale) {
+  float [][] matrix = new float[src.width][src.height];
+  for (int x = 0 ; x < src.width ; x++) {
+    for (int y = 0 ; y < src.height ; y++) {
+      matrix[x][y] = green(src.get(x,y)) / g.colorModeZ;
+    }
+  }
+  return pattern_marble(matrix, w, h, x_period, y_period, turb_power, turb_size, turbulence, scale);
+}
+
+
+PGraphics pattern_marble_blue(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale) {
+  float [][] matrix = new float[src.width][src.height];
+  for (int x = 0 ; x < src.width ; x++) {
+    for (int y = 0 ; y < src.height ; y++) {
+      matrix[x][y] = blue(src.get(x,y)) / g.colorModeZ;
+    }
+  }
+  return pattern_marble(matrix, w, h, x_period, y_period, turb_power, turb_size, turbulence, scale);
+}
+
+
+PGraphics pattern_marble_hue(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale) {
+  float [][] matrix = new float[src.width][src.height];
+  for (int x = 0 ; x < src.width ; x++) {
+    for (int y = 0 ; y < src.height ; y++) {
+      matrix[x][y] = hue(src.get(x,y)) / g.colorModeZ;
+    }
+  }
+  return pattern_marble(matrix, w, h, x_period, y_period, turb_power, turb_size, turbulence, scale);
+}
+
+PGraphics pattern_marble_saturation(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale) {
+  float [][] matrix = new float[src.width][src.height];
+  for (int x = 0 ; x < src.width ; x++) {
+    for (int y = 0 ; y < src.height ; y++) {
+      matrix[x][y] = saturation(src.get(x,y)) / g.colorModeZ;
+    }
+  }
+  return pattern_marble(matrix, w, h, x_period, y_period, turb_power, turb_size, turbulence, scale);
+}
+
+
+PGraphics pattern_marble_brightness(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale) {
+  float [][] matrix = new float[src.width][src.height];
+  for (int x = 0 ; x < src.width ; x++) {
+    for (int y = 0 ; y < src.height ; y++) {
+      matrix[x][y] = brightness(src.get(x,y)) / g.colorModeZ;
+    }
+  }
+  return pattern_marble(matrix, w, h, x_period, y_period, turb_power, turb_size, turbulence, scale);
+}
+
+
+
+
+PGraphics pattern_marble(float [][] matrix, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale) {
   PGraphics dst;
+
   if(w > 0 && h > 0) {
     float [] cm = getColorMode(false);
     colorMode(RGB,255,255,255,255);
+    float range_colour = g.colorModeX;
+    int w_mat = matrix.length;
+    int h_mat = matrix[0].length;
     dst = createGraphics(w,h);
-    generate_noise_array();
     dst.beginDraw();
     dst.loadPixels();
     int count = 0;
     for (int x = 0; x < w; x++) {
       for (int y = 0; y < h; y++) {
-        float xyValue = x * x_period / w_rope_noise + y * y_period / h_rope_noise + turb_power * turbulence(x, y, turb_size) / 256.0;
-        float sineValue = 256 * abs(sin(xyValue * PI));
-        int colour = (int)sineValue;
+        float buf_turb = turbulence(matrix, x, y, turb_size);
+        float buf_xy = x * x_period / w_mat + y * y_period / h_mat + turb_power * buf_turb / range_colour;
+        float sin_buf = range_colour * abs(sin(buf_xy));
+        int colour = (int)sin_buf;
         int index = index_pixel_array(x, y, w);
         int c = color(colour);
         dst.pixels[index] = c;
@@ -172,6 +313,70 @@ PGraphics pattern_marble(int w, int h, float x_period, float y_period, float tur
   }
   return null;
 }
+
+
+
+PGraphics pattern_marble_rgb(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale) {
+  vec3 [][] mat_2D = new vec3[src.width][src.height];
+  for (int x = 0 ; x < src.width ; x++) {
+    for (int y = 0 ; y < src.height ; y++) {
+      mat_2D[x][y] = new vec3();
+      mat_2D[x][y].x(red(src.get(x,y)) / g.colorModeZ);
+      mat_2D[x][y].y(green(src.get(x,y)) / g.colorModeZ);
+      mat_2D[x][y].z(blue(src.get(x,y)) / g.colorModeZ);
+    }
+  }
+  return pattern_marble_xyz(mat_2D, w, h, x_period, y_period, turb_power, turb_size, turbulence, scale);
+}
+
+PGraphics pattern_marble_hsb(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale) {
+  vec3 [][] mat_2D = new vec3[src.width][src.height];
+  for (int x = 0 ; x < src.width ; x++) {
+    for (int y = 0 ; y < src.height ; y++) {
+      mat_2D[x][y] = new vec3();
+      mat_2D[x][y].x(hue(src.get(x,y)) / g.colorModeZ);
+      mat_2D[x][y].y(saturation(src.get(x,y)) / g.colorModeZ);
+      mat_2D[x][y].z(brightness(src.get(x,y)) / g.colorModeZ);
+    }
+  }
+  return pattern_marble_xyz(mat_2D, w, h, x_period, y_period, turb_power, turb_size, turbulence, scale);
+}
+
+
+PGraphics pattern_marble_xyz(vec3 [][] matrix, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale) {
+  PGraphics dst;
+  if(w > 0 && h > 0) {
+    float [] cm = getColorMode(false);
+    colorMode(RGB,255,255,255,255);
+    float range_colour = g.colorModeX;
+    int w_mat = matrix.length;
+    int h_mat = matrix[0].length;
+    dst = createGraphics(w,h);
+    dst.beginDraw();
+    dst.loadPixels();
+    int count = 0;
+    for (int x = 0; x < w; x++) {
+      for (int y = 0; y < h; y++) {
+        float [] buf_turb = turbulence_xyz(matrix, x, y, turb_size).array();
+        int [] rgb = new int[3];
+        for(int i = 0 ; i < 3 ; i++) {
+          float buf_xy = x * x_period / w_mat + y * y_period / h_mat + turb_power * buf_turb[i] / range_colour;
+          float sin_buf = range_colour * abs(sin(buf_xy));
+          rgb[i] = (int)sin_buf;
+        }
+        int index = index_pixel_array(x, y, w);
+        int c = color(rgb[0],rgb[1],rgb[2]);
+        dst.pixels[index] = c;
+      }
+    }
+    dst.updatePixels();
+    dst.endDraw();
+    colorMode((int)cm[0],cm[1],cm[2],cm[3],cm[4]);
+    return dst;
+  }
+  return null;
+}
+
 
 
 
