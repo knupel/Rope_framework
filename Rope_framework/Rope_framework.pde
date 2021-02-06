@@ -9,7 +9,7 @@
 /**
 * pattern marble example
 * 2021-2021
-* v 0.0.2
+* v 0.1.0
 *
 * based on Lode Vandevenne algorithm
 * https://lodev.org/cgtutor/randomnoise.html
@@ -19,26 +19,26 @@
 * matrice_marble(int w, int h);
 * float [][] generate_matrice_2D(int w, int h, float min, float max): // the min and max value must be normal [0,1]
 *
-* PGraphics pattern_marble(int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale);
+* PGraphics pattern_marble(int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
 *
-* PGraphics pattern_marble(float [][] matrix, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale);
-* PGraphics pattern_marble_xyz(vec3 [][] matrix, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale);
+* PGraphics pattern_marble(float [][] matrix, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
+* PGraphics pattern_marble_xyz(vec3 [][] matrix, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
 *
-* PGraphics pattern_marble_rgb(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale);
-* PGraphics pattern_marble_hsb(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale);
+* PGraphics pattern_marble_rgb(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
+* PGraphics pattern_marble_hsb(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
 *
-* PGraphics pattern_marble_red(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale);
-* PGraphics pattern_marble_green(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale);
-* PGraphics pattern_marble_blue(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale);
+* PGraphics pattern_marble_red(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
+* PGraphics pattern_marble_green(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
+* PGraphics pattern_marble_blue(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
 *
-* PGraphics pattern_marble_hue(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale);
-* PGraphics pattern_marble_saturation(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale);
-* PGraphics pattern_marble_brightness(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, int turbulence, float scale);
+* PGraphics pattern_marble_hue(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
+* PGraphics pattern_marble_saturation(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
+* PGraphics pattern_marble_brightness(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
 
 */
 
 
-PGraphics pattern_marble;
+PGraphics pattern;
 PImage img_src;
 // x_period and y_period together define the angle of the lines
 // x_period and y_period both 0 ==> it becomes a normal clouds or turbulence pattern
@@ -47,10 +47,7 @@ float y_period = 10.0; //defines repetition of marble lines in y direction
 
 // turb_power = 0 ==> it becomes a normal sine pattern
 float turb_power = 5.0; //makes twists
-float turb_size = 32.0; //initial size of the turbulence
-
-int turbulence = 2;
-float scale = 3.0;
+float smooth = 32.0; //initial size of the turbulence
 
 void setup() {
 	size(800,512,P2D);
@@ -58,8 +55,9 @@ void setup() {
 	rope_version();
 	img_src = loadImage("jpg file/small_dame_hermine.jpg");
 	surface.setSize(img_src.width, img_src.height);
-	pattern_marble = pattern_marble(img_src, width,height, x_period, y_period, turb_power, turb_size, turbulence, scale);
-	image(pattern_marble);
+	// surface.setSize(int(img_src.width *1.5), int(img_src.height *0.5));
+	pattern = pattern_marble_brightness(img_src, width, height);
+	image(pattern);
 }
 
 void draw() {}
@@ -68,20 +66,52 @@ void mousePressed() {
 	x_period = random(0,10);
 	y_period = random(0,10);
 	turb_power = random(0,10.0);
-	turb_size = random(0,64.0);
-	turbulence = int(random(20));
-	scale = random(10);
+	smooth = random(0,64.0);
+	float inc_x = random(1) / 10;
+	float inc_y = random(1) / 10;
+	float inc_z = random(1) / 10;
 
-	float which_one = random(1);
-	if(which_one < 0.3) {
-		println("pattern_marble is brightness mode");
-		pattern_marble = pattern_marble_brightness(img_src, width,height, x_period, y_period, turb_power, turb_size, turbulence, scale);
-	} else if(which_one >=0.3 && which_one < 0.6) {
-		println("pattern_marble is RGB mode");
-		pattern_marble = pattern_marble_rgb(img_src, width,height, x_period, y_period, turb_power, turb_size, turbulence, scale);
-	} else {
-		println("pattern_marble is HSB mode");
-		pattern_marble = pattern_marble_hsb(img_src, width,height, x_period, y_period, turb_power, turb_size, turbulence, scale);
+	set_pattern_turbulence(turb_power); // pattern : marble
+	set_pattern_smooth(smooth); // pattern : random, marble, noise
+	set_pattern_period(x_period, y_period); // pattern : marble
+	set_pattern_size(128, 128); // pattern : random, noise and marble when no PImage used
+	set_pattern_range(0, 1); // pattern : random and marble when no PImage used
+	set_pattern_increment(inc_x, inc_y, inc_z); // pattern : noise and marble when no PImage used
+
+	// int which_one = floor(random(7));
+	int which_one = floor(random(5,7));
+	// int which_one = 6;
+	if(which_one == 0) {
+		println(ANSI_RED+"new draw BRIGHTNESS"+ANSI_WHITE);
+		pattern = pattern_marble_brightness(img_src, width, height);
+	} else if(which_one == 1) {
+		println(ANSI_RED+"new draw RGB"+ANSI_WHITE);
+		pattern = pattern_marble_rgb(img_src, width, height);
+	} else  if(which_one == 2) {
+		println(ANSI_RED+"new draw HSB"+ANSI_WHITE);
+		pattern = pattern_marble_hsb(img_src, width, height);
+	} else if(which_one == 3) {
+		println(ANSI_GREEN+"new draw simple MAP BRIGHTNESS"+ANSI_WHITE);
+		pattern = pattern_map(img_src, width, height);
+	} else if(which_one == 4) {
+		println(ANSI_GREEN+"new draw simple MAP RANDOM MONO"+ANSI_WHITE);
+		pattern = pattern_map_rand(width, height);
+	} else if(which_one == 5) {
+		println(ANSI_GREEN+"new draw simple MAP NOISE MONO"+ANSI_WHITE);
+		set_pattern_size(width, height);
+		set_pattern_smooth(1);
+		pattern = pattern_map_noise(width, height);
+	} else if(which_one == 6) {
+		println(ANSI_GREEN+"new draw simple MAP NOISE XYZ"+ANSI_WHITE);
+		set_pattern_size(width, height);
+		set_pattern_smooth(1);
+		pattern = pattern_map_noise_xyz(width, height);
 	}
-	image(pattern_marble);
+	
+	println(ANSI_YELLOW+"x_period"+ANSI_WHITE, x_period);
+	println(ANSI_YELLOW+"y_period"+ANSI_WHITE, y_period);
+	println(ANSI_YELLOW+"turbulence"+ANSI_WHITE, turb_power);
+	println(ANSI_YELLOW+"smooth"+ANSI_WHITE, smooth);
+	println(ANSI_YELLOW+"noise incrementation"+ANSI_WHITE, inc_x,inc_y,inc_z);
+	image(pattern);
 }
