@@ -545,6 +545,14 @@ PGraphics pattern_rand(int w, int h) {
   return rope_pattern.map_mono(w, h);
 }
 
+PGraphics pattern_rand_xyz(int w, int h) {
+  if(rope_pattern == null) {
+    rope_pattern = new R_Pattern(); 
+  }
+  rope_pattern.build_matrix_rand_xyz();
+  return rope_pattern.map_xyz(w, h);
+}
+
 PGraphics pattern_noise(int w, int h) {
   if(rope_pattern == null) {
     rope_pattern = new R_Pattern(); 
@@ -593,10 +601,11 @@ PGraphics pattern_marble_hsb(PImage src, int w, int h) {
   return rope_pattern.marble_xyz(w, h);
 }
 
-PGraphics pattern_marble(int w, int h, float x_period) {
+PGraphics pattern_marble(int w, int h) {
   if(rope_pattern == null) {
     rope_pattern = new R_Pattern(); 
   }
+  rope_pattern.build_matrix_rand();
   return rope_pattern.marble(w, h);
 }
 
