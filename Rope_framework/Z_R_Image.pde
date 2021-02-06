@@ -95,6 +95,7 @@ public class R_Pattern {
   private ivec2 matrix_size;
   private vec2 matrix_range;
   private vec3 matrix_inc;
+  private float [] mat_angle;
   private float [][] matrix;
   private vec3 [][] matrix_3;
   private vec2 period;
@@ -107,7 +108,7 @@ public class R_Pattern {
     this.matrix_inc = new vec3(0.01, 0.02, 0.03);
     this.period = new vec2(5,10);
     this.turbulence = 5.0;
-    this.smooth = 32;
+    this.smooth = 1;
   }
   // set
   public void set_size(int w, int h) {
@@ -137,6 +138,14 @@ public class R_Pattern {
   public void set_smooth(float smooth) {
     this.smooth = smooth;
   }
+
+  public void set_angle(float a_x, float a_y, float a_z) {
+    mat_angle = new float[3];
+    mat_angle[0] = a_x;
+    mat_angle[1] = a_y;
+    mat_angle[2] = a_z;
+  }
+
 
 
 
@@ -176,18 +185,42 @@ public class R_Pattern {
   }
 
   
+  private float change_angle_component(float value, float angle) {
+    float buf = value * TAU + angle;
+    float temp = buf%TAU;
+    if(temp < 0)
+      temp = TAU - temp;
+    return(map(temp, 0, TAU, 0, 1));
+  }
 
   public void build_matrix_noise_xyz() {
     matrix_3 = new vec3[matrix_size.x()][matrix_size.y()];
     vec3 offset_x = vec3();
     vec3 offset_y = vec3();
     noiseSeed((int)random(MAX_INT));
+
+    float angle_x = 0;
+    float angle_y = 0;
+    float angle_z = 0;
+    if(mat_angle != null) {
+      angle_x = mat_angle[0];
+      angle_y = mat_angle[1];
+      angle_z = mat_angle[2];
+    }
     for(int x = 0 ; x < matrix_size.x() ; x++) {
       offset_y.set(0);
       for(int y = 0 ; y < matrix_size.y() ; y++) {
-        float cx = noise(offset_x.x(),offset_y.x());
-        float cy = noise(offset_x.y(),offset_y.y());
-        float cz = noise(offset_x.z(),offset_y.z());
+        float cx, cy, cz = 0;
+        if(mat_angle != null) {
+          float ref = noise(offset_x.x(),offset_y.x());
+          cx = change_angle_component(ref, angle_x);
+          cy = change_angle_component(ref, angle_y);
+          cz = change_angle_component(ref, angle_z);
+        } else {
+          cx = noise(offset_x.x(),offset_y.x());
+          cy = noise(offset_x.y(),offset_y.y());
+          cz = noise(offset_x.z(),offset_y.z());
+        }
         matrix_3[x][y] = new vec3(cx,cy,cz);
         offset_y.add(matrix_inc);
       }
@@ -321,7 +354,7 @@ public class R_Pattern {
 
 
   // RENDERING
-  public PGraphics map(int w, int h) {
+  public PGraphics map_mono(int w, int h) {
     if(w <= 0 || h <= 0)
       return null;
     PGraphics dst;
@@ -336,7 +369,6 @@ public class R_Pattern {
     for (int x = 0; x < w; x++) {
       for (int y = 0; y < h; y++) {
         float buf_col = this.smooth_noise(x / this.smooth ,y / this.smooth);
-        //float buf_xy = x * this.period.x() / w_mat + y * this.period.y() / h_mat + buf_col / range_colour;
         int c = color(buf_col * range_colour);
         int index = index_pixel_array(x, y, w);
         dst.pixels[index] = c;
@@ -364,47 +396,10 @@ public class R_Pattern {
         float [] buf_col = this.smooth_noise_xyz(x / this.smooth ,y / this.smooth).array();
         float [] rgb = new float[3];
         for(int i = 0 ; i < 3 ; i++) {
-          // float buf_xy = x * this.period.x() / w_mat + y * this.period.y() / h_mat + buf_col[i] / range_colour;
           rgb[i] = buf_col[i] *range_colour;
-          // if(x == 100 && y == 100) {
-          //   println(ANSI_RED+"100"+ANSI_WHITE, i);
-          //   println("period",this.period);
-          //   println("size",w_mat,h_mat);
-          //   println("buf_col[i]", buf_col[i]);
-          //   println("range_colour", range_colour);  
-          //   println("buf_xy", buf_xy);
-          //   println("rgb[i]",rgb[i]);
-          // }
         }
-        // if(x == 1 && y == 1) {
-        //   println("1");
-        //   // println("size",w_mat,h_mat);
-        //   // println(this.period);
-        //   println("buf_xy", buf_xy);
-        //   printArray(buf_col);
-        //   printArray(rgb);
-        // }
-        // if(x == 50 && y == 50) {
-        //   println("50");
-        //   println("buf_xy", buf_xy);
-        //   printArray(buf_col);
-        //   printArray(rgb);
-        // }
-        // if(x == 100 && y == 100) {
-        //   println("100");
-        //   println("buf_xy", buf_xy);
-        //   printArray(buf_col);
-        //   printArray(rgb);
-        // }
-        // if(x == 200 && y == 200) {
-        //   println("200");
-        //   println("buf_xy", buf_xy);
-        //   printArray(buf_col);
-        //   printArray(rgb);
-        // }
         int index = index_pixel_array(x, y, w);
         int c = color(rgb[0],rgb[1],rgb[2]);
-        // int c = color(rgb[0]);
         dst.pixels[index] = c;
       }
     }
@@ -523,6 +518,14 @@ void set_pattern_smooth(float smooth) {
   rope_pattern.set_smooth(smooth);
 }
 
+void set_pattern_angle(float a_x, float a_y, float a_z) {
+  if(rope_pattern == null) {
+    rope_pattern = new R_Pattern(); 
+  }
+  rope_pattern.set_angle(a_x, a_y, a_z);
+}
+
+
 void set_pattern_period(float x, float y) {
   if(rope_pattern == null) {
     rope_pattern = new R_Pattern(); 
@@ -534,23 +537,23 @@ void set_pattern_period(float x, float y) {
 
 
 // build
-PGraphics pattern_map_rand(int w, int h) {
+PGraphics pattern_rand(int w, int h) {
   if(rope_pattern == null) {
     rope_pattern = new R_Pattern(); 
   }
   rope_pattern.build_matrix_rand();
-  return rope_pattern.map(w, h);
+  return rope_pattern.map_mono(w, h);
 }
 
-PGraphics pattern_map_noise(int w, int h) {
+PGraphics pattern_noise(int w, int h) {
   if(rope_pattern == null) {
     rope_pattern = new R_Pattern(); 
   }
   rope_pattern.build_matrix_noise();
-  return rope_pattern.map(w, h);
+  return rope_pattern.map_mono(w, h);
 }
 
-PGraphics pattern_map_noise_xyz(int w, int h) {
+PGraphics pattern_noise_xyz(int w, int h) {
   if(rope_pattern == null) {
     rope_pattern = new R_Pattern(); 
   }
@@ -558,12 +561,12 @@ PGraphics pattern_map_noise_xyz(int w, int h) {
   return rope_pattern.map_xyz(w, h);
 }
 
-PGraphics pattern_map(PImage src, int w, int h) {
+PGraphics pattern_img(PImage src, int w, int h) {
   if(rope_pattern == null) {
     rope_pattern = new R_Pattern(); 
   }
   rope_pattern.build_matrix(src, r.BRIGHTNESS);
-  return rope_pattern.map(w, h);
+  return rope_pattern.map_mono(w, h);
 }
 
 PGraphics pattern_marble_brightness(PImage src, int w, int h) {

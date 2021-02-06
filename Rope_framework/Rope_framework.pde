@@ -16,25 +16,7 @@
 *
 * methods
 *
-* matrice_marble(int w, int h);
-* float [][] generate_matrice_2D(int w, int h, float min, float max): // the min and max value must be normal [0,1]
 *
-* PGraphics pattern_marble(int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
-*
-* PGraphics pattern_marble(float [][] matrix, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
-* PGraphics pattern_marble_xyz(vec3 [][] matrix, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
-*
-* PGraphics pattern_marble_rgb(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
-* PGraphics pattern_marble_hsb(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
-*
-* PGraphics pattern_marble_red(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
-* PGraphics pattern_marble_green(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
-* PGraphics pattern_marble_blue(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
-*
-* PGraphics pattern_marble_hue(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
-* PGraphics pattern_marble_saturation(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
-* PGraphics pattern_marble_brightness(PImage src, int w, int h, float x_period, float y_period, float turb_power, float turb_size, float scale);
-
 */
 
 
@@ -79,8 +61,8 @@ void mousePressed() {
 	set_pattern_increment(inc_x, inc_y, inc_z); // pattern : noise and marble when no PImage used
 
 	// int which_one = floor(random(7));
-	int which_one = floor(random(5,7));
-	// int which_one = 6;
+	// int which_one = floor(random(5,7));
+	int which_one = 7;
 	if(which_one == 0) {
 		println(ANSI_RED+"new draw BRIGHTNESS"+ANSI_WHITE);
 		pattern = pattern_marble_brightness(img_src, width, height);
@@ -92,20 +74,28 @@ void mousePressed() {
 		pattern = pattern_marble_hsb(img_src, width, height);
 	} else if(which_one == 3) {
 		println(ANSI_GREEN+"new draw simple MAP BRIGHTNESS"+ANSI_WHITE);
-		pattern = pattern_map(img_src, width, height);
+		pattern = pattern_img(img_src, width, height);
 	} else if(which_one == 4) {
 		println(ANSI_GREEN+"new draw simple MAP RANDOM MONO"+ANSI_WHITE);
-		pattern = pattern_map_rand(width, height);
+		pattern = pattern_rand(width, height);
 	} else if(which_one == 5) {
 		println(ANSI_GREEN+"new draw simple MAP NOISE MONO"+ANSI_WHITE);
 		set_pattern_size(width, height);
 		set_pattern_smooth(1);
-		pattern = pattern_map_noise(width, height);
+		pattern = pattern_noise(width, height, 0.01, 0.03, 0.04);
 	} else if(which_one == 6) {
 		println(ANSI_GREEN+"new draw simple MAP NOISE XYZ"+ANSI_WHITE);
 		set_pattern_size(width, height);
 		set_pattern_smooth(1);
-		pattern = pattern_map_noise_xyz(width, height);
+		pattern = pattern_noise_xyz(width, height);
+	} else if(which_one == 7) {
+		println(ANSI_GREEN+"new draw simple MAP NOISE XYZ"+ANSI_WHITE);
+		set_pattern_size(width, height);
+		set_pattern_smooth(1);
+		float min = -PI;
+		float max = PI;
+		set_pattern_angle(random(min,max),random(min,max),random(min,max));
+		pattern = pattern_noise_xyz(width, height);
 	}
 	
 	println(ANSI_YELLOW+"x_period"+ANSI_WHITE, x_period);
