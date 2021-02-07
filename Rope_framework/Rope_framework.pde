@@ -9,13 +9,35 @@
 /**
 * pattern marble example
 * 2021-2021
-* v 0.1.0
+* v 0.1.1
 *
 * based on Lode Vandevenne algorithm
 * https://lodev.org/cgtutor/randomnoise.html
 *
 * methods
-*
+* void init_pattern();
+* void reset_pattern();
+* void set_pattern_no_angle();
+* void set_pattern_no_increment();
+* void set_pattern_no_smooth();
+* setting
+* void set_pattern_turbulence(float turbulence) ;
+* void set_pattern_size(int w, int h);
+* void set_pattern_range(float min, float max);
+* void set_pattern_increment(float x, float y, float z);
+* void set_pattern_smooth(float smooth);
+* void set_pattern_angle(float a_x, float a_y, float a_z);
+* void set_pattern_period(float x, float y);
+* build
+* PGraphics pattern_rand(int w, int h);
+* PGraphics pattern_rand_xyz(int w, int h);
+* PGraphics pattern_noise(int w, int h);
+* PGraphics pattern_noise_xyz(int w, int h);
+* PGraphics pattern_img(PImage src, int w, int h);
+* PGraphics pattern_marble_brightness(PImage src, int w, int h);
+* PGraphics pattern_marble_rgb(PImage src, int w, int h);
+* PGraphics pattern_marble_hsb(PImage src, int w, int h);
+* PGraphics pattern_marble(int w, int h);
 *
 */
 

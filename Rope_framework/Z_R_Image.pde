@@ -1,7 +1,7 @@
 /**
 * Rope framework image
-* v 0.5.11
-* Copyleft (c) 2014-2019
+* v 0.6.0
+* Copyleft (c) 2014-2021
 *
 * dependencies
 * Processing 3.5.3
@@ -67,7 +67,7 @@ int entry(PGraphics pg, int rank, boolean constrain_is) {
 
 /**
 * PATTERN GENERATOR
-* v 0.2.0
+* v 0.2.1
 * 2018-2021
 */
 /**
@@ -90,7 +90,11 @@ int entry(PGraphics pg, int rank, boolean constrain_is) {
 * float smooth = 32.0; //initial size of the turbulence
 */
 
-
+/**
+* R_Pattern
+* v 0.1.0
+* 2021-2021
+*/
 public class R_Pattern {
   private ivec2 matrix_size;
   private vec2 matrix_range;
@@ -103,14 +107,19 @@ public class R_Pattern {
   private float smooth;
 
   public R_Pattern() {
-    this.matrix_size = new ivec2(32, 32);
-    this.matrix_range = new vec2(0,1);
-    this.matrix_inc = new vec3(0.01, 0.02, 0.03);
-    this.period = new vec2(5,10);
-    this.turbulence = 5.0;
-    this.smooth = 1;
+    init();
   }
   // set
+  public void init() {
+    this.matrix_size = new ivec2(32, 32);
+    this.matrix_range = new vec2(0,1);
+    this.matrix_inc = new vec3(0);
+    this.period = new vec2(5.0);
+    this.mat_angle = null;
+    this.turbulence = 5.0;
+    this.smooth = 1.0;
+  }
+
   public void set_size(int w, int h) {
     this.matrix_size.set(w,h);
   }
@@ -127,6 +136,10 @@ public class R_Pattern {
     this.matrix_inc.set(x);
   }
 
+  public void set_no_increment() {
+    this.matrix_inc.set(0);
+  }
+
   public void set_period(float x, float y) {
     period.set(x,y);
   }
@@ -139,6 +152,10 @@ public class R_Pattern {
     this.smooth = smooth;
   }
 
+  public void set_no_smooth() {
+    this.smooth = 1.0;
+  }
+
   public void set_angle(float a_x, float a_y, float a_z) {
     mat_angle = new float[3];
     mat_angle[0] = a_x;
@@ -146,11 +163,15 @@ public class R_Pattern {
     mat_angle[2] = a_z;
   }
 
+  public void set_no_angle() {
+    mat_angle = null;
+  }
 
 
 
 
-  public void build_matrix_rand() {
+
+  public void build_matrix_rand_mono() {
     matrix = new float[matrix_size.x()][matrix_size.y()];
     for (int x = 0; x < matrix_size.x() ; x++) {
       for (int y = 0; y < matrix_size.y() ; y++) {
@@ -168,7 +189,7 @@ public class R_Pattern {
     }
   }
 
-  public void build_matrix_noise() {
+  public void build_matrix_noise_mono() {
     matrix = new float[matrix_size.x()][matrix_size.y()];
     float offset_x = 0;
     float offset_y = 0;
@@ -276,7 +297,7 @@ public class R_Pattern {
     }
   }
   
-  private float smooth_noise(float x, float y) {
+  private float smooth_mono(float x, float y) {
     //get fractional part of x and y
     int w = this.matrix.length;
     int h = this.matrix[0].length;
@@ -297,7 +318,7 @@ public class R_Pattern {
     return value;
   }
   
-  private vec3 smooth_noise_xyz(float x, float y) {
+  private vec3 smooth_xyz(float x, float y) {
     //get fractional part of x and y
     int w = matrix_3.length;
     int h = matrix_3[0].length;
@@ -334,7 +355,7 @@ public class R_Pattern {
     float value = 0.0;
     float buf_smooth = this.smooth;
     while(this.smooth >= 1) {
-      value += this.smooth_noise(x / this.smooth, y / this.smooth) * this.smooth;
+      value += this.smooth_mono(x / this.smooth, y / this.smooth) * this.smooth;
       this.smooth /= 2.0;
     }
     this.smooth = buf_smooth;
@@ -345,7 +366,7 @@ public class R_Pattern {
     vec3 value = vec3();
     float buf_smooth = this.smooth;
     while(this.smooth >= 1) {
-      value.add(smooth_noise_xyz(x / this.smooth, y / this.smooth).mult(this.smooth));
+      value.add(smooth_xyz(x / this.smooth, y / this.smooth).mult(this.smooth));
       this.smooth /= 2.0;
     }
     this.smooth = buf_smooth;
@@ -368,7 +389,7 @@ public class R_Pattern {
     dst.loadPixels();
     for (int x = 0; x < w; x++) {
       for (int y = 0; y < h; y++) {
-        float buf_col = this.smooth_noise(x / this.smooth ,y / this.smooth);
+        float buf_col = this.smooth_mono(x / this.smooth ,y / this.smooth);
         int c = color(buf_col * range_colour);
         int index = index_pixel_array(x, y, w);
         dst.pixels[index] = c;
@@ -393,7 +414,7 @@ public class R_Pattern {
     dst.loadPixels();
     for (int x = 0; x < w; x++) {
       for (int y = 0; y < h; y++) {
-        float [] buf_col = this.smooth_noise_xyz(x / this.smooth ,y / this.smooth).array();
+        float [] buf_col = this.smooth_xyz(x / this.smooth ,y / this.smooth).array();
         float [] rgb = new float[3];
         for(int i = 0 ; i < 3 ; i++) {
           rgb[i] = buf_col[i] *range_colour;
@@ -408,7 +429,7 @@ public class R_Pattern {
     return dst;
   }
 
-  public PGraphics marble(int w, int h) {
+  public PGraphics marble_mono(int w, int h) {
     if(w <= 0 || h <= 0)
       return null;
     PGraphics dst;
@@ -482,131 +503,123 @@ public class R_Pattern {
 */
 R_Pattern rope_pattern;
 
-//setting
-void set_pattern_turbulence(float turbulence) {
+
+void init_pattern() {
   if(rope_pattern == null) {
     rope_pattern = new R_Pattern(); 
   }
+}
+
+// reset
+void reset_pattern() {
+  rope_pattern = null;
+  init_pattern();
+}
+void set_pattern_no_angle() {
+  init_pattern();
+  rope_pattern.set_no_angle();
+}
+
+void set_pattern_no_increment() {
+  init_pattern();
+  rope_pattern.set_no_increment();
+}
+
+void set_pattern_no_smooth() {
+  init_pattern();
+  rope_pattern.set_no_smooth();
+}
+
+//setting
+void set_pattern_turbulence(float turbulence) {
+  init_pattern();
   rope_pattern.set_turbulence(turbulence);
 }
 
 void set_pattern_size(int w, int h) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
+  init_pattern();
   rope_pattern.set_size(w,h);
 }
 
 void set_pattern_range(float min, float max) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
+  init_pattern();
   rope_pattern.set_range(min,max);
 }
 
 void set_pattern_increment(float x, float y, float z) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
+  init_pattern();
   rope_pattern.set_increment(x,y,z);
 }
 
 void set_pattern_smooth(float smooth) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
+  init_pattern();
   rope_pattern.set_smooth(smooth);
 }
 
 void set_pattern_angle(float a_x, float a_y, float a_z) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
+  init_pattern();
   rope_pattern.set_angle(a_x, a_y, a_z);
 }
 
-
 void set_pattern_period(float x, float y) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
+  init_pattern();
   rope_pattern.set_period(x,y);
 }
 
 
-
-
 // build
 PGraphics pattern_rand(int w, int h) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
-  rope_pattern.build_matrix_rand();
+  init_pattern();
+  rope_pattern.build_matrix_rand_mono();
   return rope_pattern.map_mono(w, h);
 }
 
 PGraphics pattern_rand_xyz(int w, int h) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
+  init_pattern();
   rope_pattern.build_matrix_rand_xyz();
   return rope_pattern.map_xyz(w, h);
 }
 
 PGraphics pattern_noise(int w, int h) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
-  rope_pattern.build_matrix_noise();
+  init_pattern();
+  rope_pattern.build_matrix_noise_mono();
   return rope_pattern.map_mono(w, h);
 }
 
 PGraphics pattern_noise_xyz(int w, int h) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
+  init_pattern();
   rope_pattern.build_matrix_noise_xyz();
   return rope_pattern.map_xyz(w, h);
 }
 
 PGraphics pattern_img(PImage src, int w, int h) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
+  init_pattern();
   rope_pattern.build_matrix(src, r.BRIGHTNESS);
   return rope_pattern.map_mono(w, h);
 }
 
 PGraphics pattern_marble_brightness(PImage src, int w, int h) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
+  init_pattern();
   rope_pattern.build_matrix(src, r.BRIGHTNESS);
-  return rope_pattern.marble(w, h);
+  return rope_pattern.marble_mono(w, h);
 }
 
 PGraphics pattern_marble_rgb(PImage src, int w, int h) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
+  init_pattern();
   rope_pattern.build_matrix(src, RGB);
   return rope_pattern.marble_xyz(w, h);
 }
 
 PGraphics pattern_marble_hsb(PImage src, int w, int h) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
+  init_pattern();
   rope_pattern.build_matrix(src, HSB);
   return rope_pattern.marble_xyz(w, h);
 }
 
 PGraphics pattern_marble(int w, int h) {
-  if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
-  }
-  rope_pattern.build_matrix_rand();
-  return rope_pattern.marble(w, h);
+  init_pattern();
+  rope_pattern.build_matrix_rand_mono();
+  return rope_pattern.marble_mono(w, h);
 }
 
 

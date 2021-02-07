@@ -1,5 +1,5 @@
 ## Rope framework
-2014-2019
+2014-2021
 V 1.0.0
 optimized for Processing 3.5.3
 
@@ -9,6 +9,10 @@ For example all the main Processing methodes like `method(float x, float y, floa
 This Framework need Rope library, mainly for the vector class and constants.
 
 See the folder guide for more information.
+
+## rope framework example
+You find in this link a collection of processing rope examples.
+[go to look sketches examples](https://github.com/StanLepunK/Rope_examples)
 
 ## rope library
 to use the set rope method you need to downlow Rope library
