@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.6.0
+* v 0.6.1
 * Copyleft (c) 2014-2021
 *
 * dependencies
@@ -92,7 +92,7 @@ int entry(PGraphics pg, int rank, boolean constrain_is) {
 
 /**
 * R_Pattern
-* v 0.1.0
+* v 0.1.1
 * 2021-2021
 */
 public class R_Pattern {
@@ -128,12 +128,12 @@ public class R_Pattern {
     this.matrix_range.set(min,max);
   }
 
-  public void set_increment(float x, float y, float z) {
-    this.matrix_inc.set(x,y,z);
+  public void set_increment(float inc) {
+    this.matrix_inc.set(inc);
   }
 
-  public void set_increment(float x) {
-    this.matrix_inc.set(x);
+  public void set_increment(float x, float y, float z) {
+    this.matrix_inc.set(x,y,z);
   }
 
   public void set_no_increment() {
@@ -544,6 +544,12 @@ void set_pattern_size(int w, int h) {
 void set_pattern_range(float min, float max) {
   init_pattern();
   rope_pattern.set_range(min,max);
+}
+
+
+void set_pattern_increment(float inc) {
+  init_pattern();
+  rope_pattern.set_increment(inc);
 }
 
 void set_pattern_increment(float x, float y, float z) {

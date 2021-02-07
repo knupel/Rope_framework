@@ -24,6 +24,7 @@
 * void set_pattern_turbulence(float turbulence) ;
 * void set_pattern_size(int w, int h);
 * void set_pattern_range(float min, float max);
+* void set_pattern_increment(float inc);
 * void set_pattern_increment(float x, float y, float z);
 * void set_pattern_smooth(float smooth);
 * void set_pattern_angle(float a_x, float a_y, float a_z);
