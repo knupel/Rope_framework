@@ -1,5 +1,5 @@
 *IMAGE GUIDE
-2015–2019
+2015–2021
 
 Rope – Romanesco Processing Environment
 
@@ -34,11 +34,52 @@ int entry(PGraphics pg, int rank, boolean constrain_is);
 
 *PATTERN GENERATOR
 
-PGraphics pattern_noise(int witdh, int height, float... inc_color_arg);
->arg int  width and int height define of your pattern
->arg float array inc_color_arg define the incrementation of each color arg, must between 1 and 4
-if the array have length : 1 black and white / 2 black and white + alpha / 3 color / 4 color + alpha.
-for the case the pattern is black and white the maximum value to generate is g.colorModeZ
+
+void init_pattern();
+
+void reset_pattern();
+
+void set_pattern_no_angle();
+
+void set_pattern_no_increment();
+
+void set_pattern_no_smooth();
+
+setting
+
+void set_pattern_turbulence(float turbulence) ;
+
+void set_pattern_size(int w, int h);
+
+void set_pattern_range(float min, float max);
+
+void set_pattern_increment(float x, float y, float z);
+
+void set_pattern_smooth(float smooth);
+
+void set_pattern_angle(float a_x, float a_y, float a_z);
+
+void set_pattern_period(float x, float y);
+
+build
+
+PGraphics pattern_rand(int w, int h);
+
+PGraphics pattern_rand_xyz(int w, int h);
+
+PGraphics pattern_noise(int w, int h);
+
+PGraphics pattern_noise_xyz(int w, int h);
+
+PGraphics pattern_img(PImage src, int w, int h);
+
+PGraphics pattern_marble_brightness(PImage src, int w, int h);
+
+PGraphics pattern_marble_rgb(PImage src, int w, int h);
+
+PGraphics pattern_marble_hsb(PImage src, int w, int h);
+
+PGraphics pattern_marble(int w, int h);
 
 
 
