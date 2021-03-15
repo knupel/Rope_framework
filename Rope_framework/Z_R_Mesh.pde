@@ -1,7 +1,7 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.3.2
+* v 0.4.0
 * 2019-2019
 */
 
@@ -725,33 +725,59 @@ class R_Plane {
 
 /**
 * R_Face
-* v 0.0.4
+* v 0.1.0
 */
 public class R_Face {
-	vec3 a,b,c;
-	int fill;
-	int stroke;
-	public R_Face() {}
+	private vec3 [] pts = new vec3[3];
+	private vec3 [] ref = new vec3[3];
+	private int fill;
+	private int stroke;
+	private boolean transform_is;
+
+	public R_Face() {
+		
+		for(int i = 0 ; i < 3 ; i++) {
+			this.pts[i] = new vec3();
+			// this.ref[i] = new vec3();
+		}
+	}
 
 	public R_Face(vec3 a, vec3 b, vec3 c) {
-		this.a = a;
-		this.b = b;
-		this.c = c;
+		pts = new vec3[3];
+		this.pts[0] = new vec3(a);
+		this.pts[1] = new vec3(b);
+		this.pts[2] = new vec3(c);
+		// for(int i = 0 ; i < 3 ; i++) {
+		// 	this.ref[i] = new vec3(this.pts[i]);
+		// }
 	}
 
 	public void set(vec3 a, vec3 b, vec3 c) {
-		this.a = a;
-		this.b = b;
-		this.c = c;
+		this.pts[0].set(a);
+		this.pts[1].set(b);
+		this.pts[2].set(c);
+		// for(int i = 0 ; i < 3 ; i++) {
+		// 	this.ref[i] = new vec3(this.pts[i]);
+		// }
 	}
 
 
 	public vec3 [] get() {
-		vec3 [] summits = new vec3[3];
-		summits[0] = a;
-		summits[1] = b;
-		summits[2] = c;
-		return summits;
+		return pts;
+	}
+
+
+
+	public R_Face copy() {
+		return new R_Face(this.pts[0],this.pts[1],this.pts[2]);
+	}
+
+	public vec3 barycenter() {
+		vec3 sum = vec3();
+  	for(int i = 0 ; i < 3 ; i++) {
+    	sum.add(pts[i]);
+  	}
+  	return sum.div(3) ;
 	}
 
 	void set_fill(int fill) {
@@ -770,13 +796,39 @@ public class R_Face {
 		return this.stroke;
 	}
 
+	private void set_ref(int index) {
+		if(ref[index] == null) {
+			ref[index] = new vec3(pts[index]);
+		} else {
+			ref[index].set(pts[index]);
+		}
+	}
+
+	public void offset(float value) {
+		offset(vec3(value));
+	}
+
+	public void offset(vec3 value) {
+		transform_is = true;
+		for(int i = 0 ; i < 3 ; i++) {
+			set_ref(i);
+    	pts[i].add(value);
+  	}
+	}
+
 	public void show() {
 		beginShape();
-		vertex(a);
-		vertex(b);
-		vertex(c);
-		vertex(a); // close
+		vertex(pts[0]);
+		vertex(pts[1]);
+		vertex(pts[2]);
+		vertex(pts[0]); // close
 		endShape();
+		if(transform_is) {
+			transform_is = false;
+			for(int i = 0 ; i < pts.length ; i++) {
+				pts[i].set(ref[i]);
+			}
+		}
 	}
 }
 
