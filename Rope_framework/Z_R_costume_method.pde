@@ -6,10 +6,12 @@
 * @see https://github.com/StanLepunK/Rope_framework
 */
 import rope.costume.R_Circle;
+import rope.costume.R_House;
 import rope.costume.R_Bezier;
 import rope.costume.R_Star;
 import rope.costume.R_Virus;
 import rope.costume.R_Line2D;
+import rope.costume.R_Icosahedron;
 
 
 /**
@@ -1018,7 +1020,7 @@ void load_costume_pic(String path) {
 /**
 house method
 */
-House house_costume_rope;
+R_House house_costume_rope;
 void house(vec3 size) {
 	house(size,null);
 }
@@ -1030,7 +1032,7 @@ void house(vec3 size, PGraphics other) {
 		house_costume_rope.show();
 	} else {
 		//house_costume_rope = new House();
-		house_costume_rope = new House(this);
+		house_costume_rope = new R_House(this);
 	}
 }
 
