@@ -7,9 +7,68 @@
 *
 */
 
+	
 
 
 
+PGraphics pg;
+void setup() {
+  size(400,400,P2D);
+	pg = createGraphics(200,200,P2D);
+}
+
+
+
+void draw() {
+  background(255);
+  method_costume();
+	// pg.beginDraw();
+	// pg.background(255,0,0);
+	// method_costume_pgraphics(pg);
+	// pg.endDraw();
+	
+  method_costume_with_class_Costume();
+	image(pg,0,0);
+}
+
+
+void method_costume() {
+  vec2 pos = vec2(mouseY,mouseX);
+  int diam = width;
+  costume(pos,vec2(diam),r.FLOWER);
+}
+
+void method_costume_pgraphics(PGraphics other) {
+  vec2 pos = vec2(mouseX/2,mouseY/2);
+  int diam = width;
+  costume(pos, vec2(diam), r.FLOWER, other);
+}
+
+
+void method_costume_with_class_Costume() {
+  vec2 pos = vec2(mouseX,mouseY);
+  int diam = width;
+  R_Costume flower = new R_Costume(this, r.FLOWER);
+  // flower.set_type(r.FLOWER);
+  flower.set_summit(12);
+  costume(pos,vec2(diam),flower);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 // import rope.costume.R_Icosahedron;
 import rope.mesh.R_Face;
 
@@ -85,4 +144,4 @@ void show_other_poly() {
 	polyhedron("TETRAHEDRON", LINE, radius);
 	polyhedron("TETRAHEDRON", POINT, radius);
 }
-
+*/
