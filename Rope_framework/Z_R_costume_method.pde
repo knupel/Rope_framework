@@ -143,6 +143,7 @@ void costume(vec pos, vec size, vec rotation, Object data, PGraphics pg) {
 managing costume rope method
 */
 void costume_management(vec pos, vec size, vec rotation, int which_costume, String sentence, PGraphics pg) {
+				
 	vec3 pos_final = vec3(0) ;
 	vec3 size_final = vec3(1) ;
 	if((pos instanceof vec2 || pos instanceof vec3) 
@@ -165,7 +166,7 @@ void costume_management(vec pos, vec size, vec rotation, int which_costume, Stri
 			size_final.set(temp_size);
 		}
 		//send
-		if(sentence == null ) {
+		if(sentence == null) {
 			costume_impl(pos_final,size_final,rotation,which_costume,pg);
 		} else {
 			costume_impl(pos_final,size_final,rotation,sentence,pg);
@@ -193,12 +194,22 @@ void costume_impl(vec3 pos, vec3 size, vec rot, String sentence, PGraphics pg) {
 	if(rot.x != 0) costume_rotate_x();
 	if(rot.y != 0) costume_rotate_y();
 	if(rot.z != 0) costume_rotate_z();
-	push(pg);
-	translate(pos,pg);
-	costume_rotate(rot,pg);
-	textSize(size.x());
-	text(sentence,0,0,pg);
-	pop(pg);
+	if(pg == null) {
+		println("je suis là");
+		push();
+		translate(pos);
+		costume_rotate(rot);
+		textSize(size.x());
+		text(sentence,0,0);
+		pop();
+	} else {
+		push(pg);
+		translate(pos,pg);
+		costume_rotate(rot,pg);
+		textSize(size.x());
+		text(sentence,0,0,pg);
+		pop(pg);
+	}
 }
 
 /**
@@ -212,7 +223,6 @@ void costume_impl(vec3 pos, vec3 size, vec rot, int which_costume, PGraphics pg)
 		costume_rope_buffer.set_type(which_costume);
 	}
 	if(pg != null) {
-		// println("pg ok");
 		costume_rope_buffer.pass_graphic(pg);
 	}
 	costume_rope_buffer.show(pos,size,rot);
