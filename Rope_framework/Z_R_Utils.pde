@@ -1,6 +1,6 @@
 /**
 * Rope UTILS 
-* v 1.64.6
+* v 1.64.7
 * Copyleft (c) 2014-2021
 * Rope – Romanesco Processing Environment – 
 * @author @stanlepunk
@@ -933,7 +933,7 @@ class R_Data_Input {
 
 /*
 * FOLDER PART
-* v 1.0.1
+* v 1.0.2
 * 2017-2021
 */
 R_Folder rope_folder;
@@ -988,6 +988,18 @@ void rope_select_folder(File selection) {
 	}
 }
 
+void reset_folder() {
+	rope_folder.reset_folder();
+}
+
+boolean folder_is() {
+	return rope_folder.folder_is();
+}
+
+String [] get_files_sort() {
+	return rope_folder.get_files_sort();
+}
+
 
 
 
@@ -995,7 +1007,7 @@ void rope_select_folder(File selection) {
 /**
 * Class R_Folder
 * 2021-2021
-* v 0.0.2
+* v 0.0.3
 */
 public class R_Folder {
 	private String selected_path_folder = null;
@@ -1022,8 +1034,12 @@ public class R_Folder {
 		return explore_subfolder_is;
 	}
 
-	private void reset_folder() {
+	public void reset_folder() {
 		folder_selected_is = false;
+	}
+
+	public boolean folder_is() {
+		return folder_selected_is;
 	}
 
 	public String folder() {
@@ -1042,7 +1058,7 @@ public class R_Folder {
 		return files ;
 	}
 
-	private String [] get_files_sort() {
+	public String [] get_files_sort() {
 		if(files != null) {
 			String [] list = new String [files.size()];
 			for(int i = 0 ; i < get_files().size() ; i++) {
