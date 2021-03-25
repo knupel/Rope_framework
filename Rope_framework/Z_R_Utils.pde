@@ -1,6 +1,6 @@
 /**
 * Rope UTILS 
-* v 1.64.7
+* v 1.65.0
 * Copyleft (c) 2014-2021
 * Rope – Romanesco Processing Environment – 
 * @author @stanlepunk
@@ -415,7 +415,7 @@ class Constant_list {
 * v 0.8.1
 */
 String warning_input_file_folder_message = "Window was closed or the user hit cancel.";
-String warning_input_file_not_accepted = ANSI_RED+"This file don't match with any extension accepted:"+ANSI_WHITE;
+String warning_input_file_not_accepted = "\u001B[31mThis file don't match with any extension accepted:\u001B[37m";
 
 
 String [] input_type = {  "default",
@@ -466,7 +466,7 @@ void print_extension_filter(String type) {
 					break;
 				}
 				if(count == input_type.length) {
-					printErr(ANSI_RED+"method print_extension_filter(): no input available for this type:"+ANSI_WHITE,type);
+					printErr(r.ANSI_RED+"method print_extension_filter(): no input available for this type:"+r.ANSI_WHITE,type);
 				}
 			}
 		}
@@ -698,7 +698,7 @@ class R_Input {
 		boolean apply_filter_is = true;
 		if(context.equals(P3D) || context.equals(P2D) || context.equals(FX2D)) {
 			apply_filter_is = false;
-			println(ANSI_RED+"WARNING:"+ANSI_WHITE+" method select_input(String type) cannot apply filter extension"+ANSI_RED,type,ANSI_WHITE+"\nin this renderer context"+ANSI_RED, context,ANSI_WHITE+"instead classic method selectInput() is used");
+			println(r.ANSI_RED+"WARNING:"+r.ANSI_WHITE+" method select_input(String type) cannot apply filter extension"+r.ANSI_RED,type,r.ANSI_WHITE+"\nin this renderer context"+r.ANSI_RED, context,r.ANSI_WHITE+"instead classic method selectInput() is used");
 		}
 
 		if(!apply_filter_is) {
@@ -1921,31 +1921,11 @@ vec4 array_to_vec4_rgba(float... f) {
 print
 v 0.3.0
 */
-public static final String ANSI_RESET = "\u001B[0m";
-public static final String ANSI_BLACK = "\u001B[30m";
-public static final String ANSI_RED = "\u001B[31m";
-public static final String ANSI_GREEN = "\u001B[32m";
-public static final String ANSI_YELLOW = "\u001B[33m";
-public static final String ANSI_BLUE = "\u001B[34m";
-public static final String ANSI_PURPLE = "\u001B[35m";
-public static final String ANSI_CYAN = "\u001B[36m";
-public static final String ANSI_WHITE = "\u001B[37m";
-/**
-* System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
-*/
 
-public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
-public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
-public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
-public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
-public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 /**
-* System.out.println(ANSI_GREEN_BACKGROUND + "This text has a green background but default text!" + ANSI_RESET);
-* System.out.println(ANSI_RED + "This text has red text but a default background!" + ANSI_RESET);
-* System.out.println(ANSI_GREEN_BACKGROUND + ANSI_RED + "This text has a green background and red text!" + ANSI_RESET);
+* System.out.println(r.ANSI_GREEN_BACKGROUND + "This text has a green background but default text!" + r.ANSI_RESET);
+* System.out.println(r.ANSI_RED + "This text has red text but a default background!" + r.ANSI_RESET);
+* System.out.println(r.ANSI_GREEN_BACKGROUND + r.ANSI_RED + "This text has a green background and red text!" + r.ANSI_RESET);
 */
 // print Err
 void printErr(Object... obj) {

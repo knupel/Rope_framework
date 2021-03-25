@@ -1,14 +1,13 @@
 /**
 * ROPE PROCESSING METHOD
-* v 2.8.0
-* Copyleft (c) 2014-2019
+* v 2.8.1
+* Copyleft (c) 2014-2021
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Processing 3.5.3.269
 * Rope library 0.8.5.30
 */
-import rope.core.R_Image;
 import rope.costume.R_Shape;
 
 /**
