@@ -289,7 +289,6 @@ void set(int x, int y, int c, PGraphics other) {
   if(other != null) {
     set_buffer_shape(other);
     buffer_rope_framework.set(x,y,c);
-    // buffer_rope_framework.set(x,y,c,other);
   } else {
     set(x,y,c);
   }
