@@ -1,7 +1,7 @@
 /**
-ROPE GLSL METHOD
-v 0.0.6
-* Copyleft (c) 2019-2019
+* ROPE GLSL METHOD
+* v 0.0.7
+* Copyleft (c) 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -473,7 +473,7 @@ boolean all(bvec2 b) {
     }
     return result;
   } else {
-    printErr("method all(bvec2 b) return false because argument is",b);
+    print_err("method all(bvec2 b) return false because argument is",b);
     return false;
   }
 }
@@ -490,7 +490,7 @@ boolean all(bvec3 b) {
     }
     return result;
   } else {
-    printErr("method all(bvec3 b) return false because argument is",b);
+    print_err("method all(bvec3 b) return false because argument is",b);
     return false;
   }
 }
@@ -507,7 +507,7 @@ boolean all(bvec4 b) {
     }
     return result;
   } else {
-    printErr("method all(bvec4 b) return false because argument is",b);
+    print_err("method all(bvec4 b) return false because argument is",b);
     return false;
   }
 }
@@ -524,7 +524,7 @@ boolean all(bvec5 b) {
     }
     return result;
   } else {
-    printErr("method all(bvec5 b) return false because argument is",b);
+    print_err("method all(bvec5 b) return false because argument is",b);
     return false;
   }
 }
@@ -541,7 +541,7 @@ boolean all(bvec6 b) {
     }
     return result;
   } else {
-    printErr("method all(bvec6 b) return false because argument is",b);
+    print_err("method all(bvec6 b) return false because argument is",b);
     return false;
   }
 }
@@ -564,7 +564,7 @@ boolean any(bvec2 b) {
     }
     return result;
   } else {
-    printErr("method any() return false because argument is",b);
+    print_err("method any() return false because argument is",b);
     return false;
   }
 }
@@ -581,7 +581,7 @@ boolean any(bvec3 b) {
     }
     return result;
   } else {
-    printErr("method any() return false because argument is",b);
+    print_err("method any() return false because argument is",b);
     return false;
   }
 }
@@ -598,7 +598,7 @@ boolean any(bvec4 b) {
     }
     return result;
   } else {
-    printErr("method any() return false because argument is",b);
+    print_err("method any() return false because argument is",b);
     return false;
   }
 }
@@ -615,7 +615,7 @@ boolean any(bvec5 b) {
     }
     return result;
   } else {
-    printErr("method any() return false because argument is",b);
+    print_err("method any() return false because argument is",b);
     return false;
   }
 }
@@ -632,7 +632,7 @@ boolean any(bvec6 b) {
     }
     return result;
   } else {
-    printErr("method any() return false because argument is",b);
+    print_err("method any() return false because argument is",b);
     return false;
   }
 }

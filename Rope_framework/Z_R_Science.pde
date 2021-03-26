@@ -45,7 +45,7 @@ float random_gaussian(float value, float range) {
   /*
   * It's cannot possible to indicate a value result here, this part need from the coder ?
   */
-  printErrTempo(240,"float random_gaussian(); method must be improved or totaly deprecated");
+  print_err_tempo(240,"float random_gaussian(); method must be improved or totaly deprecated");
   range = abs(range) ;
   float distrib = random(-1, 1) ;
   float result = 0 ;
@@ -460,13 +460,13 @@ v 0.0.2
 // Target direction return the normal direction of the target from the origin
 @Deprecated
 vec2 target_direction(vec2 target, vec2 my_position) {
-  printErrTempo(240, "vec2 target_direction() deprecated instead use look_at(vec target, vec origin) method, becareful the result is mult by -1");
+  print_err_tempo(240, "vec2 target_direction() deprecated instead use look_at(vec target, vec origin) method, becareful the result is mult by -1");
   return projection(target, my_position, 1).sub(my_position);
 }
 
 @Deprecated
 vec3 target_direction(vec3 target, vec3 my_position) {
-   printErrTempo(240, "vec2 target_direction() deprecated instead use look_at(vec target, vec origin) method, becareful the result is mult by -1");
+   print_err_tempo(240, "vec2 target_direction() deprecated instead use look_at(vec target, vec origin) method, becareful the result is mult by -1");
   return projection(target, my_position, 1).sub(my_position) ;
 }
 

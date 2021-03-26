@@ -19,22 +19,6 @@ the idea here is create method directly insprating from Processing to simplify t
 */
 
 /**
-* colorMode(vec5 color_component)
-* @param component give in order : mode, x, y, z and alpha
-*/
-/*
-void colorMode(vec5 component) {
-  int mode = (int)component.a();
-  if(mode == HSB) {
-    colorMode(HSB,component.b(),component.c(),component.d(),component.e());
-  } else if(mode == RGB) {
-    colorMode(RGB,component.b(),component.c(),component.d(),component.e());
-  } else {
-    printErr("The first component of your vec is", mode, "and don't match with any Processing colorMode, instead the current colorMode will be used");
-  }
-}
-*/
-/**
 * colorMode(int mode, vec4 color_component)
 * @param mode give environment HSB or RGB
 * @param color_component give in order : x, y, z and alpha
@@ -45,7 +29,7 @@ void colorMode(int mode, vec4 component) {
   } else if(mode == RGB) {
     colorMode(RGB,component.x(),component.y(),component.z(),component.w());
   } else {
-    printErr("int mode", mode, "don't match with any Processing colorMode, instead the current colorMode will be used");
+    print_err("int mode", mode, "don't match with any Processing colorMode, instead the current colorMode will be used");
   }
 }
 /**
@@ -930,7 +914,7 @@ void bezierVertex(vec a, vec b, vec c) {
       bezierVertex(a.x(),a.y(), b.x(),b.y(), c.x(),c.y());
     }    
   } else {
-    printErr("method bezierVertex() all arg need to be vec2 or vec3");
+    print_err("method bezierVertex() all arg need to be vec2 or vec3");
     exit();
   }
 }
@@ -1000,7 +984,7 @@ void quadraticVertex(vec a, vec b) {
       quadraticVertex(a.x(),a.y(), b.x(),b.y());
     } 
   } else {
-    printErr("method quadraticVertex() all arg need to be vec2 or vec3");
+    print_err("method quadraticVertex() all arg need to be vec2 or vec3");
     exit();
   }
 }
@@ -1394,7 +1378,7 @@ void text(String s, vec pos, PGraphics other) {
     vec3 p = (vec3)pos;
     text(s, p.x(),p.y(),p.z(), other);
   } else {
-    printErrTempo(60,"method text(): String message is null or vec is not an instance of vec3 or vec2");
+    print_err_tempo(60,"method text(): String message is null or vec is not an instance of vec3 or vec2");
   }
 }
 
@@ -1641,8 +1625,7 @@ void push_3D(vec pos, vec3 dir_cart) {
     vec3 p = (vec3) pos ;
     translate(p) ;
   } else {
-    printErr("Error in void push_3D(), vec pos is not an instance of vec2 or vec3, the matrix don't translate your object") ;
-    // exit() ;
+    print_err("Error in void push_3D(), vec pos is not an instance of vec2 or vec3, the matrix don't translate your object") ;
   }
   float radius = sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z);
   float longitude = acos(dir.x / sqrt(dir.x * dir.x + dir.y * dir.y)) * (dir.y < 0 ? -1 : 1);
@@ -1667,7 +1650,7 @@ void push_3D(vec pos, vec2 dir_polar) {
     translate(p);
     rotateXY(dir_polar);
   } else {
-    printErr("Error in void push_3D(), vec pos is not an instance of vec2 or vec3, the matrix cannot be init") ;
+    print_err("Error in void push_3D(), vec pos is not an instance of vec2 or vec3, the matrix cannot be init") ;
   }
 }
 
@@ -1683,7 +1666,7 @@ void push_2D(vec pos, float orientation) {
     translate(p.x, p.y);
     rotate(orientation);
   } else {
-    printErr("Error in void push_3D(), vec pos is not an instance of vec2 or vec3, the matrix cannot be init") ;
+    print_err("Error in void push_3D(), vec pos is not an instance of vec2 or vec3, the matrix cannot be init") ;
   }
 }
 

@@ -25,7 +25,6 @@ void setup() {
 	rope_version();
   size(600,600,P3D);
 	background(r.SANG);
-	// print_list_costume();
 
 	icosahedron = new R_Icosahedron(this, radius);
 	printArray(icosahedron.get_ref_points());
@@ -42,19 +41,19 @@ void draw() {
 	// strokeWeight(thickness);
 	strokeWeight(2);
 
-  // pushMatrix();
-	// translate(width/2, height/2);
-	// rotateX(frameCount*PI/185);
-	// rotateY(frameCount*PI/-200);
-	// show_icosahedron_by_face(size, distance);
-	// popMatrix();
-	// // LE COEUR
-	// pushMatrix();
-	// translate(width/2, height/2);
-	// rotateX(frameCount * 0.01);
-	// rotateY(frameCount* 0.02);
-	// show_icosahedron_direct(radius);
-	// popMatrix();
+  pushMatrix();
+	translate(width/2, height/2);
+	rotateX(frameCount*PI/185);
+	rotateY(frameCount*PI/-200);
+	show_icosahedron_by_face(size, distance);
+	popMatrix();
+	// LE COEUR
+	pushMatrix();
+	translate(width/2, height/2);
+	rotateX(frameCount * 0.01);
+	rotateY(frameCount* 0.02);
+	show_icosahedron_direct(radius);
+	popMatrix();
 	show_icosahedron_direct(radius);
 }
 
@@ -82,12 +81,4 @@ void show_icosahedron_direct(float size) {
 	icosahedron.show();
 }
 
-void show_other_poly() {
-	polyhedron("TRUNCATED DODECAHEDRON", VERTEX, 100);
-	polyhedron("RHOMBIC DODECAHEDRON", VERTEX, 100);
-
-	polyhedron("TETRAHEDRON", VERTEX, radius);
-	polyhedron("TETRAHEDRON", LINE, radius);
-	polyhedron("TETRAHEDRON", POINT, radius);
-}
 
