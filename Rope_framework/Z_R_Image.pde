@@ -37,7 +37,8 @@ int entry(PGraphics pg, vec2 pos, boolean constrain_is) {
 
 int entry(PGraphics pg, float x, float y, boolean constrain_is) {
   //int max = pg.pixels.length;
-  int rank = (int)y * pg.width + (int)x;
+  // int rank = (int)y * pg.width + (int)x;
+  int rank = index_pixel_array((int)x, (int)y, pg.width);
   return entry(pg, rank, constrain_is);
 }
 

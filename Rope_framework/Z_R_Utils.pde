@@ -22,7 +22,7 @@ import processing.pdf.*;
 
 
 /**
-* pixel larray
+* pixel array
 */
 int index_pixel_array(int x, int y, int w) {
 	return (x + y * w);
