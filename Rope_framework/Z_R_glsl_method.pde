@@ -546,6 +546,22 @@ boolean all(bvec6 b) {
   }
 }
 
+/**
+  * 
+  * @param list
+  * @return true if all elments of the list is true
+  */
+public boolean all(boolean ...list) {
+  boolean result = true;
+  for(int i = 0 ; i < list.length ; i++) {
+    if(list[i] == false) {
+      result = false;
+      break;
+    }
+  }
+  return result;
+}
+
 
 
 
@@ -635,4 +651,19 @@ boolean any(bvec6 b) {
     print_err("method any() return false because argument is",b);
     return false;
   }
+}
+/**
+* 
+* @param list
+* @return return true if any element of the list is true
+*/
+public boolean any(boolean ...list) {
+  boolean result = false;
+  for(int i = 0 ; i < list.length ; i++) {
+    if(list[i] == true) {
+      result = true;
+      break;
+    }
+  }
+  return result;
 }

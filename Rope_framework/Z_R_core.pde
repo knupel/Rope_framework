@@ -90,14 +90,16 @@ public vec2 get_scroll() {
 	}
 }
 
-/**
-add for the future
-import java.awt.event.MouseWheelEvent;
-void mouseWheelMoved(MouseWheelEvent e) {
-  println(e.getWheelRotation());
-  println(e.getScrollType());
-  println(MouseWheelEvent.WHEEL_UNIT_SCROLL);
-  println(e.getScrollAmount());
-  println(e.getUnitsToScroll());
-}
-*/
+
+// add for the future
+// https://www.javaexamples.org/java/java.awt.event/mousewheelmoved-in-mousewheellistener.html
+// import java.awt.event.MouseWheelEvent;
+// import java.awt.event.MouseWheelListener;
+// void mouseWheelMoved(MouseWheelEvent e) {
+//   println(e.getWheelRotation());
+//   println(e.getScrollType());
+//   println(MouseWheelEvent.WHEEL_UNIT_SCROLL);
+//   println(e.getScrollAmount());
+//   println(e.getUnitsToScroll());
+// }
+

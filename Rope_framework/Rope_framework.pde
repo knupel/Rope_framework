@@ -10,75 +10,79 @@
 
 
 
+import rope.core.R_Graphic;
+import rope.R_State.State;
 
 
+/**
+* Crope Palette exemple
+* Processing 3.5.4
+* Rope library 0.12.1.41
+* v 0.1.0
+* 2021-2021
+*/
 
 
-
-// import rope.costume.R_Icosahedron;
-import rope.mesh.R_Face;
-
-R_Icosahedron icosahedron;
-int radius = 100;
+PShader shader;
+PGraphics pg;
+int px;
+int py;
+int sx;
+int sy;
 
 void setup() {
-	rope_version();
-  size(600,600,P3D);
-	background(r.SANG);
+  px = 30;
+  py = 30;
+  sx = width - 2 *px;
+  sy = height - 2 *py;
+	// only in P2D or P3D
+  size(400, 400, P2D);
+  pg = createGraphics(sx, sy, P2D);
+  shader = loadShader("shader/fx_color/gradient.glsl");
 
-	icosahedron = new R_Icosahedron(this, radius);
-	printArray(icosahedron.get_ref_points());
-	printArray(icosahedron.get_points());
-	
 }
 
 
 void draw() {
-  if(!mousePressed) background(r.SANG);
-	float thickness = map(sin(frameCount * 0.003),-1,1,0.1,10);
-	float size = map(sin(frameCount * 0.005),-1,1,radius -10,radius +10);
-	float distance = map(sin(frameCount * 0.01),-1,1, 0.1f,1.15f);
-	// strokeWeight(thickness);
-	strokeWeight(2);
+  background(0);
+  float arg = constrain(map(mouseX,0,width,0,1),0,1);
+  
+  // gradiant spectrum color
+  shader.set("min_hue",0.5);
+  shader.set("max_hue",1.0);
 
-  pushMatrix();
-	translate(width/2, height/2);
-	rotateX(frameCount*PI/185);
-	rotateY(frameCount*PI/-200);
-	show_icosahedron_by_face(size, distance);
-	popMatrix();
-	// LE COEUR
-	pushMatrix();
-	translate(width/2, height/2);
-	rotateX(frameCount * 0.01);
-	rotateY(frameCount* 0.02);
-	show_icosahedron_direct(radius);
-	popMatrix();
-	show_icosahedron_direct(radius);
+  // gradient hue
+  shader.set("hue",arg);
+  shader.set("start_sat",0.7);
+  shader.set("min_sat",0.0);
+  shader.set("max_sat",1.0);
+
+  shader.set("start_bri",0.9);
+  shader.set("min_bri",0.0);
+  shader.set("max_bri",1.0);
+
+  // direction of the gradient
+  shader.set("vert_is",false);
+  // shader.set("mode",1);
+
+  // noStroke();
+  pg.shader(shader);
+  pg.beginDraw();
+  pg.rect(0,0,sx,sy,0);
+  // pg.beginShape();
+  // pg.vertex(0,0); // top left
+  // pg.vertex(sx,0); // top right
+  // pg.vertex(sx, sy); // bottom left
+  // pg.vertex(0, sy); // bottom right
+  // pg.endShape();
+  pg.endDraw();
+  image(pg,px,py);
+
+
+  ellipse(mouseX,mouseY, 50,50);
+
 }
 
-void show_icosahedron_by_face(float size, float dist) {
-	icosahedron.size(size);
-	icosahedron.update();
-	R_Face [] faces = icosahedron.get_faces().toArray(new R_Face[0]);
-	vec3 [] normals = icosahedron.get_normals().toArray(new vec3[0]);
-	for(int i = 0 ; i < faces.length ; i++) {
-		normals[i].mult(dist);
-		faces[i].offset(normals[i]);
-		faces[i].show();
-	}
-}
 
-
-void show_icosahedron_direct(float size) {
-	icosahedron.type(VERTEX);
-	// icosahedron.type(POINT);
-	vec3 angle = vec3().wave(frameCount,0.01,0.02,0.03);
-	icosahedron.angle(angle);
-	icosahedron.pos(width/2, height/2,0);
-	icosahedron.size(size);
-	icosahedron.update();
-	icosahedron.show();
-}
 
 

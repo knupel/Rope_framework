@@ -1919,7 +1919,7 @@ vec4 array_to_vec4_rgba(float... f) {
 
 /**
 print
-v 0.3.0
+v 0.4.0
 */
 
 /**
@@ -1927,9 +1927,6 @@ v 0.3.0
 * System.out.println(r.ANSI_RED + "This text has red text but a default background!" + r.ANSI_RESET);
 * System.out.println(r.ANSI_GREEN_BACKGROUND + r.ANSI_RED + "This text has a green background and red text!" + r.ANSI_RESET);
 */
-// print Err
-
-
 void print_err(Object... obj) {
 	System.err.println(write_message(obj));
 	System.err.flush();
@@ -1937,7 +1934,7 @@ void print_err(Object... obj) {
 
 // print tempo
 void print_err_tempo(int tempo, Object... obj) {
-	if(frameCount%tempo == 0 || frameCount <= 1) {
+	if(System.currentTimeMillis()%tempo == 0) {
 		String message = write_message(obj);
 		System.err.println(message);
 		System.err.flush();
@@ -1945,7 +1942,7 @@ void print_err_tempo(int tempo, Object... obj) {
 }
 
 void print_tempo(int tempo, Object... obj) {
-	if(frameCount%tempo == 0 || frameCount <= 1) {
+	if(System.currentTimeMillis()%tempo == 0) {
 		String message = write_message(obj);
 		println(message);
 	}
@@ -1953,25 +1950,25 @@ void print_tempo(int tempo, Object... obj) {
 
 
 void print_array_tempo(int tempo, Object[] obj) {
-	if(frameCount%tempo == 0 || frameCount <= 1) {
+	if(System.currentTimeMillis()%tempo == 0) {
 		printArray(obj);
 	}
 }
 
 void print_array_tempo(int tempo, float[] arg) {
-	if(frameCount%tempo == 0 || frameCount <= 10) {
+	if(System.currentTimeMillis()%tempo == 0) {
 		printArray(arg);
 	}
 }
 
 void print_array_tempo(int tempo, int[] arg) {
-	if(frameCount%tempo == 0 || frameCount <= 10) {
+	if(System.currentTimeMillis()%tempo == 0) {
 		printArray(arg);
 	}
 }
 
 void print_array_tempo(int tempo, String[] arg) {
-	if(frameCount%tempo == 0 || frameCount <= 10) {
+	if(System.currentTimeMillis()%tempo == 0) {
 		printArray(arg);
 	}
 }
