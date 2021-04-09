@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.12.0
+*v 0.12.1
 * Copyleft (c) 2016-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
@@ -94,26 +94,41 @@ float camaieu(float max, float reference, float range) {
 
 /**
 * mixer
-* v 0.0.1
+* v 0.0.2
 * mix color together with the normal threshold variation
 */
-int mixer(int o, int d, float threshold) {
+int mixer(int src, int dst, float threshold) {
 	if(g.colorMode == 1) {
-		float x = gradient_value(red(o),red(d),threshold);
-		float y = gradient_value(green(o),green(d),threshold);
-		float z = gradient_value(blue(o),blue(d),threshold);
+		float x = gradient_value(red(src),red(dst),threshold);
+		float y = gradient_value(green(src),green(dst),threshold);
+		float z = gradient_value(blue(src),blue(dst),threshold);
 		return color(x,y,z);
 	} else {
-		float x = gradient_value(hue(o),hue(d),threshold);
-		float y = gradient_value(saturation(o),saturation(d),threshold);
-		float z = gradient_value(brightness(o),brightness(d),threshold);
+		float x = gradient_value(hue(src),hue(dst),threshold);
+		float y = gradient_value(saturation(src),saturation(dst),threshold);
+		float z = gradient_value(brightness(src),brightness(dst),threshold);
 		return color(x,y,z);
 	}
 }
 
-float gradient_value(float origin, float destination, float threshold) {
-	float gradient = origin;
-	float range = origin - destination;
+int mixer_xyza(int src, int dst, float threshold) {
+	float a = gradient_value(alpha(src),alpha(dst),threshold);
+	if(g.colorMode == 1) {
+		float x = gradient_value(red(src),red(dst),threshold);
+		float y = gradient_value(green(src),green(dst),threshold);
+		float z = gradient_value(blue(src),blue(dst),threshold);
+		return color(x,y,z,a);
+	} else {
+		float x = gradient_value(hue(src),hue(dst),threshold);
+		float y = gradient_value(saturation(src),saturation(dst),threshold);
+		float z = gradient_value(brightness(src),brightness(dst),threshold);
+		return color(x,y,z,a);
+	}
+}
+
+float gradient_value(float src, float dst, float threshold) {
+	float gradient = src;
+	float range = src - dst;
 	float power = range * threshold;
 	return gradient - power;
 }

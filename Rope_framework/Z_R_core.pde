@@ -4,7 +4,7 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * ROPE core
-* v 0.2.1.2
+* v 0.2.1.3
 */
 import rope.core.*;
 import rope.vector.*;
@@ -51,11 +51,11 @@ that's cool but that's very weird !!!!!
 */
 Rope r;
 
-String rope_framework_version = "1.4.0.78";
+String rope_framework_version = "1.4.1.79";
 public void rope_version() {
 	r = new Rope();
 	println("Romanesco Processing Environment - 2015-2021");
-	println("Processing: 3.5.3.269");
+	println("Processing: 3.5.4.270");
 	println("Rope library: " +r.VERSION);
   println("Rope framework: " + rope_framework_version);
 }
