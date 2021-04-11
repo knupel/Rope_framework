@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.12.1
+*v 0.12.2
 * Copyleft (c) 2016-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
@@ -94,11 +94,11 @@ float camaieu(float max, float reference, float range) {
 
 /**
 * mixer
-* v 0.0.2
+* v 0.0.3
 * mix color together with the normal threshold variation
 */
 int mixer(int src, int dst, float threshold) {
-	if(g.colorMode == 1) {
+	if(g.colorMode == RGB) {
 		float x = gradient_value(red(src),red(dst),threshold);
 		float y = gradient_value(green(src),green(dst),threshold);
 		float z = gradient_value(blue(src),blue(dst),threshold);
@@ -113,7 +113,7 @@ int mixer(int src, int dst, float threshold) {
 
 int mixer_xyza(int src, int dst, float threshold) {
 	float a = gradient_value(alpha(src),alpha(dst),threshold);
-	if(g.colorMode == 1) {
+	if(g.colorMode == RGB) {
 		float x = gradient_value(red(src),red(dst),threshold);
 		float y = gradient_value(green(src),green(dst),threshold);
 		float z = gradient_value(blue(src),blue(dst),threshold);
