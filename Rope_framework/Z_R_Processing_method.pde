@@ -1,12 +1,10 @@
 /**
 * ROPE PROCESSING METHOD
-* v 2.8.1
+* v 2.9.0
 * Copyleft (c) 2014-2021
-* Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
-* Processing 3.5.3.269
-* Rope library 0.8.5.30
+* Processing 3.5.4.270
 */
 import rope.costume.R_Shape;
 
@@ -1749,7 +1747,7 @@ void pop(PGraphics other) {
 /**
 * GHOST METHODS for PROCESSING
 * 2018-2019
-* v 0.3.0
+* v 0.3.1
 */
 boolean get_layer_is_correct() {
   if(get_layer() != null && get_layer().width > 0 && get_layer().height > 0) {
@@ -1758,6 +1756,20 @@ boolean get_layer_is_correct() {
     return false;
   }
 }
+
+// color
+int color(vec4 xyza) {
+  return color(xyza.x(),xyza.y(),xyza.z(),xyza.a())
+}
+
+int color(vec3 xyz) {
+  return color(xyza.x(),xyza.y(),xyza.z());
+}
+
+int color(vec2 gray) {
+  return color(gray.x(),gray.y());
+}
+
 
 // colorMode
 void colorMode(int mode) {
