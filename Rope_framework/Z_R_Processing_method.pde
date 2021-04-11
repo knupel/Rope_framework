@@ -16,6 +16,44 @@ Processing and vec, ivec and bvec method
 the idea here is create method directly insprating from Processing to simplify the coder life
 */
 
+
+
+/**
+* color
+* WARNING is not possible because the color is a type defin Processing
+* so we use colour instead
+*/
+int colour(vec4 xyza) {
+  return color(xyza.x(),xyza.y(),xyza.z(),xyza.w());
+}
+
+int colour(vec3 xyz) {
+  return color(xyz.x(),xyz.y(),xyz.z());
+}
+
+int colour(vec2 gray) {
+  return color(gray.x(),gray.y());
+}
+
+
+int colour(float gray) {
+  return color(gray,gray,gray);
+}
+
+int colour(float gray, float alpha) {
+  return color(gray,gray,gray, alpha);
+}
+
+int colour(float x, float y, float z) {
+  return color(x,y,z);
+}
+
+int colour(float x, float y, float z, float a) {
+  return color(x,y,z,a);
+}
+
+
+
 /**
 * colorMode(int mode, vec4 color_component)
 * @param mode give environment HSB or RGB
@@ -1757,18 +1795,21 @@ boolean get_layer_is_correct() {
   }
 }
 
-// color
-int color(vec4 xyza) {
-  return color(xyza.x(),xyza.y(),xyza.z(),xyza.a())
-}
+/**
+* color
+* WARNING is not possible because the color is a type defin Processing
+*/
+// int color(vec4 xyza) {
+//   return color(xyza.x(),xyza.y(),xyza.z(),xyza.w());
+// }
 
-int color(vec3 xyz) {
-  return color(xyza.x(),xyza.y(),xyza.z());
-}
+// int color(vec3 xyz) {
+//   return color(xyza.x(),xyza.y(),xyza.z());
+// }
 
-int color(vec2 gray) {
-  return color(gray.x(),gray.y());
-}
+// int color(vec2 gray) {
+//   return color(gray.x(),gray.y());
+// }
 
 
 // colorMode
