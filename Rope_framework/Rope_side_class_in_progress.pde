@@ -381,12 +381,38 @@ public class R_Knob extends R_Button {
     if(molette.length > 1) {
       float ang_b = this.molette[molette.length -1].angle();
       if(clockwise) {
-        print_out(ang_a, ang_b);
+        print_out("clockwise a b", ang_a, ang_b);
         arc(buf_pos,size,ang_a, ang_b, PIE);
         return;
       }
       // clockwise false
-      arc(buf_pos,size,ang_b, ang_a, PIE);
+      print_out("clockwise false b a", ang_b, ang_a);
+      print_out("limit b a", limit.b(), limit.a());
+      boolean upper_is = ang_b < ang_a;
+      boolean big_is = false;
+      boolean zero_a_is = all(ang_a > 0, ang_a < limit.b());
+      boolean zero_b_is = all(ang_b > 0, ang_b < limit.b());
+      boolean zero_is = any(zero_a_is, zero_b_is);
+      if(upper_is && !zero_is && !zero_is) {
+        print_out("upper_is", ang_b, ang_a); // OK
+        arc(buf_pos,size,ang_b, ang_a, PIE);
+        // arc(buf_pos,size,ang_a, ang_b + TAU, PIE);
+        return;
+      }
+
+      if(zero_is) {
+        print_out("zero is", ang_b, ang_a);
+        arc(buf_pos,size,ang_b, ang_a, PIE);
+        return;
+      } 
+
+      if(big_is) {
+        print_out("big is", ang_b, ang_a);
+        arc(buf_pos,size,ang_b, ang_a, PIE);
+        return;
+      } 
+
+      arc(buf_pos,size,ang_a, ang_b, PIE);
       return;
 
     } 

@@ -80,11 +80,16 @@ void set_knob() {
 	// limit the range knob
 	knob.limit(true); // use default value range
 
-	// knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST);
-	// knob.set_limit( r.SOUTH_EAST, r.SOUTH_WEST);
+  // CLOCKWISE
+  // knob.set_limit(0, PI);
+  // knob.set_limit(r.NORTH, r.SOUTH);
+  // knob.set_limit( r.SOUTH_EAST, r.SOUTH_WEST);
 
-	// knob.set_limit(0, PI);
-	// knob.set_limit(PI, 0);
+
+  // CLOCKWISE FALSE
+  // knob.set_limit(PI, 0); // is upper but not good :()
+  // knob.set_limit(r.SOUTH, r.NORTH); // display pie ok
+  knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST); // display pie ok // the upper case is ok
 
 	// colour molette
 	knob.set_align_label_name(LEFT);
