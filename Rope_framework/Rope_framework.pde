@@ -7,48 +7,122 @@
 *
 */
 
-import rope.gui.slider.R_Slider;
-import rope.R_State.State; 
-R_Board board;
 
+// void setup() {
+//   rope_version();
+//   size(800,800,P2D);
+//   State.init(this);
+//   /**
+//   * your code
+//   */
+// }
+
+
+// void draw() {
+//   background(255);
+//   State.pointer(mouseX,mouseY);
+//   State.event(mousePressed, !keyPressed);
+//   /**
+//   * your code
+//   */
+//   State.reset_event();
+// }
+
+
+
+/**
+* GUI CROPE EXAMPLE
+* dependancies
+* Processing 3.5.4
+* 2021-2021
+*
+* Knob example
+* v 0.1.0
+*/
+
+import rope.gui.button.R_Button;
+// import rope.gui.button.R_Knob;
+import rope.R_State.State;
+import rope.vector.vec2;
+import rope.core.Rope;
+import rope.gui.R_Mol;
+
+
+// Rope r = new Rope();
 void setup() {
-  
-  rope_version();
-  size(800,800,P2D);
+  size(200,200);
   State.init(this);
-  vec2 pos = vec2(10);
-  vec2 size = vec2();
-  boolean vert_is = true;
-  board = new R_Board(pos, size, vert_is);
-  
-  float step = 3;
-  vec2 size_button = vec2(20);
-  board.add_button(size_button, step, "machin", "truc", "bidule", "chouette");
-  vec2 size_slider = vec2(100,10);
-  step = 5;
-  board.add_slider(size_slider, step,  "surf", "ski", "planche");
-  
+  set_knob(); 
 }
 
 
 void draw() {
-  background(255);
-  State.pointer(mouseX,mouseY);
-  State.event(mousePressed, !keyPressed);
-  board.update();
-  board.show_structure();
-  board.show_label();
-  board.show_molette();
-  board.show_value();
-  
-  if(any(State.bang())) {
-    println(State.bang(),frameCount);
-  }
-  
-  State.reset_event();
+	background(255);
+	State.pointer(mouseX,mouseY);
+	State.event(mousePressed);
+	draw_knob();
+	State.reset_event();
+}
+
+R_Knob knob ;
+void set_knob() {
+	knob = new R_Knob(new vec2(20),100);
+	knob.set_rollover_type(RECT);
+	
+	knob.set_value(0.45, 0.3);
+
+	knob.set_size_mol(10);
+	knob.set_dist_mol(knob.size().x() * 0.5);
+	knob.set_type_mol(RECT);
+
+	knob.set_dist_guide(knob.size().x() * 0.65);
+
+	// limit the range knob
+	knob.limit(true); // use default value range
+
+	// knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST);
+	// knob.set_limit( r.SOUTH_EAST, r.SOUTH_WEST);
+
+	// knob.set_limit(0, PI);
+	// knob.set_limit(PI, 0);
+
+	// colour molette
+	knob.set_align_label_name(LEFT);
+	knob.set_align_label_value(LEFT);
+	knob.set_label("Turn me please");
+	float pos_info = 25;
+
+	knob.set_drag_force(0.05);
+
+	R_Mol [] list = knob.get_mol();
+	for(int i = 0 ; i < list.length ; i++) {
+		println("mol pos",list[i].pos());
+	}
 
 }
 
+
+void draw_knob() {
+	knob.update();
+	// knob.update(mouseX,mouseY);
+	// knob.select(mousePressed);
+	// knob.select(keyPressed); // by default is mousePressed
+	// knob.update(mouseX,mouseY,keyPressed);
+	//knob.update(mouseX,mouseY,mousePressed,keyPressed);
+	knob.rollover(true);
+
+
+	knob.show_label();
+	knob.show_struc();
+	knob.show_struc_pie();
+	knob.show_mol();
+	knob.show_value();
+	knob.show_limit();
+	knob.show_guide();
+  
+  // println("knob value", knob.get());
+	// println("knob value", knob.get()%TAU);
+}
 
 
 
