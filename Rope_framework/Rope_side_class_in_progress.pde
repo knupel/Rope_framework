@@ -733,9 +733,10 @@ public class R_Knob extends R_Button {
     
     // print_out("LIMA LIMB",lim_a, lim_b);
     print_out("DIFA DIFB",diff_a, diff_b, diff);
-    print_out("pffff",angle -PI, diff / 2, (angle -PI) < diff / 2);
+    boolean test = (angle -PI) < (diff / 2);
+    print_out("angle -PI :::  diff / 2 ::: test", angle -PI, diff / 2, test);
     if(upper_is) {
-      if(clockwise && !((angle -PI) < diff / 2) ) 
+      if(all(clockwise,!test)) 
         return lim_a;
       // float diff_lim = abs(lim_a - lim_b) / 2 ;
       // float diff_tau = abs(TAU - angle);

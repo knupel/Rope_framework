@@ -81,9 +81,9 @@ void set_knob() {
 	knob.limit(true); // use default value range
 
   // CLOCKWISE
-  // knob.set_limit(0, PI);
+  knob.set_limit(0, PI);
 	// knob.set_limit(PI, TAU); 
- 	knob.set_limit(r.SOUTH, r.NORTH); // BUG LIMIT
+ 	// knob.set_limit(r.SOUTH, r.NORTH); // BUG LIMIT
 	// knob.set_limit( r.SOUTH_EAST, r.SOUTH_WEST); 
   // knob.set_limit(r.NORTH_WEST, r.NORTH_EAST); // BUG LIMIT
 	// knob.set_limit(r.NORTH_EAST, r.SOUTH_EAST); 
