@@ -19,12 +19,15 @@ import rope.R_State.State;
 import rope.gui.R_Mol;
 import rope.vector.bvec2;
 import rope.vector.vec2;
+import rope.vector.vec3;
 
 public class R_Knob extends R_Button {
   protected R_Mol [] molette;
   protected R_Mol guide;
   // angle start and end for the limit knob
-  protected vec2 limit;
+  // protected vec2 limit;
+  protected vec3 limit;
+  private vec2 size_limit = new vec2(-3,3);
   protected boolean clockwise = true;
   private float threshold = 0.1f;
 
@@ -38,7 +41,6 @@ public class R_Knob extends R_Button {
 
   private int drag_direction = CIRCULAR;
   private float drag_force = 0.1f;
-  private vec2 size_limit = new vec2(-3,3);
   
   public R_Knob(vec2 pos, float size) {
     
@@ -90,22 +92,92 @@ public class R_Knob extends R_Button {
    * @param angle_b
    * @return
    */
-  public R_Knob set_limit(float angle_a, float angle_b) {
-    angle_a = to_2pi(angle_a);
-    angle_b = to_2pi(angle_b);
+  public R_Knob set_limit(float angle_x, float angle_y) {
+    print_out("-------------------------------------");
+    vec3 buf = new vec3(angle_x, angle_y, 0);
+    bvec2 positif = new bvec2(angle_x >= 0, angle_y >= 0);
+    bvec2 side = new bvec2(abs(angle_x) > PI/2, abs(angle_y) > PI/2);
+
+
+
+    boolean top_is = all(positif.copy().inv());
+    boolean bottom_is = all(positif);
+    boolean left_is = all(side);
+    boolean right_is = all(side.copy().inv());
+    print_out("brut angle", buf.x(), buf.y());
+    print_out("top_is",top_is);
+    print_out("bottom_is",bottom_is);
+    print_out("left_is",left_is);
+    print_out("right_is",right_is);
+
+    clockwise = true;
     
-    if(angle_a > angle_b) {
-      clockwise = false;
+    if(any(top_is, bottom_is)) {
+      // normal case
+      if(buf.x() > buf.y()) clockwise = false;
+    }
+    if(left_is) {
+      // reverse case
+      if(buf.x() < buf.y()) clockwise = false;
+    }
+
+    if(right_is) {
+      // normal case
+      if(buf.x() > buf.y()) clockwise = false;
+    }
+
+    if(!all(top_is, bottom_is,right_is,left_is)) {
+       // reverse case
+      if(buf.x() < buf.y()) clockwise = false;
+    }
+
+    print_out("clockwise", clockwise);
+
+    buf.x(to_2pi(buf.x()));
+    buf.y(to_2pi(buf.y()));
+    
+    print_out("2pi angle", buf.x(), buf.y());
+
+    boolean a_gretaer_b_is = false;
+    if(buf.x() > buf.y()) {
+      a_gretaer_b_is = false;
+    }
+    
+    float offset = 0;
+    if(clockwise) {
+      if(a_gretaer_b_is) {
+        print_out("set_limit() clockwise buf.yxz()",buf.yxz());
+        translate_angle(buf.yxz());
+      } else {
+        print_out("set_limit() clockwise buf",buf);
+        translate_angle(buf);
+      }
     } else {
-      clockwise = true;
+      if(!a_gretaer_b_is) {
+        print_out("set_limit() counter buf",buf);
+        translate_angle(buf);
+      } else {
+        print_out("set_limit() counter buf.yxz()",buf.yxz());
+        translate_angle(buf.yxz());
+      }
+
     }
     if(this.limit == null) {
-      this.limit = new vec2(angle_a, angle_b);
-      return this;
+      this.limit = buf.copy();
+    } else {
+      this.limit.set(buf);
     }
-    this.limit.set(angle_a, angle_b);
+    print_out("set_limit()",this.limit);
     return this;
   }
+
+  private void translate_angle(vec3 range) {
+    float offset = range.x();
+    float x = 0;
+    float y = range.y() - offset;
+    range.set(x,y,offset);
+  }
+
 
   @Deprecated public R_Knob set_range(float angle_a, float angle_b) {
     return set_limit(angle_a, angle_b);
@@ -646,12 +718,12 @@ public class R_Knob extends R_Button {
     bvec2 sup = new bvec2(angle >= this.limit.a(), angle >= this.limit.b());
     bvec2 inf = new bvec2(angle <= this.limit.a(), angle <= this.limit.b());
     boolean lab = this.limit.a() > this.limit.b();
-    print_out("");
+    // print_out("");
     if(clockwise) {
-      print_out("clockwise angle", this.limit, angle);
+      // print_out("clockwise angle", this.limit, angle);
       return constrain_angle_clockwise(angle, sup, inf, lab);
     }
-    print_out("counter angle", this.limit, angle);
+    // print_out("counter angle", this.limit, angle);
     return constrain_angle_counter_clockwise(angle, sup, inf, lab);
   }
 
@@ -659,29 +731,29 @@ public class R_Knob extends R_Button {
   private float constrain_angle_clockwise(float angle, bvec2 sup, bvec2 inf, boolean lab) {
     
     if(lab) {
-      print_out("LAB");
+      // print_out("LAB");
       if(sup.a() && sup.b()) {
-        print_out("SUP AB");
+        // print_out("SUP AB");
         return closer(angle);
       }
 
       if(inf.a() && sup.b()) {
-        print_out("INF A SUP B");
+        // print_out("INF A SUP B");
         return closer(angle);
       }
       
     } else {
-      print_out("LBA");
+      // print_out("LBA");
       if(sup.a() && sup.b()) {
-        print_out("SUP AB");
+        // print_out("SUP AB");
         return closer(angle);
       }
       if(inf.a()) {
-        print_out("INF A");
+        // print_out("INF A");
         return closer(angle);
       }
       if(sup.b()) {
-        print_out("SUP B");
+        // print_out("SUP B");
         return closer(angle);
       }
     }
@@ -690,23 +762,23 @@ public class R_Knob extends R_Button {
 
   private float constrain_angle_counter_clockwise(float angle, bvec2 sup, bvec2 inf, boolean lab) {  
     if(lab) {
-      print_out("LAB");
+      // print_out("LAB");
       if(sup.a() && inf.b()) {
-        print_out("INF B SUP B");
+        // print_out("INF B SUP B");
         return closer(angle);
       }
       if(sup.b() && inf.a()) {
-        print_out("INF A SUP B");
+        // print_out("INF A SUP B");
         return closer(angle);
       } 
     } else {
-      print_out("LBA");
+      // print_out("LBA");
       if(sup.a()) {
-        print_out("SUP A");
+        // print_out("SUP A");
         return closer(angle);
       }
       if(inf.b()) {
-        print_out("INF B");
+        // print_out("INF B");
         return closer(angle);
       }
     }
@@ -732,9 +804,9 @@ public class R_Knob extends R_Button {
       diff = abs(diff_a -diff_b);
     
     // print_out("LIMA LIMB",lim_a, lim_b);
-    print_out("DIFA DIFB",diff_a, diff_b, diff);
+    // print_out("DIFA DIFB",diff_a, diff_b, diff);
     boolean test = (angle -PI) < (diff / 2);
-    print_out("angle -PI :::  diff / 2 ::: test", angle -PI, diff / 2, test);
+    // print_out("angle -PI :::  diff / 2 ::: test", angle -PI, diff / 2, test);
     if(upper_is) {
       if(all(clockwise,!test)) 
         return lim_a;

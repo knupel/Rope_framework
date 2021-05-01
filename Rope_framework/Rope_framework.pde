@@ -81,20 +81,26 @@ void set_knob() {
 	knob.limit(true); // use default value range
 
   // CLOCKWISE
-  knob.set_limit(0, PI);
+  // knob.set_limit(0, PI);
 	// knob.set_limit(PI, TAU); 
- 	// knob.set_limit(r.SOUTH, r.NORTH); // BUG LIMIT
-	// knob.set_limit( r.SOUTH_EAST, r.SOUTH_WEST); 
-  // knob.set_limit(r.NORTH_WEST, r.NORTH_EAST); // BUG LIMIT
-	// knob.set_limit(r.NORTH_EAST, r.SOUTH_EAST); 
+ 	// knob.set_limit(r.SOUTH, r.NORTH); 
+	// knob.set_limit( r.SOUTH_EAST, r.SOUTH_WEST);
+	//knob.set_limit( r.NORTH_WEST, r.SOUTH_WEST); 
+  // knob.set_limit(r.NORTH_WEST, r.NORTH_EAST); 
+	// knob.set_limit(r.NORTH_EAST, r.SOUTH_EAST);
+	// knob.set_limit(0, r.NORTH_EAST);
+	// knob.set_limit(0, TAU - (PI/2)); 
   
 
 
   // CLOCKWISE FALSE
+	knob.set_limit( r.SOUTH_WEST, r.NORTH_WEST); 
   // knob.set_limit(PI, 0); // BUG GUIDE
   // knob.set_limit(r.NORTH_EAST, r.NORTH_WEST);
+	// knob.set_limit(r.NORTH_EAST, r.SOUTH); 
+	// knob.set_limit( r.SOUTH, r.NORTH_EAST); 
   // knob.set_limit(r.NORTH, r.SOUTH); 
-  //knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST); 
+  // knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST); 
 
 	// colour molette
 	knob.set_align_label_name(LEFT);
