@@ -82,32 +82,35 @@ void set_knob() {
 	knob.limit(true); // use default value range
 
   // CLOCKWISE
-  knob.set_limit(0, PI); 
-	// knob.set_limit(PI, TAU);
-  // knob.set_limit(r.SOUTH, r.NORTH); // GROS BUG
+  // knob.set_limit(0, PI); 
+	// knob.set_limit(PI, TAU); 
+  // knob.set_limit(r.SOUTH, r.NORTH); 
 	
-	// knob.set_limit( r.NORTH_WEST, r.SOUTH_WEST); // GROS BUG
-	// knob.set_limit(r.NORTH_EAST, r.SOUTH_EAST); 
+
+	// knob.set_limit(r.NORTH_EAST, r.SOUTH_EAST);
+	// knob.set_limit(r.EAST, r.SOUTH); 
+
 	// knob.set_limit(r.NORTH_EAST, r.SOUTH); 
 	
  	
 	// knob.set_limit( r.SOUTH_EAST, r.SOUTH_WEST);
 
-	// knob.set_limit(r.NORTH_WEST, TAU - r.QPI); // GROS BUG
-	// knob.set_limit(r.NORTH_WEST, r.NORTH_EAST);
+	// knob.set_limit(r.NORTH_WEST, TAU - r.QPI);
+	// knob.set_limit(r.NORTH_WEST, r.NORTH_EAST); 
 
-	// knob.set_limit(0, TAU - (PI/2));  // GROS BUG
-	// knob.set_limit(0, r.NORTH);
+	// knob.set_limit(0, TAU - (PI/2));
+	knob.set_limit(0, r.NORTH); // GROS BUG
 
   // knob.set_limit(r.NORTH_WEST, r.NORTH_EAST);
-	// knob.set_limit( r.SOUTH_WEST, r.NORTH_WEST); // GROS BUG
+	// knob.set_limit( r.SOUTH_WEST, r.NORTH_WEST);
   
 
 
   // CLOCKWISE FALSE
-	// knob.set_limit(PI, 0);
-	// knob.set_limit(0, r.NORTH_EAST); 
+	// knob.set_limit(PI, 0); // GROS BUG
+	// knob.set_limit(0, r.NORTH_EAST); // GROS BUG
 	// knob.set_limit(r.NORTH_EAST, r.NORTH_WEST); 
+ // knob.set_limit( r.NORTH_WEST, r.SOUTH_WEST); // GROS BUG
 	// knob.set_limit( r.SOUTH, r.NORTH_EAST); 
   // knob.set_limit(r.NORTH, r.SOUTH); // GROS BUG
   // knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST); 
@@ -177,7 +180,7 @@ public class R_Trigo extends Rope {
 	}
 
 	public void set(float angle) {
-		boolean d_east = !all(abs(angle) > HPI, angle < PI);
+		boolean d_east = !all(abs(angle) > HPI, angle <= PI);
 		boolean d_south = all(angle < PI, angle > 0);
 		boolean d_west = !d_east;
 		boolean d_north = !d_south;
@@ -185,7 +188,7 @@ public class R_Trigo extends Rope {
 
 		boolean p_east = any(angle == TAU, angle == 0);
 		boolean p_south = angle == HPI;
-		boolean p_west = angle == PI;
+		boolean p_west = any(angle == PI, angle == -PI);
 		boolean p_north = any(angle == -HPI, angle == TAU -HPI);
 		point.set(p_east, p_south, p_west, p_north);
 	}
@@ -214,6 +217,7 @@ public class R_Trigo extends Rope {
 		return this.disc;
 	}
 
+	// half disc
 	public boolean disc_east() {
 		return this.disc.x();
 	}
@@ -229,6 +233,25 @@ public class R_Trigo extends Rope {
 	public boolean disc_north() {
 		return this.disc.w();
 	}
+
+	// quarter disc
+		public boolean disc_south_east() {
+		return all(disc_south(), disc_east());
+	}
+
+	public boolean disc_south_west() {
+		return all(disc_south(), disc_west());
+	}
+
+	public boolean disc_north_west() {
+		return all(disc_north(), disc_west());
+	}
+
+	public boolean disc_north_east() {
+		return all(disc_north(), disc_east());
+	}
+
+
 
 	public float angle() {
 		return this.angle;
