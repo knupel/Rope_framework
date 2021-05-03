@@ -92,81 +92,23 @@ public class R_Knob extends R_Button {
    * @param angle_b
    * @return
    */
-  public R_Knob set_limit(float ax, float ay) {
-    
-    R_Trigo trig_x = new R_Trigo(ax);
-    R_Trigo trig_y = new R_Trigo(ay);
+public R_Knob set_limit(float ax, float ay) {
     vec3 buf = new vec3(ax, ay, 0);
     boolean print_is = true;
-    if(print_is) print_out("");
-    if(print_is) print_out("brut angle", buf.x(), buf.y());
-    boolean vert_is = all(only(trig_x.point_north(), trig_y.point_north()),
-                          only(trig_x.point_south(), trig_y.point_south()));
-    boolean hori_is = all(only(trig_x.point_east(), trig_y.point_east()),
-                          only(trig_x.point_west(), trig_y.point_west()));
-    boolean north_is = all( all(trig_x.disc_north(), trig_y.disc_north()),
-                          all(!vert_is, !hori_is));
-    boolean south_is = all( all(trig_x.disc_south(), trig_y.disc_south()), 
-                          all(!vert_is, !hori_is));
-    boolean west_is = all(all(trig_x.disc_west(), trig_y.disc_west()),
-                          all(!vert_is, !hori_is));
-    boolean east_is = all(all(trig_x.disc_east(), trig_y.disc_east()),
-                          all(!vert_is, !hori_is));
 
     if(print_is) print_out("-------------------------------------");
-    if(print_is)  print_out("vert_is",vert_is);
-    if(print_is) print_out("hori_is",hori_is);
-    if(print_is) print_out("-------------------------------------");
-    if(print_is) print_out("north_is",north_is);
-    if(print_is) print_out("south_is",south_is);
-    if(print_is) print_out("-------------------------------------");
-    if(print_is) print_out("west_is",west_is);
-    if(print_is) print_out("east_is",east_is);
-    if(print_is) print_out("-------------------------------------");
-
-    clockwise = true;
-    
-    if(any(north_is, south_is)) {
-      // normal case
-      if(print_is) print_out("any(north_is, south_is)", north_is, south_is, buf);
-      if(buf.x() > buf.y()) clockwise = false;
-    }
-    if(west_is) {
-      // reverse case
-      if(print_is) print_out("west_is", west_is, buf);
-      if(buf.x() < buf.y()) clockwise = false;
-    }
-
-    if(east_is) {
-      // normal case
-      if(print_is) print_out("east_is", west_is, buf);
-      if(buf.x() > buf.y()) clockwise = false;
-    }
-
-    if(hori_is) {
-      if(print_is) print_out("hori_is", hori_is, buf);
-      if(buf.x() != 0 && buf.y() != TAU) clockwise = false;
-    }
-
-    if(vert_is) {
-      if(print_is) print_out("vert_is", vert_is, buf);
-      if(buf.x() != HPI) clockwise = false;
-    }
-
-    // other case
-    if(!any(north_is, south_is, east_is, west_is, hori_is, vert_is)) {
-       // reverse case
-      if(print_is) print_out("!any(north_is, south_is,east_is,west_is, hori_is, vert_is)", north_is, south_is,east_is,west_is, hori_is, vert_is, buf);
-      if(buf.x() < buf.y()) clockwise = false;
-    }
-    
-    if(print_is) print_out("-------------------------------------");
+    float sign_lx = sign(ax);
+    float sign_ly = sign(ay);
+    float lx = 0;
+    float ly = 0;
+    // check to trigonometry from 0 to 2PI (TAU)
+    if(sign_lx == -1) lx = ax + TAU; else lx = ax;
+    if(sign_ly == -1) ly = ay + TAU; else ly = ay;
+    if(print_is) print_out("lx", lx);
+    if(print_is) print_out("ly", ly);
+    if(lx < ly) clockwise = true; else clockwise = false;
     if(print_is) print_out("clockwise", clockwise);
 
-    boolean a_greater_b_is = false;
-    if(buf.x() > buf.y()) {
-      a_greater_b_is = true;
-    }
     
     if(print_is) print_out("-------------------------------------");
     if(print_is) print_out("Translate");
@@ -199,16 +141,13 @@ public class R_Knob extends R_Button {
     y -=offset;
     // check to back to classic trigonometry
     if(sign.y() == -1) y -= TAU;
-    // } else {
-    //   y = offset;
-    // }
     range.set(x,y,offset);
   }
-
 
   @Deprecated public R_Knob set_range(float angle_a, float angle_b) {
     return set_limit(angle_a, angle_b);
   }
+
 
 
 
@@ -499,33 +438,24 @@ public class R_Knob extends R_Button {
   private boolean show_struc_pie_clockwise(vec2 buf_pos, int a, int b) {
     float ang_a = this.molette[a].angle();
     float ang_b = this.molette[b].angle();
-    // float ang_a = closer(this.molette[a].angle());
-    // float ang_b = closer(this.molette[b].angle());
-    // boolean spec_limit_a_is = any(limit.a() == 0 ,limit.a() == TAU);
-    // boolean spec_limit_b_is = any(limit.b() == 0, limit.b() == TAU);
     boolean upper_is = ang_a > ang_b;
     boolean a_zero = ang_a == 0;
     boolean b_zero = ang_b == 0;
 
     if(upper_is) {
       if(a_zero) {
-        // print_out("upper_is /// a_zero /// clockwise /// ang_a, ang_b",ang_a, ang_b);
         ang_a = TAU;
         arc(buf_pos, this.size, ang_a, ang_b, PIE);
       } else if(b_zero) {
-        // print_out("upper_is /// b_zero /// clockwise /// ang_b, ang_a",ang_b, ang_a);
         ang_b = TAU;
         arc(buf_pos, this.size, ang_b, ang_a, PIE);
       } else {
-        // print_out("upper_is /// clockwise /// ang_b, ang_a",ang_b, ang_a);
         arc(buf_pos, this.size, ang_b, ang_a, PIE);
       }
     } else {
       if(a_zero) {
-        // print_out("normal /// a_zero  /// clockwise /// ang_b, ang_a",ang_b, ang_a);
         arc(buf_pos, this.size, ang_b, ang_a, PIE);
       } else {
-        // print_out("normal /// clockwise /// ang_a, ang_b",ang_a, ang_b);
         arc(buf_pos, this.size, ang_a, ang_b, PIE);
       }
     }
@@ -535,29 +465,23 @@ public class R_Knob extends R_Button {
   private boolean show_struc_pie_counter_clockwise(vec2 buf_pos, int a, int b) {
     float ang_a = this.molette[a].angle();
     float ang_b = this.molette[b].angle();
-    // float ang_a = constrain_angle(this.molette[a].angle());
-    // float ang_b = constrain_angle(this.molette[b].angle());
     boolean [] beyond_list = beyond_limit(limit.a());
     boolean beyond = only(beyond_list);
 
     if(beyond) {
       if(beyond_list[a]) {
-        // print_out("counter ang_a - TAU, ang_b",ang_a - TAU, ang_b);
         arc(buf_pos,size, ang_a - TAU, ang_b, PIE);
         return true;
       }
       if(beyond_list[b]) {
-        // print_out("counter ang_b - TAU, ang_a",ang_b - TAU, ang_a);
         arc(buf_pos,size, ang_b - TAU, ang_a, PIE);
         return true;
       }
     } 
     if(ang_a > ang_b) {
-      // print_out("counter ang_b, ang_a",ang_b, ang_a);
       arc(buf_pos, this.size, ang_b, ang_a, PIE);
       return true;
     }
-    // print_out("counter ang_a, ang_b",ang_a, ang_b);
     arc(buf_pos,size,ang_a, ang_b, PIE);
     return true;
   }
@@ -669,9 +593,7 @@ public class R_Knob extends R_Button {
       }
 
       if(this.molette[i].used_is()) {
-        // print_out("brut angle", this.molette[i].angle());
         float buf_angle = calc_angle(i, this.molette[i].angle());
-        // print_out("calc_angle", buf_angle);
         render_mol(this.molette[i], buf_angle);
       } else {
         mol_used_is = false;
@@ -705,18 +627,11 @@ public class R_Knob extends R_Button {
   private boolean [] beyond_limit(float limit) {
     boolean [] beyond_limit_is = new boolean[molette.length];
     for(int i = 0 ; i < molette.length ; i++) {
-      // beyond_limit_is[i] = molette[i].angle() >= limit;
       beyond_limit_is[i] = molette[i].angle() > limit;
     }
     return beyond_limit_is;
   }
 
-  // private float to_2pi(float angle) {
-  //   if(angle < 0) {
-  //     return TAU + angle;
-  //   }
-  //   return angle;
-  // }
 
   private float calc_angle(int index, float angle) {
     angle = calc_angle_imp(angle);
@@ -733,14 +648,11 @@ public class R_Knob extends R_Button {
     } else if(drag_direction == CIRCULAR) {
       vec2 temp = pos.copy().add(size.copy().mult(0.5f));
       angle = temp.angle(cursor);
-      // if(angle < 0) {
-      //   angle+= TAU;
-      // }
+
     } else if(drag_direction == VERTICAL) {
       angle = cursor.y() * drag_force;
     }
     return angle;
-    //return to_2pi(angle);
   }
 
 
@@ -750,21 +662,12 @@ public class R_Knob extends R_Button {
     if(print_is) print_out("clockwise", clockwise);
     if(print_is) print_out("limit",this.limit);
     if(print_is) print_out("angle",angle);
-    // bvec2 sup = new bvec2(angle >= this.limit.a(), angle >= this.limit.b());
-    // bvec2 inf = new bvec2(angle <= this.limit.a(), angle <= this.limit.b());
-    // boolean lab = this.limit.a() > this.limit.b();
-    // if(print_is) print_out("inf", inf);
-    // if(print_is) print_out("sup", sup);
-    // print_out("");
+
     if(clockwise) {
       return constrain_angle_impl(angle, this.limit.a(), this.limit.b());
-      // print_out("clockwise angle", this.limit, angle);
-      // return constrain_angle_clockwise(angle, sup, inf, lab);
     } else {
       return constrain_angle_impl(angle, this.limit.b(), this.limit.a());
     }
-    // print_out("counter angle", this.limit, angle);
-    // return constrain_angle_counter_clockwise(angle, sup, inf, lab);
   }
   
   private float constrain_angle_impl(float angle, float limit_x, float limit_y) {
@@ -774,9 +677,6 @@ public class R_Knob extends R_Button {
     float lx = 0;
     float ly = 0;
     float ang = 0;
-
-    boolean inf_a = false;
-    boolean inf_b = false;
 
     // check to trigonometry from 0 to 2PI (TAU)
     if(sign_lx == -1) lx = limit_x + TAU; else lx = limit_x;
@@ -796,256 +696,5 @@ public class R_Knob extends R_Button {
   }
 
 
-
-  private float constrain_angle_clockwise(float angle, bvec2 sup, bvec2 inf, boolean lab) {
-    boolean print_is = true;
-    if(lab) {
-      if(print_is) print_out("Limit A > B");
-
-      // if(all(sup)) {
-      //   if(print_is) print_out("SUP AB");
-      //   return closer(angle);
-      // }
-
-
-
-      // if(inf.a() && sup.b()) {
-      //   if(print_is) print_out("INF A SUP B");
-      //   return closer(angle);
-      // }
-      
-    } else {
-      if(print_is) print_out("Limit B > A");
-      if(any(inf)) {
-        if(print_is) print_out("INF AB");
-        return closer(angle);
-      }
-      // if(sup.a() && sup.b()) {
-      //   if(print_is) print_out("SUP AB");
-      //   return closer(angle);
-      // }
-      // if(inf.a()) {
-      //   if(print_is) print_out("INF A");
-      //   return closer(angle);
-      // }
-      // if(sup.b()) {
-      //   if(print_is) print_out("SUP B");
-      //   return closer(angle);
-      // }
-    }
-    return angle;
-  }
-
-  private float constrain_angle_counter_clockwise(float angle, bvec2 sup, bvec2 inf, boolean lab) {
-    boolean print_is = true;
-    if(lab) {
-      if(print_is) print_out("Limit A > B");
-      // if(sup.a() && inf.b()) {
-      //   if(print_is) print_out("INF B SUP B");
-      //   return closer(angle);
-      // }
-      // if(sup.b() && inf.a()) {
-      //   if(print_is) print_out("INF A SUP B");
-      //   return closer(angle);
-      // } 
-    } else {
-      if(print_is) print_out("Limit B > A", sup, inf);
-      // if(sup.a()) {
-      //   if(print_is) print_out("SUP A");
-      //   return closer(angle);
-      // }
-      // if(inf.b()) {
-      //   if(print_is) print_out("INF B");
-      //   return closer(angle);
-      // }
-    }
-    return angle;
-  }
-
-
-
-   private float closer(float angle) {
-    R_Trigo tri_ang = new R_Trigo(angle);
-    R_Trigo tri_lim_a = new R_Trigo(this.limit.a());
-    R_Trigo tri_lim_b = new R_Trigo(this.limit.b());
-    boolean card_a_is = any(tri_lim_a.point());
-    boolean card_b_is = any(tri_lim_b.point());
-    boolean card_is = all(card_a_is, card_b_is);
-
-    boolean print_is = false;
-    if(print_is)print_out(">>>---cardinal---------------------------", clockwise);
-    if(print_is) print_out(">-- any cardinal a",tri_lim_a.point());
-    if(print_is) print_out(">-- any cardinal b",tri_lim_b.point());
-    if(print_is) print_out(">-- any cardianl in vatican ?",card_a_is, card_b_is, card_is);
-
-    if(print_is) print_out(">>>---closer---------------------------",pa.frameCount);
-    if(print_is) print_out(">>>-<<<->>>-disc angle",tri_ang.disc());
-    if(print_is) print_out(">>>-<<->>>-<disc lim a",tri_lim_a.disc());
-    if(print_is) print_out(">>>-<<<->>>-disc lim b",tri_lim_b.disc());
-    if(print_is)print_out(">>>---quarter---------------------------", clockwise);
-    if(print_is) print_out(">-- south east",tri_ang.disc_south_east(),tri_lim_a.disc_south_east(),tri_lim_b.disc_south_east());
-    if(print_is) print_out(">-- south west",tri_ang.disc_south_west(),tri_lim_a.disc_south_west(),tri_lim_b.disc_south_west());
-    if(print_is) print_out(">-- north west",tri_ang.disc_north_west(),tri_lim_a.disc_north_west(),tri_lim_b.disc_north_west());
-    if(print_is) print_out(">-- north east",tri_ang.disc_north_east(),tri_lim_a.disc_north_east(),tri_lim_b.disc_north_east());
-
-    if(print_is)print_out(">>>---half---------------------------", clockwise);
-    if(print_is) print_out(">-- east",tri_ang.disc_east(),tri_lim_a.disc_east(),tri_lim_b.disc_east());
-    if(print_is) print_out(">-- south",tri_ang.disc_south(),tri_lim_a.disc_south(),tri_lim_b.disc_south());
-    if(print_is) print_out(">-- west",tri_ang.disc_west(),tri_lim_a.disc_west(),tri_lim_b.disc_west());
-    if(print_is) print_out(">-- north",tri_ang.disc_north(),tri_lim_a.disc_north(),tri_lim_b.disc_north());
-
-    if(print_is)print_out(">>>---info---------------------------", clockwise);
-    if(print_is) print_out(">-- limit angle",this.limit,angle);
-
-
-    if(print_is) print_out("ETAPE 0");
-    if(all(tri_ang.disc_south_east(), tri_lim_a.disc_south_east(), !card_is)) return this.limit.a();
-    if(all(tri_ang.disc_south_east(), tri_lim_b.disc_south_east(), !card_is)) return this.limit.b();
-    if(print_is) print_out("ETAPE 1");
-    if(all(tri_ang.disc_south_west(), tri_lim_a.disc_south_west(), !card_is)) return this.limit.a();
-    if(all(tri_ang.disc_south_west(), tri_lim_b.disc_south_west(), !card_is)) return this.limit.b();
-    if(print_is) print_out("ETAPE 2");
-    if(all(tri_ang.disc_north_west(), tri_lim_a.disc_north_west(), !card_is)) return this.limit.a();
-    if(all(tri_ang.disc_north_west(), tri_lim_b.disc_north_west(), !card_is)) return this.limit.b();
-    if(print_is) print_out("ETAPE 3");
-    if(all(tri_ang.disc_north_east(), tri_lim_a.disc_north_east(), !card_is)) return this.limit.a();
-    if(all(tri_ang.disc_north_east(), tri_lim_b.disc_north_east(), !card_is)) return this.limit.b();
-    if(print_is) print_out("ETAPE 4");
-    float da = abs(abs(this.limit.a() - abs(angle)));
-    float db = abs(abs(this.limit.b() - abs(angle)));
-    if(print_is) print_out("ETAPE 5");
-    if(any(tri_ang.disc_north(), tri_ang.disc_south()) && !any(card_a_is,card_b_is) ) {
-      
-    // if(any(tri_ang.disc_north(), tri_ang.disc_south()) && card_is) {
-      if(da < db) {
-        return this.limit.a();
-      } else {
-        return this.limit.b();
-      }
-    }
-
-    // upper case
-    // if(all(cardinal_a_is,cardinal_b_is)) {
-    //   return angle;
-    // }
-    if(print_is) print_out("ETAPE 6");
-    boolean upper_ab_is = (angle > limit.a() && angle > limit.b());
-    if(upper_ab_is && any(card_a_is,card_b_is)) {
-      return max(limit.a(), limit.b());
-    }
-
-  
-
-    if(print_is) print_out("ETAPE FINALE --- rien de particulier");
-    return angle;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // private float constrain_angle_clockwise(float angle, bvec2 sup, bvec2 inf, boolean lab, R_Trigo ... tri) {
-  //   boolean print_is = true;
-  //   if(lab) {
-  //     if(print_is) print_out("LAB");
-  //     if(sup.a() && sup.b()) {
-  //       if(print_is) print_out("SUP AB");
-  //       return closer(angle);
-  //     }
-
-  //     if(inf.a() && sup.b()) {
-  //       if(print_is) print_out("INF A SUP B");
-  //       return closer(angle);
-  //     }
-      
-  //   } else {
-  //     if(print_is) print_out("LBA");
-  //     if(sup.a() && sup.b()) {
-  //       if(print_is) print_out("SUP AB");
-  //       return closer(angle);
-  //     }
-  //     if(inf.a()) {
-  //       if(print_is) print_out("INF A");
-  //       return closer(angle);
-  //     }
-  //     if(sup.b()) {
-  //       if(print_is) print_out("SUP B");
-  //       return closer(angle);
-  //     }
-  //   }
-  //   return angle;
-  // }
-
-  // private float constrain_angle_counter_clockwise(float angle, bvec2 sup, bvec2 inf, boolean lab, R_Trigo ... tri) {
-  //   boolean print_is = true;
-  //   if(lab) {
-  //     if(print_is) print_out("LAB");
-  //     if(sup.a() && inf.b()) {
-  //       if(print_is) print_out("INF B SUP B");
-  //       return closer(angle);
-  //     }
-  //     if(sup.b() && inf.a()) {
-  //       if(print_is) print_out("INF A SUP B");
-  //       return closer(angle);
-  //     } 
-  //   } else {
-  //     if(print_is) print_out("LBA");
-  //     if(sup.a()) {
-  //       if(print_is) print_out("SUP A");
-  //       return closer(angle);
-  //     }
-  //     if(inf.b()) {
-  //       if(print_is) print_out("INF B");
-  //       return closer(angle);
-  //     }
-  //   }
-  //   return angle;
-  // }
-
-  //  try to remove it
-
-  // private float closer(float angle) {
-  //   float lim_a = this.limit.a();
-  //   float lim_b = this.limit.b();
-  //   if(lim_a < 0) lim_a = 0;
-  //   if(lim_a >= TAU) lim_a = 0;
-  //   if(lim_b < 0) lim_b = 0;
-  //   if(lim_b >= TAU) lim_b = 0;
-
-  //   float diff_a = abs(angle - lim_a);
-  //   float diff_b = abs(angle - lim_b);
-    
-
-  //   boolean upper_is = diff_a > diff_b;
-  //   // float diff = abs(diff_b -diff_a);
-  //   // if(upper_is) 
-  //   //   diff = abs(diff_a -diff_b);
-    
-  //   // print_out("LIMA LIMB",lim_a, lim_b);
-  //   // print_out("DIFA DIFB",diff_a, diff_b, diff);
-  //   // boolean test = (angle -PI) < (diff / 2);
-  //   // print_out("angle -PI :::  diff / 2 ::: test", angle -PI, diff / 2, test);
-  //   if(upper_is) {
-  //     // if(all(clockwise,!test)) 
-  //     //   return lim_a;
-  //     // float diff_lim = abs(lim_a - lim_b) / 2 ;
-  //     // float diff_tau = abs(TAU - angle);
-  //     // if(diff_tau < diff_lim )
-  //     //   return lim_a;
-  //     return lim_b;
-  //   } else {
-  //     return lim_a;
-  //   }
-  // }
 
 }
