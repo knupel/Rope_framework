@@ -84,7 +84,8 @@ void set_knob() {
   // CLOCKWISE
   // knob.set_limit(0, PI); 
 	// knob.set_limit(PI, TAU); 
-  // knob.set_limit(r.SOUTH, r.NORTH); 
+  // knob.set_limit(r.SOUTH, r.NORTH);
+	knob.set_limit(r.SOUTH + TAU, r.NORTH -TAU); // test on value beyond double PI
 	
 	// knob.set_limit(r.NORTH_EAST, r.SOUTH_EAST);
 	// knob.set_limit(r.EAST, r.SOUTH); 
@@ -108,12 +109,12 @@ void set_knob() {
 
 
   // CLOCKWISE FALSE
-	// knob.set_limit(PI, 0); // GROS BUG
+	// knob.set_limit(PI, 0); 
 	// knob.set_limit(r.NORTH_EAST, r.NORTH_WEST); // GROS BUG
 	// knob.set_limit( r.NORTH_WEST, r.SOUTH_WEST); // GROS BUG
 	// knob.set_limit( r.SOUTH, r.NORTH_EAST); // BUG
 	// knob.set_limit(r.NORTH, r.SOUTH); // GROS BUG
-  knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST); // GROS BUG
+  // knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST); // GROS BUG
 
 	// colour molette
 	knob.set_align_label_name(LEFT);
@@ -157,41 +158,50 @@ void draw_knob() {
 
 
 
-public class R_Trigo extends Rope {
-	float angle = 0;
-	bvec4 disc; // east, south, west, north
+public class vec1 extends Rope {
+	float x = 0;
+	bvec4 zone; // east, south, west, north
 	bvec4 point; // east, south, west, north
 
-	public R_Trigo(float x, float y) {
-		this.angle = (float) Math.atan2(y,x);
+	public vec1(float x, float y) {
+		this.x = (float) Math.atan2(y,x);
 		init();
-		set(this.angle);
+		set(this.x);
 	}
 
-	public R_Trigo(float angle) {
-		this.angle = angle;
+	public vec1(float x) {
+		this.x = x;
 		init();
-		set(this.angle);
+		set(this.x);
 	}
 
 	private void init() {
- 		disc = new bvec4();
+ 		zone = new bvec4();
 		point = new bvec4();
 	}
 
-	public void set(float angle) {
-		boolean d_east = !all(abs(angle) > HPI, angle <= PI);
-		boolean d_south = all(angle < PI, angle > 0);
-		boolean d_west = !d_east;
-		boolean d_north = !d_south;
-		disc.set(d_east, d_south, d_west, d_north);
+	public vec1 get() {
+		return this;
+	}
 
-		boolean p_east = any(angle == TAU, angle == 0);
-		boolean p_south = angle == HPI;
-		boolean p_west = any(angle == PI, angle == -PI);
-		boolean p_north = any(angle == -HPI, angle == TAU -HPI);
+	public float angle() {
+		return this.x;
+	}
+
+	public void set(float x) {
+		boolean z_east = !all(abs(x) > HPI, x <= PI);
+		boolean z_south = all(x < PI, x > 0);
+		boolean z_west = !z_east;
+		boolean z_north = !z_south;
+		zone.set(z_east, z_south, z_west, z_north);
+
+		boolean p_east = any(x == TAU, x == 0);
+		boolean p_south = x == HPI;
+		boolean p_west = any(x == PI, x == -PI);
+		boolean p_north = any(x == -HPI, x == TAU -HPI);
 		point.set(p_east, p_south, p_west, p_north);
 	}
+
 
 	public bvec4 point() {
 		return this.point;
@@ -213,49 +223,48 @@ public class R_Trigo extends Rope {
 		return this.point.w();
 	}
 
-	public bvec4 disc() {
-		return this.disc;
+	// zone
+	public bvec4 zone() {
+		return this.zone;
 	}
 
-	// half disc
-	public boolean disc_east() {
-		return this.disc.x();
+	// half zone
+	public boolean zone_east() {
+		return this.zone.x();
 	}
 
-	public boolean disc_south() {
-		return this.disc.y();
+	public boolean zone_south() {
+		return this.zone.y();
 	}
 
-	public boolean disc_west() {
-		return this.disc.z();
+	public boolean zone_west() {
+		return this.zone.z();
 	}
 
-	public boolean disc_north() {
-		return this.disc.w();
+	public boolean zone_north() {
+		return this.zone.w();
 	}
 
-	// quarter disc
-		public boolean disc_south_east() {
-		return all(disc_south(), disc_east());
+	// quarter zone
+		public boolean zone_south_east() {
+		return all(zone_south(), zone_east());
 	}
 
-	public boolean disc_south_west() {
-		return all(disc_south(), disc_west());
+	public boolean zone_south_west() {
+		return all(zone_south(), zone_west());
 	}
 
-	public boolean disc_north_west() {
-		return all(disc_north(), disc_west());
+	public boolean zone_north_west() {
+		return all(zone_north(), zone_west());
 	}
 
-	public boolean disc_north_east() {
-		return all(disc_north(), disc_east());
+	public boolean zone_north_east() {
+		return all(zone_north(), zone_east());
 	}
 
 
 
-	public float angle() {
-		return this.angle;
-	}
+
 }
 
 

@@ -25,7 +25,6 @@ public class R_Knob extends R_Button {
   protected R_Mol [] molette;
   protected R_Mol guide;
   // angle start and end for the limit knob
-  // protected vec2 limit;
   protected vec3 limit;
   private vec2 size_limit = new vec2(-3,3);
   protected boolean clockwise = true;
@@ -93,17 +92,17 @@ public class R_Knob extends R_Button {
    * @return
    */
 public R_Knob set_limit(float ax, float ay) {
-    vec3 buf = new vec3(ax, ay, 0);
+    vec3 buf = new vec3(ax%TAU, ay%TAU, 0);
     boolean print_is = true;
 
     if(print_is) print_out("-------------------------------------");
-    float sign_lx = sign(ax);
-    float sign_ly = sign(ay);
+    float sign_lx = sign(buf.x());
+    float sign_ly = sign(buf.y());
     float lx = 0;
     float ly = 0;
     // check to trigonometry from 0 to 2PI (TAU)
-    if(sign_lx == -1) lx = ax + TAU; else lx = ax;
-    if(sign_ly == -1) ly = ay + TAU; else ly = ay;
+    if(sign_lx == -1) lx = buf.x() + TAU; else lx = buf.x();
+    if(sign_ly == -1) ly = buf.y() + TAU; else ly = buf.y();
     if(print_is) print_out("lx", lx);
     if(print_is) print_out("ly", ly);
     if(lx < ly) clockwise = true; else clockwise = false;
@@ -139,6 +138,7 @@ public R_Knob set_limit(float ax, float ay) {
     offset = x;
     x = 0;
     y -=offset;
+    // if(y == -PI) y = PI;
     // check to back to classic trigonometry
     if(sign.y() == -1) y -= TAU;
     range.set(x,y,offset);
@@ -657,41 +657,43 @@ public R_Knob set_limit(float ax, float ay) {
 
 
   private float constrain_angle(float angle) {
-    boolean print_is = false;
-    if(print_is) print_out("");
-    if(print_is) print_out("clockwise", clockwise);
-    if(print_is) print_out("limit",this.limit);
-    if(print_is) print_out("angle",angle);
-
-    if(clockwise) {
-      return constrain_angle_impl(angle, this.limit.a(), this.limit.b());
-    } else {
-      return constrain_angle_impl(angle, this.limit.b(), this.limit.a());
-    }
+    return constrain_angle_impl(angle, this.limit.a(), this.limit.b(), clockwise);
   }
   
-  private float constrain_angle_impl(float angle, float limit_x, float limit_y) {
+  private float constrain_angle_impl(float angle, float limit_x, float limit_y, boolean clockwise) {
+    float temp_ang = angle%TAU;
     float sign_lx = sign(limit_x);
     float sign_ly = sign(limit_y);
-    float sign_ang = sign(angle);
+    float sign_ang = sign(temp_ang);
     float lx = 0;
     float ly = 0;
     float ang = 0;
 
-    // check to trigonometry from 0 to 2PI (TAU)
+    // check to trigonometry from 0 to 2PI (TAU) easier to read the value
     if(sign_lx == -1) lx = limit_x + TAU; else lx = limit_x;
     if(sign_ly == -1) ly = limit_y + TAU; else ly = limit_y;
-    if(sign_ang == -1) ang = angle + TAU; else ang = angle;
+    if(sign_ang == -1) ang = temp_ang + TAU; else ang = temp_ang;
 
-    boolean print_is = false;
-    if(print_is) print_out("constrain_angle_impl");
-    if(print_is) print_out("lx TAU", lx);
-    if(print_is) print_out("ly TAU", ly);
-    if(print_is) print_out("ang TAU", ang);
+    boolean print_is = true;
+    if(print_is) print_out("\nconstrain_angle_impl");
+    // if(print_is) print_out("lx TAU", lx);
+    // if(print_is) print_out("ly TAU", ly);
+    // if(print_is) print_out("ang TAU", ang);
 
+    if(clockwise) {
+      if(ang < lx) return limit_x;
+      if(ang > ly) return limit_y;
+    } else {
+      if(ang > lx) {
+        if(print_is) print_out(ang, ">", lx, "return", limit_x);
+        return limit_x;
+      }
+      if(ang < ly) {
+        if(print_is) print_out(ang, "<", ly, "return", limit_y);
+        return limit_y;
+      }
+    }
 
-    if(ang < lx) return limit_x;
-    if(ang > ly) return limit_y;
     return angle;
   }
 
