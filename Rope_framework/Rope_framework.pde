@@ -85,7 +85,7 @@ void set_knob() {
   // knob.set_limit(0, PI); 
 	// knob.set_limit(PI, TAU); 
   // knob.set_limit(r.SOUTH, r.NORTH);
-	knob.set_limit(r.SOUTH + TAU, r.NORTH -TAU); // test on value beyond double PI
+	// knob.set_limit(r.SOUTH + TAU, r.NORTH -TAU); // test on value beyond double PI
 	
 	// knob.set_limit(r.NORTH_EAST, r.SOUTH_EAST);
 	// knob.set_limit(r.EAST, r.SOUTH); 
@@ -110,11 +110,12 @@ void set_knob() {
 
   // CLOCKWISE FALSE
 	// knob.set_limit(PI, 0); 
-	// knob.set_limit(r.NORTH_EAST, r.NORTH_WEST); // GROS BUG
-	// knob.set_limit( r.NORTH_WEST, r.SOUTH_WEST); // GROS BUG
+	// knob.set_limit(r.NORTH, r.WEST); 
+	// knob.set_limit(r.NORTH_EAST, r.NORTH_WEST); 
+	// knob.set_limit( r.NORTH_WEST, r.SOUTH_WEST);
 	// knob.set_limit( r.SOUTH, r.NORTH_EAST); // BUG
-	// knob.set_limit(r.NORTH, r.SOUTH); // GROS BUG
-  // knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST); // GROS BUG
+	knob.set_limit(r.NORTH, r.SOUTH); 
+  //  knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST); 
 
 	// colour molette
 	knob.set_align_label_name(LEFT);
@@ -125,9 +126,9 @@ void set_knob() {
 	knob.set_drag_force(0.05);
 
 	R_Mol [] list = knob.get_mol();
-	for(int i = 0 ; i < list.length ; i++) {
-		println("mol pos",list[i].pos());
-	}
+	// for(int i = 0 ; i < list.length ; i++) {
+	// 	println("mol pos",list[i].pos());
+	// }
 
 }
 

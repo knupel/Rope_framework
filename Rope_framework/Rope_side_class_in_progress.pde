@@ -92,37 +92,39 @@ public class R_Knob extends R_Button {
    * @return
    */
 public R_Knob set_limit(float ax, float ay) {
-    vec3 buf = new vec3(ax%TAU, ay%TAU, 0);
+    if(ax != TAU && ax != -TAU) ax %=TAU;
+    if(ay != TAU && ay != -TAU) ay %=TAU;
+    vec3 raw = new vec3(ax, ay, 0);
     boolean print_is = true;
 
-    if(print_is) print_out("-------------------------------------");
-    float sign_lx = sign(buf.x());
-    float sign_ly = sign(buf.y());
+    if(print_is) print_out("\n-------------NEW FRONTIER---------------");
+    if(print_is) print_out("raw", raw);
+    float sign_lx = sign(raw.x());
+    float sign_ly = sign(raw.y());
     float lx = 0;
     float ly = 0;
     // check to trigonometry from 0 to 2PI (TAU)
-    if(sign_lx == -1) lx = buf.x() + TAU; else lx = buf.x();
-    if(sign_ly == -1) ly = buf.y() + TAU; else ly = buf.y();
-    if(print_is) print_out("lx", lx);
-    if(print_is) print_out("ly", ly);
+    if(sign_lx == -1) lx = raw.x() + TAU; else lx = raw.x();
+    if(sign_ly == -1) ly = raw.y() + TAU; else ly = raw.y();
     if(lx < ly) clockwise = true; else clockwise = false;
+    if(print_is) print_out("converted to 2PI :", lx, ly);
     if(print_is) print_out("clockwise", clockwise);
-
-    
-    if(print_is) print_out("-------------------------------------");
-    if(print_is) print_out("Translate");
-    translate_angle(buf);
+  
+    if(print_is) print_out("---------TRANSLATE-----------------------------------------");
+    translate_angle(raw);
 
     if(this.limit == null) {
-      this.limit = buf.copy();
+      this.limit = raw.copy();
     } else {
-      this.limit.set(buf);
+      this.limit.set(raw); 
     }
     if(print_is) print_out("set_limit()",this.limit);
     return this;
   }
 
   private void translate_angle(vec3 range) {
+
+    boolean print_is = true;
     float x = 0;
     float y = 0;
     float offset = 0;
@@ -130,18 +132,29 @@ public R_Knob set_limit(float ax, float ay) {
     // check to trigonometry from 0 to 2PI (TAU)
     if(sign.x() == -1) x = range.x() + TAU; else x = range.x();
     if(sign.y() == -1) y = range.y() + TAU; else y = range.y();
+    if(print_is) print_out("range",range);
+    if(print_is) print_out("sign", sign);
 
-    boolean greater = false;
-    if(x > y) {
-      greater = true;
+
+    if(clockwise) {
+      offset = x;
+      if(print_is) print_out("offset",offset);
+      x = 0;
+      if(print_is) print_out("x",x);
+      y -=offset;
+      if(sign.y() == -1) y += TAU;
+      if(print_is) print_out("0 y",y);
+    } else {
+      offset = TAU - x;
+      float focal = y + offset;
+      if(print_is) print_out("offset",offset);
+      x = 0;
+      if(print_is) print_out("x",x);
+      y = focal;
+      if(print_is) print_out("y",y);
     }
-    offset = x;
-    x = 0;
-    y -=offset;
-    // if(y == -PI) y = PI;
-    // check to back to classic trigonometry
-    if(sign.y() == -1) y -= TAU;
-    range.set(x,y,offset);
+
+    range.set(x,y%TAU,offset);
   }
 
   @Deprecated public R_Knob set_range(float angle_a, float angle_b) {
@@ -674,25 +687,27 @@ public R_Knob set_limit(float ax, float ay) {
     if(sign_ly == -1) ly = limit_y + TAU; else ly = limit_y;
     if(sign_ang == -1) ang = temp_ang + TAU; else ang = temp_ang;
 
-    boolean print_is = true;
-    if(print_is) print_out("\nconstrain_angle_impl");
+    boolean print_is = false;
+    if(print_is) print_out("\nconstrain_angle_impl", clockwise);
     // if(print_is) print_out("lx TAU", lx);
     // if(print_is) print_out("ly TAU", ly);
     // if(print_is) print_out("ang TAU", ang);
 
-    if(clockwise) {
-      if(ang < lx) return limit_x;
-      if(ang > ly) return limit_y;
-    } else {
-      if(ang > lx) {
-        if(print_is) print_out(ang, ">", lx, "return", limit_x);
-        return limit_x;
-      }
-      if(ang < ly) {
-        if(print_is) print_out(ang, "<", ly, "return", limit_y);
-        return limit_y;
-      }
-    }
+    if(ang < lx) return limit_x;
+    if(ang > ly) return limit_y;
+    // if(clockwise) {
+    //   if(ang < lx) return limit_x;
+    //   if(ang > ly) return limit_y;
+    // } else {
+    //   if(ang > lx) {
+    //     if(print_is) print_out(ang, ">", lx, "return", limit_y);
+    //     return limit_y;
+    //   }
+    //   if(ang < ly) {
+    //     if(print_is) print_out(ang, "<", ly, "return", limit_x);
+    //     return limit_x;
+    //   }
+    // }
 
     return angle;
   }
