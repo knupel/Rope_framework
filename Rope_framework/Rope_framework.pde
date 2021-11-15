@@ -7,26 +7,33 @@
 *
 */
 
+PImage img;
+PGraphics pg;
+void setup() {
+  rope_version();
+  size(480,720,P2D);
+  img = loadImage("jpg file/petite_puros_girl.jpg");
+	// pg = fx_level_adv(img,false,true,0,0.5,1);
 
-// void setup() {
-//   rope_version();
-//   size(800,800,P2D);
-//   State.init(this);
-//   /**
-//   * your code
-//   */
-// }
+	// 
 
 
-// void draw() {
-//   background(255);
-//   State.pointer(mouseX,mouseY);
-//   State.event(mousePressed, !keyPressed);
-//   /**
-//   * your code
-//   */
-//   State.reset_event();
-// }
+}
+
+
+void draw() {
+	vec3 min = abs(vec3().sin_wave(frameCount,0.01,0.02,0.03));
+	vec3 gamma = abs(vec3().sin_wave(frameCount,0.02,0.02,0.02));
+	vec3 max = abs(vec3().sin_wave(frameCount,0.03,0.01,0.01));
+	// pg = fx_level_adv(img,false,true,min,gamma,max);
+	pg = fx_level_adv(img,false,true,vec3(0),gamma,vec3(1));
+	// pg = fx_level_adv(img,false,true,vec3(0),vec3(0.5),max);
+
+	if(pg != null) {
+		image(img,0,0);
+		image(pg,0,img.height);
+	}
+}
 
 
 
@@ -50,20 +57,20 @@ import rope.gui.R_Mol;
 
 
 // Rope r = new Rope();
-void setup() {
-  size(200,200);
-  State.init(this);
-  set_knob(); 
-}
+// void setup() {
+//   size(200,200);
+//   State.init(this);
+//   set_knob(); 
+// }
 
 
-void draw() {
-	background(255);
-	State.pointer(mouseX,mouseY);
-	State.event(mousePressed);
-	draw_knob();
-	State.reset_event();
-}
+// void draw() {
+// 	background(255);
+// 	State.pointer(mouseX,mouseY);
+// 	State.event(mousePressed);
+// 	draw_knob();
+// 	State.reset_event();
+// }
 
 R_Knob knob ;
 void set_knob() {

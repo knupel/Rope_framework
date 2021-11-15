@@ -51,7 +51,7 @@ that's cool but that's very weird !!!!!
 */
 Rope r;
 
-String rope_framework_version = "1.4.5.83";
+String rope_framework_version = "1.4.7.85";
 public void rope_version() {
 	init_rope();
 }
