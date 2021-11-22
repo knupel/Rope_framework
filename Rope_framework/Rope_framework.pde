@@ -12,8 +12,16 @@ PGraphics pg;
 void setup() {
   rope_version();
   size(480,720,P2D);
+	// colorMode(HSB,360,100,100);
   img = loadImage("jpg file/petite_puros_girl.jpg");
 	// pg = fx_level_adv(img,false,true,0,0.5,1);
+	img.loadPixels();
+	for(int i = 0 ; i < img.pixels.length ; i++) {
+		// int c = color(map(brightness(img.pixels[i]),0,g.colorModeZ,0,255));
+		int c = color(brightness(img.pixels[i]));
+		img.pixels[i] = c;
+	}
+	img.updatePixels();
 
 	// 
 
@@ -22,17 +30,8 @@ void setup() {
 
 
 void draw() {
-	vec3 min = abs(vec3().sin_wave(frameCount,0.01,0.02,0.03));
-	vec3 gamma = abs(vec3().sin_wave(frameCount,0.02,0.02,0.02));
-	vec3 max = abs(vec3().sin_wave(frameCount,0.03,0.01,0.01));
-	// pg = fx_level_adv(img,false,true,min,gamma,max);
-	pg = fx_level_adv(img,false,true,vec3(0),gamma,vec3(1));
-	// pg = fx_level_adv(img,false,true,vec3(0),vec3(0.5),max);
+	image(img,0,0);
 
-	if(pg != null) {
-		image(img,0,0);
-		image(pg,0,img.height);
-	}
 }
 
 
