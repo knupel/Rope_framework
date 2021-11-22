@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.13.0
+*v 0.13.1
 * Copyleft (c) 2016-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
@@ -36,7 +36,7 @@ int [] get_palette() {
 
 /**
 GET COLORMODE
-v 0.1.0
+v 0.1.1
 */
 /**
 * getColorMode()
@@ -44,7 +44,7 @@ v 0.1.0
 * @param boolean print_info_is retrun a print about the color environment
 */
 float [] getColorMode(boolean print_info_is) {
-	return getColorMode(g, boolean print_info_is);
+	return getColorMode(g, print_info_is);
 }
 
 float [] getColorMode() {
@@ -52,14 +52,14 @@ float [] getColorMode() {
 	return getColorMode(g, false);
 }
 
-float [] getColorMode(Pgraphics pg) {
+float [] getColorMode(PGraphics pg) {
 	// see rope.R_Graphic.getColorMode(boolean print_info_is);
 	return getColorMode(pg, false);
 }
 
-float [] getColorMode(Pgraphics pg, boolean print_info_is) {
+float [] getColorMode(PGraphics pg, boolean print_info_is) {
 	// see rope.R_Graphic.getColorMode(boolean print_info_is);
-	float colorMode = g.colorMode ;
+	float colorMode = pg.colorMode ;
 	float x = pg.colorModeX;
 	float y = pg.colorModeY;
 	float z = pg.colorModeZ;
@@ -67,7 +67,7 @@ float [] getColorMode(Pgraphics pg, boolean print_info_is) {
 	float array[] = {colorMode,x,y,z,a};
 	if (print_info_is && pg.colorMode == HSB) {
 		println("HSB",x,y,z,a);
-	} else if(print_info_is && pgg.colorMode == RGB) {
+	} else if(print_info_is && pg.colorMode == RGB) {
 		println("RGB",x,y,z,a);
 	}
 	return array;
