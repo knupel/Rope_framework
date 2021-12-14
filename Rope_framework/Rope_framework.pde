@@ -7,32 +7,41 @@
 *
 */
 
-PImage img;
-PGraphics pg;
 void setup() {
-  rope_version();
-  size(480,720,P2D);
-	// colorMode(HSB,360,100,100);
-  img = loadImage("jpg file/petite_puros_girl.jpg");
-	// pg = fx_level_adv(img,false,true,0,0.5,1);
-	img.loadPixels();
-	for(int i = 0 ; i < img.pixels.length ; i++) {
-		// int c = color(map(brightness(img.pixels[i]),0,g.colorModeZ,0,255));
-		int c = color(brightness(img.pixels[i]));
-		img.pixels[i] = c;
+	size(400,400,P2D);
+	rope_version();
+	background(r.GRAY[12]);
+	int num = 5000;
+	loadPixels();
+	for(int i = 0 ; i < num ; i++) {
+		int x = (int)random(0,100);
+		int y = (int)random(height);
+		plot(x, y, r.BLACK);
 	}
-	img.updatePixels();
 
-	// 
+	use_plot_x2(true);
+	for(int i = 0 ; i < num ; i++) {
+		int x = (int)random(100, 200);
+		int y = (int)random(height);
+		plot(x, y, r.BLACK);
+	}
 
+	use_plot_x2(false);
+	for(int i = 0 ; i < num ; i++) {
+		int x = (int)random(200,300);
+		int y = (int)random(height);
+		plot(x, y, r.BLACK);
+	}
 
+	for(int i = 0 ; i < num ; i++) {
+		int x = (int)random(300,400);
+		int y = (int)random(height);
+		float alpha = map(y,0,height,0,1);
+		plot(x, y, r.BLACK, alpha);
+	}
+	updatePixels();
 }
 
-
-void draw() {
-	image(img,0,0);
-
-}
 
 
 
