@@ -1,6 +1,6 @@
 /**
 * Rope UTILS 
-* v 1.67.0
+* v 1.67.1
 * Copyleft (c) 2014-2021
 * Rope – Romanesco Processing Environment – 
 * @author Knupel / Stanislas Marçais
@@ -600,7 +600,7 @@ void select_single_file(File selection) {
 
 /*
 * FOLDER PART
-* v 1.0.2
+* v 1.1.0
 * 2017-2021
 */
 R_Folder rope_folder;
@@ -609,7 +609,6 @@ void explore_folder(String path, String... extension) {
 }
 
 void explore_folder(String path, boolean check_sub_folder, String... extension) {
-	// printArray(extension);
 	if(rope_folder == null)
 		rope_folder = new R_Folder(this);
 	rope_folder.explore_folder(path, check_sub_folder, extension);
@@ -623,6 +622,12 @@ String folder() {
 
 ArrayList<File> get_files() {
 	return rope_folder.get_files();
+}
+
+void clear_files() {
+	if(rope_folder != null) {
+		rope_folder.clear();
+	}
 }
 
 void select_folder() {
@@ -642,7 +647,7 @@ boolean folder_input_default_is() {
 }
 
 /**
-* this method is called by method select_folder() in class R_Folder
+* this function rope_select_folder() is called by method select_folder() in class R_Folder from library Rope
 * and the method name must be the same as named
 */
 void rope_select_folder(File selection) {
