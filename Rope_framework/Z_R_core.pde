@@ -46,14 +46,14 @@ import java.awt.Rectangle;
 
 Rope r;
 
-String rope_framework_version = "1.4.11.89";
+String rope_framework_version = "1.4.11.90";
 public void rope_version() {
 	init_rope();
 }
 
 public void init_rope() {
 	r = new Rope();
-	println("Romanesco Processing Environment - 2015-2021");
+	println("Romanesco Processing Environment - 2015-2022");
 	println("Processing: 4.0b2");
 	println("Rope library: " + r.VERSION);
 	println("Rope framework: " + rope_framework_version);
