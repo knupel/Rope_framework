@@ -7,43 +7,70 @@
 *
 */
 
+/**
+* Rope framework
+* Copyleft (c) 2014-2022
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
+* @see https://github.com/StanLepunK/Rope/tree/master/Guide
+*
+*/
+
+PImage result;
+PImage img_a, img_b;
+
+vec2 threshold_mask = new vec2(0,1);
+vec4 level_mask = new vec4(1);
+
+
 void setup() {
 	size(400,400,P2D);
+	surface.setResizable(true);
 	rope_version();
-	background(r.GRAY[12]);
-	int num = 5000;
-	loadPixels();
-	for(int i = 0 ; i < num ; i++) {
-		int x = (int)random(0,100);
-		int y = (int)random(height);
-		plot(x, y, r.BLACK);
-	}
-
-	use_plot_x2(true);
-	for(int i = 0 ; i < num ; i++) {
-		int x = (int)random(100, 200);
-		int y = (int)random(height);
-		plot(x, y, r.BLACK);
-	}
-
-	use_plot_x2(false);
-	for(int i = 0 ; i < num ; i++) {
-		int x = (int)random(200,300);
-		int y = (int)random(height);
-		plot(x, y, r.BLACK);
-	}
-
-	for(int i = 0 ; i < num ; i++) {
-		int x = (int)random(300,400);
-		int y = (int)random(height);
-		float alpha = map(y,0,height,0,1);
-		plot(x, y, r.BLACK, alpha);
-	}
-	updatePixels();
+	img_a = loadImage("jpg file/petite_puros_girl.jpg");
+	img_b = loadImage("jpg file/damier_petit_gradient.jpg");
+	surface.setSize(img_a.width, img_a.height);
 }
 
 
 
+void draw() {
+	background(r.WHITE);
+
+	threshold_mask.set(0,1); // the range where your mask work from 0 to 1, I don't understand well my goal when I code that :)
+
+	float x = map(sin(frameCount * 0.1),-1,1,0,1);
+	float y = map(sin(frameCount * 0.01),-1,1,0,1);
+	float z = map(sin(frameCount * 0.02),-1,1,0,1);
+	float a = map(sin(frameCount * 0.03),-1,1,0,1);
+	level_mask.set(x,y,z,a); // the level work for each color argument work rgbA or hsba depend of you space color if I rember well.
+
+	int fx_mask_mode = 0 ; // 0 is gray 1 is RGB
+
+
+	int num_separation = (int)map(sin(frameCount * 0.1),-1,1,3,30); // the number of layer of colour separation.
+	boolean on_g = false; // if you want work on g. Where "g" is a main rendering
+	boolean filter_is = true; // I don't remember, what I code that. It's up to you to experiment !
+
+	result = fx_mask(img_a, img_b, 
+									on_g, filter_is, 
+									fx_mask_mode, 
+									num_separation, 
+									threshold_mask, level_mask);
+
+	image(result);
+}
+
+
+
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////// WARNING THIS WORK ARE IN PROGRESS ///////////////
+////////////////////////////////////////////////////////////
+////////// DONT REMOVE OR ERASE ////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
 
 /**
 * GUI CROPE EXAMPLE
