@@ -17,19 +17,38 @@
 */
 
 PImage result;
-PImage img_a, img_b;
+PImage [] img;
 
 vec2 threshold_mask = new vec2(0,1);
 vec4 level_mask = new vec4(1);
 
 
 void setup() {
-	size(400,400,P2D);
+	size(300,400,P2D);
+	frameRate(12);
 	surface.setResizable(true);
 	rope_version();
-	img_a = loadImage("jpg file/petite_puros_girl.jpg");
-	img_b = loadImage("jpg file/damier_petit_gradient.jpg");
-	surface.setSize(img_a.width, img_a.height);
+	// various image with different size
+	img = new PImage[6];
+	img[0] = loadImage("jpg file/petite_puros_girl.jpg");
+	img[1] = loadImage("jpg file/damier_petit_gradient.jpg");
+	img[2] = loadImage("jpg file/small_dame_hermine.jpg");
+	img[3] = loadImage("jpg file/square_dame_hermine.jpg");
+	img[4] = loadImage("jpg file/petite_joconde.jpg");
+	img[5] = loadImage("jpg file/pirate_small.jpg");
+
+	/**
+	 * 
+	 ***** WARNING ********
+	 * 
+	 * to center the rendering on the window and avoir the memory leaks
+	 * to see what's happen open soft can check the computer memory
+	 * and change the method to 
+	 * fx_constrain_is(false);
+	 * 
+	 * */
+	 fx_constrain_is(true);
+
 }
 
 
@@ -52,7 +71,9 @@ void draw() {
 	boolean on_g = false; // if you want work on g. Where "g" is a main rendering
 	boolean filter_is = true; // I don't remember, what I code that. It's up to you to experiment !
 
-	result = fx_mask(img_a, img_b, 
+	int index_a = floor(random(6));
+	int index_b = floor(random(6));
+	result = fx_mask(img[index_a], img[index_b], 
 									on_g, filter_is, 
 									fx_mask_mode, 
 									num_separation, 
