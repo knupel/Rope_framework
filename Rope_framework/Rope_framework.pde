@@ -1,334 +1,185 @@
 /**
-* Rope framework
-* Copyleft (c) 2014-2021
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope_framework
-* @see https://github.com/StanLepunK/Rope/tree/master/Guide
-*
-*/
-
-/**
+ *   ___      ___   ____   _______
+ *  | -  \   /   \  |    \ |  ___/
+ *  | |/  | |   \ | | |\ | |  |__
+ *  |    /  | | | | | |  / |  __/
+ *  | |  \  \ \   / |  |/  |  |____
+ *  |_| \_\  \___/  |_ |   |______/
+ * 
 * Rope framework
 * Copyleft (c) 2014-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * @see https://github.com/StanLepunK/Rope/tree/master/Guide
 *
+*
+* Example adapted from Toxilibs
+* 2022-2022
+* version 0.0.1
+*
 */
 
-PImage result;
-PImage [] img;
+import rope.mesh.R_Voronoi;
+import rope.mesh.R_Shape;
 
-vec2 threshold_mask = new vec2(0,1);
-vec4 level_mask = new vec4(1);
+R_Voronoi voronoi;
 
+// switches
+boolean show_seeds_is = true;
+boolean show_delaunay_triangle_is = false;
+boolean show_diagram_is = true;
+boolean show_info_is = false;
+
+int thickness = 1;
 
 void setup() {
-	size(300,400,P2D);
-	frameRate(12);
-	surface.setResizable(true);
-	rope_version();
-	// various image with different size
-	img = new PImage[6];
-	img[0] = loadImage("jpg file/petite_puros_girl.jpg");
-	img[1] = loadImage("jpg file/damier_petit_gradient.jpg");
-	img[2] = loadImage("jpg file/small_dame_hermine.jpg");
-	img[3] = loadImage("jpg file/square_dame_hermine.jpg");
-	img[4] = loadImage("jpg file/petite_joconde.jpg");
-	img[5] = loadImage("jpg file/pirate_small.jpg");
-
-	/**
-	 * 
-	 ***** WARNING ********
-	 * 
-	 * to center the rendering on the window and avoir the memory leaks
-	 * to see what's happen open soft can check the computer memory
-	 * and change the method to 
-	 * fx_constrain_is(false);
-	 * 
-	 * */
-	 fx_constrain_is(true);
-
+  size(600, 600);
+	voronoi = new R_Voronoi(this);
+	add_seeds(3);
+  textFont(createFont("SansSerif", 14));
 }
-
-
 
 void draw() {
-	background(r.WHITE);
-
-	threshold_mask.set(0,1); // the range where your mask work from 0 to 1, I don't understand well my goal when I code that :)
-
-	float x = map(sin(frameCount * 0.1),-1,1,0,1);
-	float y = map(sin(frameCount * 0.01),-1,1,0,1);
-	float z = map(sin(frameCount * 0.02),-1,1,0,1);
-	float a = map(sin(frameCount * 0.03),-1,1,0,1);
-	level_mask.set(x,y,z,a); // the level work for each color argument work rgbA or hsba depend of you space color if I rember well.
-
-	int fx_mask_mode = 0 ; // 0 is gray 1 is RGB
-
-
-	int num_separation = (int)map(sin(frameCount * 0.1),-1,1,3,30); // the number of layer of colour separation.
-	boolean on_g = false; // if you want work on g. Where "g" is a main rendering
-	boolean filter_is = true; // I don't remember, what I code that. It's up to you to experiment !
-
-	int index_a = floor(random(6));
-	int index_b = floor(random(6));
-	result = fx_mask(img[index_a], img[index_b], 
-									on_g, filter_is, 
-									fx_mask_mode, 
-									num_separation, 
-									threshold_mask, level_mask);
-
-	image(result);
+  background(255);
+  // strokeWeight(thickness);
+	noStroke();
+  show_areas();
+	show_triangles();
+	show_seeds();
+	gui_instruction();
+	voronoi.update();
+	print_info();
 }
 
 
 
+void keyPressed() {
+  switch(key) {
+		case 't':
+			show_delaunay_triangle_is = !show_delaunay_triangle_is;
+			break;
+		case 'x':
+			voronoi = new R_Voronoi(this);
+			break;
+		case 'p':
+			show_seeds_is = !show_seeds_is;
+			break;
+		case 'c':
+			show_diagram_is = !show_diagram_is;
+			break;
+		case 'r':
+			add_seeds(50);
+			break;
+		case 'i':
+			show_info_is = !show_info_is;
+			break;
+		case 'e':
+			remove_seed();
+			break;
+  }
+}
 
-////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
-////////// WARNING THIS WORK ARE IN PROGRESS ///////////////
-////////////////////////////////////////////////////////////
-////////// DONT REMOVE OR ERASE ////////////////////////////
-////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
-
-/**
-* GUI CROPE EXAMPLE
-* dependancies
-* Processing 3.5.4
-* 2021-2021
-*
-* Knob example
-* v 0.1.0
-*/
-
-import rope.gui.button.R_Button;
-// import rope.gui.button.R_Knob;
-import rope.R_State.State;
-import rope.vector.vec2;
-import rope.core.Rope;
-// import rope.core.Rope;
-import rope.gui.R_Mol;
-
-
-// Rope r = new Rope();
-// void setup() {
-//   size(200,200);
-//   State.init(this);
-//   set_knob(); 
-// }
-
-
-// void draw() {
-// 	background(255);
-// 	State.pointer(mouseX,mouseY);
-// 	State.event(mousePressed);
-// 	draw_knob();
-// 	State.reset_event();
-// }
-
-R_Knob knob ;
-void set_knob() {
-	knob = new R_Knob(new vec2(20),100);
-	knob.set_rollover_type(RECT);
-	
-	knob.set_value(0.45, 0.3);
-
-	knob.set_size_mol(10);
-	knob.set_dist_mol(knob.size().x() * 0.5);
-	knob.set_type_mol(RECT);
-
-	knob.set_dist_guide(knob.size().x() * 0.65);
-
-	// limit the range knob
-	knob.limit(true); // use default value range
-
-  // CLOCKWISE
-  // knob.set_limit(0, PI); 
-	// knob.set_limit(PI, TAU); 
-  // knob.set_limit(r.SOUTH, r.NORTH);
-	// knob.set_limit(r.SOUTH + TAU, r.NORTH -TAU); // test on value beyond double PI
-	
-	// knob.set_limit(r.NORTH_EAST, r.SOUTH_EAST);
-	// knob.set_limit(r.EAST, r.SOUTH); 
-
-	// knob.set_limit(r.NORTH_EAST, r.SOUTH); 
-	
- 	
-	// knob.set_limit( r.SOUTH_EAST, r.SOUTH_WEST);
-
-	// knob.set_limit(r.NORTH_WEST, TAU - r.QPI);
-	// knob.set_limit(r.NORTH_WEST, r.NORTH_EAST); 
-
-	// knob.set_limit(0, TAU - (PI/2)); // GROS BUG
-	// knob.set_limit(0, r.NORTH); // GROS BUG
-
-  // knob.set_limit(r.NORTH_WEST, r.NORTH_EAST);
-	// knob.set_limit( r.SOUTH_WEST, r.NORTH_WEST);
-
-	// knob.set_limit(0, r.NORTH_EAST); // GROS BUG
-  
-
-
-  // CLOCKWISE FALSE
-	// knob.set_limit(PI, 0); 
-	// knob.set_limit(r.NORTH, r.WEST); 
-	// knob.set_limit(r.NORTH_EAST, r.NORTH_WEST); 
-	// knob.set_limit( r.NORTH_WEST, r.SOUTH_WEST);
-	// knob.set_limit( r.SOUTH, r.NORTH_EAST); // BUG
-	knob.set_limit(r.NORTH, r.SOUTH); 
-  //  knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST); 
-
-	// colour molette
-	knob.set_align_label_name(LEFT);
-	knob.set_align_label_value(LEFT);
-	knob.set_label("Turn me please");
-	float pos_info = 25;
-
-	knob.set_drag_force(0.05);
-
-	R_Mol [] list = knob.get_mol();
-	// for(int i = 0 ; i < list.length ; i++) {
-	// 	println("mol pos",list[i].pos());
-	// }
-
+void mousePressed() {
+	int c = color(random(255),random(255),random(255));
+  voronoi.add_seed(mouseX, mouseY, c);
+	print_info_voronoi();	
 }
 
 
-void draw_knob() {
-	knob.update();
-	// knob.update(mouseX,mouseY);
-	// knob.select(mousePressed);
-	// knob.select(keyPressed); // by default is mousePressed
-	// knob.update(mouseX,mouseY,keyPressed);
-	//knob.update(mouseX,mouseY,mousePressed,keyPressed);
-	knob.rollover(true);
+// ANNEXE
+void remove_seed() {
+	int index = floor(random(voronoi.size()));
+	voronoi.remove_seed(index);
+}
 
+void print_info() {
+	if(show_info_is) {
+		println("size:",voronoi.size(), "fps:",(int)frameRate, "frameCount", frameCount);
+	}
+}
 
-	knob.show_label();
-	knob.show_struc();
-	knob.show_struc_pie();
-	knob.show_mol();
-	knob.show_value();
-	knob.show_limit();
-	knob.show_guide();
-  
-  // println("knob value", knob.get());
-	// println("knob value", knob.get()%TAU);
+void print_info_voronoi() {
+	for(int i = 0 ; i < voronoi.size() ; i++) {
+		println("\nvoronoi:", i);
+		vec3 seed = voronoi.get_seed(i);
+		println("seed:", seed.x(), seed.y(), (int)seed.z());
+		if(i < voronoi.get_areas().size()) {
+			println("area", i, "id", voronoi.get_area(i).id());
+			printArray(voronoi.get_area(i).get_points());
+			println("triangle");
+			printArray(voronoi.get_triangle(i).get_points());
+		}
+	}
 }
 
 
-
-
-
-public class vec1 extends Rope {
-	float x = 0;
-	bvec4 zone; // east, south, west, north
-	bvec4 point; // east, south, west, north
-
-	public vec1(float x, float y) {
-		this.x = (float) Math.atan2(y,x);
-		init();
-		set(this.x);
+void add_seeds(int num) {
+	for (int i = 0; i < num; i++) {
+		float x = random(width);
+		float y = random(height);
+		int c = color(random(255),random(255),random(255));
+		voronoi.add_seed(new vec2(x,y), c);
 	}
-
-	public vec1(float x) {
-		this.x = x;
-		init();
-		set(this.x);
-	}
-
-	private void init() {
- 		zone = new bvec4();
-		point = new bvec4();
-	}
-
-	public vec1 get() {
-		return this;
-	}
-
-	public float angle() {
-		return this.x;
-	}
-
-	public void set(float x) {
-		boolean z_east = !all(abs(x) > HPI, x <= PI);
-		boolean z_south = all(x < PI, x > 0);
-		boolean z_west = !z_east;
-		boolean z_north = !z_south;
-		zone.set(z_east, z_south, z_west, z_north);
-
-		boolean p_east = any(x == TAU, x == 0);
-		boolean p_south = x == HPI;
-		boolean p_west = any(x == PI, x == -PI);
-		boolean p_north = any(x == -HPI, x == TAU -HPI);
-		point.set(p_east, p_south, p_west, p_north);
-	}
-
-
-	public bvec4 point() {
-		return this.point;
-	}
-
-	public boolean point_east() {
-		return this.point.x();
-	}
-
-	public boolean point_south() {
-		return this.point.y();
-	}
-
-	public boolean point_west() {
-		return this.point.z();
-	}
-
-	public boolean point_north() {
-		return this.point.w();
-	}
-
-	// zone
-	public bvec4 zone() {
-		return this.zone;
-	}
-
-	// half zone
-	public boolean zone_east() {
-		return this.zone.x();
-	}
-
-	public boolean zone_south() {
-		return this.zone.y();
-	}
-
-	public boolean zone_west() {
-		return this.zone.z();
-	}
-
-	public boolean zone_north() {
-		return this.zone.w();
-	}
-
-	// quarter zone
-		public boolean zone_south_east() {
-		return all(zone_south(), zone_east());
-	}
-
-	public boolean zone_south_west() {
-		return all(zone_south(), zone_west());
-	}
-
-	public boolean zone_north_west() {
-		return all(zone_north(), zone_west());
-	}
-
-	public boolean zone_north_east() {
-		return all(zone_north(), zone_east());
-	}
-
-
-
-
+	print_info_voronoi();
 }
 
 
+void show_triangles() {
+	stroke(255, 0, 0);
+  if(show_delaunay_triangle_is && voronoi.get_triangles() != null) {
+    for (R_Shape triangle : voronoi.get_triangles()) {
+      vec3 [] arr = triangle.get_points();
+			beginShape();
+			for(vec3 v : arr) {
+				vertex(v);
+			}
+			endShape(CLOSE);
+		}
+  }
+}
+
+void show_areas() {
+	stroke(0);
+	if(show_diagram_is && voronoi.get_areas() != null) {
+		int index = 0;
+		for (R_Shape poly : voronoi.get_areas()) {
+			vec3 [] arr = poly.get_points();
+			if(voronoi.get_seed(index) != null) {
+				int target = poly.id().a();
+				int c = (int)voronoi.get_seed(target).z();
+				fill(c);
+			}
+			beginShape();
+			for(vec3 v : arr) {
+				vertex(v);
+			}
+			endShape(CLOSE);
+			index++;
+		}
+	}
+}
+
+
+void show_seeds() {
+	fill(255);
+	stroke(0);
+  if(show_seeds_is) {
+    for (vec3 point : voronoi.get_seeds()) {
+      circle(point.x(), point.y(), 10);
+    }
+  }
+}
+
+
+void gui_instruction() {
+	int line = 20;
+	int step = 20;
+	fill(0);
+	text("p: toggle seeds", 20, line);
+	text("t: toggle triangles", 20, line+=step);
+	text("x: clear all", 20, line+=step);
+	text("r: add random seeds", 20, line+=step);
+	text("c: toggle voronoi diagram", 20, line+=step);
+	text("i: print info", 20, line+=step);
+	text("e: remove random seed", 20, line+=step);
+}
