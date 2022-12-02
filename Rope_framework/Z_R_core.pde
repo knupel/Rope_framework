@@ -4,7 +4,7 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * ROPE core
-* v 0.2.6
+* v 0.2.7
 */
 import rope.core.*;
 import rope.vector.*;
@@ -46,7 +46,7 @@ import java.awt.Rectangle;
 
 Rope r = new Rope();
 
-String rope_framework_version = "1.5.1.92";
+String rope_framework_version = "1.5.2.93";
 public void rope_version() {
 	init_rope();
 }
