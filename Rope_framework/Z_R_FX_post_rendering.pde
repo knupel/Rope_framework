@@ -9,7 +9,7 @@
 */
 
 
-
+import rope.image.R_Pattern;
 
 /**
 * Template by Stan le punk
@@ -33,7 +33,7 @@ PGraphics fx_template(PImage source, boolean on_g, boolean filter_is, vec4 level
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_template == null || (fx_canvas.x() != pg_template.width || fx_canvas.y() != pg_template.height))) {
-		pg_template = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_template = createGraphics(fx_canvas.x(),fx_canvas.y(), r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_template == null) {
@@ -144,7 +144,7 @@ PGraphics fx_fxaa(PImage source, boolean on_g, boolean filter_is, float sub_pix_
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_fxaa == null || (fx_canvas.x() != pg_fxaa.width || fx_canvas.y() != pg_fxaa.height))) {
-		pg_fxaa = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_fxaa = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_fxaa == null) {
@@ -246,7 +246,7 @@ PGraphics fx_blur_circular(PImage source, boolean on_g, boolean filter_is, vec3 
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_blur_circular == null || (fx_canvas.x() != pg_blur_circular.width || fx_canvas.y() != pg_blur_circular.height))) {
-		pg_blur_circular = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_blur_circular = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_blur_circular == null) {
@@ -291,7 +291,7 @@ PGraphics fx_blur_circular(PImage source, boolean on_g, boolean filter_is, vec3 
 */
 // setting by class FX
 PGraphics fx_blur_gaussian(PImage source, FX fx) {
-	ivec2 res = ivec2();
+	ivec2 res = new ivec2();
 	boolean second_pass = true;
 	return fx_blur_gaussian(source,fx.on_g(),fx.pg_filter_is(),second_pass,res,fx.get_strength().x());
 }
@@ -307,16 +307,16 @@ PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean filter_is, boole
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_blur_gaussian == null || (fx_canvas.x() != pg_blur_gaussian.width || fx_canvas.y() != pg_blur_gaussian.height))) {
-		pg_blur_gaussian = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_blur_gaussian = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
   if(pg_blur_gaussian == null) {
   	// security, because that's return problem consol with too much waring message for PImage source
-  	if(resolution != null && !all(equal(ivec2(-1),resolution))) {
+  	if(resolution != null && !r.all(r.equal(new ivec2(-1),resolution))) {
   		pg_blur_gaussian = fx_image(source,false,filter_is,null,null,null,null,SCREEN);
   	}
   } else {
-  	if(resolution != null && !all(equal(ivec2(pg_blur_gaussian),resolution))) {
+  	if(resolution != null && !r.all(r.equal(new ivec2(pg_blur_gaussian.width,pg_blur_gaussian.height),resolution))) {
   		pg_blur_gaussian = fx_image(source,false,filter_is,null,null,null,null,SCREEN);
   	}
   }
@@ -326,15 +326,15 @@ PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean filter_is, boole
   PGraphics pg_2;
 
 	if(resolution == null) {
-  	pg = createGraphics(pg_blur_gaussian.width,pg_blur_gaussian.height,get_renderer());
-  	pg_2 = createGraphics(pg_blur_gaussian.width,pg_blur_gaussian.height,get_renderer());
+  	pg = createGraphics(pg_blur_gaussian.width,pg_blur_gaussian.height,r.get_renderer(g));
+  	pg_2 = createGraphics(pg_blur_gaussian.width,pg_blur_gaussian.height,r.get_renderer(g));
   } else {
   	int min_res = 10;
-  	if(any(lessThanEqual(resolution,ivec2(min_res)))) {
+  	if(r.any(r.lessThanEqual(resolution, new ivec2(min_res)))) {
   		resolution.set(pg_blur_gaussian.width,pg_blur_gaussian.height);
   	}
-  	pg = createGraphics(resolution.x,resolution.y,get_renderer());
-  	pg_2 = createGraphics(resolution.x,resolution.y,get_renderer());
+  	pg = createGraphics(resolution.x,resolution.y,r.get_renderer(g));
+  	pg_2 = createGraphics(resolution.x,resolution.y,r.get_renderer(g));
   }
 
 	
@@ -438,7 +438,7 @@ PGraphics fx_blur_radial(PImage source, FX fx) {
 	if(fx.get_scale() != null) {
 		scl = fx.get_scale().x();
 	}
-	return fx_blur_radial(source,fx.on_g(),fx.pg_filter_is(),vec2(fx.get_pos()),str,scl);
+	return fx_blur_radial(source,fx.on_g(),fx.pg_filter_is(),new vec2(fx.get_pos()),str,scl);
 }
 
 // main
@@ -452,7 +452,7 @@ PGraphics fx_blur_radial(PImage source, boolean on_g, boolean filter_is, vec2 po
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_blur_radial == null || (fx_canvas.x() != pg_blur_radial.width || fx_canvas.y() != pg_blur_radial.height))) {
-		pg_blur_radial = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_blur_radial = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_blur_radial == null) {
@@ -515,7 +515,7 @@ PGraphics fx_colour_change_a(PImage source, boolean on_g, boolean filter_is, int
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_colour_change_a == null || (fx_canvas.x() != pg_colour_change_a.width || fx_canvas.y() != pg_colour_change_a.height))) {
-		pg_colour_change_a = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_colour_change_a = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_colour_change_a == null) {
@@ -594,7 +594,7 @@ PGraphics fx_colour_change_b(PImage source, boolean on_g, boolean filter_is, flo
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_colour_change_b == null || (fx_canvas.x() != pg_colour_change_b.width || fx_canvas.y() != pg_colour_change_b.height))) {
-		pg_colour_change_b = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_colour_change_b = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_colour_change_b == null) {
@@ -671,7 +671,7 @@ PGraphics fx_datamosh(PImage source, boolean on_g, boolean filter_is, float thre
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_datamosh == null || (fx_canvas.x() != pg_datamosh.width || fx_canvas.y() != pg_datamosh.height))) {
-		pg_datamosh = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_datamosh = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_datamosh == null) {
@@ -713,7 +713,7 @@ PGraphics fx_datamosh(PImage source, boolean on_g, boolean filter_is, float thre
 		} 
 
 		if(pg_datamosh == null) {
-			pg_datamosh = createGraphics(source.width,source.height,get_renderer());
+			pg_datamosh = createGraphics(source.width,source.height,r.get_renderer(g));
 		} else {
 			fx_datamosh.set("texture_layer",pg_datamosh);
 		}
@@ -771,7 +771,7 @@ PGraphics fx_derivative(PImage source, boolean on_g, boolean filter_is) {
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_derivative == null || (fx_canvas.x() != pg_derivative.width || fx_canvas.y() != pg_derivative.height))) {
-		pg_derivative = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_derivative = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_derivative == null) {
@@ -837,7 +837,7 @@ PGraphics fx_derivative(PImage source, boolean on_g, boolean filter_is) {
 */
 // setting by class FX
 PGraphics fx_dither_bayer_8(PImage source, FX fx) {
-	return fx_dither_bayer_8(source,fx.on_g(),fx.pg_filter_is(),vec3(fx.get_level_source()),fx.get_mode());	
+	return fx_dither_bayer_8(source,fx.on_g(),fx.pg_filter_is(),new vec3(fx.get_level_source()),fx.get_mode());	
 }
 
 // main
@@ -851,7 +851,7 @@ PGraphics fx_dither_bayer_8(PImage source, boolean on_g, boolean filter_is, vec3
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_dither_bayer_8 == null || (fx_canvas.x() != pg_dither_bayer_8.width || fx_canvas.y() != pg_dither_bayer_8.height))) {
-		pg_dither_bayer_8 = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_dither_bayer_8 = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_dither_bayer_8 == null) {
@@ -915,7 +915,7 @@ PGraphics fx_flip(PImage source, boolean on_g, boolean filter_is, bvec2 flip) {
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_flip == null || (fx_canvas.x() != pg_flip.width || fx_canvas.y() != pg_flip.height))) {
-		pg_flip = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_flip = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_flip == null) {
@@ -928,7 +928,7 @@ PGraphics fx_flip(PImage source, boolean on_g, boolean filter_is, bvec2 flip) {
 		println("load shader:",path);
 	} else {
 
-		ivec2 iflip = ivec2(0);
+		ivec2 iflip = new ivec2(0);
 		if(flip.x) iflip.x(1);
 		if(flip.y) iflip.y(1);
 		if(on_g) {
@@ -984,7 +984,7 @@ PGraphics fx_glitch_fxaa(PImage source, boolean on_g, boolean filter_is, vec4 ca
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_glitch_fxaa == null || (fx_canvas.x() != pg_glitch_fxaa.width || fx_canvas.y() != pg_glitch_fxaa.height))) {
-		pg_glitch_fxaa = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_glitch_fxaa = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_glitch_fxaa == null) {
@@ -1057,7 +1057,7 @@ PGraphics fx_grain(PImage source, boolean on_g, boolean filter_is, float offset,
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_grain == null || (fx_canvas.x() != pg_grain.width || fx_canvas.y() != pg_grain.height))) {
-		pg_grain = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_grain = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_grain == null) {
@@ -1131,7 +1131,7 @@ PGraphics fx_grain_scatter(PImage source, boolean on_g, boolean filter_is, float
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_grain_scatter == null || (fx_canvas.x() != pg_grain_scatter.width || fx_canvas.y() != pg_grain_scatter.height))) {
-		pg_grain_scatter = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_grain_scatter = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_grain_scatter == null) {
@@ -1187,9 +1187,9 @@ PGraphics fx_grain_scatter(PImage source, boolean on_g, boolean filter_is, float
 */
 // setting by class FX
 PGraphics fx_halftone_dot(PImage source, FX fx) {
-	vec2 pos = vec2(source.width/2,source.height/2);
+	vec2 pos = new vec2(source.width/2,source.height/2);
 	if(fx.get_pos() != null) {
-		pos = vec2(fx.get_pos().x(),fx.get_pos().y());
+		pos = new vec2(fx.get_pos().x(),fx.get_pos().y());
 	}
 
 	float threshold = .95;
@@ -1221,7 +1221,7 @@ PGraphics fx_halftone_dot(PImage source, boolean on_g, boolean filter_is, vec2 p
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_halftone_dot == null || (fx_canvas.x() != pg_halftone_dot.width || fx_canvas.y() != pg_halftone_dot.height))) {
-		pg_halftone_dot = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_halftone_dot = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_halftone == null) {
@@ -1275,12 +1275,12 @@ PGraphics fx_halftone_dot(PImage source, boolean on_g, boolean filter_is, vec2 p
 */
 // use setting
 PGraphics fx_halftone_line(PImage source, FX fx) {
-	vec2 pos = vec2(source.width/2,source.height/2);
+	vec2 pos = new vec2(source.width/2,source.height/2);
 	if(fx.get_pos() != null) {
-		pos = vec2(fx.get_pos().x,fx.get_pos().y);
+		pos = new vec2(fx.get_pos().x,fx.get_pos().y);
 	}
 
-	vec3 angle = vec3();
+	vec3 angle = new vec3();
 	if(fx.get_angle() != null) {
 		angle = fx.get_angle().copy();
 	}
@@ -1289,7 +1289,7 @@ PGraphics fx_halftone_line(PImage source, FX fx) {
 	int num = fx.get_num();
 	float quality = fx.get_quality();
 
-  vec3 threshold = vec3(.9);
+  vec3 threshold = new vec3(.9);
 	if(fx.get_threshold() != null) {
 		threshold = fx.get_threshold().copy();
 	}
@@ -1307,7 +1307,7 @@ PGraphics fx_halftone_line(PImage source, boolean on_g, boolean filter_is, vec2 
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (result_halftone_line == null || (fx_canvas.x() != result_halftone_line.width || fx_canvas.y() != result_halftone_line.height))) {
-		result_halftone_line = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		result_halftone_line = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_halftone_line == null) {
@@ -1357,7 +1357,7 @@ PGraphics fx_halftone_line(PImage source, boolean on_g, boolean filter_is, vec2 
 */
 // use setting
 PGraphics fx_halftone_multi(PImage source, FX fx) {
-	return fx_halftone_multi(source,fx.on_g(),fx.pg_filter_is(),vec2(fx.get_pos()),fx.get_size().x,fx.get_angle().x,fx.get_quality(),fx.get_threshold().x,fx.get_saturation(),fx.get_mode());
+	return fx_halftone_multi(source,fx.on_g(),fx.pg_filter_is(),new vec2(fx.get_pos()),fx.get_size().x(),fx.get_angle().x(),fx.get_quality(),fx.get_threshold().x(),fx.get_saturation(),fx.get_mode());
 }
 
 // main
@@ -1371,7 +1371,7 @@ PGraphics fx_halftone_multi(PImage source, boolean on_g, boolean filter_is, vec2
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_halftone_multi == null || (fx_canvas.x() != pg_halftone_multi.width || fx_canvas.y() != pg_halftone_multi.height))) {
-		pg_halftone_multi = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_halftone_multi = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_halftone_multi == null) {
@@ -1430,7 +1430,7 @@ PGraphics fx_halftone_multi(PImage source, boolean on_g, boolean filter_is, vec2
 */
 // setting by class FX
 PGraphics fx_image(PImage source, FX fx) {
-	return fx_image(source,fx.on_g(),fx.pg_filter_is(),vec2(fx.get_pos()),vec2(fx.get_size()),vec3(fx.get_colour()),fx.get_cardinal(),fx.get_mode());
+	return fx_image(source,fx.on_g(),fx.pg_filter_is(),new vec2(fx.get_pos()),new vec2(fx.get_size()),new vec3(fx.get_colour()),fx.get_cardinal(),fx.get_mode());
 }
 
 // main
@@ -1444,7 +1444,7 @@ PGraphics fx_image(PImage source, boolean on_g, boolean filter_is, vec2 pos, vec
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_image_rendering == null || (fx_canvas.x() != pg_image_rendering.width || fx_canvas.y() != pg_image_rendering.height))) {
-		pg_image_rendering = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_image_rendering = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_image == null) {
@@ -1543,7 +1543,7 @@ PGraphics fx_image(PImage source, boolean on_g, boolean filter_is, vec2 pos, vec
 */
 // direct filtering
 PGraphics fx_level(PImage source, FX fx) {
-	vec3 level = vec3(1);
+	vec3 level = new vec3(1);
 	if(fx.get_level_source() != null) {
 		level.set(fx.get_level_source());
 	}
@@ -1561,7 +1561,7 @@ PGraphics fx_level(PImage source, boolean on_g, boolean filter_is, int mode, flo
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_level == null || (fx_canvas.x() != pg_level.width || fx_canvas.y() != pg_level.height))) {
-		pg_level = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_level = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_level == null) {
@@ -1617,9 +1617,9 @@ v 0.0.2
 */
 // direct filtering
 PGraphics fx_level_adv(PImage source, FX fx) {
-	vec3 min = vec3(0);
-	vec3 gamma = vec3(0.5);
-	vec3 max = vec3(1);
+	vec3 min = new vec3(0);
+	vec3 gamma = new vec3(0.5);
+	vec3 max = new vec3(1);
 	if(fx.get_min() != null) {
 		min.set(fx.get_min().red(),fx.get_min().gre(),fx.get_min().blu());
 	}
@@ -1634,7 +1634,7 @@ PGraphics fx_level_adv(PImage source, FX fx) {
 }
 
 PGraphics fx_level_adv(PImage source, boolean on_g, boolean filter_is, float min, float gamma, float max) {
-	return fx_level_adv(source, on_g, filter_is, vec3(min), vec3(gamma), vec3(max));
+	return fx_level_adv(source, on_g, filter_is, new vec3(min), new vec3(gamma), new vec3(max));
 }
 
 // main method
@@ -1648,7 +1648,7 @@ PGraphics fx_level_adv(PImage source, boolean on_g, boolean filter_is, vec3 min,
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_level_adv == null || (fx_canvas.x() != pg_level_adv.width || fx_canvas.y() != pg_level_adv.height))) {
-		pg_level_adv = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_level_adv = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// Algorithm
 	if(fx_level_adv == null) {
@@ -1710,7 +1710,7 @@ PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is, i
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_mask == null || (fx_canvas.x() != pg_mask.width || fx_canvas.y() != pg_mask.height))) {
-		pg_mask = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_mask = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// algorithm
 	if(fx_mask == null) {
@@ -1801,13 +1801,13 @@ PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is, i
 
 // witj class FX
 PGraphics fx_mix(PImage source, PImage layer, FX fx) {
-	vec3 level_source = vec3(.5);
+	vec3 level_source = new vec3(.5);
 	if(fx.get_level_source() != null) {
-		level_source = vec3(fx.get_level_source());
+		level_source = new vec3(fx.get_level_source());
 	}
-	vec3 level_layer = vec3(.5);
+	vec3 level_layer = new vec3(.5);
 	if(fx.get_level_layer() != null) {
-		level_layer = vec3(fx.get_level_layer());
+		level_layer = new vec3(fx.get_level_layer());
 	}
   return fx_mix(source,layer,fx.on_g(),fx.pg_filter_is(),fx.get_mode(),level_source,level_layer);
 }
@@ -1824,7 +1824,7 @@ PGraphics fx_mix(PImage source, PImage layer, boolean on_g, boolean filter_is, i
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_mix == null || (fx_canvas.x() != pg_mix.width || fx_canvas.y() != pg_mix.height))) {
-		pg_mix = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_mix = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// algorithm
 	if(fx_mix == null) {
@@ -1891,11 +1891,11 @@ PGraphics fx_mix(PImage source, PImage layer, boolean on_g, boolean filter_is, i
 */
 // setting by class FX
 PGraphics fx_pixel(PImage source, FX fx) {
-	ivec2 size = ivec2(5);
+	ivec2 size = new ivec2(5);
 	if(fx.get_size() != null) {
 		size.set(fx.get_size());
 	}
-	vec3 level_source = vec3(0,.5,.5);
+	vec3 level_source = new vec3(0,.5,.5);
 	if(fx.get_level_source() != null) {
 		level_source.set(fx.get_level_source());
 	}
@@ -1913,7 +1913,7 @@ PGraphics fx_pixel(PImage source, boolean on_g, boolean filter_is, ivec2 size, i
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_pixel == null || (fx_canvas.x() != pg_pixel.width || fx_canvas.y() != pg_pixel.height))) {
-		pg_pixel = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_pixel = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// algorithm
 	if(fx_pixel == null) {
@@ -1978,7 +1978,7 @@ PGraphics fx_posterization(PImage source, boolean on_g, boolean filter_is, vec3 
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_posterization == null || (fx_canvas.x() != pg_posterization.width || fx_canvas.y() != pg_posterization.height))) {
-		pg_posterization = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_posterization = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// algorithm
 	if(fx_posterization == null) {
@@ -2036,7 +2036,7 @@ WARNING
 the g part is not not not not optimized...too slow :((((((
 */
 PGraphics fx_reaction_diffusion(PImage source, FX fx) {
-	return fx_reaction_diffusion(source,fx.on_g(),fx.get_pair(0),fx.get_pair(1),vec2(fx.get_scale()),vec3(fx.get_colour()),fx.get_num(),fx.get_event(0).x());
+	return fx_reaction_diffusion(source,fx.on_g(),fx.get_pair(0),fx.get_pair(1), new vec2(fx.get_scale()), new vec3(fx.get_colour()),fx.get_num(),fx.get_event(0).x());
 }
 
 // main
@@ -2052,7 +2052,7 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_reac_diff == null || (fx_canvas.x() != pg_reac_diff.width || fx_canvas.y() != pg_reac_diff.height))) {
-		pg_reac_diff = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_reac_diff = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// algorithm
 	// init
@@ -2065,7 +2065,7 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 			}
 		}
 		if(pg_reac_diff == null) {
-			pg_reac_diff = createGraphics(source.width,source.height,get_renderer());
+			pg_reac_diff = createGraphics(source.width,source.height,r.get_renderer(g));
 			println("create feedback");
 		}
 	}
@@ -2216,7 +2216,7 @@ PGraphics fx_split_rgb(PImage source, boolean on_g, boolean filter_is, vec2 offs
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_split_rgb == null || (fx_canvas.x() != pg_split_rgb.width || fx_canvas.y() != pg_split_rgb.height))) {
-		pg_split_rgb = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_split_rgb = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// algorithm
 	if(fx_split_rgb == null) {
@@ -2270,7 +2270,7 @@ PGraphics fx_split_rgb(PImage source, boolean on_g, boolean filter_is, vec2 offs
 */
 // setting by class FX
 PGraphics fx_threshold(PImage source, FX fx) {
-	return fx_threshold(source,fx.on_g(),fx.pg_filter_is(),vec3(fx.get_level_source()),fx.get_mode());	
+	return fx_threshold(source,fx.on_g(),fx.pg_filter_is(), new vec3(fx.get_level_source()),fx.get_mode());	
 }
 
 // main
@@ -2284,7 +2284,7 @@ PGraphics fx_threshold(PImage source, boolean on_g, boolean filter_is, vec3 leve
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_threshold == null || (fx_canvas.x() != pg_threshold.width || fx_canvas.y() != pg_threshold.height))) {
-		pg_threshold = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_threshold = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// algorithm
 	if(fx_threshold == null) {
@@ -2300,7 +2300,7 @@ PGraphics fx_threshold(PImage source, boolean on_g, boolean filter_is, vec3 leve
 		fx_threshold.set("resolution_source",source.width,source.height);
 
 		// external parameter
-		level = map(level,0,1,.05,1.50);
+		level = r.map(level,0,1,.05,1.50);
     fx_threshold.set("level_source",level.x,level.y,level.z);
     fx_threshold.set("mode",mode); // mode 0 : gray / 1 is rgb
 
@@ -2356,7 +2356,7 @@ PGraphics fx_warp_proc(PImage source, boolean on_g, boolean filter_is, float str
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_warp_proc == null || (fx_canvas.x() != pg_warp_proc.width || fx_canvas.y() != pg_warp_proc.height))) {
-		pg_warp_proc = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_warp_proc = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// algorithm
 	if(fx_warp_proc == null) {
@@ -2420,7 +2420,7 @@ PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, boolea
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_warp_tex_a == null || (fx_canvas.x() != pg_warp_tex_a.width || fx_canvas.y() != pg_warp_tex_a.height))) {
-		pg_warp_tex_a = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_warp_tex_a = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// algorithm
 	if(fx_warp_tex_a == null) {
@@ -2491,7 +2491,7 @@ PGraphics fx_warp_tex_b(PImage source, PImage layer, boolean on_g, boolean filte
 		fx_canvas.set(source.width, source.height);
 	}
 	if(!on_g && (pg_warp_tex_b == null || (fx_canvas.x() != pg_warp_tex_b.width || fx_canvas.y() != pg_warp_tex_b.height))) {
-		pg_warp_tex_b = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
+		pg_warp_tex_b = createGraphics(fx_canvas.x(),fx_canvas.y(),r.get_renderer(g));
 	}
 	// algorithm
 	if(fx_warp_tex_b == null) {

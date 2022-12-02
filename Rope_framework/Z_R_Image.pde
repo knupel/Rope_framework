@@ -9,7 +9,9 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
-
+import java.awt.Rectangle;
+import java.awt.GraphicsEnvironment;
+import java.awt.GraphicsDevice;
 /**
 * entry return the pixel position from x,y coordinate
 * v 0.0.2
@@ -38,7 +40,7 @@ int entry(PGraphics pg, vec2 pos, boolean constrain_is) {
 int entry(PGraphics pg, float x, float y, boolean constrain_is) {
   //int max = pg.pixels.length;
   // int rank = (int)y * pg.width + (int)x;
-  int rank = index_pixel_array((int)x, (int)y, pg.width);
+  int rank = r.index_pixel_array((int)x, (int)y, pg.width);
   return entry(pg, rank, constrain_is);
 }
 
@@ -222,7 +224,7 @@ PGraphics pattern_noise(int w, int h, float... inc) {
   PGraphics pg;
   noiseSeed((int)random(MAX_INT));
   if(w > 0 && h > 0 && inc.length > 0 && inc.length < 5) {
-    float [] cm = getColorMode(false);
+    float [] cm = r.getColorMode(this.g, false);
     colorMode(RGB,255,255,255,255);
     pg = createGraphics(w,h);
     float offset_x [] = new float[inc.length];
@@ -277,7 +279,7 @@ PGraphics pattern_noise(int w, int h, float... inc) {
     pg.endDraw();
     return pg;
   } else {
-    print_err("method pattern_noise(): may be problem with size:",w,h,"\nor with component color num >>>",inc.length,"<<< must be between 1 and 4");
+    r.print_err("method pattern_noise(): may be problem with size:",w,h,"\nor with component color num >>>",inc.length,"<<< must be between 1 and 4");
     return null;
   }
 }
@@ -303,19 +305,19 @@ int which_rope_layer = 0;
 
 // init
 void init_layer() {
-  init_layer(width,height,get_renderer(),1);
+  init_layer(width,height,r.get_renderer(g),1);
 }
 
 void init_layer(int num) {
-  init_layer(width,height,get_renderer(),num);
+  init_layer(width,height,r.get_renderer(g),num);
 }
 
 void init_layer(int x, int y) {
-  init_layer(x,y, get_renderer(),1);
+  init_layer(x,y, r.get_renderer(g),1);
 }
 
 void init_layer(int x, int y, int num) {
-  init_layer(x,y, get_renderer(),num);
+  init_layer(x,y, r.get_renderer(g),num);
 }
 
 void init_layer(int x, int y, String type, int num) {
@@ -328,7 +330,7 @@ void init_layer(int x, int y, String type, int num) {
     warning_rope_layer = true;
   }
   String warning = ("WARNING LAYER METHOD\nAll classical method used on the main rendering,\nwill return the PGraphics selected PGraphics layer :\nimage(), set(), get(), fill(), stroke(), rect(), ellipse(), pushMatrix(), popMatrix(), box()...\nto use those methods on the main PGraphics write g.image() for example");
-  print_err(warning);
+  r.print_err(warning);
 }
 
 // begin and end draw
@@ -358,27 +360,27 @@ int get_layer_num() {
 void clear_layer() {
   if(rope_layer != null && rope_layer.length > 0) {
     for(int i = 0 ; i < rope_layer.length ; i++) {
-      String type = get_renderer(rope_layer[i]);
+      String type = r.get_renderer(rope_layer[i]);
       int w = rope_layer[i].width;
       int h = rope_layer[i].height;
       rope_layer[i] = createGraphics(w,h,type);
     }
   } else {
     String warning = ("void clear_layer(): there is no layer can be clear maybe you forget to create one :)");
-    print_err(warning);
+    r.print_err(warning);
   }
   
 }
 
 void clear_layer(int target) {
   if(target > -1 && target < rope_layer.length) {
-    String type = get_renderer(rope_layer[target]);
+    String type = r.get_renderer(rope_layer[target]);
     int w = rope_layer[target].width;
     int h = rope_layer[target].height;
     rope_layer[target] = createGraphics(w,h,type);
   } else {
     String warning = ("void clear_layer(): target "+target+" is out the range of the layers available,\n no layer can be clear");
-    print_err(warning);
+    r.print_err(warning);
   }
 }
 
@@ -402,7 +404,7 @@ PGraphics get_layer(int target) {
     return rope_layer[target];
   } else {
     String warning = ("PGraphics get_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
-    print_err(warning);
+    r.print_err(warning);
     return rope_layer[0];
   }
 }
@@ -415,10 +417,10 @@ void select_layer(int target) {
     } else {
       which_rope_layer = 0;
       String warning = ("void select_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
-      print_err(warning);
+      r.print_err(warning);
     }
   } else {
-    print_err_tempo(180,"void select_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
+    r.print_err_tempo(180,"void select_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
   } 
 }
 
@@ -519,7 +521,7 @@ v 0.2.3
 */
 void image(PImage img) {
   if(img != null) image(img, 0, 0);
-  else print_err_tempo(30,"void image(PImage img): the argument PImage img is null");
+  else r.print_err_tempo(30,"void image(PImage img): the argument PImage img is null");
 }
 
 void image(PImage img, int what) {
@@ -585,54 +587,54 @@ void image(PImage img, int what) {
     }
     image(img,x,y,w,h);
   } else {
-    print_err_tempo(60,"image(); no PImage has pass to the method, img is null");
+    r.print_err_tempo(60,"image(); no PImage has pass to the method, img is null");
   } 
 }
 
 void image(PImage img, float coor) {
   if(img != null) image(img, coor, coor);
-  else print_err("Object PImage pass to method image() is null");
+  else r.print_err("Object PImage pass to method image() is null");
 }
 
 void image(PImage img, ivec pos) {
   if(pos instanceof ivec2) {
-    image(img, vec2(pos.x, pos.y));
+    image(img, new vec2(pos.x(), pos.y()));
   } else if(pos instanceof ivec3) {
-    image(img, vec3(pos.x, pos.y, pos.z));
+    image(img, new vec3(pos.x(), pos.y(), pos.z()));
   }
 }
 
 void image(PImage img, ivec pos, ivec2 size) {
   if(pos instanceof ivec2) {
-    image(img, vec2(pos.x, pos.y), vec2(size.x, size.y));
+    image(img, new vec2(pos.x(), pos.y()), new vec2(size.x(), size.y()));
   } else if(pos instanceof ivec3) {
-    image(img, vec3(pos.x, pos.y, pos.z), vec2(size.x, size.y));
+    image(img, new vec3(pos.x(), pos.y(), pos.z()), new vec2(size.x(), size.y()));
   } 
 }
 
 void image(PImage img, vec pos) {
   if(pos instanceof vec2) {
-    vec2 p = (vec2) pos ;
-    image(img, p.x, p.y) ;
+    vec2 p = (vec2)pos;
+    image(img, p.x(), p.y());
   } else if(pos instanceof vec3) {
-    vec3 p = (vec3) pos ;
-    push() ;
-    translate(p) ;
-    image(img, 0,0) ;
-    pop() ;
+    vec3 p = (vec3)pos;
+    push();
+    translate(p.x(),p.y(),p.z());
+    image(img,0,0);
+    pop();
   }
 }
 
 void image(PImage img, vec pos, vec2 size) {
   if(pos instanceof vec2) {
-    vec2 p = (vec2) pos ;
-    image(img, p.x, p.y, size.x, size.y) ;
+    vec2 p = (vec2)pos ;
+    image(img, p.x(), p.y(), size.x(), size.y());
   } else if(pos instanceof vec3) {
-    vec3 p = (vec3) pos ;
-    push() ;
-    translate(p) ;
-    image(img, 0,0, size.x, size.y) ;
-    pop() ;
+    vec3 p = (vec3) pos;
+    push();
+    translate(p.x(),p.y(),p.z());
+    image(img, 0,0, size.x(), size.y());
+    pop();
   }
 }
 
@@ -647,113 +649,113 @@ void image(PImage img, vec pos, vec2 size) {
 /**
 * For the future need to use shader to do that...but in the future !
 */
-@Deprecated
-PImage reverse(PImage img) {
-  PImage final_img;
-  final_img = createImage(img.width, img.height, RGB) ;
-  for(int i = 0 ; i < img.pixels.length ; i++) {
-    final_img.pixels[i] = img.pixels[img.pixels.length -i -1];
-  }
-  return final_img ;
-}
+// @Deprecated
+// PImage reverse(PImage img) {
+//   PImage final_img;
+//   final_img = createImage(img.width, img.height, RGB) ;
+//   for(int i = 0 ; i < img.pixels.length ; i++) {
+//     final_img.pixels[i] = img.pixels[img.pixels.length -i -1];
+//   }
+//   return final_img ;
+// }
 
 /**
 * For the future need to use shader to do that...but in the future !
 */
-@Deprecated
-PImage mirror(PImage img) {
-  PImage final_img ;
-  final_img = createImage(img.width, img.height, RGB) ;
+// @Deprecated
+// PImage mirror(PImage img) {
+//   PImage final_img ;
+//   final_img = createImage(img.width, img.height, RGB) ;
 
-  int read_head = 0 ;
-  for(int i = 0 ; i < img.pixels.length ; i++) {
-    if(read_head >= img.width) {
-      read_head = 0 ;
-    }
-    int reverse_line = img.width -(read_head*2) -1 ;
-    int target = i +reverse_line  ;
+//   int read_head = 0 ;
+//   for(int i = 0 ; i < img.pixels.length ; i++) {
+//     if(read_head >= img.width) {
+//       read_head = 0 ;
+//     }
+//     int reverse_line = img.width -(read_head*2) -1 ;
+//     int target = i +reverse_line  ;
 
-    final_img.pixels[i] = img.pixels[target] ;
+//     final_img.pixels[i] = img.pixels[target] ;
 
-    read_head++ ;
-  }
-  return final_img ;
-}
+//     read_head++ ;
+//   }
+//   return final_img ;
+// }
 
-@Deprecated
-PImage paste(PImage img, int entry, int [] array_pix, boolean vertical_is) {
-  if(!vertical_is) {
-    return paste_vertical(img, entry, array_pix);
-  } else {
-    return paste_horizontal(img, entry, array_pix);
-  }
-}
+// @Deprecated
+// PImage paste(PImage img, int entry, int [] array_pix, boolean vertical_is) {
+//   if(!vertical_is) {
+//     return paste_vertical(img, entry, array_pix);
+//   } else {
+//     return paste_horizontal(img, entry, array_pix);
+//   }
+// }
 
-@Deprecated
-PImage paste_horizontal(PImage img, int entry, int [] array_pix) { 
-  PImage final_img ;
-  final_img = img.copy() ;
-  // reduce the array_pix in this one is bigger than img.pixels.length
-  if(array_pix.length > final_img.pixels.length) {
-     array_pix = Arrays.copyOf(array_pix,final_img.pixels.length) ;
-  }
+// @Deprecated
+// PImage paste_horizontal(PImage img, int entry, int [] array_pix) { 
+//   PImage final_img ;
+//   final_img = img.copy() ;
+//   // reduce the array_pix in this one is bigger than img.pixels.length
+//   if(array_pix.length > final_img.pixels.length) {
+//      array_pix = Arrays.copyOf(array_pix,final_img.pixels.length) ;
+//   }
 
-  int count = 0 ;
-  int target = 0 ;
-  for(int i = entry ; i < entry+array_pix.length ; i++) {
-    if(i < final_img.pixels.length) {
-      final_img.pixels[i] = array_pix[count];
-    } else {
-      target = i -final_img.pixels.length ;
-      // security length outbound index
-      // change the size can happen ArrayIndexOutBound,
-      if(target >= final_img.pixels.length) {
-        target = final_img.pixels.length -1;
-      }
+//   int count = 0 ;
+//   int target = 0 ;
+//   for(int i = entry ; i < entry+array_pix.length ; i++) {
+//     if(i < final_img.pixels.length) {
+//       final_img.pixels[i] = array_pix[count];
+//     } else {
+//       target = i -final_img.pixels.length ;
+//       // security length outbound index
+//       // change the size can happen ArrayIndexOutBound,
+//       if(target >= final_img.pixels.length) {
+//         target = final_img.pixels.length -1;
+//       }
 
-      final_img.pixels[target] = array_pix[count];
-    }
-    count++ ;
-  }
-  return final_img ;
-}
+//       final_img.pixels[target] = array_pix[count];
+//     }
+//     count++ ;
+//   }
+//   return final_img ;
+// }
 
-@Deprecated
-PImage paste_vertical(PImage img, int entry, int [] array_pix) { 
-  PImage final_img;
-  final_img = img.copy();
-  // reduce the array_pix in this one is bigger than img.pixels.length
-  if(array_pix.length > final_img.pixels.length) {
-     array_pix = Arrays.copyOf(array_pix,final_img.pixels.length) ;
-  }
+// @Deprecated
+// PImage paste_vertical(PImage img, int entry, int [] array_pix) { 
+//   PImage final_img;
+//   final_img = img.copy();
+//   // reduce the array_pix in this one is bigger than img.pixels.length
+//   if(array_pix.length > final_img.pixels.length) {
+//      array_pix = Arrays.copyOf(array_pix,final_img.pixels.length) ;
+//   }
 
-  int count = 0;
-  int target = 0;
-  int w = final_img.width;
-  int line = 0;
+//   int count = 0;
+//   int target = 0;
+//   int w = final_img.width;
+//   int line = 0;
 
-  for(int i = entry ; i < entry+array_pix.length ; i++) {
-    int mod = i%w ;
-    // the master piece algorithm to change the direction :)
-    int where =  entry +(w *(w -(w -mod))) +line;
-    if(mod >= w -1) {
-      line++;
-    }
-    if(where < final_img.pixels.length) {
-      final_img.pixels[where] = array_pix[count];
-    } else {
-      target = where -final_img.pixels.length ;
-      // security length outbound index
-      // change the size can happen ArrayIndexOutBound,
-      if(target >= final_img.pixels.length) {
-        target = final_img.pixels.length -1;
-      }
-      final_img.pixels[target] = array_pix[count];
-    }
-    count++ ;
-  }
-  return final_img ;
-}
+//   for(int i = entry ; i < entry+array_pix.length ; i++) {
+//     int mod = i%w ;
+//     // the master piece algorithm to change the direction :)
+//     int where =  entry +(w *(w -(w -mod))) +line;
+//     if(mod >= w -1) {
+//       line++;
+//     }
+//     if(where < final_img.pixels.length) {
+//       final_img.pixels[where] = array_pix[count];
+//     } else {
+//       target = where -final_img.pixels.length ;
+//       // security length outbound index
+//       // change the size can happen ArrayIndexOutBound,
+//       if(target >= final_img.pixels.length) {
+//         target = final_img.pixels.length -1;
+//       }
+//       final_img.pixels[target] = array_pix[count];
+//     }
+//     count++ ;
+//   }
+//   return final_img ;
+// }
 
 
 
@@ -810,7 +812,7 @@ void clean_canvas(int which_canvas, int c) {
     }
   } else {
     String message = ("The target: " + which_canvas + " don't match with an existing canvas");
-    print_err(message);
+    r.print_err(message);
   }
 }
 
@@ -827,7 +829,7 @@ void select_canvas(int which_one) {
     current_canvas_rope = which_one;
   } else {
     String message = ("void select_canvas(): Your selection " + which_one + " is not available, canvas '0' be use");
-    print_err(message);
+    r.print_err(message);
     current_canvas_rope = 0;
   }
 }
@@ -856,7 +858,7 @@ void update_canvas(PImage img, int which_one) {
   if(which_one < rope_canvas.length && which_one >= 0) {
     rope_canvas[which_one] = img;
   } else {
-    print_err("void update_canvas() : Your selection" ,which_one, "is not available, canvas '0' be use");
+    r.print_err("void update_canvas() : Your selection" ,which_one, "is not available, canvas '0' be use");
     rope_canvas[0] = img;
   }  
 }
@@ -902,12 +904,12 @@ void set_show() {
   } else {
     offset_canvas_x = width/2 - (get_canvas().width/2);
     offset_canvas_y = height/2 - (get_canvas().height/2);
-    show_pos = ivec2(offset_canvas_x,offset_canvas_y) ;
+    show_pos = new ivec2(offset_canvas_x,offset_canvas_y) ;
   }
 }
 
 ivec2 get_offset_canvas() {
-  return ivec2(offset_canvas_x, offset_canvas_y);
+  return new ivec2(offset_canvas_x, offset_canvas_y);
 }
 
 int get_offset_canvas_x() {
@@ -995,28 +997,28 @@ void background(PImage src, int mode) {
 }
 
 void background(PImage src, int mode, float red, float green, float blue) {
-  vec3 colour_curtain = abs(vec3(red,green,blue).div(vec3(g.colorModeX,g.colorModeY,g.colorModeZ)));
+  vec3 colour_curtain = r.abs(new vec3(red,green,blue).div(new vec3(g.colorModeX,g.colorModeY,g.colorModeZ)));
   background_calc(src,null,null,colour_curtain,null,mode);
 }
 
 void background(PImage src, float px, float py, float red, float green, float blue) {
-  vec3 colour_curtain = abs(vec3(red,green,blue).div(vec3(g.colorModeX,g.colorModeY,g.colorModeZ)));
-  vec2 pos = vec2(px /width, py /height);
+  vec3 colour_curtain = r.abs(new vec3(red,green,blue).div(new vec3(g.colorModeX,g.colorModeY,g.colorModeZ)));
+  vec2 pos = new vec2(px /width, py /height);
   background_calc(src,pos,null,colour_curtain,null,r.SCALE);
 }
 
 void background(PImage src, float px, float py, float scale_x, float red, float green, float blue) {
-  vec3 colour_curtain = abs(vec3(red,green,blue).div(vec3(g.colorModeX,g.colorModeY,g.colorModeZ)));
-  vec2 pos = vec2(px /width, py /height);
-  vec2 scale = vec2(scale_x);
+  vec3 colour_curtain = r.abs(new vec3(red,green,blue).div(new vec3(g.colorModeX,g.colorModeY,g.colorModeZ)));
+  vec2 pos = new vec2(px /width, py /height);
+  vec2 scale = new vec2(scale_x);
   background_calc(src,pos,scale,colour_curtain,null,r.SCALE);
 }
 
 void background(PImage src, float px, float py, float scale_x, float red, float green, float blue, float curtain_position) {
-  vec3 colour_curtain = abs(vec3(red,green,blue).div(vec3(g.colorModeX,g.colorModeY,g.colorModeZ)));
-  vec2 pos = vec2(px /width, py /height);
-  vec2 scale = vec2(scale_x);
-  vec4 curtain_pos = vec4(curtain_position,0,curtain_position,0);
+  vec3 colour_curtain = r.abs(new vec3(red,green,blue).div(new vec3(g.colorModeX,g.colorModeY,g.colorModeZ)));
+  vec2 pos = new vec2(px /width, py /height);
+  vec2 scale = new vec2(scale_x);
+  vec4 curtain_pos = new vec4(curtain_position,0,curtain_position,0);
   background_calc(src,pos,scale,colour_curtain,curtain_pos,r.SCALE);
 }
 
@@ -1029,10 +1031,10 @@ void background(PImage src, vec2 pos, vec2 scale, vec3 colour_background, vec4 p
 PShader img_shader_calc_rope;
 void background_calc(PImage src, vec2 pos, vec2 scale, vec3 colour_background, vec4 pos_curtain, int mode) {
   boolean context_ok = false ;
-  if(get_renderer().equals(P2D) || get_renderer().equals(P3D)) {
+  if(r.get_renderer(g).equals(P2D) || r.get_renderer(g).equals(P3D)) {
     context_ok = true;
   } else {
-    print_err_tempo(180,"method background(PImage img) need context in P3D or P2D to work");
+    r.print_err_tempo(180,"method background(PImage img) need context in P3D or P2D to work");
   }
   if(context_ok && src != null && src.width > 0 && src.height > 0) {
     if(img_shader_calc_rope == null) {
@@ -1093,15 +1095,15 @@ void background_calc(PImage src, vec2 pos, vec2 scale, vec3 colour_background, v
 Normalize background
 */
 void background_norm(vec4 bg) {
-  background_norm(bg.x,bg.y,bg.z,bg.w) ;
+  background_norm(bg.x(),bg.y(),bg.z(),bg.w()) ;
 }
 
 void background_norm(vec3 bg) {
-  background_norm(bg.x,bg.y,bg.z,1) ;
+  background_norm(bg.x(),bg.y(),bg.z(),1) ;
 }
 
 void background_norm(vec2 bg) {
-  background_norm(bg.x,bg.x,bg.x,bg.y) ;
+  background_norm(bg.x(),bg.x(),bg.x(),bg.y()) ;
 }
 
 void background_norm(float c, float a) {
@@ -1235,11 +1237,11 @@ void background_rope(float x, float y, float z) {
 SCREEN
 */
 void set_window(int px, int py, int sx, int sy) {
-  set_window(ivec2(px,py), ivec2(sx,sy), get_screen_location(0));
+  set_window(new ivec2(px,py), new ivec2(sx,sy), get_screen_location(0));
 }
 
 void set_window(int px, int py, int sx, int sy, int target) {
-  set_window(ivec2(px,py), ivec2(sx,sy), get_screen_location(target));
+  set_window(new ivec2(px,py), new ivec2(sx,sy), get_screen_location(target));
 }
 
 void set_window(ivec2 pos, ivec2 size) {
@@ -1280,10 +1282,10 @@ ivec2 get_screen_size(int target) {
   return get_display_size(target);
 }
 
-@Deprecated
-ivec2 get_display_size() {
-  return get_display_size(sketchDisplay() -1);
-}
+// @Deprecated
+// ivec2 get_display_size() {
+//   return get_display_size(sketchDisplay() -1);
+// }
 
 
 ivec2 get_display_size(int target) {
@@ -1291,7 +1293,7 @@ ivec2 get_display_size(int target) {
     return null;
   }  
   Rectangle display = get_screen(target);
-  return ivec2((int)display.getWidth(), (int)display.getHeight()); 
+  return new ivec2((int)display.getWidth(), (int)display.getHeight()); 
 }
 
 /**
@@ -1300,7 +1302,7 @@ screen location
 
 ivec2 get_screen_location(int target) {
   Rectangle display = get_screen(target);
-  return ivec2((int)display.getX(), (int)display.getY());
+  return new ivec2((int)display.getX(), (int)display.getY());
 }
 
 /**
@@ -1340,11 +1342,11 @@ sketch location
 0.0.2
 */
 ivec2 get_sketch_location() {
-  return ivec2(get_sketch_location_x(),get_sketch_location_y());
+  return new ivec2(get_sketch_location_x(),get_sketch_location_y());
 }
 
 int get_sketch_location_x() {
-  if(get_renderer() != P3D && get_renderer() != P2D) {
+  if(r.get_renderer(g) != P3D && r.get_renderer(g) != P2D) {
     return getJFrame(surface).getX();
   } else {
     return get_rectangle(surface).getX();
@@ -1354,7 +1356,7 @@ int get_sketch_location_x() {
 }
 
 int get_sketch_location_y() {
-  if(get_renderer() != P3D && get_renderer() != P2D) {
+  if(r.get_renderer(g) != P3D && r.get_renderer(g) != P2D) {
     return getJFrame(surface).getY();
   } else {
     return get_rectangle(surface).getY();
@@ -1390,7 +1392,7 @@ boolean renderer_dimension_tested_is ;
 boolean three_dim_is = false;
 boolean renderer_P3D() {
   if(!renderer_dimension_tested_is) {
-    if(get_renderer(getGraphics()).equals("processing.opengl.PGraphics3D")) {
+    if(r.get_renderer(getGraphics()).equals("processing.opengl.PGraphics3D")) {
       three_dim_is = true ; 
     } else {
       three_dim_is = false ;
@@ -1400,24 +1402,6 @@ boolean renderer_P3D() {
   return three_dim_is;
 }
 
-
-String get_renderer() {
-  return get_renderer(g);
-}
-
-String get_renderer(final PGraphics graph) {
-  try {
-    if (Class.forName(JAVA2D).isInstance(graph)) return JAVA2D;
-    if (Class.forName(P2D).isInstance(graph)) return P2D;
-    if (Class.forName(P3D).isInstance(graph)) return P3D;
-    if (Class.forName(PDF).isInstance(graph)) return PDF;
-    if (Class.forName(DXF).isInstance(graph)) return DXF;
-  }
-
-  catch (ClassNotFoundException ex) {
-  }
-  return "Unknown";
-}
 
 
 

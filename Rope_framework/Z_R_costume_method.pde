@@ -1,7 +1,7 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2022
-* v 1.10.2
+* v 1.10.3
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -289,7 +289,7 @@ void costume_rotate(vec rotate) {
 }
 
 void costume_rotate(vec rotate, PGraphics other) {
-	if(get_renderer() == P3D) {
+	if(r.get_renderer(g) == P3D) {
 		if(costume_rot_x && rotate.x() != 0) {
 			rotateX(rotate.x(),other);
 			costume_rot_x = false;

@@ -197,10 +197,10 @@ void select_fx_post(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
 			} else if(fx[i].get_type() == FX_WARP_TEX_B) {
 				fx_warp_tex_b(main,layer_a,fx[i]); 
 			} else {
-				print_err_tempo(60,"method select_fx_post(): fx",fx[i].get_name(),fx[i].get_type(),"don't match with any fx available");
+				r.print_err_tempo(60,"method select_fx_post(): fx",fx[i].get_name(),fx[i].get_type(),"don't match with any fx available");
 			}
 		} else {
-			print_err_tempo(60,"method select_fx_post(): fx",i,"is",fx[i],"maybe fx need to be init or instantiate");
+			r.print_err_tempo(60,"method select_fx_post(): fx",i,"is",fx[i],"maybe fx need to be init or instantiate");
 		}
 		   
 	}
@@ -230,9 +230,8 @@ void select_fx_background(FX fx) {
 			fx_bg_template(fx);
 		}
 	} else {
-		print_err_tempo(60,"method select_fx_background(): fx is",fx,"maybe fx need to be init or instantiate");
+		r.print_err_tempo(60,"method select_fx_background(): fx is",fx,"maybe fx need to be init or instantiate");
 	}
-	    
 }
 
 
@@ -508,7 +507,7 @@ String get_fx_post_path() {
 		File f = new File(sketchPath()+"/"+fx_post_rope_path);
 		if(!f.isDirectory()) {
 			fx_post_rope_path_exists = false;
-			print_err_tempo(60,"method get_fx_post_path()",fx_post_rope_path,"no folder found");
+			r.print_err_tempo(60,"method get_fx_post_path()",fx_post_rope_path,"no folder found");
 		} else {
 			fx_post_rope_path_exists = true;
 		}
@@ -539,7 +538,7 @@ String get_fx_bg_path() {
 	} else {
 		File f = new File(fx_bg_rope_path);
 		if(!f.exists()) {
-			print_err_tempo(60,"get_fx_bg_path()",fx_bg_rope_path,"no folder found");
+			r.print_err_tempo(60,"get_fx_bg_path()",fx_bg_rope_path,"no folder found");
 		} else {
 			fx_bg_rope_path_exists = true;
 		}

@@ -73,7 +73,7 @@ public class FX {
   // set
   public void set_canvas(int x, int y) {
   	if(this.canvas == null) {
-  		this.canvas = ivec2(x,y);
+  		this.canvas = new ivec2(x,y);
   	} else {
   		this.canvas.set(x,y);
   	}
@@ -214,7 +214,7 @@ public class FX {
   		if(arg[i] instanceof Float) {
   			f[i] = (float)arg[i];
   		} else {
-  			print_err("class FX method to_float_array(): arg",arg,"cannot be cast to float");
+  			r.print_err("class FX method to_float_array(): arg",arg,"cannot be cast to float");
   			f[i] = 0;
   		}
   	}
@@ -228,7 +228,7 @@ public class FX {
   		if(arg[i] instanceof Boolean) {
   			b[i] = (boolean)arg[i];
   		} else {
-  			print_err("class FX method to_boolean_array(): arg",arg,"cannot be cast to boolean");
+  			r.print_err("class FX method to_boolean_array(): arg",arg,"cannot be cast to boolean");
   			b[i] = false;
   		}
   	}
@@ -264,7 +264,7 @@ public class FX {
 
 	private void set_scale(float... arg) {
 		if(this.scale == null) {
-			this.scale = vec2(build_float_2(arg));
+			this.scale = new vec2(build_float_2(arg));
 		} else {
 			this.scale.set(build_float_2(arg));
 		}
@@ -272,7 +272,7 @@ public class FX {
 
 	private void set_resolution(float... arg) {
 		if(this.resolution == null) {
-			this.resolution = vec2(build_float_2(arg));
+			this.resolution = new vec2(build_float_2(arg));
 		} else {
 			this.resolution.set(build_float_2(arg));
 		}
@@ -280,7 +280,7 @@ public class FX {
 
 	private void set_strength(float... arg) {
 		if(this.strength == null) {
-			this.strength = vec3(build_float_3(arg));
+			this.strength = new vec3(build_float_3(arg));
 		} else {
 			this.strength.set(build_float_3(arg));
 		}
@@ -288,7 +288,7 @@ public class FX {
 
 	private void set_angle(float... arg) {
 		if(this.angle == null) {
-			this.angle = vec3(build_float_3(arg));
+			this.angle = new vec3(build_float_3(arg));
 		} else {
 			this.angle.set(build_float_3(arg));
 		}
@@ -296,7 +296,7 @@ public class FX {
 
 	private void set_threshold(float... arg) {
 		if(this.threshold == null) {
-			this.threshold = vec3(build_float_3(arg));
+			this.threshold = new vec3(build_float_3(arg));
 		} else {
 			this.threshold.set(build_float_3(arg));
 		}
@@ -304,7 +304,7 @@ public class FX {
 
 	private void set_pos(float... arg) {
 		if(this.pos == null) {
-			this.pos = vec3(build_float_3(arg));
+			this.pos = new vec3(build_float_3(arg));
 		} else {
 			this.pos.set(build_float_3(arg));
 		}
@@ -312,7 +312,7 @@ public class FX {
 
 	private void set_size(float... arg) {
 		if(this.size == null) {
-			this.size = vec3(build_float_3(arg));
+			this.size = new vec3(build_float_3(arg));
 		} else {
 			this.size.set(build_float_3(arg));
 		}
@@ -320,7 +320,7 @@ public class FX {
 
 	private void set_offset(float... arg) {
 		if(this.offset == null) {
-			this.offset = vec3(build_float_3(arg));
+			this.offset = new vec3(build_float_3(arg));
 		} else {
 			this.offset.set(build_float_3(arg));
 		}
@@ -328,7 +328,7 @@ public class FX {
 
 	private void set_speed(float... arg) {
 		if(this.speed == null) {
-			this.speed = vec3(build_float_3(arg));
+			this.speed = new vec3(build_float_3(arg));
 		} else {
 			this.speed.set(build_float_3(arg));
 		}
@@ -336,7 +336,7 @@ public class FX {
 
 	private void set_level_source(float... arg) {
 		if(this.level_source == null) {
-			this.level_source = vec4(build_float_4(arg));
+			this.level_source = new vec4(build_float_4(arg));
 		} else {
 			this.level_source.set(build_float_4(arg));
 		}
@@ -344,7 +344,7 @@ public class FX {
 
 	private void set_level_layer(float... arg) {
 		if(this.level_layer == null) {
-			this.level_layer = vec4(build_float_4(arg));
+			this.level_layer = new vec4(build_float_4(arg));
 		} else {
 			this.level_layer.set(build_float_4(arg));
 		}
@@ -352,7 +352,7 @@ public class FX {
 
 	private void set_colour(float... arg) {
 		if(this.colour == null) {
-			this.colour = vec4(build_float_4(arg));
+			this.colour = new vec4(build_float_4(arg));
 		} else {
 			this.colour.set(build_float_4(arg));
 		}
@@ -360,7 +360,7 @@ public class FX {
 
 	private void set_cardinal(float... arg) {
 		if(this.cardinal == null) {
-			this.cardinal = vec4(build_float_4(arg));
+			this.cardinal = new vec4(build_float_4(arg));
 		} else {
 			this.cardinal.set(build_float_4(arg));
 		}
@@ -368,7 +368,7 @@ public class FX {
 
 	private void set_min(float... arg) {
 		if(this.min == null) {
-			this.min = vec4(build_float_4(arg));
+			this.min = new vec4(build_float_4(arg));
 		} else {
 			this.min.set(build_float_4(arg));
 		}
@@ -376,7 +376,7 @@ public class FX {
 
 	private void set_max(float... arg) {
 		if(this.max == null) {
-			this.max = vec4(build_float_4(arg));
+			this.max = new vec4(build_float_4(arg));
 		} else {
 			this.max.set(build_float_4(arg));
 		}
@@ -384,7 +384,7 @@ public class FX {
 
 	private void set_gamma(float... arg) {
 		if(this.gamma == null) {
-			this.gamma = vec4(build_float_4(arg));
+			this.gamma = new vec4(build_float_4(arg));
 		} else {
 			this.gamma.set(build_float_4(arg));
 		}
@@ -421,7 +421,7 @@ public class FX {
 
 	private void set_matrix(int which, float... arg) {
 		if(this.matrix[which] == null) {
-			this.matrix[which] = vec3(build_float_3(arg));
+			this.matrix[which] = new vec3(build_float_3(arg));
 		} else {
 			this.matrix[which].set(build_float_3(arg));
 		}
@@ -429,7 +429,7 @@ public class FX {
 
 	private void set_pair(int which, float... arg) {
 		if(this.pair[which] == null) {
-			this.pair[which] = vec2(build_float_2(arg));
+			this.pair[which] = new vec2(build_float_2(arg));
 		} else {
 			this.pair[which].set(build_float_2(arg));
 		}
@@ -437,7 +437,7 @@ public class FX {
 
 	private void set_event(int which, boolean... arg) {
 		if(this.event[which] == null) {
-			this.event[which] = bvec4(build_boolean_4(arg));
+			this.event[which] = new bvec4(build_boolean_4(arg));
 		} else {
 			this.event[which].set(build_boolean_4(arg));
 		}
@@ -512,128 +512,128 @@ public class FX {
 
 	public vec2 get_scale() {
 		if(scale == null) {
-			scale = vec2(1);
-			print_err("class FX method get_scale(): arg",null,"instead set arg and return",scale);
+			scale = new vec2(1);
+			r.print_err("class FX method get_scale(): arg",null,"instead set arg and return",scale);
 		} 
 		return scale;	
 	}
 
 	public vec2 get_resolution() {
 		if(resolution == null) {
-			resolution = vec2(width,height);
-			print_err("class FX method get_resolution(): arg",null,"instead set arg and return",resolution);
+			resolution =new  vec2(width,height);
+			r.print_err("class FX method get_resolution(): arg",null,"instead set arg and return",resolution);
 		} 
 		return resolution;
 	}
 
 	public vec3 get_strength() {
 		if(strength == null) {
-			strength = vec3(0);
-			print_err("class FX method get_strength(): arg",null,"instead set arg and return",strength);
+			strength = new vec3(0);
+			r.print_err("class FX method get_strength(): arg",null,"instead set arg and return",strength);
 		}
 		return strength;
 	}
 
 	public vec3 get_angle() {
 		if(angle == null) {
-			angle = vec3(0);
-			print_err("class FX method get_angle(): arg",null,"instead set arg and return",angle);
+			angle = new vec3(0);
+			r.print_err("class FX method get_angle(): arg",null,"instead set arg and return",angle);
 		}
 		return angle;
 	}
 
 	public vec3 get_threshold() {
 		if(threshold == null) {
-			threshold = vec3(0);
-			print_err("class FX method get_threshold(): arg",null,"instead set arg and return",threshold);
+			threshold = new vec3(0);
+			r.print_err("class FX method get_threshold(): arg",null,"instead set arg and return",threshold);
 		}
 		return threshold;
 	}
 
 	public vec3 get_pos() {
 		if(pos == null) {
-			pos = vec3(width/2,height/2,0);
-			print_err("class FX method get_pos(): arg",null,"instead set arg and return",pos);
+			pos = new vec3(width/2,height/2,0);
+			r.print_err("class FX method get_pos(): arg",null,"instead set arg and return",pos);
 		}
 		return pos;
 	}
 
 	public vec3 get_size() {
 		if(size == null) {
-			size = vec3(5);
-			print_err("class FX method get_size(): arg",null,"instead set arg and return",size);
+			size = new vec3(5);
+			r.print_err("class FX method get_size(): arg",null,"instead set arg and return",size);
 		}
 		return size;
 	}
 
 	public vec3 get_offset() {
 		if(offset == null) {
-			offset = vec3(0);
-			print_err("class FX method get_offset(): arg",null,"instead set arg and return",offset);
+			offset = new vec3(0);
+			r.print_err("class FX method get_offset(): arg",null,"instead set arg and return",offset);
 		}
 		return offset;
 	}
 
 	public vec3 get_speed() {
 		if(speed == null) {
-			speed = vec3(0);
-			print_err("class FX method get_offset(): arg",null,"instead set arg and return",speed);
+			speed = new vec3(0);
+			r.print_err("class FX method get_offset(): arg",null,"instead set arg and return",speed);
 		}
 		return speed;
 	}
 
 	public vec4 get_level_source() {
 		if(level_source == null) {
-			level_source = vec4(1);
-			print_err("class FX method get_level_source(): arg",null,"instead set arg and return",level_source);
+			level_source = new vec4(1);
+			r.print_err("class FX method get_level_source(): arg",null,"instead set arg and return",level_source);
 		}
 		return level_source;
 	}
 
 	public vec4 get_level_layer() {
 		if(level_layer == null) {
-			level_layer = vec4(1);
-			print_err("class FX method get_level_layer(): arg",null,"instead set arg and return",level_layer);
+			level_layer = new vec4(1);
+			r.print_err("class FX method get_level_layer(): arg",null,"instead set arg and return",level_layer);
 		}
 		return level_layer;
 	}
 
 	public vec4 get_colour() {
 		if(colour == null) {
-			colour = vec4(1);
-			print_err("class FX method get_colour(): arg",null,"instead set arg and return",colour);
+			colour = new vec4(1);
+			r.print_err("class FX method get_colour(): arg",null,"instead set arg and return",colour);
 		}
 		return colour;
 	}
 
 	public vec4 get_cardinal() {
 		if(cardinal == null) {
-			cardinal = vec4(1);
-			print_err("class FX method get_cardinal(): arg",null,"instead set arg and return",cardinal);
+			cardinal = new vec4(1);
+			r.print_err("class FX method get_cardinal(): arg",null,"instead set arg and return",cardinal);
 		}
 		return cardinal;
 	}
 
 	public vec4 get_min() {
 		if(min == null) {
-			min = vec4(1);
-			print_err("class FX method get_min(): arg",null,"instead set arg and return",min);
+			min = new vec4(1);
+			r.print_err("class FX method get_min(): arg",null,"instead set arg and return",min);
 		}
 		return min;
 	}
 
 	public vec4 get_max() {
 		if(max == null) {
-			max = vec4(1);
-			print_err("class FX method get_max(): arg",null,"instead set arg and return",max);
+			max = new vec4(1);
+			r.print_err("class FX method get_max(): arg",null,"instead set arg and return",max);
 		}
 		return max;
 	}
 
 	public vec4 get_gamma() {
 		if(gamma == null) {
-			gamma = vec4(1);
-			print_err("class FX method get_gamma(): arg",null,"instead set arg and return",gamma);
+			gamma = new vec4(1);
+			r.print_err("class FX method get_gamma(): arg",null,"instead set arg and return",gamma);
 		}
 		return max;
 	}
@@ -670,20 +670,20 @@ public class FX {
 	public vec3 get_matrix(int which) {
 		if(matrix != null  && which < matrix.length && which >= 0) {
 			if(matrix[which] == null) {
-				matrix[which] = vec3(0);
-				print_err("class FX method get_matrix(): arg",null,"instead set arg and return",matrix[which]);
+				matrix[which] = new vec3(0);
+				r.print_err("class FX method get_matrix(): arg",null,"instead set arg and return",matrix[which]);
 			}
 			return matrix[which];
 		} else if(matrix == null) {
-			print_err_tempo(180,"class FX method get_matrix(): matrix list is",null);
-			return vec3(0);
+			r.print_err_tempo(180,"class FX method get_matrix(): matrix list is",null);
+			return new vec3(0);
 		} else {
 			if(matrix[0] == null) {
-				matrix[0] = vec3(0);
-				print_err("class FX method get_matrix(",which,") is out of the list available\nthe first component is used and not this is null too\nmatrix '0' is used");
+				matrix[0] = new vec3(0);
+				r.print_err("class FX method get_matrix(",which,") is out of the list available\nthe first component is used and not this is null too\nmatrix '0' is used");
 				return matrix[0];
 			} else {
-				print_err("class FX method get_matrix(",which,") is out of the list available\nthe first component is used");
+				r.print_err("class FX method get_matrix(",which,") is out of the list available\nthe first component is used");
 				return matrix[0];
 			}
 		}
@@ -699,20 +699,20 @@ public class FX {
 	public vec2 get_pair(int which) {
 		if(pair != null && which < pair.length && which >= 0) {
 			if(pair[which] == null) {
-				pair[which] = vec2(0);
-				print_err("class FX method get_pair(): arg",null,"instead set arg and return",pair[which]);
+				pair[which] = new vec2(0);
+				r.print_err("class FX method get_pair(): arg",null,"instead set arg and return",pair[which]);
 			}
 			return pair[which];
 		} else if(pair == null)  {
-			print_err_tempo(180,"class FX method get_pair(): pair list is",null);
-			return vec2(0);
+			r.print_err_tempo(180,"class FX method get_pair(): pair list is",null);
+			return new vec2(0);
 		} else {
 			if(pair[0] == null) {
-				pair[0] = vec2(0);
-				print_err("class FX method get_pair(",which,") is out of the list available\nthe first component is used and not this is null too\npair double '0' is used");
+				pair[0] = new vec2(0);
+				r.print_err("class FX method get_pair(",which,") is out of the list available\nthe first component is used and not this is null too\npair double '0' is used");
 				return pair[0];
 			} else {
-				print_err("class FX method get_pair(",which,") is out of the list available\nthe first component is used");
+				r.print_err("class FX method get_pair(",which,") is out of the list available\nthe first component is used");
 				return pair[0];
 			}
 		}
@@ -729,15 +729,15 @@ public class FX {
 		if(event != null && which < event.length  && which >= 0) {
 			return event[which];
 		} else if(event == null) {
-			print_err_tempo(180,"class FX method get_event(): event list is null\n bvec false is return");
-			return bvec4(false);
+			r.print_err_tempo(180,"class FX method get_event(): event list is null\n bvec false is return");
+			return new bvec4(false);
 		} else {
 			if(event[0] == null) {
-				event[0] = bvec4(false);
-				print_err("class FX method get_event(",which,") is out of the list available\nthe first component is used and not this is null too\nevent 'false is used");
+				event[0] = new bvec4(false);
+				r.print_err("class FX method get_event(",which,") is out of the list available\nthe first component is used and not this is null too\nevent 'false is used");
 				return event[0];
 			} else {
-				print_err("class FX method get_event(",which,") is out of the list available\nthe first component is used");
+				r.print_err("class FX method get_event(",which,") is out of the list available\nthe first component is used");
 				return event[0];
 			}
 		}
@@ -754,52 +754,52 @@ public class FX {
 	// util
 	private bvec4 build_boolean_4(boolean... arg) {
 		if(arg.length == 1 ) {
-			return bvec4(arg[0],false,false,false);
+			return new bvec4(arg[0],false,false,false);
 		} else if(arg.length == 2) {
-			return bvec4(arg[0],arg[1],false,false);
+			return new bvec4(arg[0],arg[1],false,false);
 		} else if(arg.length == 3) {
-			return bvec4(arg[0],arg[1],arg[2],false);
+			return new bvec4(arg[0],arg[1],arg[2],false);
 		} else if(arg.length == 4) {
-			return bvec4(arg[0],arg[1],arg[2],arg[3]);
+			return new bvec4(arg[0],arg[1],arg[2],arg[3]);
 		} else {
-			return bvec4(false);
+			return new bvec4(false);
 		}
 	}
 
 
 	private vec4 build_float_4(float... arg) {
 		if(arg.length == 1 ) {
-			return vec4(arg[0],arg[0],arg[0],g.colorModeA);
+			return new vec4(arg[0],arg[0],arg[0],g.colorModeA);
 		} else if(arg.length == 2) {
-			return vec4(arg[0],arg[0],arg[0],arg[1]);
+			return new vec4(arg[0],arg[0],arg[0],arg[1]);
 		} else if(arg.length == 3) {
-			return vec4(arg[0],arg[1],arg[2],g.colorModeA);
+			return new vec4(arg[0],arg[1],arg[2],g.colorModeA);
 		} else if(arg.length == 4) {
-			return vec4(arg[0],arg[1],arg[2],arg[3]);
+			return new vec4(arg[0],arg[1],arg[2],arg[3]);
 		} else {
-			return vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA);
+			return new vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA);
 		}
 	}
 
 	private vec3 build_float_3(float... arg) {
 		if(arg.length == 1 ) {
-			return vec3(arg[0],arg[0],arg[0]);
+			return new vec3(arg[0],arg[0],arg[0]);
 		} else if(arg.length == 2) {
-			return vec3(arg[0],arg[1],0);
+			return new vec3(arg[0],arg[1],0);
 		} else if(arg.length == 3) {
-			return vec3(arg[0],arg[1],arg[2]);
+			return new vec3(arg[0],arg[1],arg[2]);
 		} else {
-			return vec3(0);
+			return new vec3(0);
 		}
 	}
 
 	private vec2 build_float_2(float... arg) {
 		if(arg.length == 1 ) {
-			return vec2(arg[0],arg[0]);
+			return new vec2(arg[0],arg[0]);
 		} else if(arg.length == 2) {
-			return vec2(arg[0],arg[1]);
+			return new vec2(arg[0],arg[1]);
 		} else {
-			return vec2(0);
+			return new vec2(0);
 		}
 	}
 }

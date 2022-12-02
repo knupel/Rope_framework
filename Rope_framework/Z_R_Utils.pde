@@ -17,6 +17,19 @@ import java.nio.ByteOrder;
 // EXPORT PDF
 import processing.pdf.*;
 
+import java.lang.reflect.Field;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageWriter;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.ImageIO;
+import javax.imageio.IIOImage;
+import java.util.Iterator;
+import java.awt.Graphics;
+import java.awt.Font;
+import java.awt.FontMetrics;
 
 
 /**
@@ -287,7 +300,7 @@ return true if the window size has changed
 */
 ivec2 rope_window_size;
 boolean window_change_is() {
-	if(rope_window_size == null || !all(equal(ivec2(width,height),rope_window_size))) {
+	if(rope_window_size == null || !r.all(r.equal(new ivec2(width,height),rope_window_size))) {
 		check_window_size();
 		return true;
 	} else {
@@ -297,7 +310,7 @@ boolean window_change_is() {
 
 void check_window_size() {
 	if(rope_window_size == null) {
-		rope_window_size = ivec2(width,height);
+		rope_window_size = new ivec2(width,height);
 	} else {
 		rope_window_size.set(width,height);
 	}
@@ -1308,7 +1321,7 @@ String int_to_String(int data) {
 array float to vec
 */
 vec4 array_to_vec4_rgba(float... f) {
-	vec4 v = vec4(1);
+	vec4 v = new vec4(1);
 	if(f.length == 1) {
 		v.set(f[0],f[0],f[0],1.);
 	} else if(f.length == 2) {
