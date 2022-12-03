@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.6.4
+* v 0.7.0
 * Copyleft (c) 2014-2022
 *
 * dependencies
@@ -12,6 +12,11 @@
 import java.awt.Rectangle;
 import java.awt.GraphicsEnvironment;
 import java.awt.GraphicsDevice;
+
+import rope.vector.ivec4;
+import rope.vector.ivec3;
+import rope.vector.ivec;
+import rope.vector.vec;
 /**
 * entry return the pixel position from x,y coordinate
 * v 0.0.2

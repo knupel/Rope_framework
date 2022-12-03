@@ -1,13 +1,16 @@
 /**
 * BACKGROUND FX
 * Rope background shader fx collection
-* 2019-2019
-* v 0.1.7
+* 2019-2022
+* v 0.1.8
 * all filter bellow has been tested.
-* @see http://stanlepunk.xyz
-* @see https://github.com/StanLepunK/Shader
+* @see http://knupel.art
+* @see https://github.com/knupel/Shader
 */
 
+import rope.utils.R_FX;
+import rope.vector.vec3;
+import rope.vector.ivec2;
 
 
 /**
@@ -17,7 +20,7 @@
 * 2019-2019
 */
 // setting by class FX
-PGraphics fx_bg_template(FX fx) {
+PGraphics fx_bg_template(R_FX fx) {
 	return fx_bg_template(fx.get_canvas(),fx.on_g(), new vec3(fx.get_colour()));
 }
 
@@ -82,7 +85,7 @@ PGraphics fx_bg_template(ivec2 canvas, boolean on_g, vec3 colour) {
 * 2019-2019
 */
 // setting by class FX
-PGraphics fx_bg_cellular(FX fx) {
+PGraphics fx_bg_cellular(R_FX fx) {
 	return fx_bg_cellular(fx.get_canvas(),fx.on_g(),fx.get_colour(),fx.get_num(),new vec2(fx.get_speed()),fx.get_quality());
 }
 
@@ -145,7 +148,7 @@ PGraphics fx_bg_cellular(ivec2 canvas, boolean on_g, vec4 colour, int num, vec2 
 * 2019-2019
 */
 // setting by class FX
-PGraphics fx_bg_heart(FX fx) {
+PGraphics fx_bg_heart(R_FX fx) {
 	return fx_bg_heart(fx.get_canvas(),fx.on_g(),new vec3(fx.get_colour()),fx.get_num(),fx.get_speed().x,fx.get_quality(),fx.get_strength().x);
 }
 
@@ -209,7 +212,7 @@ PGraphics fx_bg_heart(ivec2 canvas, boolean on_g, vec3 colour, int num, float sp
 * 2019-2019
 */
 // setting by class FX
-PGraphics fx_bg_necklace(FX fx) {
+PGraphics fx_bg_necklace(R_FX fx) {
 	return fx_bg_necklace(fx.get_canvas(),fx.on_g(),new vec2(fx.get_pos()),new vec2(fx.get_size()),fx.get_colour().x,fx.get_num(),fx.get_speed().x);
 }
 
@@ -271,7 +274,7 @@ PGraphics fx_bg_necklace(ivec2 canvas, boolean on_g, vec2 pos, vec2 size, float 
 * 2019-2019
 */
 // setting by class FX
-PGraphics fx_bg_neon(FX fx) {
+PGraphics fx_bg_neon(R_FX fx) {
 	return fx_bg_neon(fx.get_canvas(),fx.on_g(),new vec2(fx.get_pos()),fx.get_speed().x);
 }
 
@@ -334,7 +337,7 @@ PGraphics fx_bg_neon(ivec2 canvas, boolean on_g, vec2 pos, float speed) {
 * 2019-2019
 */
 // setting by class FX
-PGraphics fx_bg_psy(FX fx) {
+PGraphics fx_bg_psy(R_FX fx) {
 	return fx_bg_psy(fx.get_canvas(),fx.on_g(),fx.get_num(),fx.get_speed().x);
 }
 
@@ -390,7 +393,7 @@ PGraphics fx_bg_psy(ivec2 canvas, boolean on_g, int num, float speed) {
 * 2019-2019
 */
 // setting by class FX
-PGraphics fx_bg_snow(FX fx) {
+PGraphics fx_bg_snow(R_FX fx) {
 	return fx_bg_snow(fx.get_canvas(),fx.on_g(), new vec2(fx.get_pos()), new vec3(fx.get_colour()),fx.get_speed().x,fx.get_quality());
 }
 
@@ -460,7 +463,7 @@ PGraphics fx_bg_snow(ivec2 canvas, boolean on_g, vec2 pos, vec3 colour, float sp
 * 2019-2019
 */
 // setting by class FX
-PGraphics fx_bg_voronoi_hex(FX fx) {
+PGraphics fx_bg_voronoi_hex(R_FX fx) {
 	return fx_bg_voronoi_hex(fx.get_canvas(),fx.on_g(),fx.get_size().x, new vec3(fx.get_colour()),fx.get_speed().x,fx.get_speed().y,fx.get_strength().x,fx.get_threshold().x,fx.get_mode());
 }
 

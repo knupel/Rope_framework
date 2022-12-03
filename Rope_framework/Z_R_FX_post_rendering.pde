@@ -2,14 +2,16 @@
 * POST FX shader collection
 *
 * 2019-2022
-* v 0.3.2
+* v 0.4.0
 * all filter bellow has been tested.
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Shader
+* @author @knupel
+* @see https://github.com/knupel/Shader
 */
 
 
 import rope.image.R_Pattern;
+
+import rope.vector.bvec2;
 
 /**
 * Template by Stan le punk
@@ -18,7 +20,7 @@ v 0.2.3
 2018-2022
 */
 // setting by class FX
-PGraphics fx_template(PImage source, FX fx) {
+PGraphics fx_template(PImage source, R_FX fx) {
 	return fx_template(source,fx.on_g(),fx.pg_filter_is(),null);
 }
 
@@ -129,7 +131,7 @@ private PImage fx_constrain_next_impl(PImage next) {
 * 2019-2022
 */
 // setting by class FX
-PGraphics fx_fxaa(PImage source, FX fx) {
+PGraphics fx_fxaa(PImage source, R_FX fx) {
 	return fx_fxaa(source,fx.on_g(),fx.pg_filter_is(), fx.get_pair(0).x(), fx.get_pair(0).y());
 }
 
@@ -231,7 +233,7 @@ PGraphics fx_fxaa(PImage source, boolean on_g, boolean filter_is, float sub_pix_
 * 2018-2022
 */
 // use fx setting
-PGraphics fx_blur_circular(PImage source, FX fx) {
+PGraphics fx_blur_circular(PImage source, R_FX fx) {
 	return fx_blur_circular(source,fx.on_g(),fx.pg_filter_is(),fx.get_strength(),fx.get_num());
 }
 
@@ -290,7 +292,7 @@ PGraphics fx_blur_circular(PImage source, boolean on_g, boolean filter_is, vec3 
 * 2018-2022
 */
 // setting by class FX
-PGraphics fx_blur_gaussian(PImage source, FX fx) {
+PGraphics fx_blur_gaussian(PImage source, R_FX fx) {
 	ivec2 res = new ivec2();
 	boolean second_pass = true;
 	return fx_blur_gaussian(source,fx.on_g(),fx.pg_filter_is(),second_pass,res,fx.get_strength().x());
@@ -428,7 +430,7 @@ v 0.3.3
 2018-2022
 */
 // setting by class FX
-PGraphics fx_blur_radial(PImage source, FX fx) {
+PGraphics fx_blur_radial(PImage source, R_FX fx) {
 	float str = 0;
 	if(fx.get_strength() != null) {
 		str = fx.get_strength().x();
@@ -500,7 +502,7 @@ v 0.3.3
 2018-2022
 */
 // setting by class FX
-PGraphics fx_colour_change_a(PImage source, FX fx) {
+PGraphics fx_colour_change_a(PImage source, R_FX fx) {
 	return fx_colour_change_a(source,fx.on_g(),fx.pg_filter_is(),fx.get_num(),fx.get_matrix());
 }
 
@@ -571,7 +573,7 @@ PGraphics fx_colour_change_a(PImage source, boolean on_g, boolean filter_is, int
 */
 
 // setting by class FX
-PGraphics fx_colour_change_b(PImage source, FX fx) {
+PGraphics fx_colour_change_b(PImage source, R_FX fx) {
 	float angle = 0;
 	if(fx.get_angle() != null) {
 		angle = fx.get_angle().x;
@@ -655,7 +657,7 @@ PGraphics fx_colour_change_b(PImage source, boolean on_g, boolean filter_is, flo
 *2019-2022
 */
 // setting by class FX
-PGraphics fx_datamosh(PImage source, FX fx) {
+PGraphics fx_datamosh(PImage source, R_FX fx) {
 	return fx_datamosh(source,fx.on_g(),fx.pg_filter_is(),fx.get_threshold().x(),fx.get_strength().x(),fx.get_pair(0),fx.get_pair(1),fx.get_pair(2));
 }
 
@@ -728,7 +730,7 @@ PGraphics fx_datamosh(PImage source, boolean on_g, boolean filter_is, float thre
 	// return
 	reset_reverse_g(false);
 	if(on_g) {
-		background(pg_datamosh,CENTER);
+		background(pg_datamosh, CENTER);
 		fx_flip_datamosh.set("texture_source",g);
 		fx_flip_datamosh.set("resolution_source",width,height);
 		fx_flip_datamosh.set("flip_source",1,1);
@@ -756,7 +758,7 @@ PGraphics fx_datamosh(PImage source, boolean on_g, boolean filter_is, float thre
 * 2019-2022
 */
 // setting by class FX
-PGraphics fx_derivative(PImage source, FX fx) {
+PGraphics fx_derivative(PImage source, R_FX fx) {
 	return fx_derivative(source,fx.on_g(),fx.pg_filter_is());
 }
 
@@ -836,7 +838,7 @@ PGraphics fx_derivative(PImage source, boolean on_g, boolean filter_is) {
 * 2018-2022
 */
 // setting by class FX
-PGraphics fx_dither_bayer_8(PImage source, FX fx) {
+PGraphics fx_dither_bayer_8(PImage source, R_FX fx) {
 	return fx_dither_bayer_8(source,fx.on_g(),fx.pg_filter_is(),new vec3(fx.get_level_source()),fx.get_mode());	
 }
 
@@ -900,7 +902,7 @@ PGraphics fx_dither_bayer_8(PImage source, boolean on_g, boolean filter_is, vec3
 *2019-2022
 */
 // setting by class FX
-PGraphics fx_flip(PImage source, FX fx) {
+PGraphics fx_flip(PImage source, R_FX fx) {
 	return fx_flip(source,fx.on_g(),fx.pg_filter_is(),fx.get_event(0).xy());
 }
 
@@ -969,7 +971,7 @@ PGraphics fx_flip(PImage source, boolean on_g, boolean filter_is, bvec2 flip) {
 * 2019-2022
 */
 // setting by class FX
-PGraphics fx_glitch_fxaa(PImage source, FX fx) {
+PGraphics fx_glitch_fxaa(PImage source, R_FX fx) {
 	return fx_glitch_fxaa(source,fx.on_g(),fx.pg_filter_is(),fx.get_cardinal());
 }
 
@@ -1033,7 +1035,7 @@ v 0.2.2
 */
 
 // setting by class FX
-PGraphics fx_grain(PImage source, FX fx) {
+PGraphics fx_grain(PImage source, R_FX fx) {
 	float offset = 0;
 	if(fx.get_offset() != null) {
 		offset = fx.get_offset().x;
@@ -1112,7 +1114,7 @@ v 0.2.3
 2018-2022
 */
 // setting by class FX
-PGraphics fx_grain_scatter(PImage source, FX fx) {
+PGraphics fx_grain_scatter(PImage source, R_FX fx) {
 		float str = 0;
 	if(fx.get_strength() != null) {
 		str = fx.get_strength().x;
@@ -1186,7 +1188,7 @@ PGraphics fx_grain_scatter(PImage source, boolean on_g, boolean filter_is, float
 * 2018-2022
 */
 // setting by class FX
-PGraphics fx_halftone_dot(PImage source, FX fx) {
+PGraphics fx_halftone_dot(PImage source, R_FX fx) {
 	vec2 pos = new vec2(source.width/2,source.height/2);
 	if(fx.get_pos() != null) {
 		pos = new vec2(fx.get_pos().x(),fx.get_pos().y());
@@ -1274,7 +1276,7 @@ PGraphics fx_halftone_dot(PImage source, boolean on_g, boolean filter_is, vec2 p
 * 2018-2022
 */
 // use setting
-PGraphics fx_halftone_line(PImage source, FX fx) {
+PGraphics fx_halftone_line(PImage source, R_FX fx) {
 	vec2 pos = new vec2(source.width/2,source.height/2);
 	if(fx.get_pos() != null) {
 		pos = new vec2(fx.get_pos().x,fx.get_pos().y);
@@ -1356,7 +1358,7 @@ PGraphics fx_halftone_line(PImage source, boolean on_g, boolean filter_is, vec2 
 * 2019-2022
 */
 // use setting
-PGraphics fx_halftone_multi(PImage source, FX fx) {
+PGraphics fx_halftone_multi(PImage source, R_FX fx) {
 	return fx_halftone_multi(source,fx.on_g(),fx.pg_filter_is(),new vec2(fx.get_pos()),fx.get_size().x(),fx.get_angle().x(),fx.get_quality(),fx.get_threshold().x(),fx.get_saturation(),fx.get_mode());
 }
 
@@ -1429,7 +1431,7 @@ PGraphics fx_halftone_multi(PImage source, boolean on_g, boolean filter_is, vec2
 * 2019-2022
 */
 // setting by class FX
-PGraphics fx_image(PImage source, FX fx) {
+PGraphics fx_image(PImage source, R_FX fx) {
 	return fx_image(source,fx.on_g(),fx.pg_filter_is(),new vec2(fx.get_pos()),new vec2(fx.get_size()),new vec3(fx.get_colour()),fx.get_cardinal(),fx.get_mode());
 }
 
@@ -1542,7 +1544,7 @@ PGraphics fx_image(PImage source, boolean on_g, boolean filter_is, vec2 pos, vec
 * Uniforme problem need to be fix
 */
 // direct filtering
-PGraphics fx_level(PImage source, FX fx) {
+PGraphics fx_level(PImage source, R_FX fx) {
 	vec3 level = new vec3(1);
 	if(fx.get_level_source() != null) {
 		level.set(fx.get_level_source());
@@ -1616,7 +1618,7 @@ v 0.0.2
 2021-2022
 */
 // direct filtering
-PGraphics fx_level_adv(PImage source, FX fx) {
+PGraphics fx_level_adv(PImage source, R_FX fx) {
 	vec3 min = new vec3(0);
 	vec3 gamma = new vec3(0.5);
 	vec3 max = new vec3(1);
@@ -1694,7 +1696,7 @@ PGraphics fx_level_adv(PImage source, boolean on_g, boolean filter_is, vec3 min,
 v 0.3.0
 2019-2022
 */
-PGraphics fx_mask(PImage source, PImage mask, FX fx) {
+PGraphics fx_mask(PImage source, PImage mask, R_FX fx) {
 	return fx_mask(source,mask,fx.on_g(),fx.pg_filter_is(),fx.get_mode(),fx.get_num(),fx.get_threshold().xy(),fx.get_level_layer());
 }
 
@@ -1800,7 +1802,7 @@ PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is, i
 */
 
 // witj class FX
-PGraphics fx_mix(PImage source, PImage layer, FX fx) {
+PGraphics fx_mix(PImage source, PImage layer, R_FX fx) {
 	vec3 level_source = new vec3(.5);
 	if(fx.get_level_source() != null) {
 		level_source = new vec3(fx.get_level_source());
@@ -1890,7 +1892,7 @@ PGraphics fx_mix(PImage source, PImage layer, boolean on_g, boolean filter_is, i
 * 2018-2022
 */
 // setting by class FX
-PGraphics fx_pixel(PImage source, FX fx) {
+PGraphics fx_pixel(PImage source, R_FX fx) {
 	ivec2 size = new ivec2(5);
 	if(fx.get_size() != null) {
 		size.set(fx.get_size());
@@ -1963,7 +1965,7 @@ PGraphics fx_pixel(PImage source, boolean on_g, boolean filter_is, ivec2 size, i
 * 2019-2022
 */
 // setting by class FX
-PGraphics fx_posterization(PImage source, FX fx) {
+PGraphics fx_posterization(PImage source, R_FX fx) {
 	return fx_posterization(source,fx.on_g(),fx.pg_filter_is(),fx.get_threshold(),fx.get_num());
 }
 
@@ -2035,7 +2037,7 @@ PGraphics fx_posterization(PImage source, boolean on_g, boolean filter_is, vec3 
 WARNING
 the g part is not not not not optimized...too slow :((((((
 */
-PGraphics fx_reaction_diffusion(PImage source, FX fx) {
+PGraphics fx_reaction_diffusion(PImage source, R_FX fx) {
 	return fx_reaction_diffusion(source,fx.on_g(),fx.get_pair(0),fx.get_pair(1), new vec2(fx.get_scale()), new vec3(fx.get_colour()),fx.get_num(),fx.get_event(0).x());
 }
 
@@ -2201,7 +2203,7 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 * 2019-2022
 */
 // use setting
-PGraphics fx_split_rgb(PImage source, FX fx) {
+PGraphics fx_split_rgb(PImage source, R_FX fx) {
 	return fx_split_rgb(source,fx.on_g(),fx.pg_filter_is(),fx.get_pair(0),fx.get_pair(1),fx.get_pair(2));
 }
 
@@ -2269,7 +2271,7 @@ PGraphics fx_split_rgb(PImage source, boolean on_g, boolean filter_is, vec2 offs
 * 2018-2022
 */
 // setting by class FX
-PGraphics fx_threshold(PImage source, FX fx) {
+PGraphics fx_threshold(PImage source, R_FX fx) {
 	return fx_threshold(source,fx.on_g(),fx.pg_filter_is(), new vec3(fx.get_level_source()),fx.get_mode());	
 }
 
@@ -2337,12 +2339,10 @@ PGraphics fx_threshold(PImage source, boolean on_g, boolean filter_is, vec3 leve
 
 /**
 * warp procedural line by Stan le punk
-* @see http://stanlepunk.xyz
-* @see https://github.com/StanLepunK/Filter
 * v 0.1.2
 * 2018-2022
 */
-PGraphics fx_warp_proc(PImage source, FX fx) {
+PGraphics fx_warp_proc(PImage source, R_FX fx) {
 	return fx_warp_proc(source,fx.on_g(),fx.pg_filter_is(),fx.get_strength().x);
 }
 
@@ -2404,7 +2404,7 @@ PGraphics fx_warp_proc(PImage source, boolean on_g, boolean filter_is, float str
 * 2018-2022
 */
 // use setting
-PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, FX fx) {
+PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, R_FX fx) {
 	return fx_warp_tex_a(source,velocity,direction,fx.on_g(),fx.pg_filter_is(),fx.get_mode(),fx.get_strength().x);
 }
 
@@ -2475,7 +2475,7 @@ PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, boolea
 * 2019-2022
 */
 // use setting
-PGraphics fx_warp_tex_b(PImage source, PImage layer, FX fx) {
+PGraphics fx_warp_tex_b(PImage source, PImage layer, R_FX fx) {
 	return fx_warp_tex_b(source,layer,fx.on_g(),fx.pg_filter_is(),fx.get_strength().x());
 }
 
