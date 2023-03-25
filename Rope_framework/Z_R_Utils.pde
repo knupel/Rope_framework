@@ -1,10 +1,10 @@
 /**
 * Rope UTILS 
-* v 1.67.2
-* Copyleft (c) 2014-2022
+* v 1.68.3
+* Copyleft (c) 2014-2023
 * Rope – Romanesco Processing Environment – 
 * @author Knupel / Stanislas Marçais
-* @see https://github.com/StanLepunK/Rope_framework
+* @see https://github.com/knupel/Rope_framework
 */
 
 // METHOD MANAGER
@@ -644,13 +644,19 @@ void clear_files() {
 }
 
 void select_folder() {
-	select_folder("");
+	select_folder("rope_select_folder");
 }
 
 void select_folder(String message) {
 	if(rope_folder == null)
 		rope_folder = new R_Folder(this);
 	rope_folder.select_folder(message);
+}
+
+void select_folder(String message, String callback_function) {
+	if(rope_folder == null)
+		rope_folder = new R_Folder(this);
+	rope_folder.select_folder(message, callback_function);
 }
 
 boolean folder_input_default_is() {

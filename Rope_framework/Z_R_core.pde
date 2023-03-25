@@ -1,10 +1,10 @@
 /**
 * ROPE FRAMEWORK - Romanesco processing environment – 
-* Copyleft (c) 2014-2022
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope_framework
+* Copyleft (c) 2014-2023
+* @author @knupel
+* @see https://github.com/knupel/Rope_framework
 * ROPE core
-* v 0.2.7
+* v 0.2.8
 */
 import rope.core.*;
 import rope.vector.*;
@@ -46,14 +46,14 @@ import java.awt.Rectangle;
 
 Rope r = new Rope();
 
-String rope_framework_version = "1.5.3.94";
+String rope_framework_version = "1.5.4.95";
 public void rope_version() {
 	init_rope();
 }
 
 public void init_rope() {
-	println("Romanesco Processing Environment - 2015-2022");
-	println("Processing: 4.0b7");
+	println("Romanesco Processing Environment - 2015-2023");
+	println("Processing: 4.2");
 	println("Rope library: " + r.VERSION);
 	println("Rope framework: " + rope_framework_version);
 }
